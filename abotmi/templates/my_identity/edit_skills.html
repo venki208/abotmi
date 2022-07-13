@@ -1,0 +1,158 @@
+{% load staticfiles %}
+<style>
+    .skills-content-div .skills-content-colums{
+        padding-bottom: 20px;
+    }
+    .skills-content-div .skills-content-colums .checkbox-inline{
+        width: 48%;
+    }
+    @media(max-width:480px){
+        .skills-content-div .skills-content-colums label{
+            width: 100% !important;
+        }
+    }
+    @media(min-width:700px){
+        .modal-dialog{
+            max-width: 650px;
+        }
+    }
+    @media(max-width:699px){
+        .modal-dialog{
+            max-width: 650px;
+        }
+    }
+</style>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="id_skills_modal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="modal-title n-span-blue-color" id="send_modal-title">SKILLS</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form class="panel-body">
+                            <div class="form-group">
+                                <div class="row skills-content-div">
+                                    <div class="col-sm-12 skills-content-colums">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="managment_id" value="Management"> Management
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="customer_service_id" value="Customer Service"> Customer Service
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="project_mang_id" value="Project Management"> Project Management
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="buisness_dev_id" value="Business Development"> Business Development
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="research_id" value="Research"> Research
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="lead_generation_id" value="Lead Generation"> Lead Generation
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="email_marketing_id" value="Email Marketing"> Email Marketing
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="skills_checked" id="crm_id" value="Customer Research Management (CRM)"> Customer Research Management (CRM)
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="others_main_checked" id="others_id" value="others" onClick="checked_others();"> Others
+                                            <input type="text" name="others_main_id" id="others_main_id" style="display: none;">
+                                            <span class="help-block" id="help_other_skills"></span>
+                                        </label>
+                                    </div>
+                                    <span class="help-block" id="help_skills"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button type="button" name="button" class="btn upwrdz-button my-identity-modal-btn" id="skills_button" onclick="add_skills('skills_checked','help_skills');">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Skills Modal Ends -->
+<script type="text/javascript">
+    var advisor_skills = "{{advisor.skills}}";
+    var skills_arr = [];
+    var skill_set_val = [];
+    var edits_skills_val = ["managment_id", "customer_service_id", "project_mang_id", "buisness_dev_id", "research_id", "lead_generation_id", "crm_id", "email_marketing_id"]
+    skills_arr =  advisor_skills.split(',');
+    for(i=0;i<=skills_arr.length;i++){
+        for(j=0;j<edits_skills_val.length;j++){
+            if($("#"+edits_skills_val[j]).val() == (skills_arr[i])){
+                $("#"+edits_skills_val[j]).attr("checked", true);
+                skill_set_val.push($("#"+edits_skills_val[j]).val());
+            }
+        }
+    }
+    myArray = skills_arr.filter( function( el ) {
+        return skill_set_val.indexOf( el ) < 0;
+    });
+    if (myArray.length>0){
+        if(myArray[0]!="" && myArray[0]!=undefined && myArray[0]!=null && myArray[0]!='None'){
+            $("#others_id").attr("checked", true);
+            var text = document.getElementById("others_main_id");
+            text.style.display = "block";
+            text.value = myArray[0];
+        }
+    }
+    // Checking null validation Message in skills edit form
+    function validate_skills(){
+        var missed = 0;
+        if($("input[name='skills_checked']:checked").length <= 0 && !$("input[name='others_main_checked']").prop('checked')){
+            $("#help_skills").html('Please select any one of Skills');
+            missed = 1;
+        }else{
+            $("#help_skills").html('');
+        }
+        if($("input[name='others_main_checked']").prop('checked') && $("#others_main_id").val() == ''){
+            $("#help_other_skills").html('Please enter other skills');
+            missed = 1;
+        }else{
+            $("#help_other_skills").html('');
+        }
+        if(missed == 1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    // Resetting the validation message if the checked value is true
+    $("input[name='skills_checked']").on('click', function(e){
+        if($("input[name='skills_checked']:checked").length > 0 || $("input[name='others_main_checked']").prop('checked')){
+            $("#help_skills").html('');
+        }
+    });
+
+    // Checking the other skill block
+    function checked_others(){
+        var text = document.getElementById("others_main_id");
+        if ( document.getElementById("others_id").checked == true){
+            text.style.display = "block";
+            $("#help_skills").html('');
+        }
+        else{
+            text.style.display = "none";
+            $("#help_other_skills").html('');
+        }
+    }
+</script>

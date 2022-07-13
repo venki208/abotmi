@@ -1,0 +1,30 @@
+<ion-view>
+  <ion-nav-bar class="bar" align-title="center">
+    <ion-nav-back-button class="button-clear" side="left">
+        <i class="icon ion-arrow-left-a light"></i> Back
+    </ion-nav-back-button>
+    <ion-nav-title>
+       <h4 class="modaltitle whitefont">eKYC</h4>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content>
+<div class="iconlogin" style="top:5%;position:absolute;">
+    <img src="../images/logoonly.png"/>
+     </div>
+       <div class="logincenterdiv" ng-init="login.user=''">
+          <form name="adharnumberverify" novalidate ng-submit="ekyc.adharnumberverify()">
+            <div class="list">
+                 <label class="item item-input item item-input item-floating-label bottomborder">
+                  <input type="number" placeholder="aadhaar number" ng-model="ekyc.number" name="number" ng-required="true"   ng-touched ng-minlength="12" ng-maxlength="12">
+                 </label>
+            </div>
+            <h7 class="validationerrors" ng-show="adharnumberverify.number.$error.required && adharnumberverify.$touched">Adhar Number is Requried </h7>
+            <button class="button buttoninset whitefont pinkbutton" ng-disabled="adharnumberverify.$invalid">SUBMIT</button>
+          </form>
+          <form name="ekyc.aadhar_form" action="{{ekyc.AADHAAR_BRIDGE_API}}" method="post">
+            <input type= "hidden" name="{{ key }}" value="{{ value }}"
+                    ng-repeat="(key, value) in ekyc.aadhaar_form">
+          </form>
+       </div>
+</ion-content>
+</ion-view>

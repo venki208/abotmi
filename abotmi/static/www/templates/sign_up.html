@@ -1,0 +1,41 @@
+<ion-view>
+  <ion-nav-bar class="bar" align-title="center">
+    <ion-nav-back-button class="button-clear" side="left">
+        <i class="icon ion-arrow-left-a light"></i> Back
+    </ion-nav-back-button>
+    <ion-nav-title>
+       <h4 class="modaltitle whitefont">Sign Up</h4>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content>
+       <div class="iconlogin" style="top:5%;position:absolute;">
+     	  <img src="../images/logoonly.png"/>
+        </div>
+        <div class="logincenterdiv" ng-init="login.user=''">
+        <form name="signup" novalidate ng-submit="login.signup()">
+            <div class="list">
+              <label class="item item-input item item-input item-floating-label bottomborder">
+                  <input type ="text" placeholder ="Name" ng-model ="login.name" name="name" ng-required="true" ngtouched pattern= "[a-zA-Z]+" ng-pattern-restrict />
+            </label>
+                   <h7 class="validationerrors" ng-show="signup.name.$error.required && signup.name.$touched">Name  is required</h7>
+                    <h7 class="validationerrors" ng-show="signup.name.$error.pattern && signup.name.$touched"> Enter only alphabet</h7>
+
+              <label class="item item-input item item-input item-floating-label bottomborder">
+                   <input type="email" placeholder="Email ID" ng-model="login.email" name="email" ng-required="true" ng-touched ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"/>
+              </label>
+                    <h7 class="validationerrors" ng-show="signup.email.$error.required && signup.email.$touched">Email ID is required</h7>
+                   <h7 class="validationerrors" ng-show="signup.email.$error.email && signup.email.$touched"> Email ID is not valid</h7>
+
+              <label class="item item-input item item-input item-floating-label bottomborder">
+                  <input type="number" ng-minlength="10" ng-maxlength="10"placeholder="Mobile Number"  ng-model="login.mobile"name="mobile" ng-required="true" ng-touched >
+              </label>
+                  <h7 class="validationerrors" ng-show="signup.mobile.$error.required && signup.mobile.$touched">Mobile number is  required </h7>
+                  <h7 class="validationerrors" ng-show="(signup.mobile.$error.minlength && signup.mobile.$dirty) || (signup.mobile.$error.maxlength && signup.mobile.$dirty )" > Enter valid 10 digits number</h7>
+             </div>
+             <div>
+              <button class="button buttoninset whitefont pinkbutton" ng-disabled="signup.$invalid">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+  </ion-content>
+</ion-view>

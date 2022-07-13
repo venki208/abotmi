@@ -1,0 +1,117 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <upwrdz-Tabs></upwrdz-Tabs>
+            <ion-content class="m-upwrdz-editpage-content">
+              <div class="editpage-title-bar">
+                <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+                ADD A CLIENT
+              </div>
+              <!-- Future reference -->
+              <!-- <div ng-if="!(client.show_aadhaar || client.show_emailform)">
+                  <div class="row">
+                    <div class="col">
+                      <h5>Are you authorised to do the e-KYC for this client ?</h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-50">
+                      <button class="full-button" ng-click="client.show_aadhaar = !client.show_aadhaar">Yes</button>
+                    </div>
+                    <div class="col col-50">
+                      <button class="full-button" ng-click="client.show_emailform = !client.show_emailform">No</button>
+                    </div>
+                  </div>
+              </div> -->
+              <!-- <div ng-if="client.show_emailform"> -->
+                  <form name="addmember_form" novalidate ng-submit="client.addClientThroughForm(addmember_form);">
+                    <div class="row">
+                      <div class="col">
+                        <div class="list">
+                          <label class="item item-input">
+                            <input ng-model="client.addmember_form.first_name" placeholder="First Name" type="text" name="firstname" ng-required="true" ng-touched/>
+                          </label>
+                          <span class="validationerrors" ng-if="!client.reset_add_client && (addmember_form.firstname.$error.required && addmember_form.firstname.$touched)">First Name is required</span>
+                        </div>
+                        <div class="list">
+                          <label class="item item-input">
+                            <input ng-model="client.addmember_form.last_name" placeholder="Last Name" type="text" name="lastname" ng-required="true" ng-touched/>
+                          </label>
+                          <span class="validationerrors" ng-if="!client.reset_add_client && (addmember_form.lastname.$error.required && addmember_form.lastname.$touched)">Last Name is required</span>
+                        </div>
+                        <div class="list">
+                          <label class="item item-input">
+                            <input type="number" placeholder="Mobile Number" ng-model="client.addmember_form.mobile" name="mobile" ng-required="true" ng-touched ng-minlength="10" ng-maxlength="10"/>
+                          </label>
+                          <span class="validationerrors" ng-if="!client.reset_add_client && (addmember_form.mobile.$error.required && addmember_form.mobile.$touched)"> Mobile Number is required</span>
+                          <span class="validationerrors" ng-if="!client.reset_add_client && (addmember_form.mobile.$error.minlength && addmember_form.mobile.$touched.mobile ) || (addmember_form.mobile.$error.maxlength && addmember_form.mobile.$touched)"> Enter valid 10 digits number</span>
+                        </div>
+
+                        <div class="list">
+                          <label class="item item-input">
+                            <input ng-model="client.addmember_form.email" placeholder="Email ID" type="email" name="email" ng-required="true" ng-touched
+                            ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"/>
+                          </label>
+                          <span class="validationerrors" ng-if="!client.reset_add_client && (addmember_form.email.$error.required && addmember_form.email.$touched)">Email ID is required</span>
+                          <span class="validationerrors" ng-if="!client.reset_add_client && (addmember_form.email.$error.email && addmember_form.email.$touched)">Email ID is not valid</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                          <input type="checkbox" ng-model="client.addmember_form.add_agree"  name="add_agree" ng-required="true" />
+                          I {{client.details.advisor.user_profile.first_name}}, agree to the
+                          <a ui-sref="app.myhub.add_client_terms_conditions">Terms & Conditions.</a>
+                          <span class="validationerrors" ng-if="addmember_form.add_agree.$error.required && addmember_form.add_agree.$touched">Please agree to the declaration</span>
+                      </div>
+                    </div>
+                    <div class="row end-button">
+                      <div class="col col-50">
+                        <button class="full-button" type="submit" ng-disabled="addmember_form.$invalid">Send</button>
+                      </div>
+                      <div class="col col-50">
+                        <button class="full-button" type="button" ng-click="client.reset_emailform(client.addmember_form)">Reset</button>
+                      </div>
+                    </div>
+                  </form>
+              <!-- </div> -->
+                  <!-- <div ng-if="client.show_aadhaar">
+                      <form name="addmember_aadhaar" novalidate ng-submit="client.addmember_thruaadhaar()">
+                        <div class="row">
+                          <div class="col">
+                            <div class="list">Aadhaar Number *
+                              <label class="item item-input">
+                                <input type="number" placeholder="aadhaar number" ng-model="client.aadhar_no" name="number" ng-required="true"   ng-touched ng-minlength="12" ng-maxlength="12">
+                              </label>
+                            </div>
+                            <span class="validationerrors" ng-if="addmember_aadhaar.number.$error.required && addmember_aadhaar.$touched">Aadhaar Number is Requried </span>
+                            <span class="validationerrors" ng-if="(addmember_aadhaar.number.$error.minlength && addmember_aadhaar.number.$touched ) || (addmember_aadhaar.number.$error.maxlength && addmember_aadhaar.number.$touched)" > Enter valid 12 digits number</span>
+                            <div class="list">
+                              <input ng-model="client.addmember_form.add_agree" type="checkbox" ng-required="true" ng-touched name="add_agree"/>
+                              <label>I {{client.details.first_name}} ,  agree to the </label><a ui-sref="app.myhub.add_client_terms_conditions">Terms & Conditions.</a>
+                            </div>
+                            <span class="validationerrors" ng-if="addmember_form.add_agree.$error.required && addmember_form.add_agree.$touched">Please agree to the declaration</span>
+                            <button class="end-button full-button" type="submit" ng-disabled="addmember_aadhaar.$invalid">Click to verfiy</button>
+                          </div>
+                        </div>
+                      </form>
+                  </div> -->
+                  <!-- <form name="client.aadhar_form" action="{{client.AADHAAR_BRIDGE_API}}" method="post">
+                    <div class="row">
+                      <div class="col">
+                        <input type= "hidden" name="{{ key }}" value="{{ value }}"
+                        ng-repeat="(key, value) in client.aadhaar_form">
+                      </div>
+                    </div>
+                  </form> -->
+                  <div class="row">
+                    <div class="col">
+                      <li><a ui-sref="app.myhub.why_to_add_client">Why to add your Client?</a></li>
+                      <li><a ui-sref="app.myhub.how_to_add_client">How to add your Client?</a></li>
+                      <li><a ui-sref="app.myhub.benefits_of_add_client">Benefits of managing Clients through ABOTMI</a></li>
+                    </div>
+                  </div>
+              </ion-content>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

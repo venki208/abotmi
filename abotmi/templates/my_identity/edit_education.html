@@ -1,0 +1,183 @@
+{% load staticfiles %}
+<div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="educationModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="educationModalCenterTitle">EDUCATION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class='col-12'>
+                        <form>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="exampleInputEmail1">School *</label>
+                                    <input type="email" class="form-control" name="school" id="school" value="{{ educational_details.school }}" required='true' is-text="true">
+                                    <span class="help-block" id='help_text_school'></span>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="exampleInputEmail1">Degree *</label>
+                                    <input type="email" class="form-control" name="qualification" id="qualification" value="{{ educational_details.qualification }}" required='true' is-text="true">
+                                    <span class="help-block" id='help_text_qualification'></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="exampleInputEmail1">Field of Study</label>
+                                    <input type="email" class="form-control" id="field_of_study" name="field_of_study" value="{{ educational_details.field_of_study }}" is-text="true">
+                                    <span class="help-block" id="help_text_field_of_study"></span>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="exampleInputEmail1">Activities (Sororities, Fraternities, Clubs)</label>
+                                    <textarea type="text" class="form-control" name="activities" id="activities">{{ educational_details.activities }}</textarea>
+                                    <span class="help-block" id="help_text_activities"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="from_year">From Year *</label>
+                                    <select type="email" class="form-control" id="from_year" required='true' is-select='true'>
+                                        <option value=''>Select</option>
+                                    </select>
+                                    <span class="help-block" id='help_text_from_year'></span>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <label for="to_year">To year (or expected) *</label>
+                                    <select type="email" class="form-control" id="to_year" required='true' is-select='true'>
+                                        <option value=''>Select</option>
+                                    </select>
+                                    <span class="help-block" id='help_text_to_year'></span>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="/signup/upload_file/" name="upload_doc0" id="upload_doc0" method="post" class="contact-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group col-xs-12 form-nline reg-step4">
+                                <div class="row registration-form-div" id="proof_nonindian">
+                                    <div class="col-sm-3 col-xs-6 col-md-3 text-left pan-card">
+                                        <label><span>Upload Document *</span></label>
+                                    </div>
+                                    <div class="pt-3" style="display:none;">
+                                        <input type="text" name="documents_type" id="documents_type" value="educational_doc">
+                                        <input type="hidden" name="reupload" value="true">
+                                    </div>
+                                    {% if user_educational_doc %}
+                                        {% for doc in user_educational_doc %}
+                                        <div class="download_link_color_pan pl-5 educate_upload">
+                                            <label id="paper_clip0" class="col-sm-2 col-xs-4 fileinput fileinput-new hide password-verification-card" data-provides="fileinput">
+                                                <span class="btn btn-default btn-file" id="educational_docs">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i><input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                                                </span>
+                                            </label>
+                                            <span class="attach_class hiding{{doc.id}} n-padding-r-5" id="id_attached" name="attached">Uploaded</span>
+                                            <a id="{{ doc.id }}" class="hiding{{doc.id}} download_link_color n-padding-r-5" href="{{ doc.documents.url }}" onclick="window.open('{{ doc.documents.url }}', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=250,left=500,width=550, height=550'); return false;"><i class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Preview image"></i> </a>
+                                            <a class="hiding{{ doc.id }}" onclick="removeDocument({{doc.id}},'paper_clip0');"><i class='fa fa-trash download_link_color' aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Delete"></i></a>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <label id="paper_clip0" class="col-sm-2 fileinput fileinput-new password-verification-card" data-provides="fileinput">
+                                            <span class="btn btn-default">
+                                                <i class="fa fa-paperclip" aria-hidden="true"></i><input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                                            </span>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                                <span class="help-block" id="help_text_document"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn upwrdz-button" onclick="save_my_education();">UPDATE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/new_js/upload_document.js' %}" charset="utf-8"></script>
+<script>
+    $(document).ready(function () {
+        var date = new Date();
+        dateArray = [];
+        var options = [];
+        var to_year_options = [];
+        curYear = date.getFullYear();
+        // From year
+        for (var j = 0; j < 65; j++) {
+            dateArray[j] = (curYear - 64) + j;
+            options.push('<option value=' + dateArray[j] + '>' + dateArray[j] + '</option>');
+        }
+          // To Year
+        for (var j = 0; j < 65; j++) {
+            dateArray[j] = (curYear - 54) + j;
+            to_year_options.push('<option value=' + dateArray[j] + '>' + dateArray[j] + '</option>');
+        }
+        $("#from_year").append(options);
+        $("#to_year").append(to_year_options);
+        
+    });
+    $("#from_year").val('{{educational_details.from_year}}');
+    $("#to_year").val('{{educational_details.to_year}}');
+    $("#to_year, #from_year").bind('change', [], validate_education_year);
+
+    $(".form-control").on('change paste keyup keydown', function(e){
+        var exclude_fields = ['to_year', 'certificate_to_year'];
+        var field_id = $(this).attr('id');
+        var help_id = $($(this).parent().find('.help-block')).attr('id');
+        var label_name = $($(this).parent().find('label')).html().replace('*', '');
+        if (exclude_fields.indexOf(field_id) < 0){
+            validate_field_onkeypress(field_id, help_id, label_name);
+        }
+    });
+
+    function validate_education_year(){
+        if ($("#to_year").val() && $("#from_year").val()) {
+            if ($("#to_year").val() < $("#from_year").val()) {
+                $("#to_year").focus();
+                $('#help_text_to_year').html('Please enter proper year of completion');
+                return false;
+            }else{
+                $('#help_text_to_year').html('');
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+
+    function validate_edit_education_form(){
+        var val_arr = [];
+        // education validating
+        if (!$('.fileinput-new').hasClass('hide')) {
+            html_text = 'Please Upload The Document';
+            help_field_id = 'help_text_document';
+            $('#' + help_field_id).html(html_text);
+            $('html, body').animate({
+                scrollTop: $("#paper_clip0").offset().top - 90
+            }, 0);
+            $("#paper_clip0").find('span').addClass('add-shadow');
+            val_arr.push(1);
+        }
+        if(!validate_education_year()){
+            val_arr.push(1);
+        }
+        val_arr.push(validate_field_onkeypress('to_year', 'help_text_to_year', 'To Year'));
+        val_arr.push(
+            validate_field_onkeypress('from_year', 'help_text_from_year', 'From Year'));
+        val_arr.push(validate_field_onkeypress('activities', 'help_text_activities', 'Activities'));
+        val_arr.push(validate_field_onkeypress('field_of_study', 'help_text_field_of_study', 'Field of study'));
+        val_arr.push(validate_field_onkeypress('qualification', 'help_text_qualification', 'Degree'));
+        val_arr.push(validate_field_onkeypress('school', 'help_text_school', 'School'));
+       if(val_arr.indexOf(1) < 0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>

@@ -1,0 +1,261 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link href="{% static 'css/new_css/my_growth.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+{% endblock %}
+{% block main_content %}
+<div class="container upwrdz-my-growth subpage-reia-primary-div" id="uz_my_growth">
+  <div class="row upwrdz-repute-div">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xs-push-3 upwrdz-myhub-content">
+      <div class="row  upwrdz-myhub-content-one  upwrdz-mygrowth-video">
+        <div class="col-md-12 display_none" id="nxtmov_main">
+          <div class="row micro-learning-search">
+            <div class="col-sm-6 upwrdz-mygrowth-video">
+              <h3 class="title-text">Certifications</h3>
+            </div>
+          </div>
+          <div class="row video-section">
+            <div class="col-md-12">
+              <h4 class="video-title">WPB - whitepolarbear </h4>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="upwrdz-mygrowth-video-iframe">
+                <iframe id="nxtmov_iframe1" class="iframe_class" src="https://www.youtube.com/embed/DKhfeAqxP98?rel=0" frameborder="0"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 video-content">
+              <!-- <div class="col-md-12">
+                <h3 class="pull-right powerd-by-text">Powered by
+                  <img src="/static/new_images/nxtmovlogo.png" class="img-responsive ">
+                </h3>
+              </div> -->
+              <h5> Description </h5>
+              <p>White Polar Bear offers a personalized cryptocurrency education platform that teaches the basics of (Bitcoin, Etherum, and Alternative Coins). Our organization is a social venture that educates beginners, traders, advisors, entrepreneurs and corporate businesses about the long-term benefits of this foundational technology. In addition, we focus on trading, advising, and raising capital for ICO’s.</p>
+              <p>
+                <a target="_blank" title="COMING SOON">
+                  <button class="btn" onclick="" disabled>Know More</button>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 display_none" id="micro_learinig_main">
+          <div class="row micro-learning-search">
+            <div class="col-sm-6">
+              <h2 class="title-text">Micro Learning</h2>
+            </div>
+            <div class="col-sm-6 micro-learning-search-one">
+              <input type="text" id="myInput" onkeyup="filter_videos()" placeholder="Search..." title="Type in a video name">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+          {% if current_advisor_videos %}
+          <div id="micro_learining_my_videos">
+            <h4 class="title-text">My videos</h4>
+            {% for cav_obj in current_advisor_videos %}
+            <div class="row video-section current_advisor_videos_class">
+              <div class="col-md-12">
+                <h4 class="video-title">{{cav_obj.video_title}}</h4>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="upwrdz-mygrowth-video-iframe main_iframe_div">
+                  <iframe src="{{cav_obj.video_link}}?enablejsapi=1&rel=0" class="iframe_class" frameborder="0" id="advisors_videos_{{cav_obj.id}}"
+                    allowfullscreen></iframe>
+                  <div class="video-playnext next_btn_class display_none iframe-class-reputation" onclick="play_next_video(this)" id="play_next_current_{{cav_obj.id}}">
+                    <a>PLAY NEXT</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 video-content">
+                <h5> Description</h5>
+                <p>{{cav_obj.video_description}}</p>
+                <a data-toggle="modal" data-target="#micro_learning_video_modal">
+                  <u>More</u>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %} {% if other_advisors_videos %}
+          <div id="micro_learining_other_videos">
+            <h4 class="title-text">Other videos</h4>
+            {% for oav_obj in other_advisors_videos %}
+            <div class="row video-section other_advisors_videos_class">
+              <div class="col-md-12">
+                <h4 class="video-title">{{oav_obj.video_title}}</h4>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="upwrdz-mygrowth-video-iframe main_iframe_div">
+                  <iframe src="{{oav_obj.video_link}}?enablejsapi=1&rel=0" id="advisors_videos_{{oav_obj.id}}" class="iframe_class" frameborder="0"
+                    allowfullscreen></iframe>
+                  <div class="video-playnext next_btn_class display_none iframe-class-reputation" onclick="play_next_video(this)" id="play_next_{{oav_obj.id}}">
+                    <a> PLAY NEXT </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 video-content">
+                <h5>Short Description</h5>
+                <p>{{oav_obj.video_description}}</p>
+                <a data-toggle="modal" data-target="#micro_learning_video_modal">
+                  <u>More</u>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <input type="hidden" value="{{ is_current_advisor_videos_present }}" id="current_video_present" />
+        <input type="hidden" value="{{ is_other_advisors_videos_present }}" id="other_video_present" />
+        <input type="hidden" value="{{ last_current_advisor_video_id }}" id="last_current_video_id" />
+        <input type="hidden" value="{{ last_other_video_id }}" id="last_other_video_id" />
+        <div class="col-md-12 display_none" id="game_main">
+          <h3 class="title-text"> Financial Game</h3>
+          <h4 class="title-text">Coming soon ...</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xs-pull-9 upwrdz-myhub-sidenav">
+      <div class="uwd-block-repute">
+        <h2>Top Trending</h2>
+        <p class="trend-text">Advisor's Reputation video uploaded by Palani Damodar</p>
+        <p class="trend-text">Need of Investors video by Mamatha</p>
+        <p class="trend-text">How to acquire new clients video by Rajesh</p>
+        <p class="trend-text">Insurance video by Nagasundrum</p>
+      </div>
+      <hr/>
+      <div class="uwd-block-repute display_none" id="micro_learinig_sidemenu" style="position:relative;">
+        <h2>Micro Learning</h2>
+        {% if advisor_videos %}
+        <div class="micro_learning_video_frame_div">
+          <iframe src="{% if current_advisor_videos %}  {{current_advisor_videos.first.video_link}}{% else %}{{other_advisors_videos.first.video_link}}{% endif %}"
+            id="micro_learning_iframe" frameborder="0" allowfullscreen></iframe>
+          <div class="micro_learning_play_btn_div">
+            <div class="micro_learning_play_icon_div">
+              <i class="fa fa-youtube-play" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <h4>Micro learning videos are not available</h4>
+      {% endif %}
+      <div class="uwd-block-repute uwd-block-repute-logo display_none" id="nxtmov_sidemenu">
+        <h2>Certifications</h2>
+        <div class="nxtmov_video_frame_div">
+          <iframe src="https://www.youtube.com/embed/pF7cMp_rQlM?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+          <div class="nxtmov_play_btn_div">
+            <div class="nxtmov_play_icon_div">
+              <i class="fa fa-youtube-play" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uwd-block-repute display_none" id="game_sidemenu">
+        <h2> Financial Game</h2>
+        <div class="game_video_frame_div">
+          <iframe src="https://www.youtube.com/embed/zB7muovv5Gc" id="game_iframe" frameborder="0" allowfullscreen></iframe>
+          <div class="game_play_btn_div">
+            <div class="game_play_icon_div">
+              <i class="fa fa-youtube-play" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="uwd-block-repute my-growth-icore-section uwd-block-repute-img">
+        <h2>Blogs </h2>
+        {% for icore in token_obj_all|slice:":3" %} {% if user.is_authenticated %}
+        <p class="trend-text">
+          <a href="/blog/icore/{{icore.ID}}/post/">
+            <b>{{icore.title }}</b>
+            <br/>
+          </a>
+        </p>
+        {% endif %} {% endfor %}
+        <h4>
+          <a href="/blog/icore/" title="ICORE - Read and Write a Blog"> GO TO ICORE</a>
+        </h4>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-12 upwrdz-pepute-footer">
+  </div>
+</div>
+</div>
+<div class="modal fade upwardz-modal" id="micro_learning_video_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="panel upwrdz-log-panel panel-default container-size-customise">
+      <div class="modal-header modal-header-border-bottom text-center">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fa fa-times-thin fa-2x"></i>
+        </button>
+        <h3 class="modal-title n-span-blue-color">Help</h3>
+        <hr class="modal-heading-hr">
+      </div>
+      <div class="panel-body pannel-popup-content" id="">
+        <div class="panel-body">
+          <p>ABOTMI is a deep tech platform in Fintech space.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/new_js/yt-player-min.js' %}" ></script>
+<script src="{% static 'js/new_js/youtube-player.min.js' %}" ></script>
+<script src="{% static 'js/new_js/my_growth.js' %}" ></script>
+<script type="text/javascript">
+    function filter_videos(){
+        var my_videos_div_arr = document.getElementsByClassName("current_advisor_videos_class");
+        var other_videos_div_arr = document.getElementsByClassName("other_advisors_videos_class");
+        var input, filter;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        check_for_loop(my_videos_div_arr, filter);
+        check_for_loop(other_videos_div_arr, filter);
+    }
+
+    function check_for_loop(arr, filter){
+        for (var i = 0; i < arr.length; i++) {
+            var title = arr[i].getElementsByClassName("video-title")[0];
+            if (title.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                arr[i].style.display = "";
+            } else {
+                arr[i].style.display = "none";
+            }
+        }
+    }
+
+    function play_next_video(element){
+        var total_video_ids = JSON.parse('{{total_video_ids}}');
+        var lastIndex = element.id.lastIndexOf('_');
+        var current_next_btn= element.id.substr(lastIndex+1);
+        var index_current_video_id = total_video_ids.indexOf(parseInt(current_next_btn));
+        var index_next_video_id = index_current_video_id + 1;
+        if(index_next_video_id < total_video_ids.length){
+            var ddd = $("#advisors_videos_"+total_video_ids[index_next_video_id].toString());
+            var videoURL =ddd.prop('src');
+            videoURL += "&autoplay=1";
+            ddd.prop('src',videoURL);
+            $('html,body').animate({
+                scrollTop: $(("#advisors_videos_"+total_video_ids[index_next_video_id].toString())).offset().top-100
+            }, 1000);
+            onYouTubeIframeAPIReady("#advisors_videos_"+total_video_ids[index_next_video_id])
+        }
+    }
+</script>
+{% endblock %}
+{% block bootstrap-modal %}
+{% endblock %}
+{% block theme_scripts %}
+{% endblock %}
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,18 @@
+<ng-form ng-if="addpost.show_media_form == true" accept-charset="utf-8" id="add_media_form" role="form" name="add_media_form" enctype="multipart/form-data">
+    <div class="row"> <!-- Row 1 Start-->
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group control-group">
+            <div class="control">
+                <input type="file" name="media" ngf-select ng-model="addpost.post.media"
+                valid-file name="doc" ng-required="true" ng-touched accept="image/gif, image/jpeg,image/png"/>
+            </div>
+            <span class="help-block"></span>
+            </div>
+        </div>
+    </div><!-- Row 1 Ended-->
+    <div class="modal-footer">
+        <button type="button" class="btn pink-btn-primary" tabindex="3" id="upload_image" ng-click="addpost.uploadmedia()">Upload</button>
+        <button type="button" class="btn n-bg-grey" ng-click="addpost.show_media_form = false">Cancel</button>
+        <input type="hidden" id="binary_document" name="binary_document" value="">
+    </div>
+</ng-form>

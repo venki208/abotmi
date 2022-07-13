@@ -1,0 +1,47 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-view>
+					    <upwrdz-Tabs></upwrdz-Tabs>
+            	<ion-content>
+                  <div overflow-scroll="true" class="m-upwrdz-editpage-content">
+                      <div class="editpage-title-bar">
+                          <img src="../www/img/back_arrow_25px.png" style="float:left;"alt="back arrow" back>
+      							      Upload Video
+                      </div>
+      						<form name="videopublishform" novalidate  >
+      							<div class="list list-inset first-inset black-border">
+      								<label class="item item-input ">
+      									<input type="text" placeholder="Title" ng-model="myhub.video_title" name="video_title" ng-touched required/>
+      								</label>
+                      <h5 class="validationerrors" ng-if="videopublishform.video_title.$error.required && videopublishform.video_title.$touched"> Title is required</h5>
+      							</div>
+
+      							<div class="list list-inset first-inset black-border">
+      								<label class="item item-input ">
+      									<input type="text" placeholder="Description" ng-model="myhub.video_description" name="video_description" ng-touched required/>
+      								</label>
+                      <h5 class="validationerrors" ng-if="videopublishform.video_description.$error.required && videopublishform.video_description.$touched"> Description is required</h5>
+      							</div>
+
+      							<div class="list list-inset first-inset black-border">
+      								<label class="item item-input ">
+      									<input type="text" placeholder="Published Youtube URL" ng-model="myhub.video_link" name="video_link"  ng-touched required/>
+      								</label>
+                      <h5 class="validationerrors" ng-if="videopublishform.video_link.$error.required && videopublishform.video_link.$touched"> URL is required</h5>
+      							</div>
+                    <br/>
+                    <div class="row end-button">
+                      <div class="col col-50">
+        								<button class="full-button" id="submit_videopublish" ng-click="myhub.advisor_video_publish();"  ng-disabled="videopublishform.$invalid ">Submit</button>
+                      </div>
+                      <div class="col col-50">
+        								<button class="full-button" ui-sref="app.myhub">Cancel</button>
+      							  </div>
+      							</div>
+      						</form>
+              </ion-content>
+			     </ion-view>
+		    </ion-side-menu-content>
+	   </ion-side-menus>
+</ion-view>

@@ -1,0 +1,997 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <upwrdz-Tabs></upwrdz-Tabs>
+            <ion-content class="m-upwrdz-editpage-content">
+                <div class="row editpage-title-bar">
+                    <div class="back-btn" back>
+                        <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow">
+                    </div>
+                    <div class="col">
+                        {{edit.heading}}
+                    </div>
+                </div>
+                <div class="contact" ng-show="edit.step==3" ng-init="edit.enableDetails();">
+                    <form name="contactform" novalidate ng-submit="contactform.$valid && edit.submitcontact()">
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <input ng-disabled="true" type="text" placeholder="Email"
+                                    ng-model="edit.user_details.profile.email" name="email" ng-required="true"
+                                    ng-touched />
+                            </label>
+                        </div>
+                        <div class="list list-inset other-inset black-border national-number-flog">
+                            <div class="item item-input">
+                                <input type="text" id="phone" placeholder="Mobile Number" name="mobile" ng-touched
+                                    string-to-number />
+                            </div>
+
+                        </div>
+                        <div class="list list-inset other-inset black-border">
+                            <label class="item item-input">
+                                <input type="text" placeholder="Town/City" ng-model="edit.user_details.profile.city"
+                                    name="city" ng-required="true" ng-touched ng-pattern="/^([\s.]?[a-zA-Z]+)+$/">
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="contactform.city.$error.required && contactform.city.$touched"> Town/City is
+                                required</span>
+                            <span class="validationerrors" ng-if="contactform.city.$error.pattern">Enter a valid
+                                town/city
+                            </span>
+                        </div>
+
+                        <div class="list list-inset other-inset black-border">
+                            <label class="item item-input">
+                                <input placeholder="Calendly Link"
+                                    ng-model="edit.user_details.otherdetails.calendly_link" type="text"
+                                    name="calendlylink" ng-touched
+                                    ng-pattern="/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/" />
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="contactform.calendlylink.$error.required && contactform.calendlylink.$touched">
+                                Enter valid calendly link</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="contactform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="education" ng-show="edit.step==2">
+                    <form name="profileform_education" novalidate ng-submit=" edit.educational_details_form() ">
+                        <div class="row">
+                            <div class="col col-50">
+                                <label for="ex3">School<span class="validationerrors">*</span></label>
+
+                                <label class="item item-input item-label">
+                                    <input id="school" ng-model="edit.details.otherdetails.educational_details.school"
+                                        placeholder="School" ng-required="true" ng-pattern="/^[a-zA-Z\s]*$/"
+                                        name="school" type="text" ng-touched /></label>
+                                </label>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.school.$error.required && profileform_education.school.$touched">*School
+                                    is required</span>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.school.$error.pattern && profileform_education.school.$touched">*School
+                                    name can have only characters and spaces </span>
+                            </div>
+                            <div class="col col-50">
+                                <label for="ex3">Degree<span class="validationerrors">*</span></label>
+
+                                <label class="item item-input item-label">
+                                    <input id="degree"
+                                        ng-model="edit.details.otherdetails.educational_details.qualification"
+                                        placeholder="Degree" ng-required="true" ng-pattern="/^[a-zA-Z\s]*$/"
+                                        name="degree" type="text" ng-touched /></label>
+                                </label>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.degree.$error.required && profileform_education.degree.$touched">*Degree
+                                    name is required</span>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.degree.$error.pattern && profileform_education.degree.$touched">*Degree
+                                    name can have only characters and spaces </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="ex3">Field Of Study</label>
+                                <label class="item item-input item-label">
+                                    <input ng-model="edit.details.otherdetails.educational_details.field_of_study"
+                                        id="m_name" placeholder="Filed of Study" name="fieldOfStudy" type="text"
+                                        value="{{reg.user_details.fieldOfStudy}}" />
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label for="ex3">Activities</label>
+                                <label class="item item-input item-label">
+                                    <textarea rows="3" cols="4"
+                                        ng-model="edit.details.otherdetails.educational_details.activities"
+                                        placeholder="Activities" id="activities" name="activities"></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-50" style="display: grid;">
+                                <label for="ex3">From Year<span class="validationerrors">*</span></label>
+                                <select class="edit-selection"
+                                    ng-model="edit.details.otherdetails.educational_details.from_year" name="fromyear"
+                                    ng-required="true">
+                                    <option value=""> Select</option>
+                                    <option ng-repeat="data in edit.fromyear track by $index" value="{{data}}">
+                                        {{data}}</option>
+                                </select>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.fromyear.$error.required && profileform_education.fromyear.$touched">From
+                                    year is required</span>
+                                </label>
+                            </div>
+                            <div class="col col-50" style="display: grid;">
+                                <label for="ex3">To Year(expected)<span class="validationerrors">*</span></label>
+                                <select class="edit-selection"
+                                    ng-model="edit.details.otherdetails.educational_details.to_year" name="toyear"
+                                    ng-required="true">
+                                    <option value=""> Select</option>
+                                    <option ng-repeat="data in edit.fromyear track by $index" value="{{data}}">
+                                        {{data}}</option>
+                                </select>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.toyear.$error.required && profileform_education.toyear.$touched">To
+                                    year is required</span>
+                                </label>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="">
+                            <div ng-if="edit.devicedetection.os =='android'">
+                                <input id="file" type="file" accept="image-camera/*"
+                                    onchange="angular.element(this).scope().fileNameChanged()" name="fileupload"
+                                    class="cam-upload cam-upload-main mobile-upload"
+                                    file-change="edit.details.otherdetails.eipv_face_capture"
+                                    ng-model="edit.details.otherdetails.eipv_face_capture" ng-required="true" />
+                                <div class="" ng-if="edit.details.otherdetails.eipv_face_capture">
+                                    <div class="">
+                                        <img ng-src="{{edit.details.otherdetails.eipv_face_capture}}" width="50%"
+                                            height="50%" />
+                                    </div>
+                                </div>
+                                <a ng-if="edit.details.otherdetails.eipv_face_capture" style="padding:0px 12px;"><button
+                                        ng-disabled="edit.isDisabled"
+                                        ng-click="edit.capturedata(edit.details.otherdetails.eipv_face_capture,'educational_doc')"
+                                        class="m-upwrdz-btn">
+                                        Upload Document
+                                    </button></a>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.fileupload.$error.required && profileform_education.fileupload.$touched">File
+                                    upload is required</span>
+                            </div>
+                            <div ng-if="edit.devicedetection.os =='ios'">
+                                <input id="file" type="file" accept="image/*"
+                                    onchange="angular.element(this).scope().fileNameChanged()" name="fileupload"
+                                    class="cam-upload cam-upload-main mobile-upload"
+                                    file-change="edit.details.otherdetails.eipv_face_capture"
+                                    ng-model="edit.details.otherdetails.eipv_face_capture" ng-required="true" />
+                                <div class="" ng-if="edit.details.otherdetails.eipv_face_capture">
+                                    <div class="">
+                                        <img ng-src="{{edit.details.otherdetails.eipv_face_capture}}" width="50%"
+                                            height="50%" />
+                                    </div>
+                                </div>
+                                <a ng-if="edit.details.otherdetails.eipv_face_capture" style="padding:0px 12px;"><button
+                                        class="m-upwrdz-btn" ng-disabled="edit.isDisabled"
+                                        ng-click="edit.capturedata(edit.details.otherdetails.eipv_face_capture,'educational_doc')">
+                                        Upload Document
+                                    </button></a>
+                                <span class="validationerrors"
+                                    ng-if="profileform_education.fileupload.$error.required && profileform_education.fileupload.$touched">File
+                                    upload is required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="m-upwrdz-btn-block" type="submit"
+                                    ng-disabled="profileform_education.$invalid">
+                                    SUBMIT
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="language" ng-show="edit.step==1">
+                    <form name="languageform" novalidate ng-submit="languageform.$valid && edit.submitlanguage()">
+                        <div class="list list-inset other-inset black-border">
+                            <label class="item item-input">
+                                <input type="text" placeholder="Languages Known to Speak"
+                                    ng-model="edit.user_details.profile.language_known" name="language_known"
+                                    ng-required="true" ng-touched
+                                    ng-pattern="/^[a-zA-Z ]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z ]*)*$/" />
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="languageform.language_known.$error.required && languageform.language_known.$touched">
+                                Languages Known is required</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="languageform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="number_client" ng-show="edit.step==11">
+                    <form name="clientsform" novalidate ng-submit="clientsform.$valid && edit.submitclient()">
+                        <div class="list list-inset other-inset black-border">
+                            <label class="item item-input">
+                                <input type="number" placeholder="Total Clients Served"
+                                    ng-model="edit.user_details.otherdetails.total_clients_served" ng-maxlength="9"
+                                    name="client_no" ng-required="true" ng-pattern="/^\d+$/" ng-touched min="1" />
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="clientsform.client_no.$error.required && clientsform.client_no.$dirty"> Number of
+                                client served required</span>
+                            <span class="validationerrors" ng-if="clientsform.client_no.$error.pattern">Enter only
+                                number</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="clientsform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="number_advi" ng-show="edit.step==8">
+                    <form name="peerform" novalidate ng-submit="peerform.$valid && edit.submitadvisor()">
+                        <div class="list list-inset other-inset black-border">
+                            <label class="item item-input">
+                                <input type="number" placeholder="Total Advisors Connected"
+                                    ng-model="edit.user_details.otherdetails.total_advisors_connected" name="advisor"
+                                    ng-required="true" ng-pattern="/^\d+$/" ng-touched min="1" ng-maxlength="9" />
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="peerform.advisor.$error.required && peerform.advisor.$dirty"> Number of advisors
+                                connected is required</span>
+                            <span class="validationerrors" ng-if="peerform.advisor.$error.pattern">Enter only
+                                number</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="peerform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="" ng-show="edit.step==12">
+                    <form name="aboutmeform" novalidate ng-submit="aboutmeform.$valid && edit.submitaboutme()">
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <textarea placeholder="Write about yourself ..."
+                                    ng-model="edit.user_details.profile.self_description" name="self_description"
+                                    ng-required="true" ng-touched></textarea>
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="aboutmeform.self_description.$error.required && aboutmeform.self_description.$dirty">
+                                Description is required</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="aboutmeform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="" ng-show="edit.step==13">
+                    <form name="certification_form" novalidate ng-submit="edit.certification_data()">
+                            <section ng-repeat="name_data in data1.names1 track by $index">
+                        <div class="row">
+                            <div class="col col-50">
+                                <label for="ex3">Certification Name</label>
+
+                                <label class="item item-input item-label">
+                                    <input id="certificationName"
+                                        ng-model="name_data.certification_name"
+                                        placeholder="Certification name" ng-pattern="/^[a-zA-Z\s]*$/"
+                                        name="certificationName" type="text" ng-touched />
+                                </label>
+                                <!-- <span class="validationerrors"  ng-if="registration_form5.certificationName.$error.pattern && registration_form5.certificationName.$touched">*Name can have only characters and spaces </span> -->
+
+                            </div>
+                            <div class="col col-50">
+                                <label for="ex3">Certification Authority</label>
+
+                                <label class="item item-input item-label">
+                                    <input id="certificationAuthority"
+                                        ng-model="name_data.certi_authority"
+                                        placeholder="Certification authority" ng-pattern="/^[a-zA-Z\s]*$/"
+                                        name="certificationAuthority" type="text" ng-touched />
+                                </label>
+                                <!-- <span class="validationerrors"  ng-if="registration_form5.certificationAuthority.$error.pattern && registration_form5.certificationAuthority.$touched">*Authority can have only characters and spaces </span> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="ex3">Licence Number</label>
+
+                                <label class="item item-input item-label">
+                                    <input ng-model="name_data.licence_number"
+                                        id="licenceNumber" placeholder="Licence number" name="licenceNumber"
+                                        type="text" />
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label for="ex3">Certification URL</label>
+                                <label class="item item-input item-label">
+                                    <input type="text"
+                                        ng-model="name_data.certi_url"
+                                        placeholder="Certification URL" id="certificationUrl" name="certificationUrl" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-50" style="display: grid;">
+                                <label for="ex3">From Year</label>
+
+                                <select class="edit-selection"
+                                    ng-model="name_data.from_year"
+                                    name="certificationFromYear">
+                                    <option value=""> Select</option>
+                                    <option ng-repeat="data in edit.fromyear track by $index" value="{{data}}">{{data}}
+                                    </option>
+                                </select>
+                                <!-- <span class="validationerrors"  ng-if="registration_form5.certificationFromYear.$error.required && registration_form5.certificationFromYear.$touched">Certification from year is required</span> -->
+                                </label>
+                            </div>
+                            <div class="col col-50" style="display: grid;">
+                                <label for="ex3">To Year(expected)</label>
+
+                                <select class="edit-selection"
+                                    ng-model="name_data.to_year"
+                                    name="certificationToYear">
+                                    <option value="">Select</option>
+                                    <option ng-repeat="data in edit.fromyear track by $index" value="{{data}}">{{data}}
+                                    </option>
+                                </select>
+                                <!-- <span class="validationerrors"  ng-if="registration_form5.certificationToYear.$error.required && registration_form5.certificationToYear.$touched">Certification to year is required</span> -->
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="checkbox certification-position">
+                                <input type="checkbox"
+                                    ng-checked="name_data.is_expire == true"
+                                    name="is_expire"
+                                    ng-model="name_data.is_expire" />
+                                <span class="span-text certificate_expire">This Certification does not expire</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <label for="ex3">Upload Document (Transcript, Diploma)</label>
+                              <div ng-if="edit.devicedetection.os =='android'">
+                                  <div class="col">
+                                  <input id="file" type="file" accept="image-camera/*" onchange="angular.element(this).scope().fileNameChanged()" name="fileupload" class="cam-upload cam-upload-main mobile-upload" file-change="name_data.certificate_doc"
+                                  ng-model="name_data.certificate_doc"  />
+                                  </div>
+                                  <div class="" ng-if="name_data.certificate_doc">
+                                      <div class="" >
+                                          <img ng-src="{{name_data.certificate_doc}}" width="50%" height="50%"/>
+                                      </div>
+                                  </div>
+                                <a  ng-if="name_data.certificate_doc" > <button class="m-upwrdz-btn" ng-disabled="reg.isDisabled" ng-click="edit.capturedata1(name_data.certificate_doc,'certificate',$index)"  >
+                                    Upload Document
+                                  </button></a>
+                                  <span class="validationerrors" ng-if="registration_form5.fileupload.$error.required && registration_form5.fileupload.$touched">File upload is required</span>
+                                </div>
+                            </div>
+                  
+                            
+                            <div class="">
+                              <div ng-if="edit.devicedetection.os =='ios'">
+                                <div class="col">
+                                <input id="file"  type="file" onchange="angular.element(this).scope().fileNameChanged()" accept="image/*" name="fileupload"
+                                  class="cam-upload cam-upload-main mobile-upload" file-change="name_data.certificate_doc"
+                                  ng-model="name_data.certificate_doc" />
+                                  </div>
+                                  <div class="" ng-if="name_data.certificate_doc">
+                                      <div class="" >
+                                          <img ng-src="{{name_data.certificate_doc}}" width="50%" height="50%"/>
+                                      </div>
+                                  </div>
+                                <a  ng-if="name_data.certificate_doc" > <button ng-disabled="reg.isDisabled" ng-click="edit.capturedata1(name_data.certificate_doc,'certificate',$index)" class="m-upwrdz-btn" >
+                                    Upload Document
+                                  </button></a>
+                                <span class="validationerrors"
+                                  ng-if="registration_form5.fileupload.$error.required && registration_form5.fileupload.$touched">File upload is required</span>
+                              </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col">
+                                      <label for="ex3">&nbsp;</label>
+                                      <div>
+                                        <button type="button" ng-click="addRow1($index)" value="Add" ng-show="$last">Add</button>
+                                        <button type="button" ng-click="deleteRow1($event,name_data)" value="Delete"
+                                          ng-show="$index != 0">Delete</button>
+                                      </div>
+                                    </div>
+                                    </div>
+                        </section>
+                        <div class="row">
+                            <div class="col">
+                                <button class="m-upwrdz-full-btn" type="submit"
+                                    ng-disabled="certification_form.$invalid">
+                                    SUBMIT
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="belief" ng-show="edit.step==5">
+                    <form name="mybeliefform" novalidate ng-submit="mybeliefform.$valid && edit.submitmybelief()">
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <textarea placeholder="My belief to the client ..."
+                                    ng-model="edit.user_details.profile.my_belief" name="belief" ng-required="true"
+                                    ng-touched></textarea>
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="mybeliefform.belief.$error.required && mybeliefform.belief.$dirty"> My Belief is
+                                required</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="mybeliefform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="promise" ng-show="edit.step==4">
+                    <form name="mypromiseform" novalidate ng-submit="mypromiseform.$valid && edit.submitmypromise()">
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <textarea placeholder="My promise to the clients"
+                                    ng-model="edit.user_details.otherdetails.my_promise" name="promise"
+                                    ng-required="true" ng-touched></textarea>
+                            </label>
+                            <span class="validationerrors"
+                                ng-if="mypromiseform.promise.$error.required && mypromiseform.promise.$dirty"> My
+                                Promise is required</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="mypromiseform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="sales" ng-show="edit.step==6">
+                    <form name="salesform" novalidate
+                        ng-submit="salesform.$valid && edit.submitaccomplishment(edit.user_details.otherdetails.my_sales)">
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <textarea placeholder="My Sales Accomplishment"
+                                    ng-model="edit.user_details.otherdetails.my_sales" name="sales" ng-required="true"
+                                    ng-touched></textarea>
+                            </label>
+                            <span class="validationerrors" ng-if="salesform.$error.required && salesform.sales.$dirty">
+                                Sales Accomplishment is required</span>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="end-button">
+                                    <button class="full-button" ng-disabled="salesform.$invalid">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="advisory" ng-show="edit.step==9">
+                    <div class="list list-inset first-inset black-border add-more-button">
+                        <div class="row">
+                            <div class="col">
+                                Current Financial Instruments Sold / Advised by me
+                                <button class="add-button" ng-class="{disable_add: edit.olddata.length > 5}"
+                                    ng-disabled="edit.olddata.length > 5" ng-click="edit.addRow(edit.olddata);">
+                                    <img class="d-block img-fluid" src="img/plus.png" style="width: 20px;">
+                                </button>
+                            </div>
+                        </div>
+                        <form name="advisorregiform" novalidate ng-submit="advisorregiform.$valid">
+                            <div class="advisor-specialization-div" ng-repeat="data in edit.olddata track by $index">
+                                <div class="row">
+                                    <div
+                                        class="col advisor-specialization advisor-specialization-block advisor-specialization-40">
+                                        <select name="finances" id="{{'finances'+$index}}" ng-model="data.instruments"
+                                            ng-init="data.instruments"
+                                            ng-disabled="data.is_disable && data.instruments != 'select' && $index != 0 || !$last"
+                                            ng-options="option for option in edit.product_options"
+                                            ng-change="edit.selectInstrument(data.instruments)" ng-required="true">
+                                            <option default value="">Select</option>
+                                            <option value="" ng-if="false"></option>
+                                        </select>
+                                        <span class="validationerrors"
+                                            ng-if="edit.select_instrument || $last && !data.is_disable && advisorregiform.finances.$error.required && advisorregiform.finances.$touched">
+                                            Please Select Financial Instrument.</span>
+                                    </div>
+                                    <div
+                                        class="col advisor-specialization advisor-specialization-block advisor-specialization-40">
+                                        <label class="item item-input">
+                                            <input type="text" placeholder="Experience"
+                                                ng-disabled="data.is_disable && data.instruments != 'select' && $index != 0 || !$last"
+                                                ng-model="data.experience" name="experience" ng-touched string-to-number
+                                                ng-pattern="/^[0-9]*$/" ng-required="true" min="1" max="99" />
+                                        </label>
+                                        <span class="validationerrors"
+                                            ng-if="$last && !data.is_disable && advisorregiform.experience.$error.required && advisorregiform.experience.$touched || (advisorregiform.experience.$error.minlength && advisorregiform.experience.$dirty)">experience
+                                            required</span>
+                                    </div>
+                                    <div class="col end-button advisor-specialization advisor-specialization-20">
+                                        <button class="btn del-exp-btn" ng-click="edit.deleteRow(edit.olddata,data)">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="m-upwrdz-btn-block" type="button"
+                                        ng-disabled="advisorregiform.$invalid && (!data.experience || !data.instruments) || !edit.olddata.length && edit.modified==false"
+                                        ng-click="edit.submitAdvisory(edit.olddata)">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="regulatory" ng-show="edit.step==10">
+                    <div class="list list-inset first-inset black-border">
+                        <form name="regulatoryregiform" novalidate class="reg-checkbox-form">
+                            <div class="row">
+                                <div class="col col-20">
+                                    <div class="row">
+                                        <input type="checkbox" id="certification_sebi" ng-model="edit.sebi" name="sebi"
+                                            ng-click="edit.sebi_details(edit.sebi)"
+                                            ng-checked="!edit.olddata.sebi_number==''" />
+                                        <label for="certification_sebi">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                                                xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64"
+                                                    rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56"
+                                                    rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270"
+                                                    stroke-dashoffset="270" stroke-width="8" stroke-linecap="round"
+                                                    fill="none" stroke-linejoin="round"
+                                                    points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            <img id="" name="" src="img/sbi-logo.png">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-80">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="sebi_regi" ng-model="edit.sebi_regi_value"
+                                                    ng-disabled="edit.sebi_regi" id="typedata"
+                                                    placeholder="Registration Number" ng-touched
+                                                    ng-required="edit.sebi" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.sebi_regi.$error.required && regulatoryregiform.sebi_regi.$touched">
+                                                Please Enter SEBI Reg.No </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-datefrom="edit.sebi_valid_from_value" readonly="readonly"
+                                                    name="sebi_valid_from" ng-model="edit.sebi_valid_from_value"
+                                                    ng-disabled="edit.sebi_valid_from" placeholder="Valid From"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-date="edit.sebi_validity_value" readonly="readonly"
+                                                    name="sebi_validity" ng-model="edit.sebi_validity_value"
+                                                    ng-disabled="edit.sebi_validity" placeholder="Valid Upto"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-20">
+                                    <div class="row">
+                                        <input type="checkbox" id="certification_amf" name="amf" ng-model="edit.amf"
+                                            ng-click="edit.amfi_details(edit.amf)"
+                                            ng-checked="!edit.olddata.amfi_number==''" />
+                                        <label for="certification_amf">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                                                xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64"
+                                                    rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56"
+                                                    rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270"
+                                                    stroke-dashoffset="270" stroke-width="8" stroke-linecap="round"
+                                                    fill="none" stroke-linejoin="round"
+                                                    points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            <img id="" name="" src="img/amfi-logo.png">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-80">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="amfi_regi" ng-model="edit.amfi_regi_value"
+                                                    ng-disabled="edit.amfi_regi" id="typedata"
+                                                    placeholder="Registration Number" ng-touched
+                                                    ng-required="edit.amf" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.amfi_regi.$error.required && regulatoryregiform.amfi_regi.$touched">
+                                                Please Enter AMFI Reg.No </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-datefrom="edit.amfi_valid_from_value" readonly="readonly"
+                                                    name="amfi_valid_from" ng-model="edit.amfi_valid_from_value"
+                                                    ng-disabled="edit.amfi_valid_from" placeholder="Valid From"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-date="edit.amfi_validity_value" readonly="readonly"
+                                                    name="amfi_validity" ng-model="edit.amfi_validity_value"
+                                                    ng-disabled="edit.amfi_validity" placeholder="Valid Upto"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-20">
+                                    <div class="row">
+                                        <input type="checkbox" id="certification_irda" name="irda" ng-model="edit.irda"
+                                            ng-click="edit.irda_details(edit.irda)"
+                                            ng-checked="!edit.olddata.irda_number==''" />
+                                        <label for="certification_irda">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                                                xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64"
+                                                    rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56"
+                                                    rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270"
+                                                    stroke-dashoffset="270" stroke-width="8" stroke-linecap="round"
+                                                    fill="none" stroke-linejoin="round"
+                                                    points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            <img id="" name="" src="img/irda-logo.png">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-80">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="irda_regi" ng-model="edit.irda_regi_value"
+                                                    ng-disabled="edit.irda_regi" id="typedata"
+                                                    placeholder="Registration Number" ng-touched
+                                                    ng-required="edit.irda" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.irda_regi.$error.required && regulatoryregiform.irda_regi.$touched">
+                                                Please Enter IRDA Reg.No </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-datefrom="edit.irda_valid_from_value" readonly="readonly"
+                                                    name="irda_valid_from" ng-model="edit.irda_valid_from_value"
+                                                    ng-disabled="edit.irda_valid_from" placeholder="Valid From"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-date="edit.irda_validity_value" readonly="readonly"
+                                                    name="irda_validity" ng-model="edit.irda_validity_value"
+                                                    ng-disabled="edit.irda_validity" placeholder="Valid Upto"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-repeat="data in edit.olddata.rera_values track by $index">
+                                <div class="col col-20" ng-if="$index == 0">
+                                    <div class="row">
+                                        <input type="checkbox" id="certification_rera" name="" ng-model="edit.value"
+                                            ng-click="edit.rera_details(edit.value)"
+                                            ng-checked="!edit.olddata.rera_values[0].rera_registration_no==''" />
+                                        <label for="certification_rera">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                                                xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64"
+                                                    rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56"
+                                                    rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270"
+                                                    stroke-dashoffset="270" stroke-width="8" stroke-linecap="round"
+                                                    fill="none" stroke-linejoin="round"
+                                                    points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            <img id="" name="" style="width:35px;position:relative;" src="img/rera.png">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-20" ng-if="$index > 0">
+                                    <p>&nbsp;</p>
+                                </div>
+                                <div class="col col-80">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="rera_regi+'$index'"
+                                                    ng-model="data.rera_registration_no" ng-disabled="edit.rera_regi"
+                                                    id="typedata" placeholder="Registration Number" ng-touched
+                                                    ng-required="edit.value" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.rera_regi.$error.required && regulatoryregiform.rera_regi.$touched">
+                                                Please Enter RERA Reg.No </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="rera_state" ng-model="data.rera_state"
+                                                    ng-disabled="edit.rera_state" id="typedata" placeholder="State"
+                                                    ng-touched ng-required="edit.value" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.rera_state.$error.required && regulatoryregiform.rera_state.$touched">
+                                                Please Enter RERA State </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-date="data.rera_expire_date" readonly="readonly"
+                                                    name="rera_validity" ng-model="data.rera_expire_date"
+                                                    ng-disabled="edit.rera_validity" placeholder="Valid Upto"
+                                                    type="text">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="$index == 0">
+                                        <button class="add-button" ng-disabled="edit.rera_add"
+                                            ng-click="edit.addRowRera(edit.olddata.rera_values)">
+                                            Add
+                                        </button>
+                                    </div>
+                                    <div class="row" ng-if="$index > 0">
+                                        <button class="add-button"
+                                            ng-click="edit.deleteRow(edit.olddata.rera_values,data)">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="data in edit.olddata.dsa_result track by $index">
+                                <div class="col col-20 reg-checkbox" ng-if="$index == 0">
+                                    <div class="row">
+                                        <input type="checkbox" id="certification_dsa" name="dsa" ng-model="edit.dsa"
+                                            ng-click="edit.dsa_details(edit.dsa)"
+                                            ng-checked="!edit.olddata.dsa_result[0].dsa_bank_name==''" />
+                                        <label for="certification_dsa">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                                                xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64"
+                                                    rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56"
+                                                    rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270"
+                                                    stroke-dashoffset="270" stroke-width="8" stroke-linecap="round"
+                                                    fill="none" stroke-linejoin="round"
+                                                    points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            DSA
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-20" ng-if="$index > 0">
+                                    <p>&nbsp;</p>
+                                </div>
+                                <div class="col col-80">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="dsa_bank_name" ng-model="data.dsa_bank_name"
+                                                    ng-disabled="edit.dsa_bank" id="typedata" placeholder="Bank Name"
+                                                    ng-touched ng-required="edit.dsa" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.dsa_bank_name.$error.required && regulatoryregiform.dsa_bank_name.$touched">
+                                                Please Enter Bank name </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="dsa_code_value" ng-model="data.dsa_code"
+                                                    ng-disabled="edit.dsa_code" id="typedata" placeholder="DSA CODE"
+                                                    ng-touched ng-required="edit.dsa" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.dsa_code_value.$error.required && regulatoryregiform.dsa_code_value.$touched">
+                                                Please Enter DSA Code </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="dsa_how_long_associated"
+                                                    ng-model="data.dsa_how_long_associated"
+                                                    ng-disabled="edit.dsa_how_long_associated"
+                                                    placeholder="How long associated" ng-touched
+                                                    ng-pattern="/^[1-9]?[0-9]{1}$|^99$/" ng-required="edit.dsa" />
+                                            </label>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.dsa_how_long_associated.$error.required && regulatoryregiform.dsa_how_long_associated.$touched">
+                                                Please Enter How long associated with</span>
+                                            <span class="validationerrors"
+                                                ng-if="regulatoryregiform.dsa_how_long_associated.$error.pattern">Please
+                                                enter valid number</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="$index == 0">
+                                        <button class="add-button" ng-disabled="edit.dsa_add"
+                                            ng-click="edit.addRowDsa(edit.olddata.dsa_result)">
+                                            Add
+                                        </button>
+                                    </div>
+                                    <div class="row" ng-if="$index > 0">
+                                        <button class="add-button"
+                                            ng-click="edit.deleteRow(edit.olddata.dsa_result,data)">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col col-20">
+                                    <div class="row">
+                                        <input type="checkbox" id="certification_other" ng-model="edit.other"
+                                            ng-click="edit.other_details(edit.other)"
+                                            ng-checked="!edit.olddata.other_registered_organisation==''" />
+                                        <label for="certification_other">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet"
+                                                viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                                                xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64"
+                                                    rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56"
+                                                    rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270"
+                                                    stroke-dashoffset="270" stroke-width="8" stroke-linecap="round"
+                                                    fill="none" stroke-linejoin="round"
+                                                    points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            <label>Others</label>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col col-80">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="other_authotity"
+                                                    ng-model="edit.other_authotity_value"
+                                                    ng-disabled="edit.other_authotity" id="typedata"
+                                                    placeholder="Authority Organisation" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" name="other_regi" ng-model="edit.other_regi_value"
+                                                    ng-disabled="edit.other_regi" id="typedata"
+                                                    placeholder="Registration Number" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input type="text" select-date="edit.other_validity_value"
+                                                    readonly="readonly" name="other_validity"
+                                                    ng-model="edit.other_validity_value"
+                                                    ng-disabled="edit.other_validity" placeholder="Valid Upto">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="m-upwrdz-btn-block"
+                                        ng-disabled="regulatoryregiform.$invalid"
+                                        ng-click="edit.saveregulatorycertification(regulatoryregiform.$valid)">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div ng-show="edit.step==7">
+                    <div class="col skills-content-div">
+                        <form name="skillsform" novalidate
+                            ng-submit="skillsform.$valid && edit.saveSkills(edit.skills)">
+                            <div class="col-sm-12 skills-content-colums list">
+                                <ion-checkbox {{edit.user_details.otherdetails.skills}} ng-repeat="item in edit.skills"
+                                    name="selectedFruits[]" value="{{item}}"
+                                    ng-checked="edit.user_details.otherdetails.skills.indexOf(item) > -1"
+                                    ng-click="edit.toggleSelection(item)">
+                                    <span class="margin-r-10pr">{{item}}</span>
+                                </ion-checkbox>
+                                <!-- <div ng-repeat="item in edit.skills">
+                  <div ng-if="edit.boolen_filed==true && item =='Others'">
+                        <label class="item item-input item-floating-label pinkbottomborder">
+                                <input type="text"   name="other_validity" ng-model ="edit.other_value"  placeholder="Others">
+                            </label>
+                  </div></div> commented for future-->
+
+                            </div>
+                            <span class="help-block" id="help_skills"></span>
+                            <div class="col">
+                                <button class="m-upwrdz-btn-block"
+                                    ng-disabled="edit.user_details.otherdetails.skills == ''">SUBMIT</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

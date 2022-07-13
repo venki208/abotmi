@@ -1,0 +1,4 @@
+STEP 1: To open the database: mysql --local-infile -u nfadmin -p nfdb;
+
+STEP 2: load data local infile '/home/northfacing/pincode/pin_code_master.csv' into table  datacenter_india_pincode fields terminated by ',' enclosed by '"' lines terminated by '\n' (pin_code,district_name,state_name);
+

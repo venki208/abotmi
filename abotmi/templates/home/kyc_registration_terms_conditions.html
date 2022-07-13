@@ -1,0 +1,150 @@
+{% extends 'login.html' %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    {% if not user.is_authenticated %}
+        <style>
+            body{
+                padding-top: 145px;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="subpage-reia-primary parent-section" id="about">
+        <div class="container">
+            <div class="col-lg-12">
+                <h2 class="n-h2 text-center">KYC Registration</h2>
+                <hr class="why-reia-light">
+                <h3 class="text-left n-h4">Terms & Conditions</h3>
+            </div>
+            <div class="col-md-12">
+                <p>
+                    The following are the instructions and terms for the user (“you”, “your”) while completing the Know Your Customer (the “KYC”) process:
+                </p>
+                <ul>
+                    <li>It is obligatory to provide your name, address, company name, designation in the company, e-mail id, phone number.</li>
+                    <li>It is obligatory to notify ABOTMI of any changes in the details given in the registration form submitted to ABOTMI</li>
+                    <li>You shall indemnify ABOTMI against any loss or legal costs or liabilities incurred by ABOTMI due to any act of omission, commission, negligence, fraud committed by you.</li>
+                    <li>You shall hereby declare that the details furnished are true and correct to the best of your knowledge and belief and that you undertake to inform ABOTMI of any changes therein immediately You shall be held liable under the relevant laws for any intentional submission of false, incorrect and/or misleading information</li>
+                    <li>ABOTMI shall implement and maintain the operational environment including equipment, software, personnel, and the services necessary including the means of communication and the necessary telecommunications protocols to receive/collect, process, record the KYC information.</li>
+                    <li>ABOTMI shall use its application only for details of such persons who approach them to become users. If any errors or discrepancies are observed in the data and records provided by you and notified by ABOTMI. You shall take immediate and suitable steps at your own cost to rectify the errors to the satisfaction of ABOTMI.</li>
+                    <li>ABOTMI shall maintain all information provided by you in the strictest confidence and trust and shall not disclose any information to any person, unless authorized and/or compelled to do so under any law for the time being in force.</li>
+                    <li>ABOTMI shall take no responsibility for the verification of any user and that is carried out by a third party. The user agrees to the same and shall not hold ABOTMI responsible for the said verification.</li>
+                    <li>ABOTMI shall maintain a record of its users registered with it.</li>
+                    <li>These terms and conditions and /or the use of the services provided by ABOTMI shall be governed by the laws of the Republic of India. You and ABOTMI agree to submit to the exclusive jurisdiction of the courts located in Bengaluru as regards to any claims, matters or disputes arising under these terms and conditions.</li>
+                    <li>ABOTMI reserves the right to amend or supplement any of the terms and conditions at any time.</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">ABOTMI and Links to Third Parties</h4>
+                <p>
+                    ABOTMI Platforms may contain links to other sites owned by third parties (i.e. advertisers, affiliate partners, strategic partners, or others), or ABOTMI may introduce you to independent third parties to complete your tasks. ABOTMI shall not be responsible for any examination or evaluation carried out by such third parties, and ABOTMI does not warrant the products or offerings of, any of these businesses or individuals, or the accuracy of the content of their Websites. ABOTMI does not assume any responsibility or liability for the actions, product, and content of any such Third Party websites. Before you use any third party websites, you should review the applicable terms of use and policies for such third party websites. If you decide to access any such linked third party website, you do so at your own risk. Where ABOTMI refers independent third party service providers, ABOTMI disclaims all responsibility and liability as regards the services, conduct or actions of such third party.
+                </p>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">General Terms and Conditions</h4>
+                <ul>
+                    <li>You agree and accept that the use of the services provided by ABOTMI is at your sole risk and further acknowledge that ABOTMI disclaims all representations and warranties of any kind, whether express or implied.</li>
+                    <li>You shall ensure that you will not indulge in any unlawful activities while using the service or asking the service provider to break any Police and/or government rules for any purpose whatsoever. The service provider has the right to refuse such a request made by you.</li>
+                    <li>You agree and acknowledge that the use of the services offered by ABOTMI  is at your sole risk and that ABOTMI disclaims all representations and warranties of any kind, whether express or implied as to condition, suitability, quality, merchantability and fitness for any purposes are excluded to the fullest extent permitted by law.</li>
+                    <li>Without prejudice to the above, ABOTMI makes no representation or warranty that the services will meet the customer’s requirements.</li>
+                    <li>ABOTMI will not be liable for any damages of any kind arising from the use of the service offered by the Company, including, but not limited to direct, indirect, incidental, punitive, and consequential damages.</li>
+                    <li>ABOTMI shall be entitled to terminate your request for services at any time without giving any reason.</li>
+                    <li>If you have any complaint in respect of the services, you must inform ABOTMI of the same in writing within 24 hours of using the services furnished by ABOTMI.</li>
+                    <li>ABOTMI shall not be liable for any conduct or behaviour or actions of third party service providers. However, ABOTMI encourages you to notify it of any complaints that you may have against the service provider that you may have hired using our services.</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Usage of Cookies</h4>
+                <p>
+                    The ABOTMI website uses cookies in order to generate statistics and make the services as efficient and simple as possible. Cookies are not used for purposes other than these and they are usually installed directly by ABOTMI. By using the ABOTMI website, you agree to accept the use of cookies in accordance with the terms of use specified in this document. You can decide whether to accept cookies by using the settings of your browser.
+                </p>
+                <p>
+                    <span class="n-span-green-color">Warning: </span>disabling all or part of the technical cookies can compromise the use of the functionalities of the website reserved for you. On the contrary, the usability of public content is still possible when completely disabling cookies. Disabling "third party" cookies does not compromise the navigability in any way.
+                </p>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Proprietary Rights</h4>
+                <p>
+                    All materials on ABOTMI Platforms, including, without limitation, names, logos, trademarks, images, text, columns, graphics, videos, photographs, illustrations, artwork, software and other elements (collectively, “Material”) are protected by copyrights, trademarks and/or other intellectual property rights owned and controlled by ABOTMI. You acknowledge and agree that all content on ABOTMI Platforms is made available for limited, non-commercial, personal use only. Except as specifically provided herein or elsewhere in the Platforms, no material may be copied, reproduced, republished, sold, downloaded, posted, transmitted, or distributed in any way, or otherwise used for any purpose, by any person or entity, without the  prior express written permission of ABOTMI. You may not add, delete, distort, or otherwise modify the material. Any unauthorized attempt to modify any material, to defeat or circumvent any security features, or to utilize our Platforms or any part of the material for any purpose other than its intended purposes is strictly prohibited.
+                </p>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Intellectual Property Rights</h4>
+                <ul>
+                    <li>The services provided by ABOTMI are premised on a proprietary software developed and made available exclusively by ABOTMI. ABOTMI is the sole owner of the Website and all software created to provide you with the services. ABOTMI provides you with a single limited license to download, use and access the App/Website on your mobile telephone devices for the limited purpose of using the services. The license is specifically personal, non-transferable, and exclusive. All content on the App or the Website, which is including, but not limited to, designs, text, graphics, images, video, information, logos, button icons, software, audio files and any other content ("Content") are the exclusive and sole property of ABOTMI. You may not copy, reproduce or use such content without due attribution of ownership to ABOTMI. All icons and logos are trademarks of and proprietary to ABOTMI. The unauthorized copying, modification, use or publication of these marks is strictly prohibited.</li>
+                    <li>All content is the exclusive copyright of ABOTMI or its licensors, except the third party content and link to third party website. Systematic retrieval of ABOTMI content to create or compile, directly or indirectly, a collection, compilation, database or directory (whether through robots, spiders, automatic devices or manual processes) without written permission from ABOTMI is prohibited. In addition, use of the content for any purpose not expressly permitted by ABOTMI in these Terms is prohibited and may invite legal action.</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Acceptance of Terms</h4>
+                <ul>
+                    <li>These Terms shall remain in full force and effect for so long as it is posted on any of ABOTMI Platforms. You may terminate your use of the services at any time.</li>
+                    <li>ABOTMI reserves the right to terminate your account or your access to the Platforms immediately, with or without notice to you, and without liability to you, if ABOTMI believes that you have breached any of these Terms, furnished ABOTMI with false or misleading information, or interfered with use of the Platform by others.</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Disclaimer of Warranties and Liabilities</h4>
+                <ul>
+                    <li>All the material and products on ABOTMI Platforms, (including but not limited to software) and services, included on or otherwise made available to you through ABOTMI Platforms are provided on "AS IS" and "AS AVAILABLE" basis, without any representation or warranties, express or implied, except otherwise specified in writing. Without prejudice to the forgoing paragraph, ABOTMI does not warrant that the Website or App and services provided pursuant thereto will be constantly available, or available at all.</li>
+                    <li>ABOTMI will not be liable to you in any way or in relation to the contents of, or use of, or otherwise in connection with its Platforms. ABOTMI does not warrant that the Website information, content, materials, product (including software) or services included on or otherwise made available to you through its Platforms, their servers, or electronic communication sent from us, are free of viruses or other harmful components.</li>
+                    <li>Subject to applicable laws, in no event will ABOTMI or its employees or its agents aggregate liability arising from or related to the services, and shall not exceed the payments actually received and retained by ABOTMI from you as service fees for the services rendered for any and all causes of action brought by you or your agents.</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Indemnity</h4>
+                <p>
+                    You agree to defend, indemnify and hold harmless ABOTMI, its subsidiaries, affiliates, subcontractors, officers, directors, employees, consultants, representatives and agents, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorneys’ fees and costs) arising from:
+                </p>
+                <ul>
+                    <li>Your  use of and access to our Platforms in a manner except as permitted herein</li>
+                    <li>Your violation of any of these Terms or any applicable law</li>
+                    <li>Your violation of any third party right, including without limitation any copyright, property, or privacy right;</li>
+                    <p>
+                        This indemnification obligation will survive the termination of your account or use of services.
+                    </p>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Assignment</h4>
+                <p>
+                    These Terms and any rights and licenses granted hereunder, may not be transferred or assigned by you, but may be assigned by ABOTMI without restriction.
+                </p>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Waiver and Severability of Terms</h4>
+                <p>
+                    The failure of ABOTMI to exercise or enforce any right or provision of these Terms shall not constitute a waiver of such right or provision. If any provision of these Terms is found by a court of competent jurisdiction to be invalid, the parties nevertheless agree that the court should endeavour to give effect to the parties’ intentions as reflected in the provision, and the other provisions of these Terms shall remain in full force and effect.
+                </p>
+            </div>
+            <div class="col-md-12">
+                <h4 class="n-h4">Governing Law and Venue</h4>
+                <p>
+                    All the Terms and Conditions so enumerated above are governed by the laws of India. Any matters arising under these terms shall be subject to the exclusive jurisdiction of courts located in Bengaluru.
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block theme_scripts %}
+<script type="text/javascript">
+    function shrink_header(){
+        $('nav').addClass('shrink');
+        $("#about").addClass('n-margin-top-100');
+        $(".riea-logo-1").addClass('img_shrink');
+        $(".social-icons").addClass('width-93');
+    }
+    $(document).ready(function(){
+        shrink_header();
+    });
+</script>
+{% endblock %}

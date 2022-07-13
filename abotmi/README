@@ -1,0 +1,68 @@
+### The Following are the Setps to Setup REIA - DJango Project in Virtual env 
+
+sudo apt-get install virtualenv 
+
+A]	### Environment SETUP ###
+	REIA is setuped in Virtualenv we need to install the following to use with it 
+	1) > virtualenv env
+	2) > source env/bin/activate
+	3) > pip install Django
+	4) > pip install mysql-python ( used for MySQL DB )
+
+B]	### Initial Setup ###
+
+	> python manage.py syncdb
+
+C]	### How To run the project ####
+
+	> python manage.py runserver HOST:PORT
+
+Note: MySQL setting for Django 
+path : reia/reia/settings.py
+
+DATABASES = {
+    "default": {
+        # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
+        "ENGINE": "django.db.backends.mysql",
+        # DB name or path to database file if using sqlite3.
+        "NAME": "nfdb",
+        # Not used with sqlite3.
+        "USER": "nfadmin",
+        # Not used with sqlite3.
+        "PASSWORD": "nfadmin@123#",
+        # Set to empty string for localhost. Not used with sqlite3.
+        "HOST": "",
+        # Set to empty string for default. Not used with sqlite3.
+        "PORT": "",
+    }
+}
+
+To connect local redis server 
+redis-cli -h 127.0.0.1 -p 6379 -a "redisAdmin"
+
+Setting up Mongo database with credentials in local:
+---------------------------------------------------
+    => Open mongo shell by following cmd
+        >> mongo
+    => execute commands one by one
+        >> use abotmi_db
+        >> db.createUser({
+            user: "abotmiadmin",
+            pwd: "abotmiadmin@123#",
+            roles:[
+                    {
+                        "role" : "readWrite",
+                        "db" : "abotmi_db"
+                    },
+                ]
+            })
+        >> db.grantRolesToUser("admin", ["readWrite", {role:"read", db:"abotmi_db"}])
+    => exit the shell
+    => Go again into mongo shell
+    => execute follow commands
+        >> use abotmi_db
+        >> db.auth('abotmiadmin', 'abotmiadmin@123#') => it should return `1`
+
+#For checking status of all service used in systemd in server usre following commands
+sudo journalctl -e -u daphne.service  ----> This is for daphne service
+        

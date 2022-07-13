@@ -1,0 +1,56 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-view>
+                <upwrdz-Tabs></upwrdz-Tabs>
+                <ion-content>
+                    <div overflow-scroll="true" class="m-upwrdz-editpage-content">
+                        <div class="editpage-title-bar" ng-init="raterank.enableDetails();">
+                            <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+                            {{raterank.title}}
+                        </div>
+                        <form name="inviteform" class="invite" novalidate
+                            ng-submit="raterank.inviterateSubmit(inviteform);">
+                            <div class="list list-inset other-inset black-border">
+                                <label class="item item-input">
+                                    <input type="text" placeholder="Name" ng-model="raterank.request.name" name="name" ng-pattern="/^[a-zA-Z ]*$/" tabindex="-1" ng-required="true" ng-touched />
+                                </label>
+                                <span class="validationerrors"
+                                    ng-if="inviteform.name.$error.required && inviteform.name.$touched"> Name is required</span>
+                                <span class="validationerrors" ng-if="inviteform.name.$error.pattern"> Enter only alphabet</span>
+                            </div>
+                            <div class="list list-inset other-inset black-border">
+                                <label class="item item-input item-label">
+                                    <input class="form-control" ng-required="true" id="email" placeholder="Email" tabindex="-1" ng-model="raterank.request.email" name="email" type="email"
+                                    ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" ng-touched />
+                                </label>
+                                <span class="validationerrors"
+                                    ng-if="inviteform.email.$error.required && inviteform.email.$touched"> Email is required</span>
+                                <span class="validationerrors" ng-if="inviteform.email.$error.pattern"> Enter valid email</span>
+                            </div>
+                            <div class="list list-inset other-inset black-border">
+                                <div class="item item-input">
+                                    <input type="text" placeholder="Mobile" id="phone"  name="mobile" tabindex="-1"   ng-touched />
+                                </div>
+                                <span class="validationerrors"
+                                    ng-if="inviteform.mobile.$error.required && inviteform.mobile.$touched"> Mobile number is required</span>
+                                <span class="validationerrors" ng-if="inviteform.mobile.$error.pattern"> Enter valid 10
+                                    digit number</span>
+                            </div>
+                            <div class="row end-button">
+                                <div class="col col-50">
+                                    <button class="full-button" ng-disabled="inviteform.$invalid">
+                                        SUBMIT
+                                    </button>
+                                </div>
+                                <div class="col col-50">
+                                    <button class="full-button" type="button" back>CANCEL</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

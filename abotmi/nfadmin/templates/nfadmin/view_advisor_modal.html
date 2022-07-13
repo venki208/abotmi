@@ -1,0 +1,477 @@
+<form method="POST" name="EditRegistrationForm" id="EditRegistrationForm" role="form">
+    <!-- Panel Design Start -->
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title"><h4>View Advisor Details</h4> </div>
+        </div>
+    </div>
+    <div class="main-heading">
+        Registration Form
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Title:</label>
+                <span>{{ advisor_details.suffix }}</span>
+            </div>
+            <div class="col-md-6">
+                <label>First Name:</label>
+                <span>{{ advisor_details.first_name }}</span>
+            </div>
+            <div class="col-md-3">
+                <label>Middle Name:</label>
+                <span>{{ advisor_details.middle_name }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Last Name:</label>
+                <span>{{ advisor_details.last_name }}</span>
+            </div>
+            <div class="col-md-3">
+                <label>Gender:</label>
+                {% if advisor_details.gender == 'M' %}
+                    <span>Male</span>
+                {% elif advisor_details.gender == 'F' %}
+                    <span>Female</span>
+                {% else %}
+                    <span>Others</span>
+                {% endif %}
+            </div>
+            <div class="col-md-3">
+                <label>Birth Date:</label>
+                <span>{{advisor_details.birthdate|date:'d-m-Y'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Primay Email ID:</label>
+                <span>{{advisor_details.email}}</span>
+            </div>
+            <div class="col-md-6">
+                <label>Secondary Email ID:</label>
+                <span>{{advisor_details.secondary_email}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Communication Email Id:</label>
+                {% if communication_email_id = 'primary'%}
+                    <span>{{advisor_details.communication_email_id}}</span>
+                {% else %}
+                    <span>{{advisor_details.communication_email_id}}</span>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <label>Mobile No:</label>
+                <span>{{advisor_details.mobile}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="section-title">
+        <p>Credibility Declaration</p>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <label>SEBI Number:</label>
+                <span>{{advisor_details.advisor.sebi_number}}</span>
+            </div>
+            <div class="col-md-6">
+                <label>Valid Upto:</label>
+                <span>{{advisor_details.advisor.sebi_expiry_date|date:'d-m-Y'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>AMFI Number:</label>
+                <span>{{advisor_details.advisor.amfi_number}}</span>
+            </div>
+            <div class="col-md-6">
+                <label>Valid Upto:</label>
+                <span>{{advisor_details.advisor.amfi_expiry_date|date:'d-m-Y'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>IRDA Number:</label>
+                <span>{{advisor_details.advisor.irda_number}}</span>
+            </div>
+            <div class="col-md-6">
+                <label>Valid Upto:</label>
+                <span>{{advisor_details.advisor.irda_expiry_date|date:'d-m-Y'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label style="border-color:#ccc;"><u>RERA Details:</u></label>
+                <table id="example2" class="table table-bordered table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th>Registration Number</th>
+                            <th>State</th>
+                            <th>Valid Upto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rera_detail in rera_details %}
+                            <tr>
+                                <td>
+                                    {{ rera_detail.rera_registration_no }}
+                                </td>
+                                <td>
+                                    {{ rera_detail.rera_state }}
+                                </td>
+                                <td>
+                                    {{ rera_detail.rera_expire_date}}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Others:</label>
+                <table id="example2" class="table table-bordered table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th>Organisation</th>
+                            <th>Registration Number</th>
+                            <th>Valid Upto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ advisor_details.advisor.other_registered_organisation }}</td>
+                            <td>{{ advisor_details.advisor.other_registered_number }}</td>
+                            <td>{{ advisor_details.advisor.other_expiry_date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Current Financial Instruments Sold / Advised by me:</label>
+                <table class="table table-bordered table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th>Instrument</th>
+                            <th>Experiance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instrument in financial_instruments %}
+                        <tr>
+                            <td>{{instrument.instruments}}</td>
+                            <td>{{instrument.experience}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <label>Total Clients Served:</label>
+                <span>{{advisor_details.advisor.total_clients_served}}</span>
+            </div>
+            <div class="col-md-5">
+                <label>Total Advisors Connected</label>
+                <span>{{advisor_details.advisor.total_advisors_connected}}</span>
+            </div>
+            <div class="col-md-12">
+                <label>Educational Qualification</label>
+                <span>{{advisor_details.advisor.credibility_declaration_qualification}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>My Promise to the Client:</label>
+                <span>{{advisor_details.advisor.my_promise}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="section-title">
+        <p>Personal information</p>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Father`s Name:</label>
+                <span>{{advisor_details.father_name}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Mother`s Name:</label>
+                <span>{{advisor_details.mother_name}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Marital Status:</label>
+                {% if advisor_details.marital_status == 'U'%}
+                    <span>Single</span>
+                {% else %}
+                    <span>Married</span>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <label>Nationality:</label>
+                <span>{{advisor_details.nationality}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Primary Communication Address</label>
+                <span>{{advisor_details.primary_communication}}</span>
+            </div>
+            <div class="col-md-12">
+                <label>Home Address:</label>
+                <span>{{advisor_details.street_name}},</span>
+                <span>{{advisor_details.address}},</span>
+                <span>{{advisor_details.landmark}},</span>
+                <span>{{advisor_details.locality}},</span>
+                <span>{{advisor_details.city}},</span>
+                <span>{{advisor_details.state}},</span>
+                <span>{{advisor_details.pincode}},</span>
+                <span>{{advisor_details.country}}.</span>
+            </div>
+        </div>
+        <div class="row">
+            <label><u>Help us understand you better</u></label>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label>Name of your office:</label>
+                    <span>{{advisor_details.company_name}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Your Designation:</label>
+                    <span>{{advisor_details.designation}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Your annual income (in INR):</label>
+                    <span>{{advisor_details.annual_income}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Website URL of your office:</label>
+                    <span>{{advisor_details.company_website}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Office Address:</label>
+                <span>{{advisor_details.company_address1}},</span>
+                <span>{{advisor_details.company_address2}},</span>
+                <span>{{advisor_details.company_landmark}},</span>
+                <span>{{advisor_details.company_locality}},</span>
+                <span>{{advisor_details.company_city}},</span>
+                <span>{{advisor_details.company_state}},</span>
+                <span>{{advisor_details.company_pincode}},</span>
+                <span>{{advisor_details.company_country}}.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Languages known to speak:</label>
+                <span>{{advisor_details.language_known}}</span>
+            </div>
+            <div class="col-md-12">
+                <label>Languages known to Read & Write:</label>
+                <span>{{advisor_details.languages_known_read_write}}</span>
+            </div>
+            <div class="col-md-12">
+                <label>Mother Tongue:</label>
+                <span>{{advisor_details.mother_tongue}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th>Highest Qualification</th>
+                            <th>Year of Passing</th>
+                            <th>University / Board</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{advisor_details.qualification}}</td>
+                            <td>{{advisor_details.year_passout}}</td>
+                            <td>{{advisor_details.college_name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th>Additional Qualification</th>
+                            <th>Year of Completion</th>
+                            <th>University / Board</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for additional in additional_qualification_list %}
+                        <tr>
+                            <td>{{additional.additional_qualification}}</td>
+                            <td>{{additional.year_passout}}</td>
+                            <td>{{additional.university}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <label>Allow us to connect with you:</label>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label>Facebook ID:</label>
+                    <span>{{advisor_details.facebook_media}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Google ID:</label>
+                    <span>{{advisor_details.google_media}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Linkedin ID:</label>
+                    <span>{{advisor_details.linkedin_media}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Twitter ID:</label>
+                    <span>{{advisor_details.twitter_media}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="main-heading">
+            Business Form
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-title">
+            Answer us to Decide
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <p class="question">1. Are you a Realtor ? ( a real estate broker / transaction advisor).</p>
+        </div>
+        <div class="row">
+            {% if questions.0.Answer == 'yes' %}
+                <p class="question">Ans : {{ questions.0.Answer }}</p>
+                <p class="remark question">Name of the institution : {{ questions.0.Remark.0.Answer }}</p>
+                <p class="remark question">Total Clients served : {{ advisor_details.advisor.total_clients_served }}
+                <p class="remark question">Year of Association : {{ advisor_details.advisor.total_advisors_connected }}</p>
+                <p class="remark question">Average transaction value : {{ questions.0.Remark.2.Answer }}</p>
+            {% else %}
+                <p class="question">Ans : {{ questions.0.Answer }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <p class="question">2. Do you have an infrastructure or will you able to create an infrastructure to handle the members?</p>
+        </div>
+        <div class="row">
+            {% if questions.1.Answer == 'yes' %}
+                <p class="question">Ans : {{ questions.1.Answer }}</p>
+                <p class="question">Office Address :</p>
+                    <p class="remark question">Address of the office : {{ office_address }} </p>
+            {% else %}
+                <p class="question">Ans : {{ questions.1.Answer }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <p class="question">3. Any dealership association with financial Institutions? </p>
+        </div>
+        <div class="row">
+            {% if questions.2.Answer == 'yes' %}
+                <p class="question">Ans : {{ questions.2.Answer }}</p>
+                <p class="question">Number of Institutions : {{ questions.2.Remark.0.Answer }}</p>
+                <p>
+                    <table class="table table-bordered table-striped dataTable">
+                        <thead>
+                            <tr>
+                                <th>Institution Name</th>
+                                <th>Website URL</th>
+                                <th>Registration /Email ID</th>
+                                <th>Year of Association</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            {% for inst in questions.2.Remark.0.Remark %}
+                            <td id="answer_{{forloop.counter}}">
+                                {{ inst.Answer }}
+                            </td>
+                            {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            {% else %}
+                <p class="question">Ans : {{ questions.2.Answer }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <p class="question">4. Will you be interested to undergo any training program about real estate investment advisory</p>
+        </div>
+        <div class="row">
+            {% if questions.3.Answer == 'yes' %}
+                <p class="question">Ans : {{ questions.3.Answer }}</p>
+            {% else %}
+                <p class="question">Ans : {{ questions.3.Answer }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="main-heading">
+            Submit Documents
+        </div>
+    </div>
+    <div class="row">
+        <div class="section-title">
+            REIA ACCOUNT DETAILS
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label> Documents : </label>
+        </div>
+        <div class="col-md-4">
+            {% if user_documents %}
+                {% for doc in user_documents %}
+                    <p id="{{doc.id}}" style="display:block">
+                        {{ doc.documents_type }} <a class="btn btn-default btn-xs" href="{{ doc.documents.url }}" target="_blank">Download</a>
+                        <a id="{{doc.id}}" class="btn btn-default btn-xs" onclick="deleteDocument(this.id);" >Remove</a><br/>
+                    </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <input type="text" class="hidden" id="user_id" value="{{ advisor_details.user_id }}">
+</form>
+<script type="text/javascript">
+function deleteDocument(id){
+    document.getElementById(id).style.display = "none";
+       $.ajax({
+            url: "/nfadmin/remove_upload_file/",
+            method: "POST",
+            data:{
+                id: id,
+            },
+            success:function(data){
+                var data = data;
+            }
+        });
+    }
+</script>

@@ -1,0 +1,38 @@
+.one {
+    padding-bottom: 5%;
+    padding: 15px;
+    border: solid thin;
+    width: 70%;
+}
+
+.two {
+    padding-bottom: 4%;
+}
+
+.tr_event_name {
+    padding-bottom: 4%
+}
+
+.div_padd {
+    padding-top: 30px;
+}
+
+.meet_list {
+    padding: 10px 0px;
+}
+
+.meet_list2 {
+    padding: 0px 25px;
+}
+
+.div_list {
+    padding-left: 800px;
+}
+
+.one td {
+    vertical-align: top;
+}
+
+.invitaion-section-div{
+    margin-top: 100px;
+}

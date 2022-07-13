@@ -1,0 +1,68 @@
+{% if view_members or user_profile_obj or registered_webinar_members%}
+<div class="bs-example">
+    <div class="table-responsive">
+        <table id="table_id" name="table_id" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Email ID
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if view_members %}
+                    {% for user_profile_data in view_members %}
+                    <tr>
+                        <td>
+                            <span>
+                                <input type="checkbox" class="email_check_box hide" name="email_list" id="member{{forloop.counter}}" value="{{ user_profile_data.first_name }},{{ user_profile_data.email }}"/>
+                                {{ user_profile_data.email }}
+                            </span>
+                        </td>
+                        <td>
+                            <button type="button" name="button" class="btn upwrdz-button webinar-reg-btn" id="{{forloop.counter}}" onclick="register_member(id,'member');">Register</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+                {% if user_profile_obj %}
+                    {% for user_profile_data in user_profile_obj %}
+                    <tr>
+                        <td>
+                            <span>
+                                <input type="checkbox" class="email_check_box hide" name="email_list" id="advisor{{forloop.counter}}" value="{{ user_profile_data.first_name }},{{ user_profile_data.email }}"/>
+                                {{ user_profile_data.email }}
+                            </span>
+                        </td>
+                        <td>
+                            <button type="button" name="button" class="btn upwrdz-button webinar-reg-btn" id="{{forloop.counter}}" onclick="register_member(id,'advisor');">Register</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+                {% if registered_webinar_members %}
+                    {% for mem in registered_webinar_members %}
+                    <tr>
+                        <td>
+                            <span>
+                                {{ mem.email }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="label label-success">Registered</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    <div class="col-md-12">
+        <p>No one found.</p>
+    </div>
+{% endif %}

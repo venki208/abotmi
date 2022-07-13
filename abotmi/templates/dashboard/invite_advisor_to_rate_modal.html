@@ -1,0 +1,355 @@
+{% load staticfiles %}
+<style type="text/css">
+    .rate_button {
+        margin:10px 10px 10px 0px;
+    }
+    .invite_list{
+        padding: 0px;
+        margin: 0%;
+    }
+    .intl-tel-input{
+        width: 100%;
+    }
+    .additional_btn{
+        margin-top: 25px;
+        display: inline-block;
+        margin-left: 15px;
+        background-color: #2e3192;
+        color: #FFF !important;
+    }
+    .upwrdz-log-panel .pannel-popup-content{
+        margin: 15px;
+    }
+    .upwrdz-log-panel .close{
+        position:absolute;
+        top:15px;
+        right:15px;
+        font-weight:600;
+        background:transparent;
+    }
+    .upwrdz-log-panel h3{
+        font-size: 25px;
+        font-weight: 600;
+    }
+    @media(max-width:991px){
+    .modal-dialog{
+        max-width: 95%;
+    }
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+<div class="modal fade upwardz-modal bs-example-modal-lg" id="invite-rate-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content upwrdz-log-panel panel-default">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">x</span>
+            </button>
+            <h3 class="modal-title n-span-blue-color text-center pt-4 pb-4" id='title_span'></h3>
+            <div class="pannel-popup-content pl-4 pr-4" id="invite-rate-modal-body">
+                <div id="maindiv">
+                    <div class="row" id="invite_list">
+                        <div id='list1'>
+                            <form role="form" id="invite_advisor_to_rate_form1" class="invite-advisor-to-rate-form  pt-2">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group custome-col upwrdz-padding-lr">
+                                        <label>Name</label>
+                                        <div class="control">
+                                            <input class="form-control no-spin" id="inv_name1" name="inv_name1" type="text" onchange="clear_error_message('1');add_to_json();">
+                                        </div>
+                                        <div class="help-block" id='errorinv_name1'></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group custome-col upwrdz-padding-lr">
+                                        <label>Email ID</label>
+                                        <div class="control">
+                                            <input class="form-control" id="inv_email1" name="inv_email1" type="text" onchange="validateEmail_id('inv_email1');add_to_json();">
+                                            <span class="help-block" id="help-text-emailid"></span>
+                                        </div>
+                                        <div class="help-block" id='errorinv_email1'></div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group custome-col upwrdz-padding-lr">
+                                        <label>Mobile Number</label>
+                                        <div class="control">
+                                            <input class="form-control inv_mobile" id="inv_mobile1" name="inv_mobile1" type='tel' onchange="validateMobileno(id);add_to_json();">
+                                        </div>
+                                        <div class="help-block" id='errorinv_mobile1'></div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                        <a class="add_field btn additional_btn mt-0" id="add_field" onclick="addloop();">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                                <input id="user_type1" name="user_type1" type="hidden" value="advisor">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="hidden_values" id="hidden_values" value="">
+                <div class='col-lg-12 col-md-12 col-xs-12 rate_button text-center'>
+                    <button type="button" name="invite_button" id="invite_button" onclick="invite_advisor_to_rate();" class="btn upwrdz-button" autocomplete="off">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+<script type="text/javascript">
+    function init_tele_input(){
+        $(".inv_mobile").intlTelInput({
+            nationalMode: false,
+            initialCountry: user_agent_country,
+            separateDialCode: true,
+            autoPlaceholder: "off",
+            nationalMode: false,
+            separateDialCode: true,
+        });
+    }
+    init_tele_input();
+
+    function validateMobileno(id){
+        var isValidNumber = $("#"+id).intlTelInput("isValidNumber");
+        if(isValidNumber == false){
+            document.getElementById(id).value = "";
+            $(".inv_mobile").focus();
+            document.getElementById('error'+id).innerHTML = "Please enter a valid phone number";
+        }else{
+            document.getElementById('error'+id).innerHTML = "";
+            $("#"+id).css('border', '1px solid #ced4da');
+        }
+    }
+
+    var allids = [];
+    allids.push(1);
+    var k=1;
+    function addloop(){
+        var validation_result= validate_data();
+        if(validation_result == true){
+            k=k+1;
+            allids.push(k);
+            $('#invite_list').append("<div id='list"+k+"'><form class='form-horizontal' role='form' id='invite_advisor_to_rate_form"+k+"'><div class='col-md-12'><div class='row'><div class='col-lg-4 col-md-4 col-xs-12 custome-col upwrdz-padding-lr'><label>Name</label><div class='control'><input class='form-control' id='inv_name"+k+"' name='inv_name"+k+"' placeholder='' type='text' onchange='clear_error_message("+k+");add_to_json();'></div> <div class='help-block' id='errorinv_name"+k+"'></div></div><div class='col-lg-4 col-md-4 col-xs-12 custome-col upwrdz-padding-lr'><label>Email ID</label><div class='control'><input class='form-control' id='inv_email"+k+"' name='inv_email"+k+"' placeholder='' type='text' onchange='validateEmail_id(id);add_to_json();'><span class='help-block' id='help-text-emailid"+k+"'></span></div><div class='help-block' id='errorinv_email"+k+"'></div></div><div class='col-lg-4 col-md-4 col-xs-12 custome-col upwrdz-padding-lr'><label>Mobile Number</label><div class='control'><input class='form-control inv_mobile' id='inv_mobile"+k+"' name='inv_mobile"+k+"' placeholder='' type='tel' onchange='validateMobileno(id);add_to_json();'></div><div class='help-block' id='errorinv_mobile"+k+"'></div></div><input id='user_type"+k+"' name='inv_user_type"+k+"' type='hidden' value = 'advisor'><div class='col-md-12 col-sm-12 col-xs-12 text-right'><a class='remove_field btn additional_btn' id = 'remove_field"+k+"' onclick='remove_list("+k+");'><i class='fa fa-minus-circle'></i></a></div></div></div></form></div>");
+            init_tele_input();
+        }
+    }
+
+    function add_to_json(){
+        var $inputs = $('#maindiv :input');
+        var json_str = [];
+        var i=0;
+        var user_type = "{{user_type}}";
+        var second_id = 0;
+        $inputs.each(function (index){
+            var ids = {};
+            var input_ids;
+            ids[$(this).attr('name')] = $(this).attr('id');
+            input_ids = $(this).attr('id');
+            var values= $("#"+input_ids).val();
+
+            if(i == 0 || (i%4 == 0) ){
+                if (values == ''){
+                    $("#"+input_ids).focus();
+                    return false;
+                }else{
+                    json_str[i] = '"name"'+":"+'"'+values+'"'+",";
+                }
+            }
+            if(i == 1 || (i%4 == 1)){
+                if (values == ''){
+                    $("#"+input_ids).focus();
+                    return false;
+                }else{
+                    json_str[i] = '"email"'+":"+'"'+values+'"'+",";
+                }
+            }
+            if(i == 2 || (i%4 == 2)){
+                if (values == ''){
+                    $("#"+input_ids).focus();
+                    return false;
+                }else{
+                    json_str[i] = '"mobile"'+":"+'"'+values+'"'+",";
+                }
+            }
+            if(i == 3 || (i%4 == 3)){
+                if (values == ''){
+                    $("#"+input_ids).focus();
+                    return false;
+                }else{
+                    json_str[i] = '"user_type"'+":"+'"'+user_type+'"';
+                }
+            }
+            i++;
+        });
+        var json_index = 0;
+        var json_labels = [];
+        var output = '{';
+        for (var i = 0; i < json_str.length; i++) {
+            var output = output +json_str[i];
+            if((i+1)%4 == 0 && i != 0){
+                var output = output+'}';
+                json_labels[json_index] = output;
+                json_index ++;
+                var output = '{';
+            }
+        }
+        document.getElementById('hidden_values').value = json_labels;
+    }
+    function remove_list(id){
+        if(k>1){
+            $('#list'+id).remove();
+            var i = allids.indexOf(id);
+            if(i != -1) {
+                allids.splice(i, 1);
+            }
+        }
+    }
+    function check_email_for_rating(emailfield){
+        var missed = 0;
+        var loginemail="{{user_profile.email}}";
+        var user_type = "{{user_type}}";
+        email_id = document.getElementById(emailfield).value;
+        var token = "{{ csrf_token }}";
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        var email = document.getElementById(emailfield);
+        if(!re.test(email.value)) {
+            document.getElementById(emailfield).value = "";
+            email.focus;
+            document.getElementById('error'+emailfield).innerHTML = "Enter a valid email address.";
+            return false;
+        }else{
+            if(loginemail==email_id){
+                document.getElementById(emailfield).innerHTML = "";
+                document.getElementById('error'+emailfield).innerHTML = "You cannot invite yourself";
+                email_id.focus;
+                return false;
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: "/dashboard/valid_email_for_rating/",
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    data:{'email_id': email_id,'user_type':user_type},
+                    success: function(response) {
+                        if(response=='success'){
+                            document.getElementById('error'+emailfield).innerHTML = "";
+                        }
+                        else if(user_type == 'advisor'){
+                            document.getElementById(emailfield).innerHTML = "";
+                            document.getElementById('error'+emailfield).innerHTML = "Email Already Exist.";
+                            email_id.focus;
+                            return false;
+                        }
+                        else{
+                            document.getElementById(emailfield).innerHTML = "";
+                            document.getElementById('error'+emailfield).innerHTML = "You can't invite advisor to rank";
+                            document.getElementById(emailfield).value = "";
+                            email_id.focus;
+                            return false;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    function clear_error_message(count){
+        var name=$('#inv_name'+count).val();
+        if(name == ''){
+            document.getElementById('inv_name'+count).style.border='1px solid #C32F2F';
+            document.getElementById('errorinv_name'+count).innerHTML='Please Enter Name';
+        }else{
+            document.getElementById('inv_name'+count).style.border='';
+            document.getElementById('errorinv_name'+count).innerHTML='';
+        }
+    }
+
+    function validateEmail_id(id) {
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        var email = document.getElementById(id);
+        var email1='{{user.username}}';
+        if(!re.test(email.value)) {
+            document.getElementById(id).value = "";
+        }
+        else if(email1 == email.value){
+            $("#"+ id).parent().find(".help-block").html("You can not add Yourself");
+            $("#"+ id).val('');
+        }
+
+        else{
+            $("#"+ id).parent().find(".help-block").html("");
+            $("#"+ id).parent().find(".form-control").css('border', '1px solid #ced4da');
+            $("#"+ id).parent().parent().find(".help-block").html(''); 
+        }
+    }
+
+    function validate_data(){
+        var missed_filed = 0;
+        for(var j=0; j<allids.length;j++){
+            var i=allids[j];
+            var name=$('#inv_name'+i).val();
+            var email=$('#inv_email'+i).val();
+            var phone =$('#inv_mobile'+i).val();
+            var isValidNumber = $('#inv_mobile'+i).intlTelInput("isValidNumber");
+            if(isValidNumber== false){
+                document.getElementById('inv_mobile'+i).style.border='1px solid #C32F2F';
+                document.getElementById('errorinv_mobile'+i).innerHTML='Please Enter Mobile Number';
+                $("#inv_mobile"+i).focus();
+                missed_filed ++;
+            }else{
+                document.getElementById('inv_mobile'+i).style.border='';
+                document.getElementById('errorinv_mobile'+i).innerHTML='';
+            }
+            if(email == ''){
+                document.getElementById('inv_email'+i).style.border='1px solid #C32F2F';
+                document.getElementById('errorinv_email'+i).innerHTML='Please Enter Email ID';
+                $("#inv_email"+i).focus();
+                missed_filed ++;
+            }else{
+                var status =document.getElementById('errorinv_email'+i).innerText;
+                if(status=='Email Already Exist.'){
+                    $("#inv_email"+i).focus();
+                    missed_filed ++;
+                }else if(status=='You cannot invite yourself'){
+                    $("#inv_email"+i).focus();
+                    missed_filed ++;
+                }else if(status=='Enter a valid email address.'){
+                    $("#inv_email"+i).focus();
+                    missed_filed ++;
+                }else{
+                    document.getElementById('inv_email'+i).style.border='';
+                    document.getElementById('errorinv_email'+i).innerHTML='';
+                }
+            }
+            if(name == ''){
+                document.getElementById('inv_name'+i).style.border='1px solid #C32F2F';
+                document.getElementById('errorinv_name'+i).innerHTML='Please Enter Name';
+                $("#inv_name"+i).focus();
+                missed_filed ++;
+            }else{
+                document.getElementById('inv_name'+i).style.border='';
+                document.getElementById('errorinv_name'+i).innerHTML='';
+            }
+            for(var k = 0; k < allids.length; k++){
+                if (allids[j]!=allids[k] && $('#inv_email'+allids[j]).val() == $('#inv_email'+allids[k]).val()){
+                    document.getElementById('inv_email'+allids[k]).style.border='1px solid #C32F2F';
+                    document.getElementById('errorinv_email'+allids[k]).innerHTML = "Duplicate email entry";
+                    document.getElementById('inv_email'+allids[j]).style.border='1px solid #C32F2F';
+                    document.getElementById('errorinv_email'+allids[j]).innerHTML = "Duplicate email entry";
+                    missed_filed ++;
+                }
+            }
+        }
+        if(missed_filed<1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>

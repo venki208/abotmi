@@ -1,0 +1,85 @@
+<ion-view>
+   <ion-side-menus>
+     <ion-side-menu-content>
+       <ion-content class="m-upwrdz-form-content">
+         <div class="editpage-title-bar">
+           <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ui-sref="app.editprofileanswer">
+           <p class="skip-fwd"  ui-sref="app.myhub">SKIP >></p>
+           <div class="">
+               <p class="form-step-text">Step 5 - Digital Foot Prints (optional)</p>
+           </div>
+         </div>
+         <form name="registration_form5" class="registration-steps-logincenterdiv" novalidate ng-submit="foot.save_digital_link();">
+           <div class="row">
+             <div class="col">
+               <label class="item item-input item-floating-label pinkbottomborder">
+                 <input ng-model="foot.link_url" placeholder="Link URL" ng-required="true" name="link_url" type="text" ng-touched ng-pattern="/^(https?:\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/"/>
+               </label>
+               <span class="validationerrors" ng-if="registration_form5.link_url.$error.required && registration_form5.link_url.$touched">*URL link is required</span>
+               <span class="validationerrors" ng-if="registration_form5.link_url.$error.pattern">*Enter valid URL link</span>
+             </div>
+           </div>
+           <div class="row">
+             <div class="col">
+               <button type="submit" class="m-upwrdz-full-btn" ng-disabled="registration_form5.link_url.$invalid">
+                 SUBMIT
+               </button>
+             </div>
+           </div>
+          </form>
+              <div class="row" ng-repeat="res in foot.results">
+                <div class="col">
+                  <p> {{res}} </p>
+                </div>
+                <div class="col">
+                  <button class="form-btn" ng-click="foot.delete_digital_link(res)">delete</button>
+                </div>
+              </div>
+            <h4><center>Microlearning</center></h4>
+            <div class="row">
+              <div class="col text-center">
+                <button class="m-upwrdz-full-btn" ng-click="foot.upload_show()">
+                  UPLOAD VIDEO
+                </button>
+              </div>
+            </div>
+          <div ng-if="foot.show_upload">
+          <div class="editpage-title-bar">
+          </div>
+          <form name="videopublishform" novalidate ng-submit="videopublishform.$valid && foot.advisor_video_publish();">
+            <div class="list list-inset first-inset black-border">
+              <label class="item item-input ">
+                <input type="text" placeholder="Title" ng-model="foot.video_title" name="video_title" ng-touched required/>
+              </label>
+              <h5 class="validationerrors" ng-if="videopublishform.video_title.$error.required && videopublishform.video_title.$touched"> Title is required</h5>
+            </div>
+
+            <div class="list list-inset first-inset black-border">
+              <label class="item item-input ">
+                <input type="text" placeholder="Description" ng-model="foot.video_description" name="video_description" ng-touched required/>
+              </label>
+              <h5 class="validationerrors" ng-if="videopublishform.video_description.$error.required && videopublishform.video_description.$touched"> Description is required</h5>
+            </div>
+
+            <div class="list list-inset first-inset black-border">
+              <label class="item item-input ">
+                <input type="text" placeholder="Published Youtube URL" ng-model="foot.video_link" name="video_link" ng-change="foot.youtube_url_validate(foot.video_link)" ng-touched required/>
+              </label>
+              <h5 class="validationerrors" ng-if="videopublishform.video_link.$error.required && videopublishform.video_link.$touched"> URL is required</h5>
+            </div>
+            <br/>
+            <div class="row end-button">
+              <div class="col col-50">
+                <button class="m-upwrdz-full-btn" id="submit_videopublish" ng-disabled="videopublishform.$invalid || foot.validate_url">Submit</button>
+              </div>
+              <div class="col col-50">
+                <button class="m-upwrdz-full-btn" ng-click="foot.upload_hide()">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+       </ion-side-menus>
+    </ion-side-menu-content>
+  </ion-content>
+</ion-view>

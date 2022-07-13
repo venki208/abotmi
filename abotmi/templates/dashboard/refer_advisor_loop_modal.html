@@ -1,0 +1,93 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#refer-advisor-modal-label').html('');
+    $('#refer-advisor-modal-label').html('{{ MODAL_NAME }}');
+    });
+</script>
+<style>
+    input[type="radio"] {
+        opacity: 1;
+    }
+    .registered-finacial{
+        padding-bottom: 10px;
+    }
+    .registered-finacial input[type="radio"]{
+        float: left;
+        position: relative;
+    }
+    .registered-finacial label{
+        padding: 5px 10px !important;
+    }
+</style>
+<div class="panel-body pannel-popup-content" id="refer-advisor-modal-body">
+    <form id="refer_advisor_loop_form" method="POST">
+        {%csrf_token%}
+
+        <div class="row">
+        {% for field in invite_advisor_form.visible_fields %}
+            {% if forloop.counter < 5 %}
+            <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                <label>{{field.label}}</label>
+                <div class="control">
+                    {{field}}
+                </div>
+                <div style="color:#BF6730">{{field.errors}}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+        <div class="additional_info row" style="display:none;">
+            {% for field in invite_advisor_form.visible_fields %}
+                {% if forloop.counter > 4 %}
+                    {% if field.label != 'Registered financial advisor' %}
+                    <div class="form-group col-lg-6 col-md-6 col-xs-12">
+                        <label>{{field.label}}</label>
+                        <div class="control">
+                            {{field}}
+                        </div>
+                        <div style="color:#BF6730">{{field.errors}}</div>
+                    </div>
+                    {% else %}
+                    <div class="form-group col-lg-6 col-md-6 col-xs-12 registered-finacial">
+                        <label>Registered financial advisor</label>
+                        <div class="control">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <input class="form-control" id="id_registered_financial_advisor_0" name="registered_financial_advisor" value="1" type="radio"/>
+                            <label for="id_registered_financial_advisor_0">Yes</label>
+                            </div>
+
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <input class="form-control" id="id_registered_financial_advisor_1" name="registered_financial_advisor" value="0" type="radio"/>
+                            <label for="id_registered_financial_advisor_1">No</label></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="row">          
+            <div class="form-group col-lg-12 col-md-12 col-xs-12 loop_tandc">
+                <button type="button" name="button" class="btn btn-primary popup-btn" onClick="showhidediv();"> Additional Information</button>
+                <button type="button" name="button" class="btn btn-primary popup-btn" onClick="save_refer_advisor_loop()"> Submit</button>
+                <a href="/advisor_loop_termsandconditions/" target="_blank" class="pull-right">Terms and Conditions </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        if ($('#id_products_serviced').val() || $('#id_sebi_reg_no').val() || $('#id_amfi_reg_no').val() || $('#id_irda_reg_no').val() || $('#id_crisil_verified_no').val() || $('#id_know_duration').val() || $('#id_believe_become_advisor').val()){
+            $('.additional_info').show();
+        }
+    });
+
+    function showhidediv(){
+        $('.additional_info').toggle();
+    }
+
+</script>

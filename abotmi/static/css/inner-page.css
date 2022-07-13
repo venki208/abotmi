@@ -1,0 +1,369 @@
+.subpage-reia-second{
+    padding: 40px 0px;
+    background-color: #f7f7f7;
+}
+.subpage-reia-primary{
+    padding: 40px 0px;
+}
+.subpage-reia-primary ul li{
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    line-height: 28px;
+    color:#000;
+}
+.subpage-reia-primary-chola ul li{
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    line-height: 28px;
+    color:#FFF;
+}
+.why-main-section-heading{
+    font-size: 36px !important;
+    font-weight: 300;
+    color: #000;
+    margin-top:0px;
+}
+.why-section-heading {
+    padding: 0px 0px 0px;
+    font-size: 24px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    color: #e40b7d;
+    font-weight: 300;
+    margin-top: 15px;
+}
+/* Edit Css*/
+.to-know-more h2{
+  line-height:64px;
+  }
+.to-know-more .rigistraor_now{
+    float: left;
+}
+/*----------------------------------------REIA STREAMaboutSTREAM--------------------------------------------------*/
+.reiastream-primary{
+    padding: 40px 0px !important;
+}
+.reia-stream-level p{
+    line-height: 20px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+.reia-stream-taglines{
+    padding: 10px 0px;
+     line-height: 30px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 24px;
+    color: #FFF;
+    font-weight: 300 !important;
+}
+/*----------------------------------------reia Help page css--------------------------------------------------*/
+.reia-help-primary{
+    padding: 50px 0px !important;
+}
+.reia-help-primary p{
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px
+    margin-bottom: 0px;
+}
+.reia-help-primary span{
+    color: #e40b7d;
+}
+.reia-help-content{
+    padding: 10px 0px;
+    font-size: 14px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    color: #000;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.reia-help-primary .main-slide-page img {
+    margin: auto;
+}
+.reiastream-primary .need-color-p{
+    color: #0f8665;
+}
+.why-do-reia-p{
+    line-height: 30px !important;
+}
+/*------------------------terms-ol css------------------------------------------------*/
+.terms-orderlist ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+
+}
+.terms-orderlist ol > li {
+  display: table;
+  counter-increment: item;
+}
+.terms-orderlist ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;
+}
+.terms-orderlist li ol > li {
+  margin:0 !important;
+}
+.terms-orderlist li ol > li:before {
+  content: counters(item, ".") " ";
+}
+/* Css for Privacy and policy page*/
+.privacy-section{
+    padding: 30px 0px;
+}
+.privacy-section p{
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px ;
+    text-align: justify;
+}
+
+.privacy-section ul li{
+   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 14px ;
+   padding: 5px 0px;
+}
+
+/*----------------------------------------------------------WHY TO BE REIA -----------------------------------------*/
+.why-reia-content{
+    padding: 10px 0px;
+    font-size: 14px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    color: #000;
+    line-height: 24px;
+    margin-bottom: 0px;
+}
+.why-reia-imgtaglines{
+    font-size: 18px;
+    color: #0f8665;
+     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    margin-bottom: 0px;
+    padding: 20px 0px 0px;
+}
+/*----------------------------------------REIA STREAMaboutSTREAM--------------------------------------------------*/
+.subpage-reia-primary .stream-li-bese{
+  list-style:none;
+  padding-left:0px;
+}
+.subpage-reia-primary .stream-li-bese li{
+  float:left;
+  width:25%;
+  display: inline-block;
+  line-height: 40px;
+}
+.subpage-reia-primary .stream-li-bese li span{
+    padding: 15px;
+}
+
+/*------------------------ol-ol css------------------------------------------------*/
+.main-slide-page {
+  padding-bottom: 50px;
+  padding-top: 50px;
+  margin-bottom:0px;
+}
+.main-slide-page img{
+  margin:auto;
+}
+.ourvalue-time p{
+   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+   font-size:14px;
+   line-height: 25px;
+   margin-bottom: 15px;
+}
+.ourpromises{
+  background:#0f8665;
+}
+.global-realeasted img{
+  margin:auto;
+}
+.global-realeasted{
+  padding-top:50px;
+  padding-bottom:0px;
+}
+.building-eco-system{
+  padding-top:0px;
+  padding-bottom:30px;
+}
+.reia-certification{
+  padding-bottom:0px;
+  margin:0px;
+}
+.reia-certification img{
+  margin:auto;
+}
+.every-certificate p{
+  padding-bottom:10px;
+  padding-top:10px
+}
+.invite-more-friends ul{
+  list-style: none;
+  margin:auto;
+  width:300px;
+  }
+.invite-customar ul{
+  list-style: none;
+  margin:auto;
+  width:380px;
+  }
+.invite-verfication ul{
+  list-style-image:url(../images/CrisilVerification.png);
+  margin:auto;
+  width:380px;
+  }
+.invite-more-friends ul li a, .invite-customar ul li a, .invite-verfication ul li a{
+    position: relative;
+    top: -8px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 300;
+    font-size: 20px;
+  }
+.invite-more-friends ul li, .invite-customar ul li, .invite-verfication ul li{
+  margin:auto;
+  text-align:center;
+  }
+.why-reia-content a {
+word-wrap: break-word;
+}
+.error_message{
+    min-height: 23px;
+}
+.reia-certification-img img{
+    margin: auto;
+}
+.reia_contact_form input[type="text"], .reia_contact_form input[type="password"], .reia_contact_form input[type="email"], .reia_contact_form textarea{
+    border-radius: 0px;
+}
+.row .jj p {
+    text-align: justify;
+}
+.loop {color:#e40b7d;}
+
+.social-media-icons-links label {
+    position: absolute;
+    top: -2px;
+}
+.social-media-icons-links label i{
+    font-size: 34px;
+    border-radius: 60px;
+}
+.social-media-icons-links{
+    margin-bottom: 10px;
+}
+.social-media-icons-links .form-control{
+  padding-left: 40px;
+}
+.timeline {
+  list-style: none;
+  padding: 20px 0 20px;
+  position: relative;
+}
+.timeline:before {
+  top: 50px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 2px;
+  background-color: #eeeeee;
+  left: 50%;
+  margin-left: -0.5px;
+  height: 90%;
+}
+.timeline > li {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline > li:before,
+.timeline > li:after {
+  content: " ";
+  display: table;
+}
+.timeline > li:after {
+  clear: both;
+}
+.timeline > li > .timeline-panel {
+  width: 45%;
+  float: left;
+  padding: 20px;
+  position: relative;
+}
+.timeline > li > .timeline-panel-one {
+  width: 45%;
+  float: right;
+}
+.timeline-heading h4{
+  font-size: 14px;
+  font-weight: bold;
+}
+.timeline > li > .timeline-badge {
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.4em;
+  text-align: center;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  margin-left: -36px;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline > li.timeline-inverted > .timeline-panel {
+  float: right;
+}
+.timeline > li.timeline-inverted > .timeline-panel:before {
+  border-left-width: 0;
+  border-right-width: 15px;
+  left: -15px;
+  right: auto;
+}
+.timeline > li.timeline-inverted > .timeline-panel:after {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-badge.primary {
+  background-color: #2e6da4 !important;
+}
+.timeline-badge.success {
+  background-color: #3f903f !important;
+}
+.timeline-badge.warning {
+  background-color: #f0ad4e !important;
+}
+.timeline-badge.danger {
+  background-color: #d9534f !important;
+}
+.timeline-badge.info {
+  background-color: #5bc0de !important;
+}
+.timeline-title {
+  margin-top: 0;
+  color: inherit;
+}
+.timeline-body > p,
+.timeline-body > ul {
+  margin-bottom: 0;
+}
+.timeline-body > p + p {
+  margin-top: 5px;
+}
+.timeline-panel-one .timeline-body img{
+  margin: auto;
+  padding: 20px;
+}
+.timeline-panel-two{
+  float: left !important;
+}
+.timeline-badge img {
+    background-color: #FFF;
+    padding-top: 5px;
+}
+.panel-social a{
+  padding: 5px;
+  margin: 0px 2px;
+  color: #fff;
+}

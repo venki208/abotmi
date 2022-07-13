@@ -1,0 +1,63 @@
+        <ion-view>
+            <ion-nav-bar class="bar">
+              <ion-nav-buttons side="left">
+                  <button class="button button-icon icon ion-navicon-round light" ng-click="toggleDrawer();"></button>
+              </ion-nav-buttons>
+              <ion-nav-title>
+                 <h4 class="modaltitle whitefont">Webinar</h4>
+              </ion-nav-title>
+            </ion-nav-bar>
+            <ion-content overflow-scroll="true" ng-init="webinar.details=''">
+              <form name="webinarform" class="list card formcard" novalidate ng-submit="webinar.submit()">
+                 <div class="list list-inset first-inset black-border">
+                   <label class="item item-input">
+                     <input type="text" placeholder="Room Name"  maxlength="50" ng-model="webinar.details.name" ng-required="true" name="name" ng-touched/>
+                   </label>
+                 </div>
+                 <h7 class="validationerrors" ng-show="webinarform.name.$error.required && webinarform.name.$touched"> Name is required</h7>
+                 <div class="list list-inset first-inset black-border">
+                   <label class="item item-input">
+                     <textarea  cols="40"  name="lobby_description"  ng-model="webinar.details.lobby_description" placeholder="Lobby Description" rows="10" ng-required="true"  ng-touched></textarea>
+                     
+                   </label>
+                 </div>
+                 <h7 class="validationerrors" ng-show="webinarform.lobby_description.$error.required && webinarform.lobby_description.$touched"> lobby_description is required</h7>
+                 <div class="list list-inset first-inset black-border"  >
+                     <label class="item item-input">
+                         <input type="text" placeholder="Schedule Date &amp; Time" ion-datetime-picker maxlength="50" ng-model="webinar.details.datetimeValue" ng-required="true"  value="{{webinar.details.datetimeValue| date: 'yyyy-MM-dd H:mm:ss'}}"   name="datetimeValue" ng-touched
+          />
+                    </label>
+                 </div>
+                 
+                 <h7 class="validationerrors" ng-show="webinarform.datetimeValue.$error.required && webinarform.datetimeValue.$touched"> Schedule time is required is required</h7>
+                 
+                 <div class="list list-inset first-inset black-border">
+                     <label class="item item-input">
+                         <input type="text" placeholder="Duration in Minutes"  maxlength="50" ng-model="webinar.details.duration" ng-required="true" name="duration" ng-touched
+                         />
+                     </label>
+                 </div>
+                 
+                 <h7 class="validationerrors" ng-show="webinarform.duration.$error.required && webinarform.duration.$touched"> duration is required</h7>
+                 <div class="list list-inset first-inset black-border">
+                   <label class="item item-input">
+                        <div class="col-33 ">
+                       Greatex project:     <select  id="id_uplyf_project" name="uplyf_project"  ng-options="opt as opt.project_name+ ' - '  + opt.project_id for opt in webinar.details"    ng-model="webinar.details.uplyf_project" ng-required="true" ng-touched >
+                           <option   value="" >Select</option>
+                       </select>
+                       </div>
+                   </label>
+
+                   
+                   
+                     
+
+                 </div>
+                 <div ng-if ="webinarform.uplyf_project.$touched">
+             </div>
+                 <div class="list-inset">
+                     <button>Submit</button>     <button>Cancel</button>
+                 </div>
+           </form>
+         </ion-content>
+        </ion-view>

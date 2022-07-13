@@ -1,0 +1,57 @@
+<ion-view>
+	<ion-side-menus> 
+        <ion-side-menu-content>
+        	<ion-view>
+				<ion-content>
+					<upwrdz-Tabs></upwrdz-Tabs>
+					<div class="my-identity" overflow-scroll="true">
+						<div class="item item-body nopadding">
+							<div class="clientmgmt animated bounceInLeft">
+								<div class="panel panel-default">
+									<div class="panel-body pannel-content">
+										<div class="row">
+											<div class="col-10 mypageimg">
+												<img src="../images/Client_Mangment.png"/>
+											</div>
+											<div class="col">
+												<span class="cardheadingfont white-font">Client Management</span>
+											</div>
+											<div class="col">
+												<div class="text-right bluefont cardnumberfont white-font">
+													<span>000</span>{{ track.user_details.total_clients_added || 0}}
+												</div>
+												<div class="text-right cardtextfont white-font">Total Clients</div>
+											</div>
+										</div>
+										<div class="row" >
+											<div class="col-33"  style="margin-left:5px;">
+												<div class="text-right bluefont cardnumberfont"><span>000</span>{{ track.user_details.total_clients_registered || 0}}</div>
+												<div class="text-right cardtextfont white-font">Registered</div>
+											</div>
+											<div class="col-33">
+												<div class="text-right bluefont cardnumberfont"><span>000</span>{{ track.user_details.total_clients_added - track.user_details.total_clients_registered || 0}}</div>
+												<div class="text-right cardtextfont white-font">Un-Registered </div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-33"></div>
+											<div class="col-33 ">
+												<select ng-model="track.manageselected" ng-options="opt for opt in track.manageoptions" ng-change="track.manageclients()">
+													<option value="">Manage</option>
+												</select>
+											</div>
+											<div class="col-33 ">
+												<button class="button pinkfont white-font cardtextfont pull-right" ng-click="track.viewClientDetails();">View Clients
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ion-content>
+          	</ion-view>
+        </ion-side-menu-content>
+      </ion-side-menus>
+</ion-view>

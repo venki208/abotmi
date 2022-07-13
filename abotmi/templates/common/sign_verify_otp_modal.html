@@ -1,0 +1,62 @@
+{% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+<div class="modal" tabindex="-1" role="dialog" id="signup_otp_model">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body otp-modal-body">
+                <h2 class="text-center">One Time Password <br /> (OTP)</h2>
+                <div id="otp_verified_message_body">
+                    <div class="row" id="mobile_otp_block_div">
+                        <div class="col-md-12 eipv-verify-otp" id="otp_block">
+                            <label class="control-label">Verify Mobile Number<span>*</span></label>
+                                <div class="input-group">
+                                    <input type="text" name="otp" placeholder="Enter Mobile OTP " id="mobile_otp_id" class="form-control" value="" autocomplete="off" required="true">
+                                    <div class="input-group-addon" id="mobile_otp_verify_btn_div">
+                                        <button type="button" name="verify_mobile_otp" class="btn upwrdz-button resend-otp-button upwrdz-button-verify" id="submit_otp_mobile_id" 
+                                        onclick="verify_mobile_otp();" disabled>Verify OTP</button>
+                                        <a name="resend_mobile_otp" class="upwrdz-button-otpr" onclick="resend_otp_mobie_email('mobile')" id="mobile_otp_resend_id">Resend OTP</a>
+                                    </div>
+                                    <div id="mobile_otp_verified_div" class="hide verify-otp input-group-addon">
+                                        <img src="/static/new_images/otp_verified.png" class="img-responsive">
+                                    </div>
+                                </div>
+                                <span class="help-block" id="help_text_mobile_otp_id"></span>
+                        </div>
+                        <div class="alert alert-success" role="alert" id="mobile_otp_success_text_msg" style="display:none;">
+                            <strong>Success!</strong> An OTP has been sent.
+                        </div>
+                    </div>
+                    <div class="row" id="email_otp_block" style="margin-bottom:30px;">
+                        <div class="col-md-12 eipv-verify-otp" id="otp_block">
+                            <div class="" id="email_otp-div">
+                                <label class="control-label">Please check your email and enter the code here<span>*</span></label>
+                                <div class="input-group">
+                                    <div class="col-12 col-md-8 p-0 ">
+                                        <input type="text" placeholder="Enter Email OTP" name="otp" id="email_otp_id" class="form-control" value="" autocomplete="off" required="true" >
+                                    </div>
+                                    <div class="col-12 col-md-4 input-group-addon" id="email_otp_verify_btn_div text-left">
+                                        <a  name="resend_email_otp" class="upwrdz-button-otpr" id="email_otp_resend_id" onclick="resend_otp_mobie_email('email')">Resend&nbsp;OTP</a>
+                                        <div id="email_otp_verified_id" class="hide verify-otp input-group-addon">
+                                            <img src="/static/new_images/otp_verified.png" class="img-responsive">
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="help-block" id="help_text_email_otp_id"></span>
+                            </div>
+                            <div class="alert alert-success" role="alert" id="email_otp_success_text_msg" style="display:none;">
+                                <strong>Success!</strong> An OTP has been sent.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center mt-2 mb-2">
+                            {% comment %} <button type="button" id="back_button" class="btn otp-button" data-dismiss="modal">Back</button> {% endcomment %}
+                            <button type="button" name="verify_email_otp" class="btn otp-button upwrdz-button-verify mx-auto" id="submit_otp_email_id" onclick="verify_email_otp();" disabled>Verify password</button>
+                            <button type="button" class="hide btn otp-button upwrdz-button-verify mx-auto" id="id_submit_investor_otp_button" onclick="submit_otp_signup();" disabled >Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

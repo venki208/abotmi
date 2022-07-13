@@ -1,0 +1,17 @@
+angular.module('reg_user_constants',[])
+
+.constant('PROFILEDETAILSURL','/api/get-profile-details/')
+.constant('COUNTRY','/api/country-details/')
+.constant('USERDETAILS','/api/get-user-profile/')
+.constant('REGISTER','/api/register_user/')
+.constant('USERPROFILE','/api/user-profile-basicdetails-details/')
+.constant('GETDIGITALLINK','/api/get-digital-link')
+.constant('SAVEDIGITALLINK','/api/save-digital-link/')
+.constant('DELETEDIGITALLINK','/api/delete-digital-link/')
+.constant('ADVISORPROFILEANSWER','/api/advisor-profile-answer/')
+.constant('DOMAIN_URL','www.abotmi.com')
+.constant('ISREGURL','/api/is-registerd-user/')
+.constant('CHECKADHAAR','/api/check_adhaar/')
+.constant('SAVEADHAAR','/api/save_adhaar/')
+.constant('EDUCATIONDETAILS','/api/education_detail/')
+.constant('UPEIPV','/api/m-upload-eipv-documents/') 

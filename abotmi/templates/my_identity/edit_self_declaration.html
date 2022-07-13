@@ -1,0 +1,36 @@
+<!--Self declaration Modal HTML Starts-->
+{% load staticfiles %}
+<div class="modal fade" tabindex="-1" role="dialog" id="id_show_self_declaration">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="modal-title n-span-blue-color" id="send_modal-title">Professional Statement</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form class="panel-body">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" rows="4" cols="50" id='id_self_declaration' name="self_declaration_content" placeholder="Write 250 words about yourself" >{{user_profile.self_description|default:''}}</textarea>
+                                <span class="help-block" id="help_self_declaration"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button type="button" name="button" class="btn upwrdz-button my-identity-modal-btn" id="promise_button" onclick="add_self_declaration('id_self_declaration','help_self_declaration');">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Self declaration Modal Ends-->

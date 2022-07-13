@@ -1,0 +1,185 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/my_identity.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/my_growth.css' %}">
+{% endblock %}
+{% block main_content %}
+    <header class="abotmi-myidentity-page">
+        <div class="container d-flex h-100">
+            
+        </div>
+      </header>
+      <section class="background-gradiant-div pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 my-identity-tab-section my-identity-tab-content-section m-auto pl-0 pr-0 mb-1">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">CERTIFICATION</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">MICRO LEARNING</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content pt-4 pb-4" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="row pl-1 pr-1">
+                                <div class="col-12 upwrdz-mygrowth-video-iframe">
+                                    <iframe class="iframe_class" id="wpb_video" height="315" src="https://www.youtube.com/embed/DKhfeAqxP98?enablejsapi=1&rel=0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <div class="col-12 text-center my-growth-descripition pt-4 pb-4">
+                                    <h3>Description</h3>
+                                    <p class="pb-2">The Digital Assets Academy offers 9 types of specialized education programs to become </br>a certified expert in Digital Assets. The programs cover multiple topics regarding Cryptocurrencies, Security Tokens and blockchain technology. The platform facilitates the capability for every individual to share and learn with their peers. The goal is to help provide every individual to expand their knowledge and achieve their personal objectives.</p>
+                                    <a name="" class="mt-xl-2 btn upwrdz-button" onclick="profile_attach();"  title="Coming Soon">
+                                        DISCOVER MORE
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 my-hub-education-section">
+                                    <div class="row mb-sm-3 mb-md-3 mb-lg-3 mb-xl-3">
+                                        <div class="card-deck my-hub-card-div">
+                                            <div class="card card-left text-center">
+                                                <h5>TOP TRENDING</h5>
+                                                <div class="card-body text-center pl-3 pr-3 pb-0">
+                                                    Coming Soon ...
+                                                </div>
+                                                {% comment %} <h4 class="mt-3 mb-0"><a >SEE MORE</a></h4> {% endcomment %}
+                                            </div>
+                                            <div class="card card-right text-center">
+                                                <h5>BLOGS</h5>
+                                                <div class="card-body text-center pl-3 pr-3 pb-0">
+                                                    {% if user.is_authenticated %}
+                                                        {% for icore in token_obj_all|slice:":3" %}
+                                                        <p>
+                                                            <a href="/blog/icore/{{icore.ID}}/post/" class="blog-link">
+                                                                {{icore.title }}
+                                                            </a>
+                                                        </p> 
+                                                        {% endfor %}
+                                                    {% endif %} 
+                                                </div>
+                                                <h4 class="mt-3 mb-0"><a href="/blog/icore/" class="btn upwrdz-button">SEE MORE</a></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                    {% if current_advisor_videos %}
+                                        {% for cav_obj in current_advisor_videos %}
+                                            <div class="col current_advisor_videos_class">
+                                                <h5 class="video-title">{{cav_obj.video_title}}</h5>
+                                                <div class="upwrdz-mygrowth-video-iframe main_iframe_div">
+                                                    <iframe src="{{cav_obj.video_link}}?enablejsapi=1&rel=0" class="iframe_class" frameborder="0" id="advisors_videos_{{cav_obj.id}}" allowfullscreen></iframe>
+                                                    <div class="video-playnext next_btn_class display_none iframe-class-reputation upwrdz-button" onclick="play_next_video(this)" id="play_next_current_{{cav_obj.id}}">
+                                                        <a>PLAY NEXT</a>
+                                                    </div>
+                                                </div>
+                                                <p class="text-white">Posted By: {{cav_obj.user_profile.full_name}}</p>
+                                                <h5 class="descripition-title"> Description</h5>
+                                                <p class="text-white">{{cav_obj.video_description}}</p>
+                                                {% comment %} <a data-toggle="modal" data-target="#micro_learning_video_modal">
+                                                <u>More</u>
+                                                </a> {% endcomment %}
+                                            </div>
+                                            <hr />
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if other_advisors_videos %}
+                                        <h4 class="title-text text-center">Other videos</h4>
+                                        {% for oav_obj in other_advisors_videos %}
+                                            <div class="col other_advisors_videos_class">
+                                                <h5 class="video-title">{{oav_obj.video_title}}</h5>
+                                                <div class='upwrdz-mygrowth-video-iframe main_iframe_div'>
+                                                    <iframe src="{{oav_obj.video_link}}?enablejsapi=1&rel=0" id="advisors_videos_{{oav_obj.id}}" class="iframe_class" frameborder="0"
+                                                    allowfullscreen></iframe>
+                                                    <div class="video-playnext next_btn_class display_none iframe-class-reputation upwrdz-button" onclick="play_next_video(this)" id="play_next_{{oav_obj.id}}">
+                                                        <a> PLAY NEXT </a>
+                                                    </div>
+                                                </div>
+                                                <h5 class="descripition-title">Short Description</h5>
+                                                <p class="text-white">{{oav_obj.video_description}}</p>
+                                                {% comment %} <a data-toggle="modal" data-target="#micro_learning_video_modal">
+                                                <u>More</u>
+                                                </a> {% endcomment %}
+                                            </div>
+                                            <hr />
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <input type="hidden" value="{{ is_current_advisor_videos_present }}" id="current_video_present" />
+                                <input type="hidden" value="{{ is_other_advisors_videos_present }}" id="other_video_present" />
+                                <input type="hidden" value="{{ last_current_advisor_video_id }}" id="last_current_video_id" />
+                                <input type="hidden" value="{{ last_other_video_id }}" id="last_other_video_id" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 my-hub-education-section">
+                                    <div class="row mb-sm-3 mb-md-3 mb-lg-3 mb-xl-3">
+                                        <div class="card-deck my-hub-card-div">
+                                            <div class="card card-left text-center">
+                                                <h5>TOP TRENDING</h5>
+                                                <div class="card-body text-center pl-3 pr-3 pb-0">
+                                                    {% if advisor_videos %}
+                                                        {% for vd in advisor_videos|slice:":3" %}
+                                                            <p><a class="cursor-default">{{vd.user_profile.full_name}} uploaded {{vd.video_title}}</a></p>
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <p>No Videos found.</p>
+                                                    {% endif %}
+                                                </div>
+                                                <h4 class="mt-3 mb-0"><a href="/my_growth/trending_videos/">SEE MORE</a></h4>
+                                            </div>
+                                            <div class="card card-right text-center">
+                                                <h5>BLOGS</h5>
+                                                <div class="card-body text-center pl-3 pr-3 pb-0">
+                                                    {% if user.is_authenticated %}
+                                                        {% for icore in token_obj_all|slice:":3" %}
+                                                        <p>
+                                                            <a href="/blog/icore/{{icore.ID}}/post/" class="blog-link">
+                                                                {{icore.title }}
+                                                            </a>
+                                                        </p> 
+                                                        {% endfor %}
+                                                    {% endif %} 
+                                                </div>
+                                                <h4 class="mt-3 mb-0"><a href="/blog/icore/" class="btn upwrdz-button">SEE MORE</a></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+    <div class="modal fade upwardz-modal" id="micro_learning_video_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Help</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="modal-body" id="">
+                    <p>ABOTMI is a deep tech platform in Fintech space.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script>
+        var total_vid_id = '{{total_video_ids}}';
+    </script>
+    <script src="{% static 'js/new_js/yt-player-min.js' %}" ></script>
+    <script src="{% static 'js/new_js/youtube-player.min.js' %}" ></script>
+    <script src="{% static 'js/new_js/my_growth.js' %}" ></script>
+{% endblock  %}

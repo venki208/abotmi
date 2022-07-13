@@ -1,0 +1,557 @@
+<ion-view>
+	<ion-side-menus>
+		<ion-side-menu-content>
+			<ion-view>
+				<ion-content overflow-scroll="true" class="my-identity">
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								<img src="../images/mobile_images/earning.png"/>
+								Earnings
+							</div>
+
+						</div>
+						<div class="item item-text-wrap">
+							<div class="row item-font">
+								<div class="col right-border">
+									<p class="text-center bluefont item-font"> Advisor Earning</p>
+									<p class="text-center item-font">10,000+</p>
+								</div>
+								<div class="col">
+									<p class="text-center bluefont item-font"> Referral Earning</p>
+									<p class="text-center item-font">10,000+</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								<img src="../images/mobile_images/advisory.png"/>
+								Ratings & Rankings
+							</div>
+						</div>
+						<div class="item item-text-wrap">
+							<div class="row item-font">
+								<div class="col right-border">
+									<div class="ratings">
+										<img src="../images/mobile_images/star.png"/>
+										<p>5</p>
+									</div>
+									<p class="text-center bluefont item-font"> Peer Ratings</p>
+									<div class="row">
+										<div class="col nopadding" ui-sref="app.myhub.requestrate({type:'peer'})">
+											<u class="small-font">Request</u>
+										</div>
+										<div class="col nopadding">
+											<u class="small-font">Rate Peers</u>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+										</div>
+										<div class="col nopadding">
+											<u class="small-font">View</u>
+										</div>
+										<div class="col">
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<div class="ratings">
+										<img src="../images/mobile_images/star.png"/>
+										<p>7</p>
+									</div>
+									<p class="text-center bluefont item-font"> Client Ratings</p>
+									<div class="row">
+										<div class="col nopadding" ui-sref="app.myhub.requestrate({type:'client'})">
+											<u class="small-font">Request</u>
+										</div>
+										<div class="col nopadding">
+											<u class="small-font">Rate Peers</u>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+										</div>
+										<div class="col nopadding">
+											<u class="small-font"  ui-sref="app.myhub.viewclients">View</u>
+										</div>
+										<div class="col">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								<img src="../images/mobile_images/clientmgnt.png"/>
+								Client Management
+							</div>
+						</div>
+						<div class="item-text-wrap">
+							<div class="row item-font">
+								<div class="col col-20 pink-highlight">
+									<p class="text-center large-number">10</p>
+									<p class="text-center xsmall-font">Total Clients</p>
+								</div>
+								<div class="col col-40 right-border">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont item-font">Registered</p>
+								</div>
+								<div class="col col-40">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont item-font">Un-Registered</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-50">
+									<button class="full-button">
+										Go To UPLYF
+									</button>
+								</div>
+								<div class="col col-50">
+									<button class="full-button">
+										Add
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								<img src="../images/mobile_images/enquirymgnt.png"/>
+								Enquiry Management
+							</div>
+						</div>
+						<div class="item-text-wrap">
+							<div class="row item-font">
+								<div class="col col-20 pink-highlight">
+									<p class="text-center large-number">10</p>
+									<p class="text-center xsmall-font">Total Enquiry</p>
+								</div>
+								<div class="col right-border">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont small-font">Accepted</p>
+								</div>
+								<div class="col right-border">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont small-font">Declined</p>
+								</div>
+								<div class="col">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont small-font">In-Progress</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-50">
+									<button class="full-button">
+										Open
+									</button>
+								</div>
+								<div class="col col-50">
+									<button class="full-button">
+										View
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								<img src="../images/mobile_images/advisorloop.png"/>
+								Advisor Loop
+							</div>
+						</div>
+						<div class="item-text-wrap">
+							<div class="row item-font">
+								<div class="col col-20 pink-highlight">
+									<p class="text-center large-number">10</p>
+									<p class="text-center xsmall-font">Total Loop</p>
+								</div>
+								<div class="col right-border">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont small-font">Points</p>
+								</div>
+								<div class="col right-border">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont small-font">Registered</p>
+								</div>
+								<div class="col">
+									<p class="text-center item-font">5</p>
+									<p class="text-center bluefont small-font">Un-Registered</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col col-50">
+									<button class="full-button">
+										Loop
+									</button>
+								</div>
+								<div class="col col-50">
+									<button class="full-button">
+										View
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								NXTMOV
+							</div>
+						</div>
+						<div class="row">
+							<div class="col col-80 bottom-bdr">
+								Courses
+							</div>
+							<div class="col bottom-bdr">
+								Status
+							</div>
+						</div>
+						<div class="item item-text-wrap">
+							<div class="row item-font">
+								<div class="col right-border">
+									<p class="text-center bluefont item-font"> Peer Ratings</p>
+									<p class="text-center item-font">10,000+</p>
+								</div>
+								<div class="col">
+									<p class="text-center bluefont item-font"> Client Ratings</p>
+									<p class="text-center item-font">10,000+</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								CRISIL Verified Advisor (CVA)
+							</div>
+						</div>
+						<div class="item item-text-wrap">
+							<div class="row">
+								<div class="col col-30">
+									<img src="../images/crisil.png"/>
+									<button class="upwrdz-button">Apply Now</button>
+								</div>
+								<div class="col col-60">
+									<div class="bluefont item-font">Make Payment</div>
+									<div class="bluefont item-font">FAQ</div>
+									<div class="bluefont item-font">Terms & Conditions</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list card">
+						<div class="item item-divider item-header large-header-font">
+							<div class="item-header-img bluefont">
+								<img src="../images/mobile_images/invite.png"/>
+								Invite Friends
+							</div>
+						</div>
+						<div class="item item-text-wrap">
+							<div class="row">
+								<div class="col col-50">
+									<button class="invite-friends">
+										<img src="../images/make-up.png"/>
+									</button>
+								</div>
+								<div class="col col-50">
+									<button class="invite-friends pull-right">
+										<img src="../images/webnier.png"/>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ion-content>
+			</ion-view>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>
+<!--<ion-content class="dashboardbg" overflow-scroll="true" ng-cloak>
+<div class="list card">
+  <div class="item item-body nopadding">
+   <div class="clientmgmt animated bounceInLeft">
+     <div class="panel panel-default">
+       <div class="panel-body pannel-content">
+          <div class="row">
+            <div class="col-10 mypageimg">
+              <img src="../images/Client_Mangment.png"/>
+            </div>
+            <div class="col">
+              <span class="cardheadingfont white-font">Client Management</span></h4>
+            </div>
+            <div class="col">
+              <div class="text-right bluefont cardnumberfont white-font"><span>000</span>{{ track.user_details.total_clients_added || 0}}
+              </div>
+              <div class="text-right cardtextfont white-font">Total Clients</div>
+            </div>
+          </div>
+          <div class="row" >
+           <div class="col-33"  style="margin-left:5px;">
+              <div class="text-right bluefont cardnumberfont"><span>000</span>{{ track.user_details.total_clients_registered || 0}}</div>
+              <div class="text-right cardtextfont white-font">Registered</div>
+            </div>
+            <div class="col-33">
+              <div class="text-right bluefont cardnumberfont"><span>000</span>{{ track.user_details.total_clients_added - track.user_details.total_clients_registered || 0}}</div>
+              <div class="text-right cardtextfont white-font">Un-Registered </div>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-33"></div>
+              <div class="col-33 ">
+                <select ng-model="track.manageselected" ng-options="opt for opt in track.manageoptions" ng-change="track.manageclients()">
+                    <option value="">Manage</option>
+                </select>
+              </div>
+              <div class="col-33 ">
+                <button class="button pinkfont white-font cardtextfont pull-right" ng-click="track.viewClientDetails();">View Clients
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list card noscroll" >
+   <div class="item item-body nopadding">
+    <div class="panel panel-default">
+      <div class="panel-body pannel-content animated bounceInRight">
+        <div class="row">
+          <div class="col-10 mypageimg">
+            <img src="../images/Client_Mangment.png"/>
+          </div>
+          <div class="col">
+            <span class="cardheadingfont white-font">Advisor Loop</span></h4>
+          </div>
+          <div class="col">
+            <div class="text-right cardnumberfont bluefont white-font"><span>000</span>{{ track.user_details.total_reffered_advisor_count}}
+            </div>
+            <div class="text-right cardtextfont white-font">Total Advisor Loop</div>
+          </div>
+        </div>
+        <div class="text-right row">
+          <div class="col-20">
+           <div class="cardnumberfont bluefont"><span>0</span>{{ track.user_details.advisor_total_points || 0}}</div>
+           <div class="cardtextfont"><a ng-click="track.showModal('how_to_redeem')">Points</a></div>
+          </div>
+          <div class="col-25">
+           <div class="cardnumberfont bluefont"><span>000</span>{{ track.user_details.referred_registered_advisor_count || 0}}</div>
+           <div class="cardtextfont">Registered</div>
+          </div>
+          <div class="col-33">
+           <div class="cardnumberfont bluefont"><span>000</span>{{ track.user_details.total_reffered_advisor_count - track.user_details.
+            referred_registered_advisor_count || 0}}</div>
+           <div class="cardtextfont">Un-Registered </div>
+          </div>
+        </div>
+        <div class="row">
+          <br/>
+          <div class="col"></div>
+              <div class="col-20">
+                <button class="button pinkfont cardtextfont pull-right"
+                ui-sref="app.page.requestadvisor">Loop
+              </button>
+            </div>
+              <div class="col-20">
+                <button class="button pinkfont cardtextfont pull-right" ng-click="track.viewLoop()">View </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="list card noscroll">
+   <div class="panel panel-default">
+      <div class="item item-body nopadding rateblock white-font">
+        <div class="panel-body pannel-content animated bounceInLeft">
+          <div class="row">
+            <div class="col-10 mypageimg">
+              <img src="../images/Client_Mangment.png"/>
+            </div>
+            <div class="col">
+              <span class="cardheadingfont"> Peer Rating</span>
+              <div class="row">
+                <div class="cardtextfont">{{track.user_details.total_no_rated}}
+                <h7 class="no-padding-top"> out of </h7> {{ track.user_details.total_no_invites_to_rate}}
+                <h7>have rated</h7>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <rating class="star-col pull-right" ng-model="track.user_details.final_peer_avg_rating" max="5" style="pointer-events:none;"></rating>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-xs-4 pull-right">
+                <button class="button cardtextfont pinkfont pull-right" ng-click="track.inviteRequest('advisor');">Request
+              </button>
+            </div>
+              <div class="col-xs-4 pull-right">
+                  <button class="button cardtextfont pinkfont pull-right" ng-click="track.getToRatePeersList()">
+                 Rate Peers
+                 </button>
+              </div>
+              <div class="col-xs-4 pull-right">
+                <button class="button cardtextfont pinkfont pull-right" ng-click="track.viewrank('advisor')">View
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <inviterate-request ng-init="track.peerrate=''"></inviterate-request>
+  <div class="list card noscroll">
+   <div class="panel panel-default">
+      <div class="item item-body nopadding">
+        <div class="panel-body pannel-content animated bounceInLeft">
+          <div class="row">
+            <div class="col-10 mypageimg">
+              <img src="../images/Client_Mangment.png"/>
+            </div>
+            <div class="col">
+              <span class="cardheadingfont"> Client Ranking</span>
+                <div class="row">
+                  <div class="cardtextfont">{{ track.user_details.total_member_ranks}}
+                  <h7>  out of </h7> {{ track.user_details.total_no_invites_to_rank}} ranked
+                </div>
+              </div>
+            </div>
+            <div class="col">
+                 <rating class="star-col pull-right" ng-model="track.user_details.final_consumer_avg_ranking" max="5" style="pointer-events:none;"></rating>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-xs-4 pull-right">
+            <div class="col-xs-4 pull-right">
+              <button class="button cardtextfont pinkfont" ng-click="track.viewrank('member')">
+                View
+              </button>
+            </div>
+            <div class="col-xs-4 pull-right">
+                 <button class="button cardtextfont pinkfont"  ng-click="track.inviteRequest('member');">Request</button>
+              </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <inviterank-request ng-init="track.peerrate=''"></inviterank-request>
+  <div>
+    <div class="ratehead">
+      <span class="cardheadingfont pinkfont">&nbsp &nbsp Learn more</span></h4>
+    </div>
+    <div class="list">
+      <div class="panel panel-default">
+         <div class="item item-body dashboardpadding">
+         <div class="panel-body pannel-content">
+           <div class="row">
+           <div class="col-10 logo">
+             <img src="../images/Stream_logos.png"/>
+           </div>
+           <div class="col-90">
+          <div class="cardheadingfont">  STREAM</div>
+          <div class="row nopadding">
+            <div class="col-90 coursediv cardtextfont nopadding">Course</div>
+          </div>
+          <div class="row cardtextfont" ng-repeat="data in track.user_details.stream_details">
+            <div class="col-90 coursediv ">{{data.course_name}}</div>
+            <div class="col-10 progress-wrapper" style="text-align:center;">
+                <round-progress max="100" current=data.course_percentage color="#C78839" bgcolor="#E8E8EE"
+                    radius="15" stroke="3" offset="0" semi="false" rounded="true" clockwise="false" responsive="false"
+                    duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
+                    <div class="text">{{data.course_percentage}}%</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="list">
+   <div class="panel panel-default">
+      <div class="item item-body no-border rateblock white-font dashboardpadding">
+        <div class="panel-heading dash-heading">
+          <div class="row">
+            <div class="col-10 logo">
+              <img src="../images/reialogo.png"/>
+            </div>
+           <div class="col cardheadingfont">ICORE</div>
+           <div class="col cardtextfont text-right">Total Blogs: <span class="bluefont">{{track.user_details.total_icore_posts}}</span></div>
+          </div>
+            <div class="row" ng-repeat ="post in track.user_details.icore_posts" class="item icorelist" ui-sref="app.mytrack.post({id:post.ID})">
+              <div class="cardtextfont nopadding" style="margin-left:30px;">{{post.title}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="list">
+   <div class="panel panel-default">
+    <div class="item item-body nopadding dashboardpadding">
+      <div class="panel panel-default">
+        <div class="panel-body pannel-content clientmgmt">
+          <div class="row">
+            <div class="col-10 logo" ng-if="track.user_details.crisil_application_status == track.CRISIL_PAYMENT_SUBMITTED || track.user_details.crisil_application_status == track.CRISIL_GOT_CERTIFICATE">
+               <img src="../images/crisil.png"/>
+            </div>
+            <div class="col-40">
+                <span class="cardheadingfont green-color-font">CRISIL Verification</span>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_NOT_APPLIED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.applycrisil">Apply Now</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_APPLIED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.crisilpayment">Enter Payment Details</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_PAYMENT_RE_SUBMIT || track.user_details.crisil_application_status == track.CRISIL_RENEWAL_PAYMENT_RE_SUBMIT || track.user_details.crisil_application_status == track.CRISIL_VERIFICATION_FAILED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.crisilpayment">Re-enter Payment Details</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_EXPIRED_BY_USER || track.user_details.crisil_application_status == track.CRISIL_EXPIRED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.crisilrenewal">Renewal</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_CERTIFICATE_IN_PROCESS || track.user_details.crisil_application_status == track.CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS">
+                <label>Your payment has been received<br /> successfully. CRISIL Verification process<br/> has been initiated.</label>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_PAYMENT_SUBMITTED || track.user_details.crisil_application_status == track.CRISIL_RENEWAL_PAYMENT_SUBMITTED">
+              <label>Bank Name:</label><br>
+              {{ track.user_details.crisil_amount.bankname }}<br>
+              <label>Cheque / DD / Ref No:</label><br>
+              {{ track.user_details.crisil_amount.cheque_no }}<br>
+              <label>Cheque / DD - Date:</label><br>
+              {{ track.user_details.crisil_amount.cheque_date }}<br>
+              <label>Paid Amount:</label><br>
+              {{ track.user_details.crisil_amount.amount }} INR<br>
+              <p id="status" class="text-justify" style="word-break: normal;">
+                  Please wait while your transaction is processing.
+              </p>
+          </div>
+          <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_GOT_CERTIFICATE">
+              GOT CERTIFICATE
+              <label>CRISIL REGNo:</label><br />
+              {{ track.user_details.crisil_register_no }}<br />
+              <label>CRISIL Exp Date:</label><br />
+              {{ track.user_details.crisil_expiry_date}}<br />
+              <label>Number of years applied:</label>
+              {{track.user_details.crisil_years_selected }}<br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </ion-content>
+</ion-view>-->

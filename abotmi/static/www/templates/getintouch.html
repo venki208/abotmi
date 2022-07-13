@@ -1,0 +1,51 @@
+<ion-view>
+    <ion-nav-bar class="bar">
+      <ion-nav-buttons side="left">
+          <button class="button button-icon icon ion-navicon-round light" ng-click="toggleDrawer();"></button>
+      </ion-nav-buttons>
+      <ion-nav-title>
+         <h4 class="modaltitle whitefont">Get In Touch</h4>
+      </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content overflow-scroll="true" ng-init="contact.details = ''">
+      <form name="getintouch" class="list card formcard" novalidate ng-submit="contact.submit();">
+	       <div class="list list-inset first-inset black-border">
+           <label class="item item-input">
+             <input type="text" placeholder="Name" ng-model="contact.details.name" ng-required="true" name="name" ng-touched/>
+           </label>
+         </div>
+         <h7 class="validationerrors" ng-show="getintouch.name.$error.required && getintouch.name.$touched"> Name is required</h7>
+         <div class="list list-inset first-inset black-border">
+           <label class="item item-input">
+             <input type="number" placeholder="Mobile" ng-model="contact.details.mobile" name="mobile" ng-required="true" ng-touched ng-minlength="10" ng-maxlength="10"/>
+           </label>
+         </div>
+         <h7 class="validationerrors" ng-show="getintouch.mobile.$error.required && getintouch.mobile.$touched"> Mobile Number is required</h7>
+         <h7 class="validationerrors" ng-show="(getintouch.mobile.$error.minlength && getintouch.mobile.$touched ) || (getintouch.mobile.$error.maxlength && getintouch.mobile.$touched)" > Enter valid 10 digits number</h7>
+         <div class="list list-inset other-inset black-border">
+           <label class="item item-input">
+             <input type="email" placeholder="Email ID" ng-model="contact.details.emailid" name="email" ng-required="true" ng-touched
+             ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"/>
+           </label>
+         </div>
+         <h7 class="validationerrors" ng-show="getintouch.email.$error.required && getintouch.email.$touched"> Email ID is required</h7>
+         <h7 class="validationerrors" ng-show="getintouch.email.$error.email  && getintouch.email.$touched">Please Enter valid Email Id</h7>
+         <div class="list list-inset other-inset black-border">
+           <label class="item item-input">
+             <input type="text" placeholder="Location City" ng-model="contact.details.location" name="location" ng-required="true" ng-touched/>
+           </label>
+         </div>
+         <h7 class="validationerrors" ng-show="getintouch.location.$error.required && getintouch.location.$touched"> Location  is required</h7>
+         <div class="list list-inset other-inset black-border">
+           <label class="item item-input">
+	            <textarea style="background-color:transparent" placeholder="Enquiry Text" ng-model="contact.details.message" name="message" ng-required="true" ng-touched></textarea>
+            </label>
+          </div>
+          <h7 class="validationerrors" ng-show="getintouch.message.$error.required && getintouch.message.$touched"> Message is required</h7>
+
+          <div class="list-inset">
+              <button class="button buttoninset whitefont pinkbutton" ng-disabled="getintouch.$invalid">Send Message</button><br/>
+          </div>
+    </form>
+  </ion-content>
+</ion-view>

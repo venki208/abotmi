@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load static %}
+<html>
+<head>
+    <title>PDF</title>
+</head>
+    <style>
+
+        th,td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .span_rows{
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+        .sub-title{
+        	padding: 5px;
+        }
+        .sub-title-top{
+            border: 1px solid black;
+        }
+        .sub-title-top td{
+        	padding: 5px;
+            border: 0px;
+        }
+        .sub-title-inside
+        {
+            padding: 2px;
+        }
+
+        tr.spaceUnder
+        {
+          padding-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <table width="100%"  style="border: 1px;">
+        <tr>
+        <table width="100%">
+            <tr class="sub-title-top">
+            <td>
+                <b>
+                Datanet Techno Solutions Pvt Ltd.<br />
+                Address: 933 A,21st Main,<br />
+                JP Nagar 2nd Phase<br />
+                Bengalore,560078.
+                </b>
+            </td>
+            <td>
+                <p style="text-align:right;">
+                <img src="{% static 'images/crisil.png' %}" alt="CRISIL LOGO"/>
+                </p>
+            </td>
+            </tr>
+            <tr class="sub-title">
+                <td width="35%">
+                    INVOICE to: <br />{{user_profile.first_name}}<br />
+                    Address:
+                        {% if user_profile.door_no %}
+                            {{ user_profile.door_no }}
+                        {% endif %}
+                        {% if user_profile.street_name %}
+                            {{ user_profile.street_name }}
+                        {% endif %} <br />
+                        {% if user_profile.address %}
+                            {{user_profile.address}}
+                        {% endif %}
+                        {% if user_profile.locality %}
+                            {{ user_profile.locality }}
+                        {% endif %} <br />
+                        {% if user_profile.city %}
+                            {{ user_profile.city }}
+                        {% endif %}
+                        {% if user_profile.state %}
+                            {{ user_profile.state }}
+                        {% endif %} <br />
+                        {% if user_profile.pincode %}
+                            {{ user_profile.pincode }}
+                        {% endif %}
+                </td>
+                <td width="65%" style="text-align:right;">
+                    <b style="text-align:center;">INVOICE </b><br />
+                    Invoice_no: {{transaction_obj.invoice_number}}<br />
+                    Date: {{transaction_obj.credited_date}} <br />
+                    Service Tax Code(Registration Number) : AAECD2932RSD001<br />
+                    PAN no: {{user_profile.pan_no}}<br />
+                </td>
+                </tr>
+        </table>
+        <table>
+            <tr class="sub-title">
+                <th width="75%">Description</th><th width="25%">Amount</th>
+                <tr class="sub-title spaceUnder">
+                    <td>Service charges towards CRISIL verification</td>
+                    <td>{{certificate_cost}}</td>
+                </tr>
+            </tr>
+        </table>
+        <table>
+            <tr>
+            <th width="60%"></th><th width="15%"></th><th width="25%"></th>
+    			<tr class="sub-title-inside" width="60%">
+                    <td style="text-align:left;" rowspan=5><u>COMMENTS</u></td>
+                    <td style="text-align:right;" width="15%">Subtotal</td>
+                    <td width="25%">{{certificate_cost}}</td>
+                </tr>
+                <tr class="sub-title-inside">
+                    <td style="text-align:right;">Service Tax</td>
+                    <td>{{tax_amount}}</td>
+                </tr>
+                <tr class="sub-title-inside">
+                    <td style="text-align:right;">Total Invoice</td><td>{{transaction_obj.discounted_amount}}</td>
+                </tr>
+                <tr class="sub-title-inside">
+                    <td style="text-align:right;">Amount Paid </td><td>{{transaction_obj.discounted_amount}}</td>
+                </tr>
+                <tr class="sub-title-inside">
+                    <td style="text-align:right;">Balance Due </td><td>0/-</td>
+                </tr>
+            </tr>
+        </table>
+        <table>
+            <tr><td></td></tr>
+            <tr>
+                <td><p style="text-align:center;"> Visit us at www.abotmi.com. In case of any query, write to us at contact@abotmi.com </p>
+                </td>
+            </tr>
+        </table>
+        </tr>
+    </table>
+</body>
+</html>

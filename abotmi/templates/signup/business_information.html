@@ -1,0 +1,1448 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {% block base_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block theme_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/radio_button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+    <style media="screen">
+        .additional_btn{
+            margin-top: 20px;
+        }
+        .help-block{
+            color: red;
+        }
+    </style>
+    {% endblock %}
+    {% block base_scripts %}
+       {{ block.super }}
+    {% endblock %}
+    <!-- top Header -->
+    {% block top_header %}
+        {% include 'header2.html' %}
+    {% endblock %}
+{% block main_content %}
+ <!--navigationover here-->
+<section class="advisor-form" id="about">
+	<div class="container">
+        <!-- Toast message will show -->
+        <div class="col-md-12">
+            <div class="col-md-6 col-md-offset-3">
+                <div class='toast-message' id="last_visited" style='display:none'>You have completed {{message}} continue to complete the registration</div>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class='toast-message' id="digi_profile" style='display:none'>You have completed {{profile_toast_message}} Complete the Registration to see your My Track</div>
+            </div>
+        </div>
+    	<div class="row">
+            <h2 class="title">Advisor Registration Form</h2>
+        </div>
+		<div class="col-md-12 upwrdz-steps-advisor">
+            {% include 'common/ekyc-steps.html' with result=result %}
+        </div>
+        <div class="col-md-12 upwrdz-steps-advisor-content">
+            <fieldset class="the-fieldset">
+                <h3>
+                    Business Information
+                </h3>
+                <div class="col-xs-12 advisor-form-padding">
+                    <form role="form" name="bussiness_information" id="id_bussiness_information" method="POST" action="/signup/education/">
+                        <!--===========QUESTION ONE============-->
+                        {% csrf_token %}
+                  		<div class="form-group registration-form-div pull-left">
+                            <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                <p class="question-label" for="question_one">{{question1}} <span>*</span></p>
+                                <input id="question_one_yes" type="radio" name="question_one_yes" value="yes" onclick="clickResponse(1,'question1_div_area','question_one_yes','question_one_no','y-o-b')">
+                                <strong class="lbl padding-8" id="validate_question_one_yes">Yes</strong>
+                                <input  id="question_one_no" name="question_one_no" type="radio" value="no" onclick="clickResponse(0,'question1_div_area','question_one_yes','question_one_no','y-o-b'), onchange_savequestions(id);">
+                                <strong class="lbl padding-8" id="validate_question_one_no">No</strong>
+                            </div>
+                     	</div>
+                        <div class="form-group registration-form-div pull-left" id = "question1_div_area" style="display:none">
+                            <div class="col-sm-6 col-md-2 col-lg-2 col-xs-12">
+                                <p class="question-label" for="y-o-b">Years of business <span>*</span></p>
+                                <input class="form-control" name= "y-o-b" id="y-o-b" type="text" value="{{ questions_list.0.Remark.0.Answer }}" onchange="onchange_savequestions(id); validate_if_zero('y-o-b');">
+                                <span class="help-block" id="help-y-o-b"></span>
+                            </div>
+                                <input class="form-control" name="t-n-o-c" id="t-n-o-c" type="hidden" value="0">
+                            <div class="col-sm-6 col-md-3 col-lg-3 col-xs-12">
+                                <p class="question-label" for="t-n-o-c">Total Clients served <span>*</span></p>
+                                <input class="form-control" id="total_client_served" name="total_client_served" type="text" onfocus="this.placeholder = ''" value="{{ advisor.total_clients_served }}" onchange="validate_if_zero('total_client_served');" />
+                                <span class="help-block" id="help_text_total_client_served"></span>
+                            </div>
+                            <div class="col-sm-6 col-md-3 col-lg-3 col-xs-12">
+                                <p class="question-label" for="t-n-o-c">Total Advisors connected <span>*</span></p>
+                                <input class="form-control" id="advisor_is_connected_with" name="advisor_is_connected_with" type="text" onfocus="this.placeholder = ''" value="{{ advisor.total_advisors_connected }}" onchange="validate_if_zero('advisor_is_connected_with');" />
+                                <span class="help-block" id="help_text_advisor_is_connected_with"></span>
+                            </div>
+                            <div class="col-sm-6 col-lg-4 col-md-4 col-xs-12 input-append" id="datetimepicker4">
+                                <p class="question-label" for="t-a-t-v">Total / Average transaction in {{currency}} <span>*</span></p>
+                                <select class="form-control" name="t-a-t-v" id="t-a-t-v" onchange='onchange_savequestions(id);'>
+                                            <option value="select">--Select--</option>
+                                        {% if questions_list.0.Remark.2.Answer == 'Above 50000 and Below 1000000' %}
+                                            <option value="Below 50000">Below {{currency}} 50,000</option>
+                                            <option value="Above 50000 and Below 1000000" selected>Above {{currency}} 50,000 and Below {{currency}} {{covert_currency2}}</option>
+                                            <option value="Above 1000000">Above {{currency}} {{covert_currency2}}</option>
+                                        {% elif questions_list.0.Remark.2.Answer == 'Below 50000' %}
+                                            <option value="Below 50000" selected>Below {{currency}} 50,000</option>
+                                            <option value="Above 50000 and Below 1000000">Above {{currency}} {{covert_currency1}} and Below {{currency}} {{covert_currency2}}</option>
+                                            <option value="Above 1000000">Above {{currency}} {{covert_currency2}}</option>
+                                        {% elif questions_list.0.Remark.2.Answer == 'Above 1000000' %}
+                                            <option value="Below 50000">Below {{covert_currency1}}</option>
+                                            <option value="Above 50000 and Below 1000000">Above {{currency}} {{covert_currency1}} and Below {{currency}} {{covert_currency2}}</option>
+                                            <option value="Above 1000000" selected>Above {{currency}} {{covert_currency2}}</option>
+                                        {% else %}
+                                            <option value="Below 50000">Below {{currency}} {{covert_currency1}}</option>
+                                            <option value="Above 50000 and Below 1000000">Above {{currency}} {{covert_currency1}} and Below {{currency}} {{covert_currency2}}</option>
+                                            <option value="Above 1000000">Above {{currency}} {{covert_currency2}}</option>
+                                        {% endif %}
+                                </select>
+                                <span class="help-block" id="help-t-a-t-v"></span>
+                            </div>
+                        </div>
+                        <!--===========QUESTION TWO============-->
+                        <div class="form-group registration-form-div pull-left">
+                            <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                <p class="question-label" for="question_two" class="">{{question2}} <span>*  </span>
+                   		       </p>
+                                <input  id="question_two_yes" name = "question_two_yes" type="radio" value="yes" onclick="getAddress(1,'question2_div_area','question_two_yes','question_two_no','infra_address','{{ user_profile.company_address1 }}\n{{ user_profile.company_address2 }}\n{{ user_profile.company_landmark }}\n{{ user_profile.company_locality }}\n{{ user_profile.company_city }}\n{{ user_profile.company_state }}\n{{user_profile.company_pincode }}')">
+                                <strong class="lbl padding-8" id="validate_question_two_yes">Yes</strong>
+                                <input type="radio" name="question_two_no" id="question_two_no" value="no">
+                                <strong class="lbl padding-8" id="validate_question_two_no">No</strong>
+                            </div>
+                        </div>
+                        <div class="form-group registration-form-div pull-left" id="question2_div_area" style="display:none">
+                            <div class="col-sm-4 col-lg-4 col-md-4">
+                                <p class="question-label" for="office_address" class="">Office Address</p>
+                                <textarea name="infra_address" onfocus="this.placeholder = ''" id="infra_address" rows="4" cols="50">{{user_profile.company_address1}}></textarea>
+                                <span class="help-block" id="help-infra_address"></span>
+                            </div>
+                        </div>
+                        <!--===========QUESTION THREE============-->
+                        <div class="form-group registration-form-div pull-left">
+                            <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                <p class="question-label" for="question_three" class="">{{question3}} <span>*</span></p>
+                                <input id="question_three_yes" type="radio" name="question_three_yes" onclick="clickResponse(1,'question3_div_area','question_three_yes','question_three_no','no_institutions')">
+                                <strong class="lbl padding-8" id="validate_question_three_yes">Yes</strong>
+                                <input id="question_three_no" name="question_three_no" type="radio">
+                                <strong class="lbl padding-8" id="validate_question_three_no">No</strong>
+                            </div>
+                        </div>
+                        <div class="form-group registration-form-div pull-left" id="question3_div_area" style="display:none">
+                        <div class="col-sm-12 col-lg-12 col-md-12" style="padding-bottom: 10px;">   
+                            {% if user_agent_country == REGION_IN %}
+                            <p class="n-margin-0"> Click "+" to enter all the organisation      details you are connected with</p>
+                            {% else %}
+                            <p class="n-margin-0"> Click "+" to enter all the organization details that you are connected with in this industry.</p>
+                            {% endif %}
+                            
+                            <a class="add_field btn additional_btn finacial-additional-btn" id="add_financial_organisation" onclick="warning_advisor_modify_organisation('add_organisation');">
+                                <i class="fa fa-plus-circle"></i>
+                            </a>
+                        </div>
+                            <div class = "col-md-12 col-sm-12 col-xs-12">
+                            <div id="organisation_div"></div>
+                            <span class="help-block" id="help-text-add_financial_organisation_main"></span>
+                            </div>
+                     	</div>
+                        <!--===========QUESTION FOUR============-->
+                        <div class="form-group registration-form-div pull-left">
+                            <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                <p class="question-label" for="question_four" class="">{{question4}} <span>*  </span></p>
+                                <input  id="question_four_yes" name="question_four_yes" type="radio" onChange="training_program();" onclick="clickResponse(1,'','question_four_yes','question_four_no',''), onchange_savequestions(id);">
+                                <strong class="lbl padding-8" id="validate_question_four_yes">Yes</strong>
+                                <input  id="question_four_no" name="question_four_no" type="radio" onChange="training_program();" onclick="clickResponse(0,'','question_four_yes','question_four_no',''), onchange_savequestions(id);">
+                                <strong class="lbl padding-8" id="validate_question_four_no">No</strong>
+                            <span class="help-block" id="help-text-question_four"></span>
+                            </div>
+                        </div>
+                        <div class="form-group registration-form-div pull-left">
+                            <div class="row n-margin-0">
+                                <div class="col-sm-12 text-center proceed-btn">
+                                    <a href="/signup/personal_information/" class="btn back-btn-gray kyc-btn-primary">Back</a>
+                                        <a type="button" class="btn kyc-btn-primary" id="submit_questions" onclick="advisorQuestionAnwserSave('null');" autocomplete="off">Submit & Proceed</a>
+                                </div>
+                            </div>
+                            <div class="row n-margin-0">
+                                <div class="col-sm-12 pull-left loop">
+                                   <p style="font-size:14px;margin-top:10px;margin-bottom:0px"><span>*</span><i>Mandatory Fields</i></p>
+                                </div>
+                            </div>
+                            <div class="row n-margin-0">
+                                <div class="col-sm-12 pull-left">
+                                   <p class="pull-left" style="font-size:14px;margin-bottom: -14px;padding-top: 10px;">Thank you for your valuable time to fill the Personal & Business Information. On submit, your details will be verified and we will get in touch with you.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+        </div>
+ 	</div>
+</section>
+{% endblock %}
+{% block bootstrap-modal %}
+{{ block.super }}
+    <div id="simple-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="simple-modal-lable" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading fix-modal-heading">
+                    <h4 class="modal-title" id="simple-modal-label">
+                        {{ MODAL_TITLE | default:'Thank You!!' }}
+                    </h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="email_modal-body">
+                    <p class="text-justify why-reia-content">Dear &nbsp;{{user_profile.first_name | default:'First Name'}} {{user_profile.last_name | default:'Last Name'}},</p>
+
+                    <p class="text-justify why-reia-content">Congratulations, you are one step away from the registration process. Our panel of selectors will verify and send you an email for further action.</p>
+                    <div class="pull-right">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='/';">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block theme_scripts %}
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $("input, textarea, select").attr('autocomplete', 'off');
+        var allids = [];
+        var x=0;
+        var max_fields= 5;
+        loadingStartPage();
+        //=================================================
+        // validation function on each field
+        //=================================================
+        $(document).ready(function() {
+            $("#total_no_clients").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                     // Allow: Ctrl+A, Command+A
+                    (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) ||
+                     // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        // let it happen, don't do anything
+                        return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+            $("#y-o-b").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                     // Allow: Ctrl+A, Command+A
+                    (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) ||
+                     // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        // let it happen, don't do anything
+                        return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+            $("#t-n-o-c").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                     // Allow: Ctrl+A, Command+A
+                    (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) ||
+                     // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        // let it happen, don't do anything
+                        return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+            var total_clients_served = '{{advisor.total_clients_served}}';
+            var total_advisors_connected = '{{advisor.total_advisors_connected}}';
+            if(total_clients_served == 'None'){
+                $("#total_client_served").val('');
+            }
+            if(total_advisors_connected == 'None'){
+                $("#advisor_is_connected_with").val('');
+            }
+        });
+        //------------------------------------------------
+        // on change function of redio button questions
+        //------------------------------------------------
+        function clickResponse(check, str, redio1, redio2, hide_id) {
+            $("#validate_"+redio1).append('<style>input[type=radio]+#validate_'+redio1+'::before{border-color: #adb8c0;}</style>');
+            $("#validate_"+redio2).append('<style>input[type=radio]+#validate_'+redio2+'::before{border-color: #adb8c0;}</style>');
+            if(check==0) {
+                document.getElementById(redio1).checked = false;
+                document.getElementById(redio2).checked = true;
+                if(str=='question1_div_area'){
+                    document.getElementById('y-o-b').value = '';
+                    document.getElementById('t-n-o-c').value = 0;
+                    document.getElementById('t-a-t-v').value = 'select';
+                }
+                if(str=='question2_div_area'){
+                    document.getElementById('infra_address').value = '';
+                    onchange_savequestions(redio2);
+                    $('#check_confirm_for_change').modal('hide');
+                }
+                if(str=='question3_div_area'){
+                    count_institute = "";
+                    number_of_institutions ="{}";
+                    allids = [];
+                    document.getElementById('organisation_div').innerHTML = '';
+                }
+                if(str!=""){
+                    document.getElementById(str).style.display = 'none';
+                }
+            }
+            else {
+                document.getElementById(redio2).checked = false;
+                document.getElementById(redio1).checked = true;
+                if(str!="")
+                    document.getElementById(str).style.display = 'block';
+                if(str!='question3_div_area'){
+                    if(hide_id!="")
+                        document.getElementById(hide_id).focus();
+                }
+            }
+        }
+        function getAddress(check, str, redio1, redio2, hide_id,address1) {
+            $("#validate_"+redio1).append('<style>input[type=radio]+#validate_'+redio1+'::before{border-color: #adb8c0;}</style>');
+            $("#validate_"+redio2).append('<style>input[type=radio]+#validate_'+redio2+'::before{border-color: #adb8c0;}</style>');
+            if(check==0) {
+                document.getElementById(redio1).checked = false;
+                document.getElementById(redio2).checked = true;
+                if(str=='question1_div_area'){
+                    document.getElementById('y-o-b').value = '';
+                    document.getElementById('t-n-o-c').value = 0;
+                    document.getElementById('t-a-t-v').value = '--Select--';
+                }
+                if(str=='question2_div_area'){
+                    document.getElementById('infra_address').value = '';
+                }
+                if(str=='question3_div_area'){
+                    document.getElementById('instutite_div').innerHTML = '';
+                }
+                if(str!="")
+                    document.getElementById(str).style.display = 'none';
+            }
+            else {
+                if(document.getElementById('infra_address').value == ''){
+                    if('{{user_profile.primary_communication}}' == 'office'){
+                        document.getElementById('infra_address').value = address1;
+                    }
+                }
+                document.getElementById(redio2).checked = false;
+                document.getElementById(redio1).checked = true;
+                if(str!="")
+                    document.getElementById(str).style.display = 'block';
+                if(hide_id!="")
+                    document.getElementById(hide_id).focus();
+            }
+        }
+    //code for 3.Are you associated with any Financial Organisation
+    var wrapper=$("#organisation_div");
+    var add_button = $("#add_financial_organisation");
+    function add_additional_organisation(){
+        document.getElementById('help-text-add_financial_organisation_main').innerHTML='';
+        missed_field_add=0;
+        if(allids.length>0){
+            for(var j=0; j<allids.length; j++) {
+                var i=allids[j];
+                var re = /^[1-9][0-9]?$|^99$/;
+                if($('#year_of_association'+i).val() == ""){
+                    $("#year_of_association"+i).addClass("not_valid");
+                    $("#help_year_of_association"+i).html('Please Enter Year of Association');
+                    document.getElementById('year_of_association'+i).focus();
+                    missed_field_add = 1;
+                }else{
+                    var validexperience = document.getElementById('year_of_association'+i);
+                    if(!validexperience.value.match(re) || validexperience == null ) {
+                        document.getElementById('year_of_association'+i).style.border='1px solid #C32F2F';
+                        document.getElementById('help_year_of_association'+i).innerHTML='Enter Valid Year of Association';
+                        $("#year_of_association"+i).focus();
+                        missed_field_add = 1;
+                    }else{
+                        $("#year_of_association"+i).removeClass('not_valid');
+                        document.getElementById('help_year_of_association'+i).innerHTML='';
+                    }
+                }
+
+                if($('#registration_id'+i).val() == ""){
+                    $("#help_registration_id"+i).html('Please Enter Official Email/Registration id');
+                    $("#registration_id"+i).addClass("not_valid");
+                    document.getElementById('registration_id'+i).focus();
+                    missed_field_add = 1;
+                }else{
+                    $("#help_registration_id"+i).html('');
+                    $("#registration_id"+i).removeClass('not_valid');
+                }
+
+                if($('#official_email_id'+i).val() == ""){
+                    $("#help_official_email_id"+i).html('Please Enter Company URL');
+                    $("#official_email_id"+i).addClass("not_valid");
+                    document.getElementById('official_email_id'+i).focus();
+                    missed_field_add = 1;
+                }else{
+                    var email = $('#official_email_id'+i).val()
+                    var status =document.getElementById('help_official_email_id'+i).innerText;
+                    var re = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/);
+                    if(!re.test(email)) {
+                        $("#help_official_email_id"+i).html('Please Enter valid Company URL');
+                        $("#official_email_id"+i).addClass("not_valid");
+                        document.getElementById('official_email_id'+i).focus();
+                        missed_field_add = 1;
+                    }else if(status=='Please Enter valid Company URL'){
+                        $("#official_email_id"+i).addClass("not_valid");
+                        document.getElementById('official_email_id'+i).focus();
+                        missed_field_add = 1;
+                    }else{
+                        $("#help_official_email_id"+i).html('');
+                        $("#official_email_id"+i).removeClass('not_valid');
+                        for(var k = 0; k < allids.length; k++){
+                            emailj=$('#official_email_id'+allids[j]).val();
+                            emailk=$('#official_email_id'+allids[k]).val();
+                            var domainnamej = getDomain(emailj);
+                            var domainnamek = getDomain(emailk);
+                            if (allids[j]!=allids[k] && domainnamej == domainnamek){
+                                document.getElementById('official_email_id'+allids[k]).style.border='1px solid #C32F2F';
+                                document.getElementById('help_official_email_id'+allids[k]).innerHTML = "Duplicate email domain entry";
+                                document.getElementById('official_email_id'+allids[j]).style.border='1px solid #C32F2F';
+                                document.getElementById('help_official_email_id'+allids[j]).innerHTML = "Duplicate email domain entry";
+                                missed_field_add ++;
+                            }
+                        }
+                    }
+                }
+                if($('#institution_name'+i).val() == ""){
+                    $("#help_institution_name"+i).html('Please Enter Organization Name');
+                    $("#institution_name"+i).addClass("not_valid");
+                    document.getElementById('institution_name'+i).focus();
+                    missed_field_add = 1;
+                }else{
+                    var alpha = /^[a-zA-Z()\s]+$/.test($('#institution_name'+i).val());
+                    if(alpha){
+                        $("#help_institution_name"+i).html('');
+                        $("#help_institution_name"+i).removeClass('not_valid');
+                    }else {
+                        $("#help_institution_name"+i).html('Please Enter only Characters');
+                        $("#institution_name"+i).addClass("not_valid");
+                        document.getElementById('institution_name'+i).focus();
+                        missed_field_add = 1;
+                    }
+                }
+            }
+        }
+        if(missed_field_add==0){
+        if(allids.length < max_fields){ //max input box allowed
+            x++; //text box increment
+            allids.push(x);
+            $(wrapper).append('\
+            <div class="row n-margin-0" id="financial_organisation'+x+'">'+
+                '<div class="col-md-11 col-xs-12 col-sm-11">'+
+                    '<div class="row">'+
+                        '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                            '<div class="control">'+
+                                '<label>Organization Name</label>'+
+                                '<input type="text" class="form-control" name="institution_name'+x+'" id="institution_name'+x+'" onchange="validate_organisation_name('+x+');"></input>'+
+                                '<span class="help-block" id="help_institution_name'+x+'"></span>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                            '<div class="control">'+
+                                '<label>Company URL</label>'+
+                                '<input type="text" class="form-control" name="official_email_id'+x+'" id="official_email_id'+x+'" onchange="CheckIsValidDomain('+x+');"></input>'+
+                                '<span class="help-block" id="help_official_email_id'+x+'"></span>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                            '<div class="control">'+
+                                '<label>Official Email/Registration id</label>'+
+                                '<input type="text" class="form-control" name="registration_id'+x+'" id="registration_id'+x+'" onchange="validate_registration_id('+x+');"></input>'+
+                                '<span class="help-block" id="help_registration_id'+x+'"></span>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                            '<div class="control">'+
+                                '<label>How Long Associated With ?</label>'+
+                                '<input type="text" name="year_of_association'+x+'" onchange="validate_year_of_association('+x+');" class="form-control" id="year_of_association'+x+'"></input>'+
+                                '<span class="help-block" id="help_year_of_association'+x+'"></span>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+                '<div class="col-md-1 col-xs-12 col-sm-1" style="padding-bottom=10px;">'+
+                    '<a class = "remove_field btn additional_btn finacial-additional-btn" id = "remove_field" onClick="remove_data('+x+');">'+
+                        '<i class="fa fa-minus-circle" ></i>'+
+                    '</a>'+
+                '</div>'+
+            '</div>');
+            }
+        }
+    }
+    function remove_data(id){
+        $('#financial_organisation'+id).remove();
+        var i = allids.indexOf(id);
+        if(i != -1) {
+            allids.splice(i, 1);
+        }
+    }
+
+        function advisorQuestionAnwserSave() {
+            var token = "{{csrf_token}}";
+            var visit = isFilledAllData();
+            var question1_opiton, question2_opiton, question3_opiton;
+            var number_of_institutions, question4_opiton, experience;
+            var num_clients, average_value, office_address, count_institute, num_advisors;
+            // =========================
+            // validation for question one
+            // after clicking yes checking the fields are empty or not
+            // =========================
+            if(document.getElementById('question_three_yes').checked){
+                var institution_name_missed = 0;
+                var official_email_id_missed = 0;
+                var registration_id_missed = 0;
+                var year_of_association_missed = 0;
+                if(allids.length>0){
+                    for(j=allids.length; j>=1; j--){
+                        var i=allids[j-1];
+                        if($('#year_of_association'+i).val() == ""){
+                            year_of_association_missed = year_of_association_missed+1;
+                            $("#year_of_association"+i).addClass("not_valid");
+                            $("#help_year_of_association"+i).html('Please Enter Year of Association');
+                            document.getElementById('year_of_association'+i).focus();
+                        }else{
+                            var re = /^[1-9][0-9]?$|^99$/;
+                            var validexperience = document.getElementById('year_of_association'+i);
+                            if(!validexperience.value.match(re)) {
+                                year_of_association_missed = year_of_association_missed+1;
+                                document.getElementById('year_of_association'+i).style.border='1px solid #C32F2F';
+                                document.getElementById('help_year_of_association'+i).innerHTML='Enter Valid Year of Association';
+                                $("#year_of_association"+i).focus();
+                            }else{
+                                $("#year_of_association"+i).removeClass('not_valid');
+                                document.getElementById('help_year_of_association'+i).innerHTML='';
+                            }
+                        }
+                        if($('#registration_id'+i).val() == ""){
+                            registration_id_missed = registration_id_missed+1;
+                            $("#help_registration_id"+i).html('Please Enter Official Email/Registration id');
+                            $("#registration_id"+i).addClass("not_valid");
+                            document.getElementById('registration_id'+i).focus();
+                        }else{
+                            $("#help_registration_id"+i).html('');
+                            $("#registration_id"+i).removeClass('not_valid');
+                        }
+
+                        if($('#official_email_id'+i).val() == ""){
+                            official_email_id_missed = official_email_id_missed+1;
+                            $("#help_official_email_id"+i).html('Please Enter Company URL');
+                            $("#official_email_id"+i).addClass("not_valid");
+                            document.getElementById('official_email_id'+i).focus();
+                        }else{
+                            var email = $('#official_email_id'+i).val()
+                            var status =document.getElementById('help_official_email_id'+i).innerText;
+                            var re = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/);
+                            if(!re.test(email)) {
+                                official_email_id_missed = official_email_id_missed+1;
+                                $("#help_official_email_id"+i).html('Please Enter valid Company URL');
+                                $("#official_email_id"+i).addClass("not_valid");
+                                document.getElementById('official_email_id'+i).focus();
+                            }else if(status=='Please Enter valid Company URL'){
+                                $("#official_email_id"+i).addClass("not_valid");
+                                document.getElementById('official_email_id'+i).focus();
+                                official_email_id_missed = official_email_id_missed+1;
+                            }else{
+                                $("#help_official_email_id"+i).html('');
+                                $("#official_email_id"+i).removeClass('not_valid');
+                                for(var k = 0; k < allids.length; k++){
+                                    emailj=$('#official_email_id'+allids[j-1]).val();
+                                    emailk=$('#official_email_id'+allids[k]).val();
+                                    var domainnamej = getDomain(emailj);
+                                    var domainnamek = getDomain(emailk);
+                                    if (allids[j-1]!=allids[k] && domainnamej == domainnamek){
+                                        $("#official_email_id"+allids[k]).addClass("not_valid");
+                                        document.getElementById('help_official_email_id'+allids[k]).innerHTML = "Duplicate email domain entry";
+                                        $("#official_email_id"+allids[j-1]).addClass("not_valid");
+                                        document.getElementById('help_official_email_id'+allids[j-1]).innerHTML = "Duplicate email domain entry";
+                                        official_email_id_missed = official_email_id_missed+1;
+                                    }
+                                }
+                            }
+                        }
+
+                        if($('#institution_name'+i).val() == ""){
+                            institution_name_missed = institution_name_missed+1;
+                            $("#help_institution_name"+i).html('Please Enter Organisation Name');
+                            $("#institution_name"+i).addClass("not_valid");
+                            document.getElementById('institution_name'+i).focus();
+                        }else{
+                          if($('#institution_name'+i).val() !=''){
+                              var alpha = /^[a-zA-Z()\s]+$/.test($('#institution_name'+i).val());
+                              if(alpha){
+                                $("#help_institution_name"+i).html('');
+                                $("#help_institution_name"+i).removeClass('not_valid');
+                              }
+                              else {
+                                institution_name_missed = institution_name_missed+1;
+                                $("#help_institution_name"+i).html('Please Enter only Characters');
+                                $("#institution_name"+i).addClass("not_valid");
+                                document.getElementById('institution_name'+i).focus();
+                              }
+                          }
+                        }
+                    }
+                    if(institution_name_missed >0){
+                        return false;
+                    }
+                    if(year_of_association_missed >0){
+                        return false;
+                    }
+                    if(official_email_id_missed >0){
+                        return false;
+                    }
+                    if(registration_id_missed >0){
+                        return false;
+                    }
+                }else{
+                    document.getElementById('help-text-add_financial_organisation_main').innerHTML='Please Enter Minimum One Financial Organisation';
+                    return false;
+                }
+            }
+            if(document.getElementById('question_two_yes').checked){
+                if($("#infra_address").val() == ''){
+                    $("#infra_address").addClass("not_valid");
+                    $('#help-infra_address').html('Please Enter Office Address');
+                    document.getElementById('infra_address').focus();
+                }
+            }
+            if(document.getElementById('question_one_yes').checked){
+                if($('#t-a-t-v').val() == "select" || $('#t-a-t-v').val() == ""){
+                    $("#t-a-t-v").addClass("not_valid");
+                    $("#help-t-a-t-v").html('Please enter Average transaction value');
+                    document.getElementById('t-a-t-v').focus();
+                }
+                if($('#y-o-b').val() == ""){
+                    document.getElementById('y-o-b').focus();
+                    $("#y-o-b").addClass("not_valid");
+                    $('#help-y-o-b').html('Please Enter Years of business');
+                }
+                else if($('#y-o-b').val() >= 100 || $('#y-o-b').val() < 1){
+                    $("#y-o-b").addClass("not_valid");
+                    $('#help-y-o-b').html('Year of business should be 1-99');
+                    $("#y-o-b").val('');
+                    document.getElementById('y-o-b').focus();
+                }
+            }
+            if (visit==false){
+                return false;
+            }
+            //===============
+            //Question 1 DATA
+            //===============
+            if (document.getElementById('question_one_yes').checked) {
+                question1_opiton = "yes";
+                if(document.getElementById('y-o-b').value=='')
+                    return false;
+                if(document.getElementById('t-n-o-c').value=='')
+                    return false;
+                if(document.getElementById('t-a-t-v').value=='select')
+                    return false;
+                experience = $("#y-o-b").val();
+                num_clients = $("#total_client_served").val();
+                average_value = $("#t-a-t-v").val();
+                num_advisors = $("#advisor_is_connected_with").val();
+            }
+            else if (document.getElementById('question_one_no').checked){
+                question1_opiton = "no";
+                experience = "";
+                num_clients = "";
+                average_value = "";
+                num_advisors = "";
+            }
+            else{
+                experience = "";
+                num_clients = "";
+                average_value = "";
+                num_advisors = "";
+            }
+            //===============
+            //Question 2 DATA
+            //===============
+            if (document.getElementById('question_two_yes').checked){
+                question2_opiton="yes";
+                if(document.getElementById('infra_address').value==''){
+                    return false;
+                }
+                office_address = $("#infra_address").val();
+                office_address = office_address.replace(/\n/g, "$");
+                office_address = office_address.replace(/ /g, "!");
+            }
+            else if (document.getElementById('question_two_no').checked){
+                question2_opiton="no";
+                office_address = "";
+            }
+            else{
+                office_address = "";
+            }
+            //===============
+            //Question 3 DATA
+            //===============
+            if (document.getElementById('question_three_yes').checked){
+                question3_opiton="yes";
+                count_institute = allids.length;
+                number_of_institutions = creating_institutions_json();
+            }
+            else if (document.getElementById('question_three_no').checked){
+                question3_opiton="no";
+                count_institute = "";
+                number_of_institutions ="{}";
+            }
+            else{
+                count_institute = "";
+                number_of_institutions ="{}";
+            }
+            //===============
+            //Question 4 DATA
+            //===============
+            if (document.getElementById('question_four_yes').checked)
+                question4_opiton="yes";
+            else if (document.getElementById('question_four_no').checked)
+                question4_opiton="no";
+            var missed_field = 0;
+            if (document.getElementById('question_one_yes').checked) {
+                var re = /^[0-9\b]+$/;
+                var advisor_is_connected_with = $("#advisor_is_connected_with").val();
+                if(advisor_is_connected_with =='' || advisor_is_connected_with == null){
+                    document.getElementById('advisor_is_connected_with').style.border='1px solid #C32F2F';
+                    document.getElementById('help_text_advisor_is_connected_with').innerHTML='Please Enter Total Advisors connected';
+                    missed_field = 1;
+                    $("#advisor_is_connected_with").focus();
+                }else if($("#advisor_is_connected_with").val().match(re)){
+                    document.getElementById('advisor_is_connected_with').style.border='';
+                    document.getElementById('help_text_advisor_is_connected_with').innerHTML='';
+                }else{
+                    var a=document.getElementById('advisor_is_connected_with').value = "";
+                    document.getElementById('advisor_is_connected_with').style.border='1px solid #C32F2F';
+                    document.getElementById('help_text_advisor_is_connected_with').innerHTML='Enter Valid Input';
+                    missed_field = 1;
+                    $("#advisor_is_connected_with").focus();
+                }
+                var total_client_served = $("#total_client_served").val();
+                if(total_client_served =='' || total_client_served == null){
+                    document.getElementById('total_client_served').style.border='1px solid #C32F2F';
+                    document.getElementById('help_text_total_client_served').innerHTML='Please Enter Total Client Served';
+                    missed_field = 1;
+                    $("#total_client_served").focus();
+                }else if(total_client_served.match(re)){
+                    document.getElementById('total_client_served').style.border='';
+                    document.getElementById('help_text_total_client_served').innerHTML='';
+                }else{
+                    var a=document.getElementById('total_client_served').value = "";
+                    document.getElementById('total_client_served').style.border='1px solid #C32F2F';
+                    document.getElementById('help_text_total_client_served').innerHTML='Enter Valid Input';
+                    missed_field = 1;
+                    $("#total_client_served").focus();
+                }
+            }
+            if(missed_field == 0){
+                  $.ajax({
+                        method: "POST",
+                        url: "/signup/user_profile_answer/",
+                        beforeSend: function (request) {
+                            request.setRequestHeader("X-CSRFToken", token );
+                        },
+                        data:{
+                            questions: '[{"Question":"1. {{question1}}", "Answer":"'+question1_opiton+'","Remark":[{"Question":"Experience","Answer":"'+experience+'"},{"Question":"Total Number of clients so far","Answer":"'+num_clients+'"},{"Question":"Average transaction value","Answer":"'+average_value+'"},{"Question":"Total Advisors connected","Answer":"'+num_advisors+'"}]},{"Question":"2. {{question2}}", "Answer":"'+question2_opiton+'","Remark":"'+office_address+'"},{"Question":"3. {{question3}}", "Answer":"'+question3_opiton+'","Remark":[{"Question":"Number of Institutions","Answer":"'+count_institute+'","Remark":'+number_of_institutions+'}]},{"Question":"4. {{question4}}", "Answer":"'+question4_opiton+'"}]',
+                            is_submitted_questions: visit,
+                        },
+                        success:function(response){
+                            $("#id_bussiness_information").submit();
+                        }
+                    });
+                document.getElementById('submit_questions').innerHTML = 'Please Wait..';
+                $('#submit_questions').prop('disabled', true);
+            }
+        }
+        //==============================================================
+        //This function is used to creating the financial institutions json
+        //============================================================
+        function creating_institutions_json(){
+            var institutions="";
+            for(var j=0; j<allids.length; j++) {
+                var h=allids[j];
+                var institution_name = document.getElementById("institution_name"+h).value;
+                var official_email_id = document.getElementById("official_email_id"+h).value;
+                var registration_id = document.getElementById("registration_id"+h).value;
+                var year_of_association = document.getElementById("year_of_association"+h).value;
+                if(h==allids[0])
+                    institutions = institutions+'{"Question":"institution_name","Answer":"'+institution_name+'"},{"Question":"official_email_id","Answer":"'+official_email_id+'"},{"Question":"registration_id","Answer":"'+registration_id+'"},{"Question":"year_of_association","Answer":"'+year_of_association+'"}';
+                else
+                    institutions = institutions+',{"Question":"institution_name","Answer":"'+institution_name+'"},{"Question":"official_email_id","Answer":"'+official_email_id+'"},{"Question":"registration_id","Answer":"'+registration_id+'"},{"Question":"year_of_association","Answer":"'+year_of_association+'"}';
+            }
+            institutions='['+institutions+']';
+            return institutions;
+        }
+        function validate_organisation_email(i){
+            if($('#official_email_id'+i).val() == ""){
+                $("#help_official_email_id"+i).html('Please Enter Comapny URL');
+                $("#official_email_id"+i).addClass("not_valid");
+                document.getElementById('official_email_id'+i).focus();
+            }else{
+              var email = $('#official_email_id'+i).val()
+              var re = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+              if(!re.test(email)) {
+                $("#help_official_email_id"+i).html('Please Enter valid Email Id');
+                $("#official_email_id"+i).addClass("not_valid");
+                document.getElementById('official_email_id'+i).focus();
+              }else{
+                check_field('official_email_id'+i);
+              }
+          }
+        }
+        function validate_organisation_name(i){
+          if($('#institution_name'+i).val() == ""){
+              $("#help_institution_name"+i).html('Please Enter Organisation Name');
+              $("#institution_name"+i).addClass("not_valid");
+              document.getElementById('institution_name'+i).focus();
+          }else{
+              var alpha = /^[a-zA-Z()\s]+$/.test($('#institution_name'+i).val());
+              if(alpha){
+                check_field('institution_name'+i);
+              }else {
+                $("#help_institution_name"+i).html('Please Enter only Characters');
+                $("#institution_name"+i).addClass("not_valid");
+                document.getElementById('institution_name'+i).focus();
+              }
+            }
+          }
+        function validate_registration_id(i){
+            var email_id= $('#registration_id'+i).val();
+            if($('#registration_id'+i).val() == ""){
+                $("#help_registration_id"+i).html('Please Enter Official Email/Registration id');
+                $("#registration_id"+i).addClass("not_valid");
+                document.getElementById('registration_id'+i).focus();
+            }
+            else{
+                email_ajax(i);
+            }
+        }
+        function email_ajax(i){
+            var token='{{ csrf_token }}'
+            var email_id= $('#registration_id'+i).val();
+            $.ajax({
+                type: "POST",
+                url: "/signup/check_email_for_business_information/",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data:{'username': email_id},
+                success: function(response) {
+                if(response == 'true'){
+                    document.getElementById('help_registration_id'+i).innerHTML ='';
+                    $("#registration_id"+i).removeClass('not_valid');
+                }
+                else{
+                    $('#registration_id'+i).val('');
+                    document.getElementById('help_registration_id'+i).innerHTML = "Email Already Exist";}
+                }
+            });
+        }
+
+        function validate_year_of_association(i){
+            var re = /^[1-9][0-9]?$|^99$/;
+            if($('#year_of_association'+i).val() == ""){
+                $("#year_of_association"+i).addClass("not_valid");
+                $("#help_year_of_association"+i).html('Please Enter Year of Association');
+                document.getElementById('year_of_association'+i).focus();
+            }else{
+                var validexperience = document.getElementById('year_of_association'+i);
+                if(!validexperience.value.match(re) || validexperience == null ) {
+                    $("#year_of_association"+i).addClass("not_valid");
+                    document.getElementById('help_year_of_association'+i).innerHTML='Enter Valid Year of Association';
+                    $("#year_of_association"+i).focus();
+                }else{
+                    $("#year_of_association"+i).removeClass('not_valid');
+                    document.getElementById('help_year_of_association'+i).innerHTML='';
+                }
+            }
+        }
+
+        function CheckIsValidDomain(i) {
+            var token = "{{ csrf_token }}";
+            var domain = document.getElementById('official_email_id'+i).value
+            var re = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/);
+            if(!domain.match(re)){
+                $("#official_email_id"+i).addClass("not_valid");
+                document.getElementById('help_official_email_id'+i).innerHTML='Please Enter valid Company URL';
+                $("#official_email_id"+i).focus();
+            }else{
+                $.ajax({
+                    url : '/signup/check_valid_domain/',
+                    method : 'POST',
+                    beforeSend: function (request) {
+                        request.setRequestHeader("X-CSRFToken", token );
+                    },
+                    data : {
+                        'comapny_url' : domain
+                    },
+                    success:function(response){
+                        if(response=='success'){
+                            $("#official_email_id"+i).removeClass('not_valid');
+                            document.getElementById('help_official_email_id'+i).innerHTML='';
+                            modify_web_url('official_email_id'+i);
+                        }else{
+                            $("#official_email_id"+i).addClass("not_valid");
+                            document.getElementById('help_official_email_id'+i).innerHTML='Please Enter valid Company URL';
+                            $("#official_email_id"+i).focus();
+                        }
+                    },
+                    error:function(response){
+                    },
+                });
+            }
+        }
+
+        function getDomain(url) {
+            var domain = "",
+                page = "";
+            //remove "http://"
+            if (url.indexOf("http://") == 0) {
+                url = url.substr(7);
+            }
+            if (url.indexOf("https://") == 0) {
+                url = url.substr(7);
+            }
+            //remove "www."
+            if (url.indexOf("www.") == 0) {
+                url = url.substr(4);
+            }
+            domain = url
+            return domain;
+        }
+        //===============================================================
+        //This isFilledAllData function is used for check all field fill or not, if fill all data which will send the true or else false.
+        //================================================================
+        function isFilledAllData(){
+            var visit=0;
+            if(document.getElementById('question_one_no').checked == false && document.getElementById('question_one_yes').checked == false){
+                visit ++;
+                $("#validate_question_one_no").append('<style>input[type=radio]+#validate_question_one_no::before{border-color: #C32F2F;}</style>');
+                $("#validate_question_one_yes").append('<style>input[type=radio]+#validate_question_one_yes::before{border-color: #C32F2F;}</style>');
+            }
+            if(document.getElementById('question_two_yes').checked == false && document.getElementById('question_two_no').checked == false){
+                visit ++;
+                $("#validate_question_two_yes").append('<style>input[type=radio]+#validate_question_two_yes::before{border-color: #C32F2F;}</style>');
+                $("#validate_question_two_no").append('<style>input[type=radio]+#validate_question_two_no::before{border-color: #C32F2F;}</style>');
+            }
+            if (document.getElementById('question_three_yes').checked == false && document.getElementById('question_three_no').checked == false) {
+                visit ++;
+                $("#validate_question_three_yes").append('<style>input[type=radio]+#validate_question_three_yes::before{border-color: #C32F2F;}</style>');
+                $("#validate_question_three_no").append('<style>input[type=radio]+#validate_question_three_no::before{border-color: #C32F2F;}</style>');
+            }
+            if (document.getElementById('question_four_yes').checked == false && document.getElementById('question_four_no').checked == false) {
+                visit ++;
+                $("#validate_question_four_yes").append('<style>input[type=radio]+#validate_question_four_yes::before{border-color: #C32F2F;}</style>');
+                $("#validate_question_four_no").append('<style>input[type=radio]+#validate_question_four_no::before{border-color: #C32F2F;}</style>');
+            }
+            if(visit == 0) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function loadingStartPage() {
+            if( "{{questions_list.0.Answer}}" == "yes" ){
+                $('#question_one_yes').prop('checked', true);
+                $('#question1_div_area').css("display","flex");
+            }
+            else if( "{{questions_list.0.Answer}}" == "no" ){
+                document.getElementById('question_one_no').checked=true;
+                document.getElementById('question_one_yes').checked=false;
+                document.getElementById('y-o-b').value = '';
+                document.getElementById('t-n-o-c').value = 0;
+                document.getElementById('t-a-t-v').value = 'select';
+            }
+
+            if( "{{questions_list.1.Answer}}" == "yes" ) {
+                $('#question_two_yes').prop('checked', true);
+                $('#question_two_no').prop('checked', false);
+                $('#question2_div_area').css("display","flex");
+                $('#question_two_no').attr('onchange', "show_alert_to_check_advisor_access(0,'question2_div_area','question_two_yes','question_two_no','infra_address');");
+            }
+            else if( "{{questions_list.1.Answer}}" == "no" ){
+                $('#question_two_yes').prop('checked', false);
+                $('#question_two_no').prop('checked', true);
+                $('#question_two_no').attr('onchange', "clickResponse(0,'question2_div_area','question_two_yes','question_two_no','infra_address');");
+
+            }
+            else{
+                $("#question_two_no").attr('onchange', "clickResponse(0,'question2_div_area','question_two_yes','question_two_no','infra_address'); onchange_savequestions(id);");
+            }
+
+            if( "{{questions_list.2.Answer}}" == "no" ){
+                $('#question_three_yes').prop('checked', false);
+                $('#question_three_no').prop('checked', true);
+                $('#question_three_no').attr('onchange', "clickResponse(0,'question3_div_area','question_three_yes','question_three_no','');");
+            }
+            else if( "{{questions_list.2.Answer}}" == "yes" ) {
+                $('#question_three_yes').prop('checked', true);
+                $('#question_three_no').prop('checked', false);
+                $('#question3_div_area').css("display","flex");
+                $('#question_three_no').attr('onchange', "show_alert_to_check_advisor_access(0,'question3_div_area','question_three_yes','question_three_no','');");
+            }
+            else{
+                $('#question_three_no').attr('onchange', "clickResponse(0,'question3_div_area','question_three_yes','question_three_no','');");
+            }
+            var office_add = "{{ questions_list.1.Remark }}";
+            var hidden_office_add = "{{ questions_list.1.Remark }}";
+            office_add=office_add.replace(/!/g," ");
+            office_add=office_add.replace(/[$]/g,"\n");
+            document.getElementById('infra_address').innerHTML = office_add;
+            $("#infra_address").attr("onchange", "check_advisor_is_crisil(id, 'help-infra_address', '"+hidden_office_add+"');");
+            var num = "{{ questions_list.2.Remark.0.Answer }}"
+             if (num!="") {
+                organisation_div.innerHTML="";
+                count=0;
+                for(var ivalue = 1; ivalue <=num; ivalue++) {
+                    x++;
+                    allids.push(x);
+                    var on_val = "{{questions_list.2.Remark.0.Remark}}";
+                    q1=on_val.replace(/u&#39;/gi,"\"");
+                    q1=q1.replace(/&#39;/gi,"\"");
+                    var obj = JSON.parse(q1);
+                    var name = obj[count].Answer;
+                    count++;
+                    var official_email_id = obj[count].Answer;
+                    count++;
+                    var registration_id = obj[count].Answer;
+                    count++;
+                    var year = obj[count].Answer;
+                    count++;
+                    var wrapper=$("#organisation_div");
+                    $(wrapper).append('\
+                    <div class="row n-margin-0" id="financial_organisation'+ivalue+'">'+
+                        '<div class="col-md-11 col-xs-11 col-sm-11">'+
+                            '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                                '<div class="control">'+
+                                    '<label>Organization Name</label>'+
+                                    '<input type="text" class="form-control" name="institution_name'+ivalue+'" id="institution_name'+ivalue+'" onchange="validate_organisation_name('+ivalue+');checking_modified(id,'+"'"+name+"'"+');" value="'+name+'"></input>'+
+                                    '<span class="help-block" id="help_institution_name'+ivalue+'"></span>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                                '<div class="control">'+
+                                    '<label>Company URL</label>'+
+                                    '<input type="text" class="form-control" name="official_email_id'+ivalue+'" id="official_email_id'+ivalue+'" onchange="CheckIsValidDomain('+ivalue+');checking_modified(id,'+"'"+official_email_id+"'"+');" value="'+official_email_id+'"></input>'+
+                                    '<span class="help-block" id="help_official_email_id'+ivalue+'"></span>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                                '<div class="control">'+
+                                    '<label>Official Email/Registration Id</label>'+
+                                    '<input type="text" class="form-control" name="registration_id'+ivalue+'" id="registration_id'+ivalue+'" onchange="validate_registration_id('+ivalue+');checking_modified(id,'+"'"+registration_id+"'"+');" value="'+registration_id+'"></input>'+
+                                    '<span class="help-block" id="help_registration_id'+ivalue+'"></span>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="col-md-3 col-xs-12 col-sm-6">'+
+                                '<div class="control">'+
+                                    '<label>How Long Associated With ?</label>'+
+                                    '<input type="text" name="year_of_association'+ivalue+'" onchange="validate_year_of_association('+ivalue+');checking_modified(id,'+"'"+year+"'"+');" class="form-control" id="year_of_association'+ivalue+'" value="'+year+'"></input>'+
+                                    '<span class="help-block" id="help_year_of_association'+ivalue+'"></span>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="col-md-1 col-xs-1 col-sm-1" style="padding-bottom=10px;">'+
+                            '<a class = "remove_field btn additional_btn" id = "remove_field" onClick="warning_advisor_modify_organisation('+ivalue+');">'+
+                                '<i class="fa fa-minus-circle" ></i>'+
+                            '</a>'+
+                        '</div>'+
+                    '</div>');
+                }
+            }
+            else
+                organisation_div.innerHTML="";
+            if( "{{questions_list.3.Answer}}" == "yes" ) {
+                $('#question_four_yes').prop('checked', true);
+                $('#question_four_no').prop('checked', false);
+            }
+            if( "{{questions_list.3.Answer}}" == "no" ){
+                $('#question_four_yes').prop('checked', false);
+                $('#question_four_no').prop('checked', true);
+            }
+        }
+        function onchange_savequestions(id){
+            if($('#'+id).val() != ''){
+                $('#'+id).removeClass('not_valid');
+                $("#help-"+id).html('');
+            }
+            var token = "{{csrf_token}}";
+            var questions, question1_opiton, question2_opiton, question3_opiton;
+            var number_of_institutions, question4_opiton, experience;
+            var num_clients, average_value, office_address, count_institute, num_advisors;
+            var i=$("#tags").find("span").length;
+            // on change first question removing red color.
+            if($('#question_one_yes').prop('checked') ==  true){
+                document.getElementById('question_one_yes').style.boxShadow='';
+                document.getElementById('question_one_no').style.boxShadow='';
+                if($('#y-o-b').val() == '' || $('#total_client_served').val() == '' || $('#advisor_is_connected_with').val() == '' || $('#y-o-b').val() > 100){
+                    return false;
+                }
+            }
+            if($('#question_one_no').prop('checked') == true){
+                document.getElementById('question_one_yes').style.boxShadow='';
+                document.getElementById('question_one_no').style.boxShadow='';
+            }
+            // end of first question
+            // on change of second question removing red color.
+            if($('#question_two_yes').prop('checked') == true){
+                document.getElementById('question_two_yes').style.boxShadow='';
+                document.getElementById('question_two_no').style.boxShadow='';
+                if($('#infra_address').val() == ''){
+                    return false;
+                }
+            }
+            if($('#question_two_no').prop('checked') == true){
+                document.getElementById('question_two_yes').style.boxShadow='';
+                document.getElementById('question_two_no').style.boxShadow='';
+            }
+            // end of second question
+            // on change of third question removing red color
+            if($('#question_three_yes').prop('checked') == true){
+                document.getElementById('question_three_yes').style.boxShadow='';
+                document.getElementById('question_three_no').style.boxShadow='';
+                missed_field_add=0;
+                    for(var j=0; j<allids.length; j++) {
+                        var i=allids[j];
+                        var re = /^[1-9][0-9]?$|^99$/;
+                        if($('#year_of_association'+i).val() == ""){
+                            $("#year_of_association"+i).addClass("not_valid");
+                            $("#help_year_of_association"+i).html('Please Enter Year of Association');
+                            document.getElementById('year_of_association'+i).focus();
+                            missed_field_add = 1;
+                        }else{
+                            var validexperience = document.getElementById('year_of_association'+i);
+                            if(!validexperience.value.match(re) || validexperience == null ) {
+                                document.getElementById('year_of_association'+i).style.border='1px solid #C32F2F';
+                                document.getElementById('help_year_of_association'+i).innerHTML='Enter Valid Year of Association';
+                                $("#year_of_association"+i).focus();
+                                missed_field_add = 1;
+                            }else{
+                                $("#year_of_association"+i).removeClass('not_valid');
+                                document.getElementById('help_year_of_association'+i).innerHTML='';
+                            }
+                        }
+
+                        if($('#registration_id'+i).val() == ""){
+                            $("#help_registration_id"+i).html('Please Enter Official Email/Registration id');
+                            $("#registration_id"+i).addClass("not_valid");
+                            document.getElementById('registration_id'+i).focus();
+                            missed_field_add = 1;
+                        }else{
+                            $("#help_registration_id"+i).html('');
+                            $("#registration_id"+i).removeClass('not_valid');
+                        }
+
+                        if($('#official_email_id'+i).val() == ""){
+                            $("#help_official_email_id"+i).html('Please Enter Company URL');
+                            $("#official_email_id"+i).addClass("not_valid");
+                            document.getElementById('official_email_id'+i).focus();
+                            missed_field_add = 1;
+                        }else{
+                            var email = $('#official_email_id'+i).val()
+                            var status =document.getElementById('help_official_email_id'+i).innerText;
+                            var re = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/);
+                            if(!re.test(email)) {
+                                $("#help_official_email_id"+i).html('Please Enter valid Company URL');
+                                $("#official_email_id"+i).addClass("not_valid");
+                                document.getElementById('official_email_id'+i).focus();
+                                missed_field_add = 1;
+                            }else if(status=='Please Enter valid Company URL'){
+                                $("#official_email_id"+i).addClass("not_valid");
+                                document.getElementById('official_email_id'+i).focus();
+                                missed_field_add = 1;
+                            }else{
+                                $("#help_official_email_id"+i).html('');
+                                $("#official_email_id"+i).removeClass('not_valid');
+                            }
+                        }
+                        if($('#institution_name'+i).val() == ""){
+                            $("#help_institution_name"+i).html('Please Enter Organisation Name');
+                            $("#institution_name"+i).addClass("not_valid");
+                            document.getElementById('institution_name'+i).focus();
+                            missed_field_add = 1;
+                        }else{
+                            var alpha = /^[a-zA-Z()\s]+$/.test($('#institution_name'+i).val());
+                            if(alpha){
+                                $("#help_institution_name"+i).html('');
+                                $("#help_institution_name"+i).removeClass('not_valid');
+                            }else {
+                                $("#help_institution_name"+i).html('Please Enter only Characters');
+                                $("#institution_name"+i).addClass("not_valid");
+                                document.getElementById('institution_name'+i).focus();
+                                missed_field_add = 1;
+                            }
+                        }
+                    }
+
+                if(missed_field_add==1){
+                    return false
+                }
+            }
+            if($('#question_three_no').prop('checked') == true){
+                document.getElementById('question_three_yes').style.boxShadow='';
+                document.getElementById('question_three_no').style.boxShadow='';
+            }
+            // end of third question
+            // on change fourth question removing red color
+            if($('#question_four_yes').prop('checked') == true || $('#question_four_no').prop('checked') == true){
+                document.getElementById('question_four_yes').style.boxShadow='';
+                document.getElementById('question_four_no').style.boxShadow='';
+            }
+            // end of eight question
+            //===============
+            //Question 1 DATA
+            //===============
+            if (document.getElementById('question_one_yes').checked){
+                question1_opiton = "yes";
+                if(document.getElementById('y-o-b').value=='')
+                    return false;
+                if(document.getElementById('t-n-o-c').value=='')
+                    return false;
+                if(document.getElementById('t-a-t-v').value=='select')
+                    return false;
+                experience = $("#y-o-b").val();
+                num_clients = $("#total_client_served").val();
+                average_value = $("#t-a-t-v").val();
+                num_advisors = $("#advisor_is_connected_with").val();
+
+            }
+            else if (document.getElementById('question_one_no').checked){
+                question1_opiton = "no";
+                experience = "";
+                num_clients = "";
+                average_value = "";
+                num_advisors = "";
+            }
+            else{
+                experience = "";
+                num_clients = "";
+                average_value = "";
+                num_advisors = "";
+            }
+            //===============
+            //Question 2 DATA
+            //===============
+            if (document.getElementById('question_two_yes').checked){
+                question2_opiton="yes";
+                if(document.getElementById('infra_address').value==''){
+                    return false;
+                }
+                office_address = $("#infra_address").val();
+                office_address = office_address.replace(/\n/g, "$");
+                office_address = office_address.replace(/ /g, "!");
+
+            }
+            else if (document.getElementById('question_two_no').checked){
+                question2_opiton="no";
+                office_address = "";
+            }
+            else{
+                office_address = "";
+            }
+            //===============
+            //Question 3 DATA
+            //===============
+            if (document.getElementById('question_three_yes').checked){
+                question3_opiton="yes";
+                number_of_institutions="";
+                var num = "{{ questions_list.2.Remark.0.Answer }}";
+                count_institute = 0;
+                if (num!="") {
+                    count_institute = allids.length;
+                    var on_val = "{{questions_list.2.Remark.0.Remark}}";
+                    q1=on_val.replace(/u&#39;/gi,"\"");
+                    number_of_institutions=q1.replace(/&#39;/gi,"\"");
+                }else{
+                    number_of_institutions='['+number_of_institutions+']';
+                }
+            }
+            else if (document.getElementById('question_three_no').checked){
+                question3_opiton="no";
+                count_institute = "";
+                number_of_institutions ="{}";
+            }
+            else{
+                count_institute = "";
+                number_of_institutions ="{}";
+            }
+            //===============
+            //Question 4 DATA
+            //===============
+            if (document.getElementById('question_four_yes').checked)
+                question4_opiton="yes";
+            else if (document.getElementById('question_four_no').checked)
+                question4_opiton="no";
+            questions = '[{"Question":"1. Are you a Realtor ?", "Answer":"'+question1_opiton+'","Remark":[{"Question":"Experience","Answer":"'+experience+'"},{"Question":"Total Number of clients so far","Answer":"'+num_clients+'"},{"Question":"Average transaction value","Answer":"'+average_value+'"},{"Question":"Total Advisors connected","Answer":"'+num_advisors+'"}]},{"Question":"2. Do you have an infrastructure or will you be able to create an infrastructure to handle the members?", "Answer":"'+question2_opiton+'","Remark":"'+office_address+'"},{"Question":"3. Any association with financial Institutions?", "Answer":"'+question3_opiton+'","Remark":[{"Question":"Number of Institutions","Answer":"'+count_institute+'","Remark":'+number_of_institutions+'}]},{"Question":"4. Will you be interested to undergo any training program about real estate investment advisory?", "Answer":"'+question4_opiton+'"}]';
+            var crisil_certificate_valid = '{{crisil_certificate_valid}}';
+            $.ajax({
+                url : '/signup/onchange_save_questions/',
+                method : 'POST',
+                beforeSend: function (request) {
+                    request.setRequestHeader("X-CSRFToken", token );
+                },
+                data : {
+                    username : '{{user.username}}',
+                    name     : 'questions',
+                    questions : questions,
+                    total_client_served : $("#total_client_served").val(),
+                    total_advisors_connected : $("#advisor_is_connected_with").val()
+                },
+                success:function(response){
+                },
+                error:function(response){
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function check_field(id){
+            $("#"+id).removeClass('not_valid');
+            $("#help_"+id).html('');
+        }
+        function training_program(){
+            if (document.getElementById('question_four_no').checked == true) {
+                document.getElementById('help-text-question_four').innerHTML='"To become a digital asset advisor, we will require that you undergo an online training program offered by The Digital Assets Academy"';
+            }else{
+                document.getElementById('help-text-question_four').innerHTML='';
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        var crisil_certificate_valid = '{{crisil_certificate_valid}}';
+        var changes_accepted = false;
+        // calling when advisor is try to change organisation data
+        function checking_modified(id,input_value) {
+            var help_id = 'help_'+id;
+            var input_value = input_value;
+            check_advisor_is_crisil(id, help_id, input_value);
+        }
+        // calling when advisor is try to change data in office address or data in organisation
+        function check_advisor_is_crisil(input_id, help_id, input_value) {
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "confirm_change_data("+"'"+input_id+"'"+", "+"'"+help_id+"'"+");");
+                $("#id_cancel_change").attr("onclick", "cancel_changes("+"'"+input_id+"'"+", "+"'"+input_value+"'"+","+"'"+help_id+"'"+");");
+                $('#check_confirm_for_change').modal('show');
+            }else{
+                onchange_savequestions(input_id);
+            }
+        }
+        function confirm_change_data(input_id, help_id) {
+            onchange_savequestions(input_id);
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+        }
+        function cancel_changes(id, value, help_id) {
+            value=value.replace(/!/g," ");
+            value=value.replace(/[$]/g,"\n");
+            $('#'+id).val(value);
+            $('#'+help_id).html('');
+            $('#'+id).css('border', '1px #bfbfbf solid');
+            $('#check_confirm_for_change').modal('hide');
+        }
+        // calling when advisor try to add organisation
+        function warning_advisor_modify_organisation(name){
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "confirm_add_organisation("+"'"+name+"'"+");");
+                $("#id_cancel_change").attr("onclick", "cancel_organisation();");
+                $('#check_confirm_for_change').modal('show');
+            }else{
+                if(name == 'add_organisation'){
+                    add_additional_organisation();
+                }else{
+                    name = parseInt(name);
+                    remove_data(name);
+                }
+            }
+        }
+        function confirm_add_organisation(name) {
+            if(name == 'add_organisation'){
+                add_additional_organisation();
+            }else{
+                name = parseInt(name);
+                remove_data(name);
+            }
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+        }
+        function cancel_organisation(){
+            $('#check_confirm_for_change').modal('hide');
+        }
+        // calling when advisor try to change addres from 'yes' to 'no'
+        function show_alert_to_check_advisor_access (no_value,question_div,question_yes,question_no,value){
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "confirm_to_check_advisor_access("+"'"+no_value+"'"+","+"'"+question_div+"'"+","+"'"+question_yes+"'"+","+"'"+question_no+"'"+","+"'"+value+"'"+")");
+                $("#id_cancel_change").attr("onclick", "cancel_check("+"'"+question_no+"'"+");");
+                $('#check_confirm_for_change').modal('show');
+            }else{
+                if(value == 'infra_address'){
+                    onchange_savequestions(question_no);
+                }
+                clickResponse(no_value,question_div,question_yes,question_no,value);
+            }
+        }
+        function confirm_to_check_advisor_access(no_value,question_div,question_yes,question_no,value) {
+            clickResponse(no_value, question_div, question_yes, question_no, value);
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+        }
+        function cancel_check(question_no) {
+            $("#"+question_no).prop('checked', false);
+            $("#"+question_no).parent().removeClass("selected");
+            $('#check_confirm_for_change').modal('hide');
+        }
+    </script>
+    <script type="text/javascript">
+        function modify_web_url(id){
+            value = $("#"+id).val();
+            if (!/^(f|ht)tps?:\/\//i.test(value)) {
+                if(value.indexOf("www.") !=0){
+                    $("#"+id).val('http://www.'+value);
+                }else{
+                    $("#"+id).val('http://'+value);
+                }
+            }else if(!/((?:www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/i.test(value)){
+                value = value.replace(/^http(s)?\:\/\//i, "");
+                $("#"+id).val('http://www.'+value);
+            }
+        }
+    </script>
+    <script src="{% static 'js/kyc_validate.js' %}"></script>
+    {% if new_login %}
+        <script type="text/javascript">
+            $('#last_visited').stop().fadeIn(400).delay(3000).fadeOut(400); //fade out after 3 seconds
+        </script>
+    {% endif %}
+    {% if profile_toast_message %}
+        <script type="text/javascript">
+            $('#digi_profile').stop().fadeIn(400).delay(3000).fadeOut(400); //fade out after 3 seconds
+        </script>
+    {% endif %}
+    {% if check_register %}
+        <script type="text/javascript">
+            check_registerd('not_confirmed');
+        </script>
+    {% endif %}
+{% endblock %}

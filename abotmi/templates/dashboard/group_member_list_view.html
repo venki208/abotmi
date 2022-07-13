@@ -1,0 +1,77 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+    <ul class="chat-group">
+        {% if group_members %}
+            {% for members in group_members %}
+            <li class="left clearfix" id="list_{{ members.user_profile.id }}">
+                <span class="chat-img pull-left">
+                    <img src="http://placehold.it/50/55C1E7/fff&text=U"  />
+                </span>
+                <div class="chat-body clearfix">
+                    <div class="header">
+                        <strong class="primary-font">{{ members.user_profile.first_name }} {{ members.user_profile.last_name }}</strong>
+                        <input class="checkbox exist_member" id="{{ members.user_profile.id }}" name="checkbox-1" type="checkbox" style="display:none;" checked>
+                    </div>
+                    <p class="n-margin-0">
+                       <span style="margin:0px;">{{ members.user_profile }}</span>
+                    </p>
+                </div>
+                <hr class="bottom-border">
+            </li>
+            {% endfor %}
+        {% else %}
+            <li class="left clearfix" id="no_members">
+                <div class="chat-body clearfix">
+                    <div class="header">
+                        <strong class="primary-font">No Members</strong>
+                    </div>
+                </div>
+            </li>
+        {% endif %}
+        {% if excluded_members %}
+            {% for new_members in excluded_members %}
+            <li class="left clearfix" id="list_{{new_members.user_profile.id}}" style="display:none;">
+                <span class="chat-img pull-left">
+                    <img src="http://placehold.it/50/55C1E7/fff&text=U"  />
+                </span>
+                <div class="chat-body clearfix">
+                    <div class="header">
+                        <strong class="primary-font">{{ new_members.user_profile.first_name }}{{ new_members.user_profile.last_name }}</strong>
+                        <input class="checkbox new-members" id="{{new_members.user_profile.id}}" name="checkbox-1" type="checkbox">
+                    </div>
+                    <p class="n-margin-0">
+                       <span style="margin:0px;">{{new_members.user_profile.email }}</span>
+                    </p>
+                </div>
+                <hr class="bottom-border">
+            </li>
+            {% endfor %}
+        {% endif %}
+   </ul>
+<script type="text/javascript">
+    // onchange removing member and adding member in respected Group
+    function onchange_add_or_remove_member_in_group(id){
+        var token = '{{ csrf_token }}';
+        $.ajax({
+            type:'POST',
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            url:"{% url 'dashboard:onchange_add_member_in_group' %}",
+            data:{
+                member:id,
+                group_id:'{{ group_id }}'
+            },
+            success:function(response){
+            },
+            error:function(response) {
+            }
+        });
+    }
+
+    // onclick disply div
+    function make_visible_div(id,list_div_id){
+        $('#'+id).css('display','block');
+        $('#'+list_div_id).css('display','block');
+    }
+</script>

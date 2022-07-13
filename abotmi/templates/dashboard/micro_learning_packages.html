@@ -1,0 +1,56 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<div class="modal micro_learning_packages fade upwardz-modal" id="micro_learning_packages" name="micro_learning_packages" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg subscription-number-details">
+        <div class="panel panel-default upwrdz-log-panel">
+            <div class="modal-body modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <div class="row" id="micro_learning_payment">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-12 subscription-packeges-myide text-center">
+                                <h2>PACKAGE DETAILS</h2>
+                                <div class="row">
+                                    <div class="col-xs-3 subscription-packeges-section">
+                                        <div class="subscription-packeges-section-inner">
+                                          <h3>PACKS</h3>
+                                          <ul>
+                                            {% for ftr in ftr_odr_list %}
+                                              {% for short, full in ftr.items %}
+                                                <li>{{full}}</li>
+                                              {% endfor %}
+                                            {% endfor %}
+                                          </ul>
+                                        </div>
+                                    </div>
+                                    {% for ml_pkg in ml_pkgs %}
+                                      {% for key, feature in ml_pkg.items %}
+                                        {% if key != "" %}
+                                          <div class="col-xs-3 subscription-packeges-section">
+                                            <div class="subscription-packeges-section-inner">
+                                                <h3>{{key}}</h3>
+                                                <ul>
+                                                {% for std in feature %}
+                                                    <li>{{ std }}</li>
+                                                {% endfor %}
+                                                </ul>
+                                                <button class="btn danger" 
+                                                onclick="payment_summary('{{key}}',{{sub_cat_id}}, 'micro_learning_payment'); ">
+                                                    SUBSCRIBE
+                                                </button>
+                                            </div>
+                                          </div>
+                                        {% endif %}
+                                      {% endfor %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

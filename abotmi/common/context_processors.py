@@ -1,0 +1,91 @@
+# Django Imports
+from django.conf import settings
+from django.contrib.auth.models import User
+# Local Imports
+from common.constants import (
+    REGION_DEFAULT, RECAPTCHA_KEY, EXISTING_UPLYF_USER, GRADUATION, POST_GRADUATION,
+    DOCTORATE, POST_DOCTORATE, PROFESSIONAL_QUALIFICATION, OTHER_QUALIFICATION,
+    REGION_IN, INDIAN_NATIONALITY, CRISIL_NOT_APPLIED, CRISIL_APPLIED,
+    CRISIL_PAYMENT_SUBMITTED, CRISIL_PAYMENT_RE_SUBMIT, CRISIL_RENEWAL_PAYMENT_RE_SUBMIT,
+    CRISIL_RENEWAL_PAYMENT_SUBMITTED, CRISIL_CERTIFICATE_IN_PROCESS,
+    CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS, CRISIL_GOT_CERTIFICATE, TR_PAID, TR_BOUNCED,
+    TR_INVALID, TR_RENEWAL_PAID, TR_RENEWAL_BOUNCED, TR_RENEWAL_INVALID,
+    CRISIL_CERTIFICATE_VALUE, CRISIL_CERTIFICATE_VALUE_WITHOUT_DISCOUNT,
+    CRISIL_VERIFICATION_FAILED, CRISIL_EXPIRED, CRISIL_EXPIRED_BY_USER,
+    TAX_PERCENTAGE_CRISIL, CRISIL_CERTIFICATE_DISCOUNT, CRISIL_RENEWAL,
+    CERTIFICATE_RENEWAL_YEAR, CRISIL_CERTIFICATE_RENEWAL_VALUE
+)
+
+
+def crisil_status_flags(request):
+    return_dict = {
+        'CRISIL_NOT_APPLIED': CRISIL_NOT_APPLIED,
+        'CRISIL_APPLIED': CRISIL_APPLIED,
+        'CRISIL_PAYMENT_SUBMITTED': CRISIL_PAYMENT_SUBMITTED,
+        'CRISIL_PAYMENT_RE_SUBMIT': CRISIL_PAYMENT_RE_SUBMIT,
+        'CRISIL_RENEWAL_PAYMENT_RE_SUBMIT': CRISIL_RENEWAL_PAYMENT_RE_SUBMIT,
+        'CRISIL_RENEWAL_PAYMENT_SUBMITTED': CRISIL_RENEWAL_PAYMENT_SUBMITTED,
+        'CRISIL_CERTIFICATE_IN_PROCESS': CRISIL_CERTIFICATE_IN_PROCESS,
+        'CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS': CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS,
+        'CRISIL_GOT_CERTIFICATE': CRISIL_GOT_CERTIFICATE,
+        'TR_PAID': TR_PAID,
+        'TR_BOUNCED': TR_BOUNCED,
+        'TR_INVALID': TR_INVALID,
+        'TR_RENEWAL_PAID': TR_RENEWAL_PAID,
+        'TR_RENEWAL_BOUNCED': TR_RENEWAL_BOUNCED,
+        'TR_RENEWAL_INVALID': TR_RENEWAL_INVALID,
+        'CRISIL_CERTIFICATE_VALUE': CRISIL_CERTIFICATE_VALUE,
+        'CRISIL_CERTIFICATE_VALUE_WITHOUT_DISCOUNT': CRISIL_CERTIFICATE_VALUE_WITHOUT_DISCOUNT,
+        'CRISIL_VERIFICATION_FAILED': CRISIL_VERIFICATION_FAILED,
+        'CRISIL_EXPIRED': CRISIL_EXPIRED,
+        'CRISIL_EXPIRED_BY_USER': CRISIL_EXPIRED_BY_USER,
+        'TAX_PERCENTAGE_CRISIL': TAX_PERCENTAGE_CRISIL,
+        'CRISIL_CERTIFICATE_DISCOUNT': CRISIL_CERTIFICATE_DISCOUNT,
+        'CRISIL_RENEWAL': CRISIL_RENEWAL,
+        'CERTIFICATE_RENEWAL_YEAR': CERTIFICATE_RENEWAL_YEAR,
+        'CRISIL_CERTIFICATE_RENEWAL_VALUE': CRISIL_CERTIFICATE_RENEWAL_VALUE,
+    }
+    return return_dict
+
+
+def common_objects(request):
+    if request.user.is_authenticated():
+        advisor = None
+        user = request.user
+        user_profile = user.profile
+        user_selected_role = request.session.get('user_selected_role', '')
+        if user_profile.is_advisor:
+            advisor = user_profile.advisor
+        objects = {
+            'user': request.user,
+            'user_profile': user_profile,
+            'advisor': advisor,
+            'user_selected_role': user_selected_role
+        }
+    else:
+        objects = {
+            "recaptcha_key": RECAPTCHA_KEY,
+            'user_selected_role': ''
+        }
+    return objects
+
+
+def ip_country(request):
+    ip_details = request.session['ip_info']
+    user_agent_country = ip_details.get("country", REGION_DEFAULT)
+    return {'user_agent_country': user_agent_country}
+
+
+def common_constants(request):
+    return {
+        'EXISTING_UPLYF_USER': EXISTING_UPLYF_USER,
+        'AADHAAR_INITIATION_URL': settings.AADHAAR_INITIATION_URL,
+        'GRADUATION': GRADUATION,
+        'POST_GRADUATION': POST_GRADUATION,
+        'DOCTORATE': DOCTORATE,
+        'POST_DOCTORATE': POST_DOCTORATE,
+        'PROFESSIONAL_QUALIFICATION': PROFESSIONAL_QUALIFICATION,
+        'OTHER_QUALIFICATION': OTHER_QUALIFICATION,
+        'REGION_IN': REGION_IN,
+        'INDIAN_NATIONALITY': INDIAN_NATIONALITY
+    }

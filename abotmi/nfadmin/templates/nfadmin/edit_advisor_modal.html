@@ -1,0 +1,371 @@
+{% load staticfiles %}
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/additional-methods.min.js' %}"></script>
+<script type="text/javascript">
+    function save_userprofile_form(){
+        if($('#body_user_profile_body').valid() ){
+            var sebi_number = $('#id_sebi_number').val();
+            var amfi_number = $('#id_amfi_number').val();
+            var irda_number = $('#id_irda_number').val();
+            var other_registered_number = $('#id_other_registered_number').val();
+            var sebi_exp_date = $('#id_sebi_expiry_date').val();
+            var amfi_exp_date = $('#id_amfi_expiry_date').val();
+            var irda_exp_date = $('#id_irda_expiry_date').val();
+            var other_exp_date = $('#id_other_expiry_date').val();
+            var other_regester_organisation = $('#id_other_registered_organisation').val();
+            var practise_country = $('#id_practice_country').val();
+            var practise_city = $('#id_practice_city').val();
+            var practise_years = $('#id_practice_years').val();
+            var professional_qualification = $('#id_credibility_declaration_qualification').val();
+            var other_fin_instruments = $('#id_other_financial_instruments').val();
+            var other_qualification = $('#others_education_input').val();
+            var financial_experience_0 = $('#id_exp_equity').val();
+            if($('#id_is_registered_advisor').val() == 'True'){
+                if (sebi_number == '' && amfi_number == '' && irda_number == '' && other_registered_number == ''){
+                    alert('Please Enter Any One of Regitration Number');
+                    return false;
+                }
+            }
+            if($('#id_is_registered_advisor').val() == 'False'){
+                document.getElementById('id_sebi_number').value= '';
+                document.getElementById('id_amfi_number').value= '';
+                document.getElementById('id_irda_number').value= '';
+                document.getElementById('id_other_registered_number').value= '';
+                document.getElementById('id_sebi_expiry_date').value= '';
+                document.getElementById('id_amfi_expiry_date').value= '';
+                document.getElementById('id_irda_expiry_date').value= '';
+                document.getElementById('id_other_expiry_date').value= '';
+                document.getElementById('id_other_registered_organisation').value= '';
+                document.getElementById('id_practice_country').value= '';
+                document.getElementById('id_practice_city').value= '';
+                document.getElementById('id_practice_years').value= '';
+                document.getElementById('id_credibility_declaration_qualification').value= '';
+                document.getElementById('id_other_financial_instruments').value= '';
+                document.getElementById('others_education_input').value= '';
+                document.getElementById('id_exp_equity').value= '';
+
+            }
+            if($('#id_is_registered_advisor').val() == ''){
+                document.getElementById('id_sebi_number').value= '';
+                document.getElementById('id_amfi_number').value= '';
+                document.getElementById('id_irda_number').value= '';
+                document.getElementById('id_other_registered_number').value= '';
+                document.getElementById('id_sebi_expiry_date').value= '';
+                document.getElementById('id_amfi_expiry_date').value= '';
+                document.getElementById('id_irda_expiry_date').value= '';
+                document.getElementById('id_other_expiry_date').value= '';
+                document.getElementById('id_other_registered_organisation').value= '';
+                document.getElementById('id_practice_country').value= '';
+                document.getElementById('id_practice_city').value= '';
+                document.getElementById('id_practice_years').value= '';
+                document.getElementById('id_credibility_declaration_qualification').value= '';
+                document.getElementById('id_other_financial_instruments').value= '';
+                document.getElementById('id_exp_equity').value= '';
+
+            }
+            if((sebi_number != '' && sebi_exp_date == '') || (sebi_number == '' && sebi_exp_date != '') ){
+                alert('Please Enter SEBI Expiry Date or Sebi Number');
+                return false;
+            }
+            if((amfi_number != '' && amfi_exp_date == '')|| (amfi_number == '' && amfi_exp_date != '')){
+                alert('Please Enter AMFI Expiry Date or Amfi Number');
+                return false;
+            }
+            if((irda_number != '' && irda_exp_date == '')|| (irda_number == '' && irda_exp_date != '')){
+                alert('Please Enter IRDA Expiry Date or Irda Number');
+                return false;
+            }
+            if((other_registered_number != '' && other_exp_date == '')||(other_registered_number == '' && other_exp_date != '')){
+                alert('Please Enter other_registered_number Expiry Date or Registration number');
+                return false;
+            }
+            var user_profile_form_data =  new FormData($("#body_user_profile_body")[0]);
+            var token = "{{ csrf_token }}";
+            $.ajax({
+                type: 'POST',
+                url: '/nfadmin/save_user_profile_model/',
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data: user_profile_form_data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                if(response == 'success'){
+                    $('#edit_userprofile_modal-modal').modal('hide');
+                    window.location.reload()
+                }
+                else{
+                    $('#edit_user_profile_body').html(response)
+                }
+            }
+            });
+        }
+    }
+</script>
+<form method="POST" action="" name="body_user_profile_body" id="body_user_profile_body" role="form">
+    {% csrf_token %}
+	<!-- Panel Design Start -->
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<div class="panel-title"><h4>Edit Advisor Details</h4> </div>
+		</div>
+	</div>
+    <div class="panel-title">
+        <h3><u>Credibility Form</u></h3>
+    </div>
+    <div class="row" style="padding-bottom:10px;">
+        {% for field in credibility_form %}
+            <div class="toggle_label col-md-2" id="label_name">
+                {{ field.label }}
+            </div>
+            <div class="col-md-4">
+                <div class="form-group control-group">
+                    <div class="control">
+                        {{ field }}
+                    </div>
+                    <span class="help-block">
+                        {{ field.errors }}
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-md-4" id="others_education_input" style="display:none;">
+            <div class="form-group control-group">
+                <div class="control">
+                    Other Education Qualification
+                    <input type="text" class="form-control input" name="others_qualification" id="others_qualification" placeholder="Please enter your qualification"/>
+                </div>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-title">
+        <h3><u>Personal Details</u></h3>
+    </div>
+    <div class="row" style="padding-bottom:10px;">
+        {% for user_field in user_form %}
+            <div class="col-md-2">
+                {{ user_field.label }}
+            </div>
+            <div class="col-md-4">
+                <div class="form-group control-group">
+                    <div class="control">
+                        {{ user_field }}
+                    </div>
+                    <span class="help-block">
+                        {{ user_field.errors }}
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- end of user table -->
+    <!-- fetching form from userprofile table -->
+	<div class="row">
+	{% for field in profile_form %}
+        <div class="col-md-2">
+            {{ field.label }}
+        </div>
+        <div class="col-md-4">
+            <div class="form-group control-group">
+                <div class="control">
+                	{{field}}
+                </div>
+                <span class="help-block">
+                    {{field.errors }}
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <!-- end of userprofile tab -->
+</form>
+<script type="text/javascript">
+function deleteDocument(id){
+	document.getElementById(id).style.display = "none";
+	   $.ajax({
+			url: "/nfadmin/remove_upload_file/",
+			method: "POST",
+			data:{
+				id: id,
+			},
+			success:function(data){
+				var data = data;
+			}
+		});
+	}
+</script>
+    <script type="text/javascript">
+        $(function() {
+            $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:2012",
+            dateFormat: "yy-mm-dd",
+            yearRange: "-100Y:Date()",
+            maxDate:'-18Y',
+            defaultDate: '-27y'
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        // checking pincode is exist or not and auto filling state.
+        function check_pincode(){
+            $.ajax({
+                url: "/nfadmin/user_checkpin/",
+                method: "POST",
+                data:{
+                    pincode: $("#id_pincode").val(),
+                },
+                success:function(response){
+                    var res=response;
+                    document.getElementById('id_state').value = res;
+                },
+                error:function(response){
+                    alert("Please enter Correct Pincode number");
+                    document.getElementById('id_state').value = '';
+                    document.getElementById('id_pincode').value = '';
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function show_regester_fields(){
+            var register_value = document.getElementById('id_is_registered_advisor').value
+            if (register_value == 'False' ){
+                $(".toggle_label").hide();
+                document.getElementById('id_sebi_number').style.display='none';
+                document.getElementById('id_amfi_number').style.display='none';
+                document.getElementById('id_irda_number').style.display='none';
+                document.getElementById('id_other_registered_number').style.display='none';
+                document.getElementById('id_sebi_expiry_date').style.display='none';
+                document.getElementById('id_irda_expiry_date').style.display='none';
+                document.getElementById('id_amfi_expiry_date').style.display='none';
+                document.getElementById('id_other_expiry_date').style.display='none';
+                document.getElementById('id_other_registered_organisation').style.display='none';
+                document.getElementById('id_practice_city').style.display='none';
+                document.getElementById('id_practice_years').style.display='none';
+                document.getElementById('id_financial_instruments').style.display='none';
+                document.getElementById('id_practice_country').style.display='none';
+                document.getElementById('id_credibility_declaration_qualification').style.display='none';
+                document.getElementById('id_financial_instruments').style.display='none';
+                document.getElementById('id_other_financial_instruments').style.display='none';
+                document.getElementById('others_education_input').style.display='none';
+            }
+            else{
+                $(".toggle_label").show();
+                document.getElementById('id_sebi_number').style.display='block';
+                document.getElementById('id_amfi_number').style.display='block';
+                document.getElementById('id_irda_number').style.display='block';
+                document.getElementById('id_other_registered_number').style.display='block';
+                document.getElementById('id_sebi_expiry_date').style.display='block';
+                document.getElementById('id_irda_expiry_date').style.display='block';
+                document.getElementById('id_amfi_expiry_date').style.display='block';
+                document.getElementById('id_other_expiry_date').style.display='block';
+                document.getElementById('id_other_registered_organisation').style.display='block';
+                document.getElementById('id_practice_city').style.display='block';
+                document.getElementById('id_practice_years').style.display='block';
+                document.getElementById('id_financial_instruments').style.display='block';
+                document.getElementById('id_practice_country').style.display='block';
+                document.getElementById('id_financial_instruments').style.display='block';
+                document.getElementById('id_other_financial_instruments').style.display='block';
+                document.getElementById('id_credibility_declaration_qualification').style.display='block';
+                document.getElementById('others_education_input').style.display='block';
+                document.getElementById('id_exp_equity').value= 'block';
+                document.getElementById('id_exp_wealth_advisory').value= 'block';
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $( ".reg_exp_date" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: 0,
+            dateFormat: "yy-mm-dd",
+            });
+        });
+    </script>
+    {% if not user.profile.advisor.is_registered_advisor  %}
+        <script type="text/javascript">
+            $(".toggle_label").hide();
+            document.getElementById('id_sebi_number').style.display='none';
+            document.getElementById('id_amfi_number').style.display='none';
+            document.getElementById('id_irda_number').style.display='none';
+            document.getElementById('id_other_registered_number').style.display='none';
+            document.getElementById('id_sebi_expiry_date').style.display='none';
+            document.getElementById('id_irda_expiry_date').style.display='none';
+            document.getElementById('id_amfi_expiry_date').style.display='none';
+            document.getElementById('id_other_expiry_date').style.display='none';
+            document.getElementById('id_other_registered_organisation').style.display='none';
+            document.getElementById('id_practice_city').style.display='none';
+            document.getElementById('id_practice_years').style.display='none';
+            document.getElementById('id_financial_instruments').style.display='none';
+            document.getElementById('id_practice_country').style.display='none';
+            document.getElementById('id_credibility_declaration_qualification').style.display='none';
+            document.getElementById('id_financial_instruments').style.display='none';
+            document.getElementById('id_other_financial_instruments').style.display='none';
+            document.getElementById('others_education_input').style.display='none';
+            document.getElementById('id_exp_equity').value= 'none';
+        </script>
+    {% endif %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $("#id_credibility_declaration_qualification").on('change', function(){
+                if ($("#id_credibility_declaration_qualification").val() == "Others") {
+                    $("#others_education_input").show();
+                }else{
+                    $("#others_qualification").val('');
+                    $("#others_education_input").hide();
+                }
+            });
+        });
+    $('#id_financial_instruments').prop('checked', true);
+    $('#id_financial_instruments').on('click', function(){
+    if($(this).is(':checked')){
+        $('#theBox').prop('readonly', true);
+        $('#theBox').prop('disabled', false);
+    }else{
+        $('#theBox').prop('readonly', true);
+        $('#theBox').prop('disabled', true);
+        }
+    });
+    $("#id_financial_instruments_0").click(function(){
+        var financial_zero=document.createElement('input');
+        financial_zero.placeholder = "Experience in Equity ";
+        financial_zero.id='id_exp_equity';
+        financial_zero.name = 'id_exp_equity';
+        $('#id_financial_instruments').append(financial_zero)})
+    $("#id_financial_instruments_1").click(function(){
+        var financial_zero=document.createElement('input');
+        financial_zero.placeholder = "Experience in Wealth Advisory ";
+        financial_zero.id='id_exp_wealth_advisory';
+        financial_zero.name = 'id_exp_wealth_advisory';
+        $('#id_financial_instruments').append(financial_zero)})
+    $("#id_financial_instruments_2").click(function(){
+        var financial_zero=document.createElement('input');
+        financial_zero.placeholder = "Experience in Mutul Fund ";
+        financial_zero.id='id_exp_mutual_fund';
+        financial_zero.name = 'id_exp_mutual_fund';
+        $('#id_financial_instruments').append(financial_zero)})
+    $("#id_financial_instruments_3").click(function(){
+        var financial_zero=document.createElement('input');
+        financial_zero.placeholder = "Experience in Insurance ";
+        financial_zero.id='id_insurance';
+        financial_zero.name = 'id_insurance';
+        $('#id_financial_instruments').append(financial_zero)})
+    $("#id_financial_instruments_4").click(function(){
+        var financial_zero=document.createElement('input');
+        financial_zero.placeholder = "Experience in Real Estate ";
+        financial_zero.id='id_real_estate';
+        financial_zero.name = 'id_real_estate';
+        $('#id_financial_instruments').append(financial_zero)})
+    $("#id_financial_instruments_5").click(function(){
+        var financial_zero=document.createElement('input');
+        financial_zero.placeholder = "Experience in PortFolio ";
+        financial_zero.id='id_portfolio_management';
+        financial_zero.name = 'id_portfolio_management';
+        $('#id_financial_instruments').append(financial_zero)})
+    </script>

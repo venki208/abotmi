@@ -1,0 +1,14 @@
+ul.rating li {
+  display: inline;
+  border: 0px;
+  background: none;
+  padding: 1px 1px;
+}
+ul.rating li i {
+  font-size: 18px;
+  color: linear-gradient(139deg, #d53d2b 0%, #db6a2e 100%);;
+}
+ul.rating .black li i {
+	font-size: 14px;
+  	color : linear-gradient(139deg, #d53d2b 0%, #db6a2e 100%);;
+}

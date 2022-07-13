@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block main_content %}
+        <h3><center>Revenue Transaction Form</center></h3>
+        <section class="blog-section" id="about" style="margin: 30px;margin-top:100px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 blog-creation-form">
+                        <form
+                            action="/revenue/add_client/"
+                            method="post"
+                            accept-charset="utf-8"
+                            id="rev_tr" role="form" name="rev_tr" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <label>Client Details</label>
+                            </fieldset>    
+                            <fieldset class="form-group">
+                                <input type="text" id="client_email" name="client_email" placeholder="Client Email">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="text" id="client_mobile" name="client_mobile" placeholder="Client Mobile">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="text" id="client_platform_email" name="client_platform_email" placeholder="Client Platform Email">
+                            </fieldset>
+                            <button type="button" class="btn blog-btn" onclick="submitPost();" style="margin-right:0px;">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    function submitPost(){
+        $("#rev_tr").submit();
+    }
+</script>
+{% endblock %}

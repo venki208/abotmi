@@ -1,0 +1,488 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load social_media_tags %}
+
+{% block base_css %}
+    {{ block.super }}
+{% endblock %}
+{% block base_scripts %}
+    {{block.super}}
+    {% if not user.is_authenticated %}
+        <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+        <script type="text/javascript">
+            var recapkey = "{{recaptcha_key}}";
+            var title = '{{title}}';
+        </script>
+        <script src="{% static 'js/new_js/captcha.js' %}"></script>
+    {% endif %}
+{% endblock %}
+{% block theme_css %}
+    {{ block.super }}
+    <link href="{% static 'css/recaptcha.css' %}" rel="stylesheet">
+    <link href="{% static 'css/login.css' %}" rel="stylesheet">
+    <link href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}" rel="stylesheet">
+{% endblock %}
+<!-- HTML Content Starts -->
+{% block bootstrap-modal %}
+    {{ block.super }}
+    <!-- Login-FGP Modal -->
+    <div id="signup-login-modal" class="modal upwardz-modal abtomi-login-newmodal" role="dialog">
+        <div class="modal-dialog login-modal">
+            <a class="close-icon close" data-dismiss="modal" onClick="$('.input').val('');">
+                <i class="fa fa-times-thin fa-2x" aria-hidden="true"></i>
+            </a>
+            <!-- Modal content-->
+            <div class="modal-content  upwardz-modal-size">
+                <div class="panel with-nav-tabs upwrdz-log-panel panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="login-tab active" name="ad_sec">
+                                <a href="#login-modal" data-toggle="tab" id="id_login_tab">Log In</a>
+                            </li>
+                            <li class="signup-tab">
+                                <a href="#signup-modal" data-toggle="tab" id="id_signup_tab">Sign Up</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane in active" id="login-modal">
+                                <p class="title text-center">Log In your account</p>
+                                <!-- Login -->
+                                <form method="post" id="login_form" name="login_form" onsubmit="login_user(); return false;">
+                                    {% csrf_token %}
+                                    <div class="form-group control-group">
+                                        <input class="form-control" type="text" autocomplete="off" name="username" id="username" placeholder="User Email ID" tabindex="1" required="true" title="please enter User email id" min-length="3" is-email="true">
+                                        <span class="help-block" id="help_username"></span>
+                                    </div>
+                                    <div class="form-group control-group">
+                                        <input class="form-control" type="password" autocomplete="off" name="password" id="password" placeholder="Password" tabindex="2" required="true" title="please enter password">
+                                        <span class="help-block" id="help_password"></span>
+                                    </div>
+                                    <div id="Recaptcha_login_button" class="recaptcha1 form-group"></div>
+                                    <span class="help-block" id="help_login_recpatcha"></span>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="button" id="login_button" class="btn btn-default signin-btn" autocomplete="off" tabindex="4">Log In</button>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <a onclick="show_forgot_screen();" class="text-center back-link login-forget-password" tabindex="5"><u> Forgot password? </u></a>
+                                        </div>
+                                    </div>
+                                    <span id="error_msg" class="help-block"></span>
+                                </form>
+                                <!--forgot password-->
+                                <div id="forgot_screen" class="additional_info" style="display:none;">
+                                    
+                                    <form method="post" id="forgot_pwd_form" name="forgot_pwd_form" class="pop-up-social-login" onsubmit="forgot_user_pwd(); return false;">
+                                        <div class="form-group control-group">
+                                            <div class="control">
+                                                <input type="text" autocomplete="off" name="resend_email" id="resend_email" class="form-control input" placeholder="Email ID" required="true" is-email="true" title="please enter email id" tabindex="1">
+                                            </div>
+                                            <span class="help-block" id="help_resend_mail"></span>
+                                        </div>
+                                        
+                                        <div id="Recaptcha_forgot_password_button" class="recaptcha1 form-group"></div>
+                                        <span id="help_forgot_recpatcha" class="help-block"></span>
+                                        <button type="button" id="forgot_pwd" onClick="forgot_user_pwd();" class="btn btn-default signin-btn" tabindex="3">
+                                            Submit
+                                        </button>
+                                    </form>
+                                </div>
+                                <!-- forgot password ends-->
+                            </div>
+                            <!-- Signup form-->
+                            <div class="tab-pane" id="signup-modal">
+                                <div class="row sign-up-social-icons text-center">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <p class="sign-up-text-effect">Are you an</p>
+                                        <div class="btn-group" data-toggle="buttons">
+                                        <label class="radio-inline roles btn sign-up-social-btn active">
+                                            <input type="radio" name="role_chk" id="investor_btn" value="investor"> <i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span>  Investor</span>
+                                        </label>
+                                        <label class="radio-inline roles btn sign-up-social-btn">
+                                            <input type="radio" name="role_chk" id="advisor_btn" value="advisor" checked /><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span> Advisor</span>
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="#" method="post" id="signup_email_form" name="signup_email_form">
+                                    <div class="form-group">
+                                        <input  class="form-control" type="text" autocomplete="off" name="email" id="email" class="form-control input" placeholder="Email" tabindex="1" title="Please enter email id" min-length='3' required="true" is-email="true"  autocomplete='off'>
+                                        <span class="help-block" id="erroremail"></span>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert" id="user_already_exist_msg" style="display:none;">
+                                        User Already Exist
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" autocomplete="off" name="first_name" id="first_name" placeholder="First Name" tabindex="2" title="Please enter first name" min-length='3' max-length='30' required="true">
+                                        <span class="help-block" id="errorfirst_name"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" autocomplete="off" name="last_name" id="last_name" placeholder="Last Name" tabindex="3" title="Please enter last name" min-length='3' max-length='30' required="true">
+                                        <span class="help-block" id="error_last_name"></span>
+                                    </div>
+                                    {% if user_agent_country == REGION_IN %}
+                                    <div class="form-group addclient-numberdiv">
+                                        <input class="form-control" type="text" autocomplete="off" name="mobile" id="mobile" class="form-control input" tabindex="4"  title="please enter mobile number" is-mobile="true" required="true" placeholder="Mobile Number">
+                                        <span class="help-block" id="errormobile"></span>
+                                    </div>
+                                    {% endif %}
+                                    <div id="password_block_div">
+                                        <div class="form-group control-group" id="set_password_div">
+                                            <div class="control help-tip-div">
+                                                <input type="password" name="password_set" id="password_set" tabindex="5" title="please enter password" class="form-control" required="required" pwd-check="true" placeholder="Create Password" autocomplete='off'>
+                                                <a class="help-tip" rel="popover" data-popover-content="#myPopover">
+                                                </a>
+                                                <div class="hide" id="myPopover">
+                                                    <p>Should contain at-least one uppercase, one lowercase alphabet, one numeric digits. Should contain at-least one special characters, such as @, #, $. Should not contain a blank space</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <span class="help-block" id="error_password"></span>
+                                        </div>
+                                    </div>
+                                    <div id="Recaptcha_email_signup_button" class="recaptcha1 form-group"></div>
+                                    <span class="help-block" id="help_signup_recpatcha"></span>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="button" id="email_signup_button" data-loading-text="Processing ..."  autocomplete="off" class="btn btn-default signin-btn">Sign Up</button>
+                                        </div>
+                                    </div>
+                                    <div class="row line-header-sigup-login">
+                                        <hr class="modal-heading-hr">
+                                        <p class="text-center">or</p>
+                                    </div>
+                                    <div class="row text-center">
+                                        <p class="title col-md-12" id="signup_title">Sign Up with <a class="" id="fb_button" name="fb_button" title="Sign up with facebook" style="color: #3b5998;">Facebook</a> or <a id="linkedin_button" name="linkedin_button" class="" title="Sign up with linkedin" style="color: #0077b5;">Linkedin</a></p>
+                                    </div>
+                                    <!-- <div class="row text-center col-md-12 upwrdz-loginsocial">
+                                        <button type="button"  class="btn" id="fb_button" name="fb_button" title="Sign up with facebook">
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" id="linkedin_button" name="linkedin_button" class="btn btn-gpluz btn-circle" title="Sign up with linkedin">
+                                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                        </button>
+                                    </div> -->
+                                    <div class="row agree_div">
+                                        <div class="col-md-12">
+                                            <p class="text-center end-text">
+                                                By signing up you agree to the <a class="n-span-pink-color" href="{% url 'home:signup_terms_and_conditions' %}"><u>Terms and Conditions</u></a> and <a class="n-span-pink-color" href="{% url 'home:privacy_and_policy' %}"><u>Privacy Policy.</u></a><br/>
+                                                It is mandatory to sign up to know more.
+                                                <a class="n-span-pink-color" name="why_to_signup" data-toggle="collapse" href="#why_to_signup_content" aria-expanded="false" aria-controls="why_to_signup_content"><u>Why to Sign Up</u></a>
+                                            </p>
+                                            <p class="text-center end-text collapse" id="why_to_signup_content">
+                                                Website contains confidential Information for users who sign-up. To access ABOTMI, it is mandatory to signup through one of the Social Media. Your Information is kept highly confidential as per the Terms & Conditions and Privacy Policy.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                                <input type="hidden" id="next_url" name="next_url" value="{{next_url|default:'/'}}"/>
+                                <input type="hidden" id="id_company_url" name="company_url" value="/company/my_company_track/">
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+         </div>
+    </div>
+
+    <!-- Modal for asking user to check the email in Facebook signup permission popup -->
+    <div class="modal fade" id="check_fb_details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading fix-modal-heading">
+                <h4 style="font-size:20px;">
+                    Alert
+                </h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="email_modal-body">
+                    <p class="text-justify why-reia-content" style="padding: 4px 0;">
+                        For Enter Into ABOTMI we want to add email.<br />
+                        Using Your social Email Id we are treating You as a trusted member.<br />
+                        further we will use to send some important emails once you enter into ABOTMI.
+                    </p>
+                    <p>Are you willing to add your Email Id ?</p>
+                    <div class="pull-right">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="facebookLogin('signup_or_login');">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for asking user to click allow in Google signup permission popup -->
+    <div class="modal fade" id="check_google_details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading fix-modal-heading">
+                <h4 style="font-size:20px;">
+                    Alert
+                </h4>
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <p class="text-justify why-reia-content" style="padding: 4px 0;">
+                        For Enter Into ABOTMI, You have to Allow permission from google permission model.<br />
+                        Using Your social Email Id we are treating You as a trusted member.<br />
+                        further we will use to send some important emails once you enter into ABOTMI.
+                    </p>
+                    <p>Are you willing to add your Email Id ?</p>
+                    <div class="pull-right">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="googleLogin();">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for member login -->
+    <div class="modal fade" id="northfacing_page_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading">
+                    <h4 class="modal-title" id="myModalLabel">Alert</h4>
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <p>You are Member for Northfacing.</p>
+                    <p>Please visit the Northfacing Link <a href="https://test.northfacing.in">northfacing.in</a></p>
+                    <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank you modal/Success modal -->
+    <div class="modal fade upwardz-modal" id="sucess_alert" role="dialog" name="success_alert" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color" id="myModalLabel">THANK YOU</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="sucess_alert_body">
+                        <div id="sucess_alert_body_content">
+                        </div>
+                        <button type="button" class="btn upwrdz-button pull-right" data-dismiss="modal" onclick="window.location = $('#next_url').val();">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- social media UPERDZ permission modal -->
+    <div class="modal fade upwardz-modal" id="upwrdz_soc_perm_modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color" id="myModalLabel">SOCIAL MEDIA PERMISSION</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content">
+                        <div class="text-center checkbox">
+                           <label>
+                             <input type="checkbox" onchange="enabled_ok();" id="check_permisson" name="check" value="yes" autocomplete='off'>I accept to share my social media details with abotmi.com
+                           </label>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button type="button" name="upwrdz_soc_perm_cancel" class="btn upwrdz-button" data-dismiss="modal">cancel</button>
+                            <button type="button" name="upwrdz_soc_perm_ok" id="social_media_btn" class="btn upwrdz-button" disabled autocomplete='off'>Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not title == 'Profile_details' %}
+    <!-- Success Modal for member signup -->
+    <div class="modal fade upwardz-modal password-modal" id="success_alert_modal" role="dialog" name="success_alert_modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close password-close-icon" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                    </div>
+                    <div class="panel-body pannel-popup-content">
+                        <div class="text-center" id="forgot_passw_alert_content">
+                            <div class="row">
+                                <div class="">
+                                    <img class="" alt="emailpng" style="width: 200px" src="/static/new_images/email.png">
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <p class="panel-body" style="font-size:14px;" id="success_alert_modal_content">
+                                    </p>
+                                   
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <hr class="frgt-passw-hr" style="margin-top: 0px;" />
+                            <div class="row">
+                                <button id="confirm_btn" type="button" class="btn upwrdz-button" data-dismiss="modal" onclick="window.location = $('#next_url').val();">  </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Modal for asking user to share our information in users Facebook wall -->
+    <div class="modal fade upwardz-modal password-modal" id="soc_share_common_modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <h3 class="modal-title n-span-blue-color" id="myModalLabel">SOCIAL MEDIA SHARE</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="signup_social_share_modal">
+                        <div class="row">
+                            <div class="col-md-12 text-center white-color">
+                                Share If you are interested Please click share button
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn upwrdz-button pull-right" name="cancel_share">Cancel</button>
+                                <button type="button" class="btn upwrdz-button pull-left" name='share_button'>Share</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acknowledgement popup-->
+    <div class="modal fade upwardz-modal password-modal" id="signup_acknw_alert1" role="dialog" name="signup_password_alert" aria-hidden="true" data-keyboard="false" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="password_acknw_body";>
+                        <div class="text-center" id="forgot_passw_alert_content">
+                            <div class="row">
+                                <div class="">
+                                    <img class="" alt="emailpng" style="width: 60px;height: 60px;" src="/static/new_images/passwordchanged.png">
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8 passw-text">
+                                    <h2 style="font-weight: 600;">signup completed</h2>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row panel-body">
+                                <a style="font-size:18px;" onclick="window.location.href='advisor_check/search';"><u> Click here to continue </u></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Asking Type of User -->
+    <!-- <div class="modal fade upwardz-modal usr-qst-modal" id="id_user_question" role="dialog" name="user_question" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content no-transprancy">
+                <div class="panel-body pannel-popup-content" id="signup_social_share_modal">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2 class="n-span-blue-color usr_qst-text">Are you an</h2>
+                        </div>
+                    </div>
+                    <div class="row usr_qst-text">
+                        <div class="col-sm-12 text-center abotmi-section-btns-optin">
+                            <div class="col-sm-6 col-xs-6 advisor-btn text-center">
+                                <button type="button" class="btn blue" name="investor_btn">Investor</button>
+                            </div>
+                            <div class="col-sm-6 col-xs-6 advisor-btn text-center">
+                                <button type="button" class="btn pink" name="advisor_btn">Advisor</button>
+                            </div> -->
+                            <!-- # we Commented for temporary purpose -->
+                            <!-- <div class="col-sm-4 col-xs-4 advisor-btn text-center">
+                                <button type="button" class="btn purple" name="issuer_btn" disabled>Issuer</button>
+                            </div> -->
+                        <!-- </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- OTP modal -->
+    {% comment %} {% include 'common/verify_otp_modal.html' with user_agent_country=user_agent_country REGION_IN=REGION_IN %}
+    {% include 'common/verify_otp_modal_investor_social_signup.html' %} {% endcomment %}
+    {% include 'common/sign_verify_otp_modal.html' %}
+    <input type="hidden" name="csrf_token" id="id_csrf_token" value="{{csrf_token}}">
+{% endblock %}
+<!-- HTML Content Ended -->
+
+<!-- Scripts Start -->
+{% block theme_scripts %}
+    {{ block.super }}
+{% endblock %}
+
+{% block scripts %}
+    {{block.super}}
+    <script> 
+        var user_agent_country="{{user_agent_country}}"; 
+    </script>
+    
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.min.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+    <!-- scripts to be loaded for current page -->
+    <script type="text/javascript">
+        var ref = "{{REF}}";
+        var next_url = "{{ next_url | default:'/' }}";
+        var advisors = "{{user_profile.is_advisor}}";
+        var ln_email = "{{ln_email|default:''}}";
+        var ln_first_name = "{{ln_f_name|default:''}}";
+        var ln_last_name = "{{ln_l_name|default:''}}";
+        var ln_user_selected_role = "{{ln_user_selected_role}}";
+        var ln_res = "{{ln_res}}";
+        var login_type;
+    </script>
+    {% comment %} {% if title == 'Guest Details' %}
+        <script>
+            var user_type = 'member';
+        </script>
+    {% else %}
+        <script>
+            var user_type = 'advisor';
+        </script>
+    {% endif %} {% endcomment %}
+    <!-- facebook integration part -->
+    <script type="text/javascript">
+        var facebook_single_url = "{{FACEBOOK_SINGLE_URL}}"
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "{{FACEBOOK_API}}",
+                xfbml: true,
+                version: 'v2.5'
+            });
+        };
+    </script>
+    <script type="text/javascript" src="{% static 'js/new_js/facebook.js' %}" ></script>
+    {% comment %} <script type="text/javascript" src="{% static 'js/new_js/facebook_investor.js' %}" ></script> {% endcomment %}
+    <!--linkedin-->
+    <script type="text/javascript" src="{% static 'js/new_js/linkedin.js' %}"></script>
+    {% comment %} <script type="text/javascript" src="{% static 'js/new_js/linkedin_investor.js' %}"></script> {% endcomment %}
+    <!-- End of Social Media Scripts  -->
+    <script src="{% static 'js/new_js/login.js' %}"></script>
+{% endblock %}
+<!-- Scripts Ended -->

@@ -1,0 +1,63 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<div id="identity_pack_list_modal" class="modal fade upwardz-modal" role="dialog" name="identity_pack_list_modal" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog modal-lg subscription-number-details">
+        <div class="panel panel-default upwrdz-log-panel">
+            <div class="modal-body modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <div class="row" id="identity_pack_payment">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-12 subscription-packeges-myide text-center">
+                                <h2>IDENTITY PACKAGES</h2>
+                                <div class="row">
+                                    <div class="col-xs-3 subscription-packeges-section">
+                                        <div class="subscription-packeges-section-inner">
+                                            <h3>FEATURES</h3>
+                                            <ul>
+                                                {% for fea in feature_list %}
+                                                  {% for short, full in fea.items %}
+                                                    <li>{{full}}</li>
+                                                  {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {% for pkg in package_data %}
+                                    <div class="col-xs-3 subscription-packeges-section">
+                                        {% if pkg %}
+                                            {% for key, feature in pkg.items %}
+                                                <div class="subscription-packeges-section-inner">
+                                                    <h3>{{key}}</h3>
+                                                    <ul>
+                                                    {% for std in feature %}
+                                                        <li>{{ std }}</li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                {% if activated_package %}
+                                                    {% if key == activated_package %}
+                                                    <button class="btn danger" disabled>Activated</button>
+                                                    {% else %}
+                                                        <button class="btn danger"
+                                                        onclick="payment_summary('{{key}}',{{category_obj.id}}, 'identity_pack_payment');">UPGRADE</button>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <button class="btn danger"
+                                                    onclick="payment_summary('{{key}}',{{category_obj.id}},   'identity_pack_payment');">Activate</button>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

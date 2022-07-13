@@ -1,0 +1,17 @@
+[
+  {
+    "fields": {"platform_name": "UPWRDZ", "platform_code": "PLT00001", "platform_email": "admin@upwrdz.com"},
+    "model": "datacenter.clientplatform",
+    "pk": 1
+  },
+  {
+    "fields": {"platform_name": "ADVISOR_GROUP", "platform_code": "PLT00002", "platform_email": "ADVISOR_GROUP"},
+    "model": "datacenter.clientplatform",
+    "pk": 2
+  },
+  {
+    "fields": {"platform_name": "CLIENT_GROUP", "platform_code": "PLT00003", "platform_email": "CLIENT_GROUP"},
+    "model": "datacenter.clientplatform",
+    "pk": 3
+  }
+]

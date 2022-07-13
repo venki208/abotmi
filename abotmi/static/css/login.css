@@ -1,0 +1,510 @@
+.upwrdz-log-panel .panel-heading .nav-tabs {
+    border-bottom: none;
+    position: absolute;
+    top: -47px;
+    right: -3px;
+}
+
+.upwrdz-log-panel .nav-tabs>li>a {
+    color: #fff;
+    text-decoration: none;
+    border: 0px;
+}
+
+.upwrdz-log-panel .back-link {
+    font-size: 10px;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.upwrdz-log-panel .nav-tabs>li>a:hover, .upwrdz-log-panel .nav>li>a:focus {
+    background-color: transparent;
+    border-radius: 0;
+    border: 0px;
+}
+
+.upwrdz-log-panel .nav-tabs>li.active>a, .upwrdz-log-panel .nav-tabs>li.active>a:focus, .upwrdz-log-panel .nav-tabs>li.active>a:hover {
+    color: #fff;
+    cursor: pointer;
+    background-color: rgb(89, 80, 94);
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 0;
+    border-bottom-color: transparent;
+    outline: none;
+}
+
+.upwrdz-log-panel .panel-heading .nav-tabs li {
+    border-radius: 0;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.upwrdz-log-panel .tab-content {
+    margin: 20px 50px;
+}
+
+.login-modal form {
+    width: 85%;
+    margin: auto;
+}
+
+.login-modal .form-control {
+    margin: 15px 0 0;
+    padding: 6px 15px;
+}
+
+.upwrdz-log-panel .signin-btn {
+    background:linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 0;
+    min-width: 100px;
+    border: 0;
+    min-height: 34px;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.upwrdz-log-panel .signin-btn:focus {
+    background:linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.upwrdz-or {
+    position: relative;
+    margin: 40px 0 20px;
+}
+
+.upwrdz-or hr {
+    width: 75%;
+}
+
+.upwrdz-or span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(95, 88, 96);
+    z-index: 1;
+    padding: 0 7px;
+}
+
+.upwrdz-log-panel .end-text {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.upwrdz-loginsocial {
+    margin: 20px 0;
+}
+
+.upwrdz-loginsocial .btn {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+    margin: 3px;
+    position: relative;
+}
+
+.upwrdz-loginsocial .btn i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.upwrdz-loginsocial .btn-facebook {
+    background: #3b5998;
+    color: #fff;
+}
+
+.upwrdz-loginsocial .btn-twitter {
+    background: #dd4b39;
+}
+
+.upwrdz-loginsocial .btn-gpluz {
+    background: #26a6d1;
+    color: #fff;
+}
+
+.upwrdz-loginsocial .btn-printrest {
+    background: #cb2027;
+}
+
+.upwardz-modal-size {
+    max-width: 600px;
+    margin: auto;
+}
+
+.login-forget-password {
+    line-height: 40px;
+    color: #000 !important;
+}
+
+.login-forget-password:focus, .login-forget-password:hover {
+    text-decoration: underline;
+    color: #000 !important;
+    outline: 0px;
+}
+
+/*media queries*/
+
+@media(min-width:768px) {
+    .upwardz-modal .login-modal {
+        width: 650px;
+        max-width: 650px;
+    }
+}
+
+.usr_qst-text {
+    margin-bottom: 30px;
+}
+
+.usr-qst-modal {
+    background: none;
+}
+
+.usr-qst-modal .btn.blue {
+    padding: 1px 25px;
+    font-size: 22px;
+    font-weight: 600;
+    background: #2e3192 !important;
+    color: white !important;
+    border-radius: 1px;
+    text-transform: uppercase;
+}
+
+.usr-qst-modal .btn.pink {
+    padding: 1px 25px;
+    font-size: 22px;
+    font-weight: 600;
+    background-color: #eb008b !important;
+    color: #FFF;
+    border-radius: 1px;
+    text-transform: uppercase;
+}
+
+.usr-qst-modal .btn.purple {
+    padding: 1px 25px;
+    font-size: 22px;
+    font-weight: 600;
+    background-color: #aa208d !important;
+    color: #FFF;
+    border-radius: 1px;
+    text-transform: uppercase;
+}
+.sign-up-social-icons{
+    padding: 20px 0px;
+}
+.sign-up-social-icons .upwrdz-loginsocial{
+    margin: 0px;
+}
+
+.agree_div {
+    margin-top: 10px;
+}
+
+.login-btn {
+    color: #fff !important;
+    padding: 6px 13px;
+    background-color: #eb2a96 !important;
+    border-radius: 3px;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media(min-width:601px) {
+    .upwardz-testimonial-mobile {
+        display: none !important;
+    }
+}
+
+@media(max-width:600px) {
+    .upwardz-testimonial-mobile {
+        display: block !important;
+    }
+    .upwardz-testimonial-web {
+        display: none !important;
+    }
+}
+
+.intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input, .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input[type=text]{
+    padding-left: 85px;
+}
+.abtomi-login-newmodal .title, .login-forget-password, .end-text{
+    color: #000 !important;
+}
+@media(max-width:767px) {
+    .close-icon{
+        top: 10px;
+        right: 20px;
+        z-index: 12;
+    }
+}
+.recaptcha1{
+    transform-origin: 50% !important;
+    -webkit-transform-origin: 50% !important;
+    text-align: center;
+}
+.recaptcha1 div{
+    margin: auto;
+}
+.roles{
+    font-size: large;
+}
+
+.sign-up-social-icons label.btn span {
+font-size: 1.5em ;
+}
+
+.sign-up-social-icons label input[type="radio"] ~ i.fa.fa-circle-o{
+    color: #c8c8c8;    display: inline;
+}
+.sign-up-social-icons label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+    display: none;
+}
+.sign-up-social-icons label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+    display: none;
+}
+.sign-up-social-icons label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+    color: #7AA3CC;    display: inline;
+}
+.sign-up-social-icons label:hover input[type="radio"] ~ i.fa {
+color: #7AA3CC;
+}
+.sign-up-social-icons div[data-toggle="buttons"] label:active, div[data-toggle="buttons"] label.active {
+-webkit-box-shadow: none;
+box-shadow: none;
+}
+.sign-up-social-btn{
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, .26);
+}
+.sign-up-social-btn span{
+    font-size: 20px !important;
+    position: relative;
+    top: -6px;
+}
+.sign-up-social-icons .sign-up-text-effect{
+    font-size: 25px;
+    font-weight: 600;
+    color: #211e72;
+}
+.sign-up-social-icons {
+    padding: 20px 0px 0px;
+}
+.line-header-sigup-login{
+    position: relative;
+    height: 40px;
+}
+.line-header-sigup-login p{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 0px 5px;
+}
+.line-header-sigup-login hr {
+    margin-top: 20px !important;
+    margin-bottom: 25px;
+    border-top: 1px solid #8e898e;
+}
+
+/* #tool tip css for password icon */
+
+.help-tip{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    text-align: center;
+    background-color: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 26px;
+    cursor: default;
+}
+
+.help-tip:before{
+    content:'?';
+    font-weight: bold;
+    color:#fff;
+}
+
+.help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.help-tip p{    /* The tooltip */
+    display: none;
+    text-align: left;
+    background-color: #1E2021;
+    padding: 15px;
+    width: 200px;
+    position: sticky;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.help-tip p:before{ /* The pointer of the tooltip */
+    position: absolute;
+    content: '';
+    width:0;
+    height: 0;
+    border:6px solid transparent;
+    border-bottom-color:#1E2021;
+    right:10px;
+    top:-12px;
+}
+
+.help-tip p:after{ /* Prevents the tooltip from being hidden */
+    width:100%;
+    height:40px;
+    content:'';
+    position: absolute;
+    top:-40px;
+    left:0;
+}
+
+.help-tip-div {
+    position: relative;
+}
+
+.help-tip-div .help-tip{
+    right: -30px;
+    top: 5px;
+}
+
+/* CSS animation */
+
+@-webkit-keyframes fadeIn {
+    100% { 
+        opacity:0; 
+        transform: scale(0.6);
+    }
+
+    100% {
+        opacity:100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}
+.hide{
+    display:none;
+}
+.cst-rad{
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+.close-icon{
+    float: right;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 1px 4px;
+    font-size: 14px;
+    color: #000;
+}
+
+.help-block{
+    color: red;
+}
+
+/* social meaia */
+
+.abotmi-social-media-alert .pannel-popup-content{
+    padding: 20px 0px 60px;
+}
+.abotmi-social-media-alert .pannel-popup-content h3{
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 60px;
+    color: #2a1980;
+}
+.abotmi-social-media-alert .pannel-popup-content input[type=checkbox]{
+    margin-right: 6px;
+    position: relative;
+    top: 4px;
+    zoom: 1.4;
+}
+
+
+.abotmi-social-media-alert .pannel-popup-content label {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+.abotmi-social-media-alert .pannel-popup-content .upwrdz-button-ok, .after-forgot-madel-sucss .btn{
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(255, 255, 255) !important;
+    background: linear-gradient(135deg, rgb(213, 61, 43) 0%, rgb(219, 106, 46) 100%);
+    padding: 8px 30px;
+    border-radius: 30px;
+}
+.abotmi-social-media-alert .pannel-popup-content .upwrdz-button-cancel{
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(255, 255, 255) !important;
+    background: linear-gradient(135deg, #2b2b2b 0%, #787878 100%) !important;
+    padding: 10px 25px;
+    border-radius: 30px;
+}
+
+.social-media-share .pannel-popup-content h3{
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #2a1980;
+    text-align: center;
+}
+.social-media-share .pannel-popup-content{
+    padding: 15px 0px 22px;
+}
+.custome-group{
+    margin: 15px -5px 0px;
+    border: 0;
+}
+.custome-group .pwd-add-on{
+    border: 0;
+    box-shadow: 0 0 0 0;
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    cursor: pointer;
+}
+
+.pass-visible{
+    float: right;
+    position: relative;     
+    top: -48px;     
+    right: 5px;
+    background: #efefef;
+}
+
+.custome-group .pwd-sign-on{
+    border: 0;
+    box-shadow: 0 0 0 0;
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    cursor: pointer;
+}

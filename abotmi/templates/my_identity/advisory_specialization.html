@@ -1,0 +1,114 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+    <style media="screen">
+        .n-padding-b-15{
+            padding-bottom: 15px;
+        }
+    </style>
+    <script src="{% static 'js/new_js/financial_instument.js' %}" charset="utf-8"></script>
+<!-- Advisory Specialization modal popup  HTML Starts-->
+<div class="modal fade upwardz-modal" id="id_advisor_specialization" tabindex="-1" role="dialog" aria-labelledby="id_new_member_list_modal_title" aria-hidden="true">
+    <div class="modal-dialog popup-modal-dialog modal-md">
+        <div class="panel panel-default upwrdz-log-panel">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <h3 class="modal-title n-span-blue-color">ADVISORY SPECIALIZATION</h3>
+                <hr class="modal-heading-hr">
+            </div>
+            <div class="panel-body pannel-popup-content text-center" id="id_advisor_count_client_modal">
+                <form id="financial_ins_form" name="financial_ins_form" method="POST" action="/dashboard/financial_tools/">
+                {% csrf_token %}
+                    <select name="financial_ins" class="form-control" style="display:none;" id="financial_ins" onChange="validate_financial_instruments(id,1);">
+                        <option value="Select">Select product</option>
+                        {% for instruments in all_financial_instrument %}
+                            <option value="{{instruments}}">{{instruments}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="form-group registration-form-div">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 n-padding-b-15">
+                                <label for="ex2">
+                                    Current Financial Instruments Sold / Advised by me
+                                </label>
+                                <a class = "add_field btn additional_btn" id="add_field" class="add_field">
+                                    <i class="fa fa-plus-circle"></i>
+                                </a>
+                            </div>
+                            <input type="hidden" name="financial_count" id="financial_count" value="{{ financial_instruments_json|length }}"; />
+                            <div class="row financial_class no-padding n-margin-0">
+                                <div class="col-xs-12 col-sm-5">
+                                    <label for="ex2"> Product Name</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-5">
+                                    <label for="ex2"> Experience </label>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <label for="ex2"> </label>
+                                </div>
+                                {% if financial_instruments_json == "None" %}
+                                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xs-12 selection-btn left-no-padding">
+                                        <select name="financial_instruments1" class="form-group form-control" id="financial_instruments1" onChange="validate_financial_instruments(id,1); filter_financial_instruments();">
+                                            <option value="Select">Select Product</option>
+                                            {% for instruments in all_financial_instrument %}
+                                                <option value="{{instruments}}">{{instruments}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="help-block" id="help-text-financial_instruments1">
+                                    </div>
+                                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xs-12 selection-btn">
+                                        <input type="text" class="form-group form-control" name="financial_experience1" id="financial_experience1" placeholder="5 in years" onfocus="this.placeholder = ''" onblur="this.placeholder ='5 in years'" value="{{ i.experience }}";  onChange="validateExperience('financial_experience1',1);">
+                                        <span class="help-block" id="help-text-financial_experience1">
+                                    </div>
+                                    <a class="add_field btn additional_btn" id="add_field">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                {% else %}
+                                    <div class="col-xs-12 no-padding">
+                                        <div class = "input_fields_wrap">
+                                            {% for i  in financial_instruments_json %}
+                                                <div class="row row_financial" id="financial{{ forloop.counter }}">
+                                                    <div  class="col-sm-5 col-md-5 col-lg-5 col-xs-12 selection-btn left-no-padding">
+                                                        <select name="financial_instruments{{ forloop.counter }}" class="form-group form-control" id="financial_instruments{{ forloop.counter }}" onChange="validate_financial_instruments(id,1); filter_financial_instruments();">
+                                                            <option value="Select">Select Product</option>
+                                                            {% for instruments in all_financial_instrument %}
+                                                                {% if i.instruments == instruments  %}
+                                                                    <option value="{{instruments}}" selected>{{instruments}}</option>
+                                                                {% else %}
+                                                                    <option value="{{instruments}}">{{instruments}}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                        <span class="help-block" id="help-text-financial_instruments{{ forloop.counter }}">
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 selection-btn">
+                                                        <input type="text" class="form-group form-control" name="financial_experience{{ forloop.counter }}" id="financial_experience{{ forloop.counter }}" placeholder="5 in years" onfocus="this.placeholder = ''" onblur="this.placeholder ='5 in years'" onChange="validateExperience(id,'{{ forloop.counter }}');" value="{{ i.experience }}">
+                                                        <span class="help-block" id="help-text-financial_experience{{ forloop.counter }}">
+                                                    </div>
+                                                    <a class = "remove_field btn additional_btn additional-remove-btn" id = "remove_field" onClick="remove_data({{ forloop.counter }});"><i class="fa fa-minus-circle" ></i></a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <span class="help-block" id="help-text-financial_instruments_main">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" name="hidden_input" id="hidden_input" value="" />
+                        <input type="hidden" name="hidden_value" id="hidden_value" value="" style="width:100%;">
+                    </div>
+                    <div class="col-xs-12 text-center proceed-btn">
+                        <button type="button" id="id_submit_form" class="btn pull-right upwrdz-button" onclick="submit_creditbility_form();">
+                            submit
+                            <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Advisory Specialization modal popup Ends -->

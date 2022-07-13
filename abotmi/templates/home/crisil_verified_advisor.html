@@ -1,0 +1,415 @@
+{% extends 'index.html' %}
+{% load social_media_tags %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <style>
+        .panel-group .panel {
+            margin-bottom: 0;
+            border-radius: 4px;
+        }
+        .panel-default{
+            font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif !important;
+        }
+        .fancy-collapse-panel .panel-default > .panel-heading {
+            padding: 0;
+            min-height: auto!important;
+        }
+        .fancy-collapse-panel .panel-heading a {
+            padding: 12px 35px 12px 15px;
+            display: inline-block;
+            width: 100%;
+            background-color: #2E3191;
+            color: #ffffff;
+            position: relative;
+            text-decoration: none;
+        }
+        .fancy-collapse-panel .panel-heading a.collapsed:after {
+            content: "\f196";
+        }
+        .fancy-collapse-panel .panel-heading a:after {
+            font-family: "FontAwesome";
+            content: "\f147";
+            position: absolute;
+            right: 20px;
+            font-size: 20px;
+            font-weight: 400;
+            top: 50%;
+            line-height: 1;
+            margin-top: -10px;
+        }
+        .inner-page-content h2 {
+            font-size: 22px;
+            color: #0f8665;
+            font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+            font-weight: 600;
+        }
+        @media only screen and (min-width: 992px){
+            .fancy-collapse-panel {
+                width: 80%;
+                margin: auto;
+            }
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <section class="main-contact subpage-reia-primary" id="about">
+        <div class="container">
+            <div class="fancy-collapse-panel">
+                <h1 class="n-h1 center-block text-center"><img src="/static/images/crisil.png" alt="CRISIL Logo">&nbsp;CVA</h1>
+                <h3 class="text-center">CRISIL Verified Advisor</h3>
+                <hr class="why-reia-light">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <!-- First Tab -->
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">1. Who can apply to become a CRISIL Verified Advisor (CVA)?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <p class="text-justify">
+                                    Only an advisor who has submitted all necessary documents and successfully completed registration is eligible to apply to be a CVA. An advisor needs to be a Registered ABOTMI to apply.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Second Tab -->
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">2. Who is a CRISIL Verified Advisor (CVA)?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <p class="text-justify">
+                                    Every registered advisor who receives a CRISIL verification certificate upon successful verification is awarded the title of CVA.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Three Tab -->
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">3. What is CRISIL verification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <p>It is a process to verify and certify Real estate Investment Advisors. ABOTMI has an exclusive tie-up with CRISIL - India’s leading rating agency. All the advisors who register with ABOTMI have this unique opportunity to get them verified by CRISIL.</p>
+                                <p>Based on the self declaration made by registered advisors, CRISIL will verify the credibility of the advisors with various statutory and regulatory authorities. Advisors or an Advisory firm can choose to apply this Verification.</p>
+                                <p>A certificate will be published upon successful CRISIL verification.</p>
+                            </div>
+                        </div>
+                        <!-- Four Tab-->
+                        <div class="panel-heading" role="tab" id="headingFour">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">4. How to apply for CRISIL verification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                            <div class="panel-body">
+                                <p>Advisor can begin the process of application only after registration. He can click on the ‘Apply Now’ button under the CVA application tab on Advisor dashboard (My Page).</p>
+                                <div class="col-md-offset-1 col-md-10 n-padding-tb-30">
+                                    <img src="/static/images/Apply_cva.png" class="img-responsive center-block" alt="Apply">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Five Tab  -->
+                        <div class="panel-heading" role="tab" id="headingFive">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">5. Why should you apply for CRISIL verification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                            <div class="panel-body">
+                                <p>There are 5 significant reasons why an advisor should apply for CRISIL verification.</p>
+                                <div class="col-md-12 n-padding-tb-15 n-padding-l-0" style="line-height:1.5;">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-2">
+                                        <img src="/static/images/Wcva_01.png" class="img-responsive center-block n-padding-b-15" alt="reason1">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img src="/static/images/Wcva_02.png" class="img-responsive center-block n-padding-b-15" alt="reason2">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img src="/static/images/Wcva_03.png" class="img-responsive center-block n-padding-b-15" alt="reason3">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img src="/static/images/Wcva_04.png" class="img-responsive center-block n-padding-b-15" alt="reason4">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img src="/static/images/Wcva_05.png" class="img-responsive center-block n-padding-b-15" alt="reason5">
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Six Tab -->
+                        <div class="panel-heading" role="tab" id="headingSix">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">6. Is CRISIL verification done free of cost?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                            <div class="panel-body">
+                                <p>No, a registered advisor will have to make payment to ABOTMI to apply for CRISIL verification.
+                                </p>
+                            </div>
+                        </div>
+                        <!--Seven Tab  -->
+                        <div class="panel-heading" role="tab" id="headingSeven">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">7. What is the fee an Advisor will have to pay to apply for CRISIL verification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                            <div class="panel-body">
+                                <p>An advisor will have to make a payment of Rs.11000/- plus applicable taxes to apply for CRISIL verification.</p>
+                            </div>
+                        </div>
+                        <!-- Eight Tab -->
+                        <div class="panel-heading" role="tab" id="headingEight">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">8. What will the advisor receive upon successful completion of CRISIL verification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                            <div class="panel-body">
+                                <p>Advisor will receive a certificate recognizing him as a ‘CRISIL Verified Advisor’ (CVA). The same will also be updated on his Digital profile (My Track). The advisor can download the certificate and use it to increase credibility in the advisory space.</p>
+                            </div>
+                        </div>
+                        <!-- Nine Tab -->
+                        <div class="panel-heading" role="tab" id="headingNine">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">9. What is the validity of the CVA certificate?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                            <div class="panel-body">
+                                <p>CVA certification is valid for the tenure for which the application was made by the advisor. Currently, an advisor can apply for 1, 2 or 3 years at a time. </p>
+                            </div>
+                        </div>
+                        <!-- Ten Tab  -->
+                        <div class="panel-heading" role="tab" id="headingTen">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">10. How to renew CVA Certification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+                            <div class="panel-body">
+                                <p>CVA certification will have to be renewed upon expiry of the subscribed tenure. The renewal process in similar to a new application.</p>
+                                <div class="col-md-offset-1 col-md-10 n-padding-tb-30">
+                                    <img src="/static/images/RenewalCVA.png" class="img-responsive center-block" alt="Renew">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Eleven Tab -->
+                        <div class="panel-heading" role="tab" id="headingEleven">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">11. What are the special circumstances to renew CRISIL Certification?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+                            <div class="panel-body">
+                                <p>Under the following situations, CRISIL verification will cease to be valid even before the completion of the subscribed tenure and will have to be renewed upon additional payment and inspection:</p>
+                                    <ol>
+                                        <p>1.If the advisor changes his business location from one place to another during the year.</p>
+                                        <p>2.If the advisor changes the organization that he works for during the year.</p>
+                                        <p>3.If the advisor makes any change in the KYC documents provided to ABOTMI/CRISIL during the year.</p>
+                                        <p>4.If the advisor makes any change in his communication or business address, e-mail and mobile number during the year.</p>
+                                        <p>5.If the advisor adds any certification details such as SEBI, NISM, IRDA etc. during the year.</p>
+                                    </ol>
+                                <p>The advisor will have to make a payment of Rs.6750/- plus taxes whenever an event as mentioned above occurs. This is to ensure that CRISIL verification is up to date and valid with current information at any given point of the time in the year.</p>
+                            </div>
+                        </div>
+                        <!-- Twelve Tab -->
+                        <div class="panel-heading" role="tab" id="headingTwelve">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">12. Are there any discounts or offers for Advisors applying for CVA?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwelve" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwelve">
+                            <div class="panel-body">
+                                <p>Currently, Advisors are being offered ‘Pay 2 Get 3’ offer. Under this offer, advisors applying for CVA recognition for a term of 2 years will be offered an extra year of CVA certification free of cost. Therefore, on payment of 2 years CVA fee, an advisor gets 3 years of CVA certification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="subpage-reia-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-center n-h2">Advisor Check</h2>
+                    <hr class="why-reia-light" style="margin-top:10px;">
+                    <p class="n-padding-b-15">Advisor Check is a free tool from ABOTMI to help you research the professional backgrounds of brokers and brokerage firms, as well as investment advisory firms and advisors registered in www.ABOTMI.com.</p>
+                    <h3 class="n-h4">Where does the information come from?</h3>
+                    <p class="n-padding-t-15">The information about brokers and brokerage firms that you find in advisor check comes from the Central Registration depository and also the self declaration made by them. All brokers must be licensed and registered by various regulatory authorities in India as well as globally wherever they are practicing financial advisory. Information is obtained through the forms that brokers, brokerage firms and regulators complete as part of their registration and licensing process. CRISIL obtains this after the advisors confirm to be verified and certified.</p>
+                    <p class="n-padding-b-15">The information about investment advisory firms and representatives comes from the specific registration databases disclosed by the advisor after they give their confirmation to verify.</p>
+
+                    <h3 class="n-h4">What will you find in a Verified Advisor report?</h3>
+                    <p class="text-justify n-padding-t-15">An ‘advisor verified’ report for a broker/ investment advisor who is currently registered with any regulator for financial investment advisory, or who has been registered within the last 10 years, contains:
+                    <ul class="n-line-height">
+                        <li>A <b>Report Summary</b> that provides a brief overview of the broker / advisor and his or her credentials.</li>
+                        <li>A <b>Broker Qualifications</b> section that includes a listing of the broker / advisor’s current registrations or licenses, if any, and industry exams he or she has passed.</li>
+                        <li>A <b>Registration and Employment History</b> section that consists of:
+                        <ol>
+                            <li>A list of registered securities, investment advisory firms where the broker is currently and/or was previously registered.</li>
+                            <li>The broker's employment history for the last 10 years—both within and outside the securities industry—as reported by the broker securities firms used to register brokers based on self-regulatory disclosure and full-time education.</li>
+                        </ol>
+                        </li>
+                        <li>A <b>Disclosure</b> section that includes information about customer disputes, disciplinary events and financial matters on the broker's record. Some of these items may involve pending actions or allegations that have not been resolved or proven, only if those are very serious.</li>
+                        <li>The broker's most recently submitted comment(s), if any.</li>
+                        <li>A <b>Disclosure</b> section that includes information about certain criminal, regulatory, civil judicial or customer complaint events involving the broker. For an event to be included in an advisory verified report, the broker must have been:
+                        <ol>
+                        <li>the subject of a final regulatory action;</li>
+                        <li>convicted of or pled guilty or no contest to certain crimes;</li>
+                        <li>subject to a civil injunction involving investment-related activity or found in a civil court to have been involved in a violation of investment-related statutes or regulations; or</li>
+                        <li>named as a respondent or defendant in an arbitration or civil litigation in which the broker was alleged to have committed a sales practice violation, and which resulted in an award or civil judgment against the broker.</li>
+                        </li>
+                        <li>The broker’s most recently submitted comment(s), if any.</li>
+                    </ul>
+                    </p>
+                    <p class="text-justify n-padding-t-15">A Verification Report for an advisory firm contains:</p>
+                    <ul class="n-line-height">
+                        <li>A <b>Report Summary</b> that provides a brief overview of the firm and its background.</li>
+                        <li>A <b>Firm Profile</b> that describes where and when the firm was established, and lists the people and organizations that own controlling shares or directly influence the firm's daily operations.</li>
+                        <li>A <b>Firm History</b> that details any mergers, acquisitions or name changes affecting the firm.</li>
+                        <li>A <b>Firm Operations</b> section that lists the firm's active licenses and registrations, the types of businesses it conducts and other details pertaining to its operations.</li>
+                        <li>A <b>Disclosure</b> section that contains information about any arbitration awards, disciplinary events, and financial matters on the firm's record. Some of these items may involve pending actions or allegations that have not been resolved or proven.</li>
+                     </ul>
+                     <p class="text-justify n-padding-b-15">Generally, active firms and brokers are required to update their professional and disciplinary information within 30 days.</p>
+                     <h3 class="n-h4">What information is NOT disclosed through Advisor Verification?</h3>
+                     <p class="text-justify n-padding-t-15">Information that are personal or confidential (for example, residential addresses), and those that are no longer required to be reported (for example, judgments or liens that have been satisfied) are not disclosed through the Verification Report.</p>
+                     <p class="text-justify">In addition, CRISIL reserves the right to exclude information that contains confidential customer information, offensive and potentially defamatory language or information that raises significant identity theft or privacy concerns that are not outweighed by investor protection concerns.</p>
+                     <p class="text-justify">Under ABOTMI’s public disclosure policy, in certain limited circumstances (most often pursuant to a court order) information may be expunged from the system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if user.is_authenticated %}
+        {% if user.profile.advisor.is_register_advisor %}
+            {% if user.profile.advisor.crisil_application_status == 'not_applied' %}
+                <aside class="subpage-reia-second">
+                    <div class="container text-center">
+                        <div class="col-md-12 center-block">
+                            <h4 class="n-register-name">
+                                <a href="/apply_crisil_verification/" class="text-center wow tada" style="text-decoration:none;color:#000000;">
+                                    <img src="/static/images/crisil.png" class="img-responsive n-register-logo" alt="Crisil Logo" style="padding-bottom:3px;">
+                                    Apply for CRISIL Verification
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                </aside>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if user.is_authenticated and not user.profile.advisor.is_register_advisor and not user.profile.is_company %}
+    <aside>
+        <div class="container text-center">
+            <div class="col-md-12 center-block">
+                <h4 class="n-register-name">To apply CRISIL Verification&nbsp;
+                    <a data-toggle="modal" data-target="#step_one_registration_model" title="Click here to Register">
+                        <img src="/static/images/btn_reg_now.png" class="img-responsive n-register-logo">
+                    </a>
+                </h4>
+            </div>
+        </div>
+    </aside>
+    {% endif %}
+{% endblock %}
+{% block bootstrap-modal %}
+{{ block.super }}
+    <!-- Terms and Condition modal -->
+    <div class="modal fade" id="terms_condition_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+      <div class="modal-dialog popup-modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading">
+                    <h4 class="modal-title" id="share-modal-label">
+                        Terms and Conditions
+                    </h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="crisil_terms_and_conditions_modal_body" style="height:450px; overflow-y:scroll;">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block theme_scripts %}
+    <script type="text/javascript">
+        function shrink_header(){
+            $('nav').addClass('shrink');
+            $("#about").addClass('n-margin-top-100');
+            $(".riea-logo-1").addClass('img_shrink');
+            $(".social-icons").addClass('width-93');
+        }
+        $(document).ready(function(){
+            shrink_header();
+        });
+    </script>
+    <script type="text/javascript">
+        var token='{{csrf_token}}';
+        function apply_crisil(){
+            $.ajax({
+                url:"/apply_crisil_verification/",
+                method: "POST",
+                beforeSend: function(request) {
+                    request.setRequestHeader("X-CSRFToken", token );
+                },
+                data :{
+                  username :'{{user.username}}'
+
+                },
+                success: function(response){
+                    if (response == 'success') {
+                        alert('Your request has been sent successfully!');
+                        window.location.href='/';
+                    }
+                },
+                error:function(response){
+                },
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function call_crisil_terms_conditions() {
+            var token = "{{ csrf_token }}";
+            $.ajax({
+                type:"POST",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                url:"{% url 'dashboard:crisil_terms_and_conditions' %}",
+                data:{},
+                success:function (response) {
+                    $("#crisil_terms_and_conditions_modal_body").html(response);
+                    $("#terms_condition_modal").modal('show');
+                },
+                error:function(response) {
+                }
+            });
+        }
+    </script>
+{% endblock %}

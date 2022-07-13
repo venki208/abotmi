@@ -1,0 +1,499 @@
+[
+    {
+        "fields": {
+            "name": "signup_with_email",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "signup_with_facebook",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "name": "signup_with_google",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "name": "signup_with_linkedin",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "name": "register_advisor",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "name": "sebi_registration",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "name": "amfi_registration",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "name": "irda_registration",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "name": "rera_registration",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "name": "dsa_registration",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "name": "other_registration",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "name": "crisil_verified",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "name": "code_of_coduct",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "name": "Equity",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "name": "Mutual Fund",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "name": "Insurance",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "name": "Wealth Advisory",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "name": "PortFolio Management",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "name": "got_crisil_certificate",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "name": "eipv_verified",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "name": "business_code_conduct",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "name": "peer_rate_fifty",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "name": "peer_rate_ten",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 24
+    },
+    {
+        "fields": {
+            "name": "peer_rate_one",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "name": "age_betw_20and30",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "name": "age_betw_30and40",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 27
+    },
+    {
+        "fields": {
+            "name": "age_betw_40and50",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "name": "age_above50",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "name": "advisor_office_address",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "name": "advisor_facebook_id",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "name": "advisor_google_id",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 32
+    },
+    {
+        "fields": {
+            "name": "advisor_linkedin_id",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 33
+    },
+    {
+        "fields": {
+            "name": "advisor_twitter_id",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "name": "advisor_meetup_hosted_below_5",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "name": "advisor_meetup_hosted_betw_5and10",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "name": "advisor_meetup_hosted_betw_10and25",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "name": "advisor_webianr_hosted_betw_1and5",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "name": "advisor_webianr_hosted_betw_5and15",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "name": "advisor_webianr_hosted_above_15",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "name": "total_clients_served_below_50",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "name": "total_clients_served_betw_50and100",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "name": "total_clients_served_betw_100and500",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 43
+    },
+    {
+        "fields": {
+            "name": "total_clients_served_above_500",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 44
+    },
+    {
+        "fields": {
+            "name": "total_advisors_connected_below_10",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 45
+    },
+    {
+        "fields": {
+            "name": "total_advisors_connected_betw_10and50",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 46
+    },
+    {
+        "fields": {
+            "name": "total_advisors_connected_above50",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 47
+    },
+    {
+        "fields": {
+            "name": "advisor_referred",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 48
+    },
+    {
+        "fields": {
+            "name": "referred_registered_advisor",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 49
+    },
+    {
+        "fields": {
+            "name": "advisor_request_for_rating",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 50
+    },
+    {
+        "fields": {
+            "name": "advisor_got_rated",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 51
+    },
+    {
+        "fields": {
+            "name": "advisor_request_for_ranking",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 52
+    },
+    {
+        "fields": {
+            "name": "advisor_got_ranked",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 53
+    },
+    {
+        "fields": {
+            "name": "languages_known_count_1",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 54
+    },
+    {
+        "fields": {
+            "name": "languages_known_count_2",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 55
+    },
+    {
+        "fields": {
+            "name": "languages_known_count_3",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 56
+    },
+    {
+        "fields": {
+            "name": "languages_known_count_4",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 57
+    },
+    {
+        "fields": {
+            "name": "languages_known_count_5",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 58
+    },
+    {
+        "fields": {
+            "name": "languages_read_write_count_1",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 59
+    },
+    {
+        "fields": {
+            "name": "languages_read_write_count_2",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 60
+    },
+    {
+        "fields": {
+            "name": "languages_read_write_count_3",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 61
+    },
+    {
+        "fields": {
+            "name": "languages_read_write_count_4",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 62
+    },
+    {
+        "fields": {
+            "name": "languages_read_write_count_above_5",
+            "points": "10"
+        },
+        "model": "datacenter.rewardpoints",
+        "pk": 63
+    },
+
+]

@@ -1,0 +1,188 @@
+{% load staticfiles %}
+<style>
+    .upwrdz-log-panel .panel-body{
+        color:black;
+    }
+</style>
+<div class="modal fade upwardz-modal modal" id="check_social_media_details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="panel-body pannel-popup-content modal-content no-transprancy">
+            <div class="col-md-12 text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="social_btn();">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <h4 class="n-span-blue-color usr_qst-text">Social media information</h4>
+            </div>
+            <div class="col-md-12 text-center upwrdz-loginsocial">
+                <button type="button" class="btn btn-facebook btn-circle" id="fb_button" name="fb_button">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                </button>
+                <!-- <button type="button" id="google_btn" onclick="googleLogin();" class="btn btn-circle  btn-twitter">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </button> -->
+                <button type="button" id="linkedin_button" name="linkedin_button" class="btn btn-gpluz btn-circle">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- asking to user for check the email in permission popup -->
+<div class="modal fade" id="check_fb_details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="panel panel-default popup-panel">
+            <div class="panel-heading dash-heading fix-modal-heading">
+                <h4 style="font-size:20px;">
+                    Alert
+                </h4>
+            </div>
+            <div class="panel-body pannel-popup-content" id="email_modal-body">
+                <p class="text-justify why-reia-content" style="padding: 4px 0;">
+                    For Enter Into ABOTMI we want to add email.
+                    <br /> Using Your social Email Id we are treating You as a trusted member.
+                    <br /> further we will use to send some important emails once you enter into ABOTMI.
+                </p>
+                <p>Are you willing to add your Email Id ?</p>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="facebookLogin('social_auth');">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- asking to user to click allow in permission page -->
+<div class="modal fade" id="check_google_details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="panel panel-default popup-panel">
+            <div class="panel-heading dash-heading fix-modal-heading">
+                <h4 style="font-size:20px;">
+                    Alert
+                </h4>
+            </div>
+            <div class="panel-body pannel-popup-content">
+                <p class="text-justify why-reia-content" style="padding: 4px 0;">
+                    For Enter Into ABOTMI, You have to Allow permission from google permission model.
+                    <br /> Using Your social Email Id we are treating You as a trusted member.
+                    <br /> further we will use to send some important emails once you enter into ABOTMI.
+                </p>
+                <p>Are you willing to add your Email Id ?</p>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="googleLogin();">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- social media upwrdz permission modal -->
+<div class="modal fade upwardz-modal" id="upwrdz_soc_perm_modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content no-transprancy">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancel_btn();">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="myModalLabel">SOCIAL MEDIA PERMISSION</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <div class="text-center checkbox">
+                        <label>
+                            <input type="checkbox" onchange="enabled_ok();" id="check_permisson" name="check" value="yes" autocomplete='off'>I accept to share my social media details with abotmi.com
+                        </label>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="button" name="upwrdz_soc_perm_cancel" class="btn upwrdz-button" data-dismiss="modal" onclick="cancel_btn();">cancel</button>
+                        <button type="button" name="upwrdz_soc_perm_ok" id="social_media_btn" class="btn upwrdz-button" autocomplete='off' disabled>Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Social Media Scripts  -->
+<script src="{% static 'advisor_check/js/advisor_check.js' %}"></script>
+<script type="text/javascript">
+    var ses_inv_chk_login = "{{inv_chk_login|default:''}}";
+    var ses_social_auth = "{{social_auth_ses|default:''}}";
+    // Commented for future purpose
+    if (ses_social_auth == "False"){
+        $('#check_social_media_details').modal({
+            show: true,
+            keyboard: false,
+            backdrop: 'static'
+        });
+    }
+    function social_btn() {
+        if (ses_inv_chk_login) {
+            get_advice();
+            ses_social_auth == "True";
+        }
+    }
+</script>
+<script type="text/javascript">
+    function enabled_ok() {
+        if ($('#check_permisson').prop('checked')) {
+            $('#social_media_btn').prop('disabled', false);
+        } else {
+            $('#social_media_btn').prop('disabled', true);
+        }
+    }
+
+    function cancel_btn(){
+        $('#check_permisson').prop('checked', false);
+        $('#social_media_btn').prop('disabled', true);
+    }
+    
+</script>
+
+<!-- facebook integration part -->
+<script type="text/javascript">
+    var facebook_single_url = "{{FACEBOOK_SINGLE_URL}}"
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "{{FACEBOOK_API}}",
+            xfbml: true,
+            version: 'v2.5'
+        });
+    };
+</script>
+<script type="text/javascript" src="{% static 'js/new_js/facebook_investor.js' %}" ></script>
+<!-- GOOGLE integration part -->
+{% comment %}
+<script src="https://apis.google.com/js/api:client.js"></script>
+<script type="text/javascript">
+    var OAUTHURL = 'https://accounts.google.com/o/oauth2/auth?';
+    var VALIDURL = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
+    var SCOPE = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me';
+    var CLIENTID = "{{GOOGLE_CLIENTID}}";
+    var REDIRECT = "{{GOOGLE_REDIRECT}}";
+    var TYPE = 'token';
+    var _url = OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
+
+    // --------------------------------------------------------------------
+    // Google Sign-in API
+    // Ref: https://developers.google.com/identity/sign-in/web/build-button
+    // --------------------------------------------------------------------
+    var googleUserData = {};
+    var GOOGLE_CLIENT_ID = CLIENTID;
+    </script>
+    <script type="text/javascript" src="{% static 'js/new_js/google.js' %}"></script>
+{% endcomment %}
+<!-- LinkedIn  -->
+<script type="text/javascript" src="https://platform.linkedin.com/in.js">
+    api_key: {{ LINKEDIN_API }}
+    authorize: true
+    //onLoad: onLinkedInLoad
+    scope: r_basicprofile,r_emailaddress,w_share
+    </script>
+<script type="text/javascript" src="{% static 'js/new_js/linkedin_investor.js' %}"></script>
+<!-- End of Social Media Scripts  -->
+<script src="{% static 'js/new_js/login.js' %}"></script>

@@ -1,0 +1,216 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+    <style>
+        @media (max-width:768px){
+            .rate-advice-banner-img img{
+                top: 0px !important;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <!-- Header -->
+    <header class="">
+            <div class="abotmi-investor-inner-banner d-flex h-100 p-0 position-relative">
+                <div class="container">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-sm-7 abotmi-investor-div">
+                            <h1 class="mb-2">HOW IT WORKS FOR INVESTORS ?</h1>
+                            <p>Access a community of global advisors in a simple 5 steps</p>
+                            {% if not user.is_authenticated %}
+                                <a class="btn" name="signup_a" role_check='advisor'>REGISTER NOW</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-5 abotmi-investor-right-sec">
+                            <h4 class="mb-4"><b>STEP 1 &nbsp;&nbsp;</b> Register</h4>
+                            <h4 class="mb-4"><b>STEP 2 &nbsp;&nbsp;</b> Create a digital profile</h4>
+                            <h4 class="mb-4"><b>STEP 3 &nbsp;&nbsp;</b> Search for an advisor</h4>
+                            <h4 class="mb-4"><b>STEP 4 &nbsp;&nbsp;</b> Message an advisor</h4>
+                            <h4><b>STEP 5 &nbsp;&nbsp;</b> Schedule a consultation</h4>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </header>
+    
+    <!-- <section class="abotmi-investor-image text-center pt-4 pb-4">
+        <img src="{% static 'V2_theme/images/investor-icons/investor_img02.png' %}" class="img-fluid pl-3 pr-3"/>
+    </section> -->
+    <section class="abotmi-investor-boxes mt-4 pt-4 pb-4 mb-4">
+        <div class="container">
+            <div class="row row-flex">
+                <div class="col-sm-12 mb-5 pb-5 text-center abotmi-investor-headers">
+                    <h3>Lean on your Team of Verified Experts </h3>
+                </div>
+                <div class="col-sm-4 get-investor-column">
+                    <div class="get-investor-btn pt-5 pb-5 pl-4 pr-4 position-relative">
+                        <img src="{% static 'V2_theme/images/investor-icons/icon-one.png' %}" class="img-fluid"/>
+                        <div class="text-left mt-4 mb-3">
+                            <h4 class="alert-link">Get Advice</h4>
+                        </div>
+                        <div class="about-content mb-5 pb-3">
+                            <ul class="pl-4 pb-5">
+                                <li>Receive free advice on digital assets</li>
+                                <li>Receive advice on smart securities</li>
+                                <li>Receive advice on financial goals</li>
+                            </ul>
+                            {% if not user.is_authenticated %}
+                            <a class="btn mb-4" name="signup_a" role_check='investor'>Get Advice</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 get-investor-column">
+                    <div class="get-investor-btn pt-5 pb-5 pl-4 pr-4 position-relative">
+                        <img src="{% static 'V2_theme/images/investor-icons/icon-two.png' %}" class="img-fluid"/>
+                        <div class="text-left mt-4 mb-3">
+                            <h4 class="alert-link">Refer Advice</h4>
+                        </div>
+                        <div class="about-content mb-5">
+                            <ul class="pl-4 pb-5">
+                                <li>Refer friends and family </li>
+                                <li>Refer peers seeking digital asset advice</li>
+                                <li>Refer on social media channels</li>
+                            </ul>
+                            {% if not user.is_authenticated %}
+                            <a class="btn mb-4" name="signup_a" role_check='investor'>Refer Advice</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 get-investor-column">
+                    <div class="get-investor-btn pt-5 pb-5 pl-4 pr-4 position-relative">
+                        <img src="{% static 'V2_theme/images/investor-icons/icon-three.png' %}" class="img-fluid"/>
+                        <div class="text-left mt-4 mb-3">
+                            <h4 class="alert-link">Rate Advice</h4>
+                        </div>
+                        <div class="about-content mb-5">
+                            <ul class="pl-4 pb-5">
+                                <li>Rate/Review your advisor</li>
+                                <li>Track advisors performance</li>
+                                <li>Identify local influencers</li>
+                                <li>Analyze results</li>
+                            </ul>
+                            {% if not user.is_authenticated %}
+                            <a class="btn mb-4" name="signup_a" role_check='investor'>Rate Advice</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <header class="abotmi-inner-page-banner">
+        <div class="container d-flex h-100">
+            <div class="row abotmi-inner-banner align-items-center mt-5 pt-5">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-4">
+                    <h3>How it Works ?</h3>
+                    <p>Access a community of global advisors in a simple 5 step process</p>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12  text-center">
+                    <img src="{% static 'V2_theme/images/howitsworks/inv-infographic-1.png' %}" class="img-fluid how-its-work-desktop"/>
+                    <img src="{% static 'V2_theme/images/howitsworks/investor-mobile.png' %}" class="img-fluid how-its-work-mobile"/>
+                </div>
+            </div>
+        </div>
+    </header> -->
+    
+    <!-- Page Content -->
+    <!-- <section class="abotmi-advisor-section-div mt-5" style="background: #f3f8fc;">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-6 col-sm-12 col-xs-12 mb-4">
+                    <div class="about-mockup-bg text-center">
+                        <img src="{% static 'V2_theme/images/howitsworks/infographic-2.png' %}" alt="About Image">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-text-area pl-md-5 pl-sm-0 pl-xl-0 mt-sm-4 mt-xl-4">
+                        <div class="text-left">
+                            <h4 class="alert-link">Get Advice</h4>
+                        </div>
+                        <div class="about-content">
+                            <ul class="pl-4">
+                                <li>Receive free advice on digital assets</li>
+                                <li>Receive advice on smart securities</li>
+                                <li>Receive advice on financial goals</li>
+                            </ul>
+                            {% if not user.is_authenticated %}
+                            <a class="btn" name="signup_a" role_check='investor'>Get Advice</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- <section class="abotmi-advisor-section-div">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section ">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-text-area pr-4">
+                        <div class="text-left">
+                            <h4 class="alert-link">Refer Advice</h4>
+                        </div>
+                        <div class="about-content">
+                            <ul class="pl-4">
+                                <li>Refer friends and family </li>
+                                <li>Refer peers seeking digital asset advice</li>
+                                <li>Refer on social media channels</li>
+                            </ul>
+                            {% if not user.is_authenticated %}
+                            <a class="btn" name="signup_a" role_check='investor'>Refer Advice</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 mt-4">
+                    <div class="about-mockup-bg text-center">
+                            <img src="{% static 'V2_theme/images/howitsworks/infographic-3.png' %}" alt="About Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="abotmi-advisor-section-div mt-5" style="background: #f3f8fc;">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="about-mockup-bg text-center rate-advice-banner-img">
+                        <img src="{% static 'V2_theme/images/howitsworks/infographic-4.png' %}" alt="" class="col-xl-auto" style="top:58px">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-text-area pl-md-5 pl-sm-0 pl-xl-0 mt-sm-4 mt-xl-4">
+                        <div class="text-left">
+                            <h4 class="alert-link">Rate Advice</h4>
+                        </div>
+                        <div class="about-content">
+                            <ul class="pl-4">
+                                <li>Rate/Review your advisor</li>
+                                <li>Track advisors performance</li>
+                                <li>Identify local influencers</li>
+                                <li>Analyze results</li>
+                            </ul>
+                            {% if not user.is_authenticated %}
+                            <a class="btn" name="signup_a" role_check='investor'>Rate Advice</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}

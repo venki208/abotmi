@@ -1,0 +1,138 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    <style>
+        .wealth-color{
+            color: #eb1b95;
+        }
+        .wealth-micro-condition {
+            padding: 15px 15px;
+        }
+        .oppertunity-page-btn {
+            color: #eb1b95 !important;
+        }
+        .oportunities-main{
+            margin-top: 50px;
+        }
+        .abotmi-opportunities-list ul{
+            padding-left:15px;
+        }
+        .opportunities-btn{
+            background: #e40b7d;
+            color: #FFF;
+            border-radius: 0px;
+        }
+        .start-up{
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700 !important;
+        }
+        @media (min-width:767px) {
+            .abotmi-info-garphic-image{
+                width: 70%;
+            }
+        }
+    </style>
+    {% if not user.is_authenticated %}
+        <style>
+            body{
+                padding-top: 123px;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/wealth-banner.png' %}">
+        <div class="container">
+            <h2>OPPORTUNITIES</h2>
+        </div>
+    </section>
+    <section class="subpage-reia-primary parent-section wealth-micro-section oportunities-main" id="about">
+        <div class="container">
+            <div class="row abotmi-build-main">
+                <div class="col-md-12">
+                        <img src="{% static 'new_images/opprtunity_icon.png' %}">
+                </div>
+                <div class="col-md-12 wealth-micro-condition abotmi-build-main-header">
+                    <h3>Get Educated Professionally<br/> Before choosing an opportunity<br/>
+                        <span style="color: #e75581;">"Opportunity Education Enabled"</span> 
+                    </h3>
+                </div>
+                <div class="col-md-12 wealth-micro-condition">
+                    <p class="modal-side-content sub-content">
+                        Abotmi solves one of the major challenges faced by Issuer , Advisors and Investors to get accessibility of every digital asset opportunities around the world on real time through partnering with aggregators of opportunities.
+                    </p>
+                    <p class="text-center">
+                        <img class="abotmi-info-garphic-image" width="80%" src="{% static 'new_images/opportunities-infographic.png' %}">
+                    </p>                   
+                </div>
+                <div class="col-md-12">
+                    <p class="modal-side-content sub-content">
+                        ABOTMI offers opportunities for advisors and investors by partnering with ​<a href="https://whitepolarbear.org/"><b>White Polar Bear</b>​</a>.
+                    </p>
+                </div>
+                <!-- <div class="col-md-12">
+                    <h4 class="n-h4 wealth-color"><b>Value Proposition to Stakeholders</b></h4>
+                </div> -->
+                <div class="col-md-4 col-sm-4 col-xs-12 abotmi-reputation-card-one  abotmi-build-main-header">
+                    <div class="abotmi-reputation-card abotmi-opportunities-list">
+                        <h4 class="n-h4 build-color "><b>Issuers</b></h4>
+                        <ul>
+                            <li>List and educate users about offerings</li>
+                            <li>Provides access to multiple offeringsr</li>
+                            <li>Choose advisors to manage the offeringss</li>
+                            <li>Educate advisors and investors on offerings through White Polar Bear</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="abotmi-reputation-card abotmi-opportunities-list">
+                        <h4 class="n-h4 build-color"><b>Advisors</b></h4>
+                        <ul>
+                            <li>Connect to issuers</li>
+                            <li>Become educated about offerings</li>
+                            <li>P2P discovery about offerings</li>
+                            <li>Educate clients on offerings</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 abotmi-reputation-card-one abotmi-build-main-header">
+                    <div class="abotmi-reputation-card abotmi-opportunities-list">
+                        <h4 class="n-h4 build-color "><b>Investors</b></h4>
+                        <ul>
+                            <li>Discover and learn about offerings</li>
+                            <li>Get connected to the right advisors</li>
+                            <li>Select the most reputable advisors based on qualifications, rankings and reviews</li>
+                            <li>Access to track opportunities and performance through certified advisors</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row register register-its-work">
+                    <div class="col-md-12 text-center">
+                        <h3>IT'S FREE</h3>
+                        <a type="button" class="btn opportunities-btn" name="signup_a">Register Now</a>
+                    </div>
+                </div>
+                <p class="n-h4">&nbsp;</p>
+                <p class="start-up"><b>Start Building Your Reputation!</b></p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,361 @@
+<ion-view>
+      <ion-side-menus>
+
+        <ion-side-menu side="left">
+          <ion-content>
+            <ul class="list">
+              <li>
+                <a class="item" menu-close nav-clear href="#/tab/home">Home</a>
+              </li>
+            </ul>
+          </ion-content>
+        </ion-side-menu>
+
+        <ion-side-menu-content>
+          <ion-nav-bar class="m-upwrdz-navbar" align-title="center">
+              <ion-nav-buttons side="left">
+                <button class="button button-icon icon ion-navicon-round light" ng-click="track.showMenu();"></button>
+              </ion-nav-buttons>
+              <ion-nav-title class="up-logo">
+                <img src="img/upwrdz-logo.png" alt="upwrdz-logo">
+              </ion-nav-title>
+          </ion-nav-bar>
+
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
+            </button>
+          </ion-nav-buttons>
+
+          <ion-view>
+           <ion-content overflow-scroll="true" class="my-identity">
+      <p class="text-right">
+        <a class="button button-icon icon ion-android-share-alt"></a>
+      </p>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <p class="pull-right">edit</p>
+          <p> <a href="#">Repute</a></p>
+          <img class="id-img" src="img/max.png" alt="profile-pic">
+          <p class="name">Deepa Powar</p>
+          <p class="text-center">Designer</p>
+          <p class="text-center">For mobile experiences, Cards make it
+             easy to displa.
+          </p>
+        </div>
+      </div>
+
+      <div class="list card">
+        <div class="item item-divider item-header">
+          My Ratings
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row bottom-bdr">
+            <div class="col right-border">
+              <p class="text-center">
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+              </p>
+              <p class="text-center"> Peer Ratings</p>
+            </div>
+            <div class="col">
+              <p class="text-center">
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+              </p>
+              <p class="text-center"> Client Ratings</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="text-center count">4.5</p>
+              <p class="text-center"><a href="#">Repute</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="list card">
+        <div class="item item-divider item-header">
+          My Ratings
+          <p class="pull-right">edit</p>
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row">
+            <div class="col">
+              Edit
+            </div>
+            <div class="col col-80">
+              <p>Reference Site about What your looking for exactly</p>
+            </div>
+          </div>
+        </div>
+        <div class="item item-divider item-footer">
+          <p class="text-center"><a href="#">SeeMore</a></p>
+        </div>
+      </div>
+           </ion-content>
+          </ion-view>
+        </ion-side-menu-content>
+
+
+
+      </ion-side-menus>
+</ion-view>
+
+<!--<ion-view ng-cloak>
+   <ion-nav-bar class="upwrdz-navbar"  align-title="center">
+        <ion-nav-buttons side="left">
+          <button class="button button-icon icon ion-navicon-round light" ng-click="toggleDrawer();"></button>
+         </ion-nav-buttons>
+        <ion-nav-title class="up-logo">
+           <img src="img/upwrdz-logo.png" alt="upwrdz-logo">
+        </ion-nav-title>
+    </ion-nav-bar>
+    <div class="tabs-striped tabs-top tabs-color-light upwrdz-tabs">
+    </div>
+    <ion-content overflow-scroll="true" class="my-identity">
+      <p class="text-right">
+        <a class="button button-icon icon ion-android-share-alt"></a>
+      </p>
+      <div class="card">
+        <div class="item item-text-wrap">
+          <p class="pull-right">edit</p>
+          <p> <a href="#">Repute</a></p>
+          <img class="id-img" src="img/max.png" alt="profile-pic">
+          <p class="name">Deepa Powar</p>
+          <p class="text-center">Designer</p>
+          <p class="text-center">For mobile experiences, Cards make it
+             easy to displa.
+          </p>
+        </div>
+      </div>
+
+      <div class="list card">
+        <div class="item item-divider item-header">
+          My Ratings
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row bottom-bdr">
+            <div class="col right-border">
+              <p class="text-center">
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+              </p>
+              <p class="text-center"> Peer Ratings</p>
+            </div>
+            <div class="col">
+              <p class="text-center">
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+                <span><a href="#" class="ion-ios-star"></a></span>
+              </p>
+              <p class="text-center"> Client Ratings</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="text-center count">4.5</p>
+              <p class="text-center"><a href="#">Repute</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="list card">
+        <div class="item item-divider item-header">
+          My Ratings
+          <p class="pull-right">edit</p>
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row">
+            <div class="col">
+              Edit
+            </div>
+            <div class="col col-80">
+              <p>Reference Site about What your looking for exactly</p>
+            </div>
+          </div>
+        </div>
+        <div class="item item-divider item-footer">
+          <p class="text-center"><a href="#">SeeMore</a></p>
+        </div>
+      </div>-->
+
+       <!-- <div class="mediumpadding" style="margin-top:10px;margin-bottom:10px;">
+         <div class="trackintro">
+            <span class="mypageheadfont pinkfont">{{track.user_details.first_name}}&nbsp{{track.user_details.last_name}}</span>
+            <b class="smallfont">({{track.user_details.qualifications}})</b></span>
+            <div class="mypagetextfont" ng-if="(track.user_details.my_belief) != ''">{{track.user_details.my_belief}}</div>
+         </div>
+         <div class="trackpic row">
+            <div class="profilepicdiv col-25 smallpad">
+                <img class="profilepic" src="{{track.user_details.picture_url}}"/>
+            </div>
+            <div class="col-75 countdiv ">
+                <div class="col">
+                    <div class="mypageheadfont pinkfont">{{track.user_details.total_clients_served || 0}}</div>
+                    <div class="mypagetextfont">Clients Connected</div>
+                </div>
+                <div class="col">
+                    <div class="mypageheadfont pinkfont">{{track.user_details.total_advisors_connected || 0}}</div>
+                    <div class="mypagetextfont">Peer Connections</div>
+                </div>
+            </div>
+         </div>
+          <div class="mypagetextfont mediumpadding" ng-if="(track.user_details.my_promise) != ''">
+              {{track.user_details.my_promise}}
+          </div>
+          <div class="row" style="text-align:center;">
+              <div class="col ratediv card">
+                    <rating class="star-col black" ng-model="track.user_details.final_peer_avg_rating" max="5" style="pointer-events:none;"></rating>
+                    <div class="mypageheadfont">Peer Rating</div>
+                    <span class="smallgreyfont"> {{track.user_details.total_no_rated || 0}}
+                    out of {{track.user_details.total_no_invites_to_rate || 0}}
+                    have rated</span>
+              </div>
+              <div class="col ratediv card">
+                    <rating class="star-col black" ng-model="track.user_details.final_consumer_avg_ranking" max="5" style="pointer-events:none;"></rating>
+                  <div class="mypageheadfont">Client Ranking</div>
+                  <span class="smallgreyfont"> {{::track.user_details.total_member_ranks || 0}}
+                  out of {{::track.user_details.total_no_invites_to_rank || 0}} have ranked</span>
+              </div>
+          </div>
+      </div> -->
+        <!-- <div>
+          <div class="mediumpadding list otherdetails">
+             <h7>Certifications</h7>
+                 <div class="row cardtextfont" style="text-align:center;">
+                     <div class="col" ng-if="track.user_details.certified_advisor">
+                       <div class="registereddiv">
+                         <img  src="../images/Stream_logos.png" />
+                       </div>
+                     </div>
+                     <div class="col" ng-if="track.user_details.crisil_verified">
+                       <div class="registereddiv">
+                         <img class="regimg" src="../images/crisil_icon.png" />
+                       </div>
+                     </div>
+                   <div class="col">
+                       <div ng-if="!(track.user_details.certified_advisor || track.user_details.crisil_verified)">
+                         No Certifications</div>
+                   </div>
+                 </div>
+             </div>
+       <div class="mediumpadding list otherdetails">
+          <h7>Registered</h7>
+              <div class="row cardtextfont" style="text-align:center;">
+                  <div class="col" ng-if="track.user_details.SEBI_registration_no">
+                    <div class="registereddiv">
+                      <img  src="img/sbi-logo.png" />
+                    </div>
+                    <div>Reg No</div>
+                    <div>{{track.user_details.SEBI_registration_no}}</div>
+                  </div>
+                  <div class="col" ng-if="track.user_details.IRDA_registration_no">
+                    <div class="registereddiv">
+                      <img class="regimg" src="img/irda-logo.png" />
+                    </div>
+                    <div>Licence No</div>
+                    <div>{{track.user_details.IRDA_registration_no}}</div>
+                  </div>
+                  <div class="col" ng-if="track.user_details.AMFI_registration_no">
+                    <div class="registereddiv">
+                      <img class="regimg" src="img/amfi-logo.png" />
+                    </div>
+                    <div>Reg No</div>
+                    <div>{{track.user_details.AMFI_registration_no}}</div></div>
+                  <div class="col" ng-if="track.user_details.RERA_details">
+                    <div class="registereddiv">
+                      <img class="regimg" src="img/rera.png" />
+                  </div>
+                    <div>Licence No</div>
+                    <div>{{track.user_details.RERA_details[0].rera_registration_no}}</div>
+                </div>
+                <div class="col">
+                    <div ng-if="!(track.user_details.SEBI_registration_no || track.user_details.IRDA_registration_no || track.user_details.AMFI_registration_no || track.user_details.RERA_details[0])">
+                      No Registered Certificates</div>
+                </div>
+              </div>
+          </div>
+           <div class="mediumpadding list otherdetails">
+              <div class="smallpad cardheadingfont">Skills & Experience
+              <div class="cardtextfont">Languages Known</div>
+                 <div class="row nopadding cardtextfont">
+                      <div class="col-50 nopadding">Can Speak :</div>
+                      <div class="col-50 nopadding" style="text-align:left;">{{track.user_details.languages_known_speak}}</div>
+                  </div>
+                  <div class="row nopadding cardtextfont">
+                      <div class="col-50 nopadding">Can Read & Write : </div>
+                      <div class="col-50 nopadding" style="text-align:left;"> {{track.user_details.languages_known_read_write}}</div>
+                  </div>
+                  <div class="cardtextfont" ng-if="track.user_details.product_experience">Product Experience</div>
+                  <div class="row nopadding cardtextfont" ng-repeat = "product in track.user_details.product_experience">
+                        <div class="col-50">{{product.instruments}}</div>
+                        <div class="col-50">{{product.experience}}</div>
+                  </div>
+              </div>
+            </div>
+            <div class="mediumpadding list otherdetails">
+               <div class="smallpad cardheadingfont">ICORE</div>
+                <div class="pull-right">Total Blogs : {{track.user_details.my_posts_total}}</div>
+                <p><strong class="cardtextfont">Your Posts</strong><p>
+                <div class="row" ng-repeat ="post in track.user_details.my_posts" class="item icorelist" ui-sref="app.mytrack.post({id:post.ID})">
+                <div class="cardtextfont">{{post.title}}</div></div><br/>
+                <div ><strong class="cardtextfont">Your comments on other posts</strong>
+                      <div class="row" ng-repeat ="comments in track.user_details.my_icore_comments" class="item icorelist" ui-sref="app.mytrack.icore.post({id:comments.ID})">
+                          <div class="cardtextfont">{{comments.comment}}</div>
+                      </div>
+                  </div>
+                  <div ng-if="icore.my_posts_total == 0 && !(icore.my_icore_comments)"> No Posts or Comments </div>
+              </div>
+            <div class="mediumpadding list otherdetails">
+               <div class="smallpad cardheadingfont">Client Feedback</div>
+                <div ng-if="(track.user_details.client_feedback.length == 0) || (track.user_details.client_feedback[0][0] == ' ')" class="row cardtextfont"> No Feedbacks..</div>
+                <div ng-if="(track.user_details.client_feedback[0][0] != '') && (track.user_details.client_feedback.length > 0)" class="row cardtextfont">{{track.user_details.client_feedback[0][0]}}</div>
+            </div>
+            <div class="mediumpadding list otherdetails">
+               <div class="smallpad cardheadingfont">My Sale accomplishments</div>
+                <div ng-if="track.user_details.sales_accomplishments != ''" class="row cardtextfont">{{track.user_details.sales_accomplishments}}</div>
+                <div ng-if="track.user_details.sales_accomplishments == null" class="row cardtextfont"> No Accomplishments..</div>
+              </div>
+              <div class="mediumpadding list otherdetails">
+                 <div class="smallpad cardheadingfont">Contact Details</div>
+                <div style="margin-left:10px;"><i class="fa fa-envelope n-padding-r-5"></i> {{track.user_details.email_id}}</div>
+                <div style="margin-left:10px;"><i class="fa fa-phone n-padding-r-5"></i> {{track.user_details.mobile_number}}</div>
+                <div style="margin-left:10px;"><i class="fa fa-map-marker n-padding-r-5"></i> {{track.user_details.locality}}</div>
+                <div style="margin-left:10px;"><i class="fa fa-map-marker n-padding-r-5"></i> {{track.user_details.city}}</div>
+              </div>
+              <div class="mediumpadding list otherdetails">
+                 <div class="smallpad cardheadingfont row">Share Your Profile</div>
+                 <div class="row">
+                     <div class="col-50" ui-sref="app.mytrack.sharethroughemail"><i class="fa fa-envelope" aria-hidden="true" ></i> Send E-mail </div>
+                     <div class="col-50"> <!-- <button ng-click="track.sharetoggle()"><i class="fa fa-share-alt" ></i> Share</button>
+                         Share :
+                         <select ng-model="track.selectedoption" ng-options="opt for opt in track.shareoptions" ng-change="track.socialshare(track.url)">
+                             <option value="" selected="selected">Select</option>
+                         </select>
+                     </div>
+                </div>
+              </div>
+              <div class="mediumpadding list otherdetails">
+                  <div class="smallpad cardheadingfont">Download Profile
+                      <button ng-click="track.downloadprofile()">Download</button>
+                  </div>
+            </div>
+              <br/>
+            </div> -->
+    <!--</ion-content>
+</ion-view>-->

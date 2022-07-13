@@ -1,0 +1,19 @@
+<form class="form-horizontal" role="form" id="refer_member_form">
+    {% for field in member_form%}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">{{field.label}}</label>
+        <div class="col-sm-10">
+          {{field}}
+        {% if field.errors %}
+        <div>
+            {{field.errors}}
+        </div>
+        {% endif %}
+        </div>
+     </div>
+    {% endfor %}
+</form>
+<div class="text-center">
+    <span><input type="button" class="btn btn-primary popup-btn" value="Additional info"></span>
+    <span><input type="button" onclick="refer_member()" class="btn btn-primary popup-btn" value="Submit"></span>
+</div>

@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<style>
+    .modal-title.identity-title {
+        display: inline-flex;
+    }
+    .modal-side-content {
+        color: #2a3290;
+        text-align: center;
+    }
+    .content {
+        font-size: 18px;
+    }
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="digital_identity_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color identity-title">MY IDENTITY&nbsp;
+                        <img src="{% static 'new_images/my_identity_tab_icon.png' %}" class="img-responsive header-tab-icons" alt="My Hub">
+                    </h3>
+                </div>
+                <div class="panel-body pannel-popup-content content">
+                    <div class="col-md-12">
+                        <div class="col-md-7">
+                            <img src="{% static 'new_images/my-identity-infographic.png' %}" alt="my_identity" class="img-responsive img-center">
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <p class="modal-side-content">
+                                    ABOTMI helps you to create your own unique identity and a profile for yourself. Expand your network by connecting with your
+                                    counterparts. Let your customers and your peers know where to find you and contact you.
+                                    They can also evaluate you, which will help design your reputation. Build your name,
+                                    your credibility and make a mark in the industry with ABOTMI.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p>Whether you like it or not everywhere you go, other people will be able to instantly access info
+                        about you with or without your knowledge or consent. ABOTMI enabling advisors to build, manage
+                        and share their digital identity in real time and share them.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

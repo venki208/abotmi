@@ -1,0 +1,32 @@
+.advisor-add-certificate-registrator{
+    margin-bottom:30px;
+}
+input[type=checkbox]{
+    display:block;
+}
+.success-popup{
+    text-align: center;
+    font-size: 16px;
+}
+.add_certificate_div{
+    float: right;
+    position: relative;
+    top: -35px;
+}
+.add_certificate_div a{
+    color: #0056b3 !important;
+}
+.add_certificate_div a:hover{
+    text-decoration: underline !important;
+}
+.remove_field{
+    color: #ff0000 !important;
+    position: relative;
+    top: -10px;
+}
+.attach_class{
+	padding-left: 10px;
+}
+.hide{
+    display: none !important;
+}

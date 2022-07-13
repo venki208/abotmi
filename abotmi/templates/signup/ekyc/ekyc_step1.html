@@ -1,0 +1,100 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/radio_button.css' %}">
+{% endblock %}
+{% block main_content %}
+    <section class="parent-section parent-section-one">
+        <div class="container">
+            <div class="row">
+                <h2 class="title w-100">Advisor Registration Form</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12 upwrdz-steps-advisor">
+                    {% include 'common/ekyc-steps.html' with result=result %}
+                </div>
+            </div>
+            <div class="row section" id="face_capture_id">
+             
+                    <h3 class="kyc_sub_title text-center w-100">Profile Picture</h3>
+                    <div class="col-sm-12 advisor-form-padding" id="main_div">
+                        <div class="row text-center {% if eipv_face_capture %}hide{% endif %}" id="question_div">
+                            <h4 class="text-center w-100">Please select camera or upload to complete profile picture</h4>
+                            <div class="col-sm-12">
+                                <input type="radio" id="camera_radio" name="capture_type_radio" value="camera"><label class="lbl padding-8" id="validate-gender-male"> &nbsp;Camera</label>
+                                <input type="radio" id="upload_radio" name="capture_type_radio" value="upload"><label class="lbl padding-8" id="validate-gender-male"> &nbsp;Upload</label>
+                            </div>
+                        </div>
+                        <div class="row hide text-center" id="camera_div">
+                            <div class="col-md-12">
+                                <div id="my_camera" class="my-camera-eipv abotmi-camera-eipv"></div>
+                                <button type="button" class="btn kyc-btn-primary capture n-margin-t-10" name="button" id="capture_button" picture-type="eipv_face_capture" autocomplete="off">Capture & Upload</button>
+                            </div>
+                        </div>
+                        <div class="row hide text-center upload_file" id="upload_div">
+                            <div class="col-md-12 form-inline">
+                                <form id="upload_form" class="w-100">
+                                    <input type="file" id="file_upload" name="document" class="file form-control" accept="image/*">
+                                    <input type="hidden" name="documents_type" id="documents_type" value="eipv_face_capture">
+                                    <input type="hidden" name="reupload" value="true">
+                                    <button type="button" class="btn kyc-btn-primary" id="upload">Upload</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="text-center attached_div upload-icons" id="attached_div">
+                            {% if eipv_face_capture %}
+                                <span class="child_eipv_span n-padding-r-5 n-span-pink-color">Attached&nbsp; 
+                                    <a class="face-capture-btn" onclick="preview_image('{{eipv_face_capture.documents.url}}');" data-toggle="tooltip" data-placement="bottom" title="Preview image">
+                                        <i class="fa fa-eye upload-icons" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="face-capture-btn" onclick="re_upload_document('eipv_face_capture');" data-toggle="tooltip" data-placement="bottom" title="Re Upload">
+                                        <i class="fa fa-trash download_link_color upload-icons" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </fieldset>
+             
+                <div class="col-md-12 text-center registration-form-div {% if not eipv_face_capture %}hide{% endif %}" id="next_btn">
+                    <a href="/signup/verification_process/" class="btn kyc-btn-primary">Next</a>
+                </div>
+                
+            
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+    <!-- Modal for loading the preview -->
+    <div class="modal fade upwardz-modal" id="show_image_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-login-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">PREVIEW</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="image_show_body">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{{block.super}}
+    <script>
+        var eipv_face_capture = '{{eipv_face_capture|default:""}}';
+    </script>
+    <script src="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/video_js/webcam.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/video_js/webcam.js' %}"></script>
+    <script src="{% static 'js/new_js/upload_document.js' %}"></script>
+    <script src="{% static 'js/new_js/ekyc/ekyc_step1.js' %}"></script>
+{% endblock %}

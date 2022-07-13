@@ -1,0 +1,64 @@
+<!-- <html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <form action="search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+    </form>
+</body>
+</html>
+
+ -->
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+{% load i18n admin_static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "css/style1.css" %}{% endblock %}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>-->
+		<!--webfonts-->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text.css'/>
+		<!--//webfonts-->
+</head>
+
+<body>
+	<div class="main">
+		<form action="/login/" method="POST">
+            {% csrf_token %}
+    		<h1> <lable>Admin Login </lable> </h1>
+  			<div class="inset">
+	  			<p>
+	    			<label for="username">EMAIL</label>
+   	 				<input type="text" name="username" placeholder="example@example.com" required/>
+				</p>
+  				<p>
+				    <label for="password">PASSWORD</label>
+				    <input type="password" name="password" placeholder="password" required/>
+  				</p>
+				<p>
+				    <input type="checkbox" name="remember" id="remember">
+				    <label for="remember">Rememsber me</label>
+				</p>
+ 			 </div>
+
+			  <p class="p-container">
+			    <span><a href="#">Forgot password ?</a></span>
+			    <input type="submit" value="Login">
+			  </p>
+              <input type="hidden" name="next" value="{{ next }}"/>
+		</form>
+	</div>
+	<div class="copy-right">
+		<p>Powered by <a href="http://w3layouts.com">Mobisir Technology</a></p>
+	</div>
+</body>
+</html>

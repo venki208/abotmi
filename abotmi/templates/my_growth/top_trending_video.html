@@ -1,0 +1,41 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{block.super}}
+    <style>
+        .nf-prof-pic{
+            width: 38px;
+            height: 37px;
+            border-radius: 50%;
+        }
+        .nf-prof-pic{
+            width: 38px;
+            height: 37px;
+            border-radius: 50%;
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <div class="container notificationsScreen mt-5 pt-5">
+        <div class="row notification mb-1">
+            <div class="col-md-8 col-sm-8 col-8">
+                <h6 class="float-left" style="color: #006cc0; font-weight: 600;">List of Videos</h6>
+            </div>
+        </div>
+        {% for vd in advisor_videos %}
+            <div class="media p-2 {% if not nf.read_status %}unread{% endif %}" {% if not nf.message.action and not nf.read_status %}static-notif="1" {% endif %} id="{{nf.id}}">
+                <a href="{{DEFAULT_DOMAIN_URL}}/profile/{{vd.user_profile.batch_code}}" target="_blank" class="align-self-center"><img src="{% if vd.user_profile.picture %}{{vd.user_profile.picture.url}}{% else %}{% static 'V2_theme/icons/avatar.png' %}{% endif %}" class="align-self-center mr-3 nf-prof-pic" alt=""></a>
+                <div class="media-body">
+                    <p class="m-0">{{vd.user_profile.full_name}} Uploaded <b>{{vd.video_title}}</b></p>
+                    <span>{{vd.created_date|date:'M d, Y'}}</span>
+                </div>
+            </div>
+            <div class="dropdown-divider notif-divider"></div>
+        {% endfor %}
+    </div>  
+{% endblock %}
+{% block bootstrap_modal %}
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock scripts %}

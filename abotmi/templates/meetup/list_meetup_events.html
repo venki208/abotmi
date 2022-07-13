@@ -1,0 +1,223 @@
+{% extends 'meetup/meetup_base.html' %}
+{% load staticfiles %}
+    <!-- Deals with Scripts  -->
+    {% block custom_theme_css %}
+        {{block.super}}
+        <link href="/static/admin_theme/plugins/datatables/dataTables.bootstrap.css"
+                rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+        <style type="text/css">
+            hr {
+                max-width: 100%;
+                border-width: 1px;
+                border-color: #ccc;
+            }
+            .bg-webinar {
+              background-color: #d6d6d6;
+            }
+            .section-heading{
+                border-bottom:1px solid #ccc;
+            }
+            .meet_list {
+                padding: 10px 18px;
+            }
+            .check-box-view{
+              padding-bottom: 10px;
+            }
+            .schdule-div input[type="text"]{
+              width: 100%;
+              height: 32px;
+            }
+            .registration-form-div textarea{
+              height: 100px !important;
+            }
+            .mrg-t80{
+                margin-top: 80px;
+                margin-bottom: 80px;
+            }
+            .input-sm{
+                color: #FFF !important;
+            }
+            .meetup-table-div .table tbody > tr > td{
+                max-width: 100px;
+                word-wrap: break-word !important;
+            }
+            .meetup-table-div .table tbody > tr > td:last-child a{
+                margin: 2px;
+                font-size: 12px;
+            }
+            .meetup-head {
+                background-color: #8b8b8b !important;
+                font-size: 500 !important;
+            }
+            a:focus {
+                outline: thin dotted;
+                outline: 0px auto -webkit-focus-ring-color;
+                outline-offset: -2px;
+            }
+        </style>
+    {% endblock %}
+    <!-- HTML Content Starts -->
+    {% block main_content %}
+    <!-- ###############  Thank you Modal pop up #################### -->
+      <div class="modal fade upwardz-modal" id="id_invitation_message" name="id_invitation_message" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg upwrdz-view-client-model upwrdz-view-peerclient-model">
+              <div class="modal-content">
+                  <div class="panel upwrdz-log-panel panel-default">
+                      <div class="modal-header modal-header-border-bottom text-center">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <i class="fa fa-times-thin fa-2x"></i>
+                          </button>
+                          <h3 class="modal-title n-span-blue-color">Thank You</h3>
+                          <hr class="modal-heading-hr">
+                      </div>
+                      {% if SEND_MEETUP_INVITATION_SUCCESS %}
+                      <div class="panel-body pannel-popup-content">
+                          <p class="text-center">The invitation has been sent successfully.</p>
+                      </div>
+                      {% else %}
+                      <div class="panel-body pannel-popup-content">
+                          <p class="text-center">Mlegion event created successfully.</p>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+      </div>
+    <section id="about" class="mrg-t80">
+    <div class="container parent-section">
+    <div class="section services row" style="padding-bottom:30px;">
+      <div style="padding-left:40px" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="{% url 'meetup:create_meetup_event' %}" class="btn btn upwrdz-button">
+                CREATE MLEGION EVENTS</a>
+      </div>
+    </div>
+        {% if event_data_list %}
+        <center>
+        <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+        <div class="box-body meetup-table-div">
+            <div class="table-responsive">
+                <table id="table_id" name="table_id" class="table table-bordered dataTable no-footer">
+                    <span class="pull-right">
+                        <a id="veiw-member-search-icon" onclick="enable_search()"><i class="fa fa-search-thin fa-lg"></i></a>
+                    </span>
+                    <thead>
+                        <tr class="meetup-head">
+                            <th>EVENTS</th>
+                            <th>DESCRIPTION</th>
+                            <th>ADDRESS</th>
+                            <th>SCHEDULED</th>
+                            <th>USERS REGISTERED</th>
+                            <th>MANAGE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in event_data_list %}
+                        <tr class="tr_event_name" id="{{event.hashed_key}}">
+                            <td class="meet_list">
+                                <a href="/meetup/list_mail_invitation/">{{ event.name }}</a> </td>
+                                <td class="meet_list">{{ event.description }} </td>
+                                <td class="meet_list">{{ event.address }} </td>
+                                <td class="meet_list">{{ event.scheduled }} </td>
+                                <td class="meet_list">{{ event.registered_user_count }} </td>
+                                <td class="meet_list">
+                                    <a  id="{{event.meetup_event_id}}" onclick="delete_meetup_events(id);" class="btn upwrdz-button" title="Delete">X</a>
+                                    <a href="/meetup/update_events/?id={{event.meetup_event_id}}" class="btn upwrdz-button" title="update">UPDATE</a>
+                                </td>                                  
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </center>
+        {% else %}
+        <div><center>No Event(s) created yet.</center></div>
+        {% endif %}
+        </div>
+    </section>
+    {% endblock %}
+    <!-- HTML Content Ended -->
+
+    <!-- Scripts Start -->
+    {% block theme_scripts %}
+    {% endblock %}
+    <!-- DATA TABES SCRIPT -->
+    {% block scripts %}
+       <script src="/static/admin_theme/plugins/datatables/jquery.dataTables.js"
+                type="text/javascript"></script>
+       <script src="/static/admin_theme/plugins/datatables/dataTables.bootstrap.js"
+                type="text/javascript"></script>
+    {% if event_data_list %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table_id').dataTable({
+                language: {
+                    paginate: {
+                        previous: "< Previous",
+                        next: "Next >"
+                    }
+                }
+            });
+            document.getElementById('table_id_filter').style.display = 'none';
+        });
+        function enable_search(){
+            document.getElementById('table_id_filter').style.display = 'block';
+            document.getElementById('veiw-member-search-icon').style.display = 'none';
+        }
+
+    function delete_meetup_events(hashkey){
+        var csrf_token = '{{csrf_token}}';
+        var confrim_status = confirm("Do you want to continue");
+        if(confrim_status){
+            $.ajax({
+                type: 'POST',
+                url: '/meetup/delete_meetup_event_from_post/',
+                data :{"event_id":hashkey},
+                beforeSend: function(request) {
+                    request.setRequestHeader("X-CSRFToken", csrf_token);
+                },
+                success: function (response) {
+                    if(response.data.status == true){
+                        $('#'+hashkey).parent().closest('tr').remove();
+                    }
+                    window.location.reload();
+                },
+                error: function (response) {
+                    
+                }
+            });
+        }
+    }
+   
+    function update_events(hashkey){
+        var csrf_token = '{{csrf_token}}';
+        var confrim_status = confirm("Do you want to continue");
+        if(confrim_status){
+            $.ajax({
+                type: 'POST',
+                url: '/meetup/update_events/',
+                data :{"event_id":hashkey},
+                beforeSend: function(request) {
+                    request.setRequestHeader("X-CSRFToken", csrf_token);
+                },
+                success: function (response) {
+                    $('#'+hashkey).css('display', 'none');
+                },
+                error: function (response) {
+                    $('#'+hashkey).css('display', 'none');
+                }
+            });
+        }
+    }
+    </script>
+    {% for message in messages %}
+        <script type="text/javascript">
+            $("#id_invitation_message").modal('show');
+        </script>
+    {% endfor %}
+    {% endif %}
+    {% endblock %}

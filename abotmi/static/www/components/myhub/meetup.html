@@ -1,0 +1,84 @@
+<ion-view>
+    <ion-side-menus>
+       <ion-side-menu-content>
+          <ion-view>
+             <upwrdz-Tabs></upwrdz-Tabs>
+                <ion-content>
+                <div overflow-scroll="true" class="m-upwrdz-editpage-content">
+                  <div class="editpage-title-bar">
+                    <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ui-sref="app.myhub.view_meetup">
+                   <p ng-if="!meetup.update"> Create Meetup Event </p>
+                   <p ng-if="meetup.update"> Update Meetup Event </p>
+                  </div>
+                   <form name="meetupform"  novalidate ng-submit="meetup.submit()">
+                      <div class="list list-inset first-inset black-border">
+                         <label class="item item-input">
+                           <input type="text" placeholder="Name of the event" maxlength="50" ng-model="meetup.details.name" ng-required="true" name="name" ng-touched />
+                         </label>
+                         <span class="validationerrors" ng-if="meetupform.name.$error.required && meetupform.name.$touched"> Name of event is required</span>
+                      </div>
+                      <div class="list list-inset first-inset black-border">
+                         <label class="item item-input">
+                           <textarea cols="40" name="description" ng-model="meetup.details.description" placeholder="Description" rows="10" ng-required="true" ng-touched></textarea>
+                         </label>
+                         <span class="validationerrors" ng-if="meetupform.description.$error.required && meetupform.description.$touched"> Description  is required</span>
+                      </div>
+                      <div class="list list-inset first-inset black-border">
+                         <label class="item item-input">
+                           <textarea cols="40" name="address" ng-model="meetup.details.address" placeholder="Address" rows="10" ng-required="true" ng-touched></textarea>
+                         </label>
+                         <span class="validationerrors" ng-if="meetupform.address.$error.required && meetupform.address.$touched"> Address  is required</span>
+                      </div>
+                      <div class="list list-inset first-inset black-border">
+                         <label class="item item-input">
+                           <input type="text" placeholder="Location" maxlength="50" ng-model="meetup.details.location" ng-required="true" name="location" ng-touched />
+                         </label>
+                         <span class="validationerrors" ng-if="meetupform.location.$error.required && meetupform.location.$touched"> Location is required</span>
+                      </div>
+                      <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+                          <input type="text" placeholder="Landmark" maxlength="50" ng-model="meetup.details.landmark" ng-required="true" name="landmark" ng-touched />
+                        </label>
+                        <span class="validationerrors" ng-if="meetupform.landmark.$error.required && meetupform.landmark.$touched"> landmark is required</span>
+                     </div>
+                      <div class="list list-inset first-inset black-border meetup-uplyf-project-drop">
+                          <select ng-model="meetup.details.uplyf_project" name="uplyf_project" ng-options="x as x for x in meetup.projdata" ng-required="true" ng-touched>
+                              <option value="">Select Project</option>
+                          </select>
+                          <span class="validationerrors" ng-if="meetupform.uplyf_project.$error.required && meetupform.uplyf_project.$touched"> uplyf project is required</span>
+                      </div>
+                      <div class="list list-inset first-inset black-border meetup-uplyf-project-drop">
+                        <div class="item" ion-datetime-picker seconds am-pm ng-model="meetup.details.datetimeValue" only-valid="{'after': 'today', 'inclusive': true}">
+                          <input ng-disabled="true" ng-class="{removetag : meetup.details.datetimeValue}" name="datetimeValue"
+                            placeholder="Select Date and Time" class="no-border" min="{{meetup.now.getTime()}}" ng-required="true"/>
+                          {{meetup.details.datetimeValue|  date: 'yyyy-MM-dd H:mm:ss'}}
+                        </div>
+                        <span class="validationerrors" ng-if="meetupform.datetimeValue.$error.required && webinarform.datetimeValue.$touched"> Schedule time is required is required and Sholud be more than current time</span>
+                        <div ng-required="true" name="time_more" ng-touched  ng-if="meetup.details.datetimeValue.getTime() <= meetup.now.getTime()">
+                            <span class="validationerrors"> Please enter the valid date/time </span>
+                        </div>
+                     </div>
+                      <div class="list list-inset first-inset black-border meetup-uplyf-project-drop">
+                          <div class="meetup-uplyf-hours">
+                            <select id="hours" name="hours" ng-model="meetup.details.hours" ng-options="hour as hour for hour in meetup.hours" ng-required="true" ng-touched>
+                               <option value="">Select Hours</option>
+                            </select>  
+                            <span class="validationerrors" ng-if="meetupform.hours.$error.required && meetupform.hours.$touched"> Please select the Hours</span>
+                          </div>
+                          <div class="meetup-uplyf-hours meetup-uplyf-hours-two">
+                            <select name="minutes" id="minutes" ng-model="meetup.details.minutes" ng-options="minute as minute for minute in meetup.minutes" ng-required="true" ng-touched>
+                               <option value="">Select Minutes</option>
+                            </select>
+                            <span class="validationerrors" ng-if="meetupform.minutes.$error.required && meetupform.minutes.$touched"> Please select the Minutes</span>
+                          </div>
+                      </div>
+                      <div class="row end-button">
+                         <button class="full-button" ng-disabled="!meetup.details.datetimeValue || (meetup.details.datetimeValue.getTime() <= meetup.now.getTime()) || meetupform.$invalid">Submit</button>
+                      </div>
+                   </form>
+                </div>
+             </ion-content>
+          </ion-view>
+       </ion-side-menu-content>
+    </ion-side-menus>
+ </ion-view>

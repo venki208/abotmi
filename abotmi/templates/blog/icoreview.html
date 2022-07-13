@@ -1,0 +1,70 @@
+{% extends 'blog/icore_main.html' %}
+{% load staticfiles %}
+{% load utils_tags %}
+{% block custome_css %}
+    {{block.super}}
+{% endblock %}
+{% block blog_content %}
+<!-- Blog Entries Column -->
+<div class="col-md-8">
+    {% if icore %}
+        {% for data in icore %}
+            <!-- Blog Post -->
+            <div class="card mb-4 border-0 blog-card-main">
+                <div class="row">
+                    <div class="col-12 blog-profile-details mb-3">
+                        <div class="card-img-top">
+                            {% if data.author.avatar %}
+                                <img src="{{data.author.avatar}}" class="img-responsive">
+                            {% else %}
+                                <i class="fa fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <div class="blog-profile-rating-name">
+                            <h2 class="mb-0">{{data.author.name}}</h2>
+                            <p class="mb-0 float-left">{{ data.date|format_date:'%Y-%m-%dT%H:%M:%S'|date:'M d, Y' }}<span class="badge p-0"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p-0"></span></p>
+                            <p class="float-right"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
+                    <h2 class="card-2a75e0title">
+                        <a href="/blog/icore/{{data.ID}}/post/">{{data.title}}</a>
+                    </h2>
+                    <p class="card-text">Investments are thought of as money working for you. But property investments may be one category where you end up working for the investment. Managing a property – from buying, maintaining and sel...</p>
+                    <p class="text-center mt-2"><a href="/blog/icore/{{data.ID}}/post/" class="btn color-linear-btn">Read More &rarr;</a></p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts.</p>
+    {% endif %}
+
+            <!-- Pagination -->
+            {% if icore.number %}
+                {% if icore.has_previous or icore.has_next %}
+                    <ul class="pagination justify-content-center mb-4">
+                        {% if icore.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ icore.previous_page_number }}">&larr; Prev</a>
+                        </li>
+                        {% endif %}
+
+                        <li>
+                            <a class="btn blog-btn"><font color:"#FFF">Page {{ icore.number }} of {{ icore.paginator.num_pages }}</font></a>
+                        </li>
+
+                        {% if icore.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ icore.next_page_number }}">Next &rarr;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </div>
+
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}

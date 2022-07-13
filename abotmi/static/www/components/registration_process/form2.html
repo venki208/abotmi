@@ -1,0 +1,485 @@
+<ion-view>
+  <ion-side-menus>
+    <ion-side-menu-content>
+      <ion-content class="m-upwrdz-form-content">
+        <div class="logincenterdiv" ng-init="reg.user_details=''">
+          <div class="editpage-title-bar">
+            <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ui-sref="app.editprofile">
+            <button class="skip-fwd" ng-disabled="registration_form2.$invalid || reg.user_details.answer[0].Answer == null || reg.user_details.answer[1].Answer == null
+          || reg.user_details.answer[2].Answer == null || reg.user_details.answer[3].Answer == null"
+              ui-sref="app.education">SKIP >></button>
+            <div class="certificate-self-declaration">
+              <br />
+              <p class="form-step-text"> Business Information</p>
+              <p class="form-step-text">Required fields are mandatory <span class="validationerrors">*</span> </p>
+              <br />
+            </div>
+          </div>
+          <form name="registration_form2" class="registration-steps-logincenterdiv" novalidate>
+            <div class="row">
+              <div class="col">
+                <span><b> Help us understand you better</b></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Name of Company<span class="validationerrors">*</span></label>
+                <label class="item item-input item-label">
+                  <input class="form-control" id="NOF" ng-touched ng-required="true"
+                    ng-model="reg.user_details.company_name" name="company_name" type="text">
+                </label>
+              </div>
+              <div class="col">
+                <label for="ex3">Your Position<span class="validationerrors">*</span></label>
+                <label class="item item-input item-label">
+                  <input class="form-control" id="designation" ng-required="true"
+                    ng-model="reg.user_details.designation" name="designation" type="text" ng-touched>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Website URL</label>
+                <label class="item item-input item-label">
+                  <input class="form-control" id="url" ng-model="reg.user_details.company_website"
+                    name="company_website" type="text" ng-touched>
+                </label>
+
+              </div>
+              <div class="col">
+                <label for="ex3">Annual income (USD)</label>
+                <select class="edit-selection" ng-model="reg.user_details.annual_income" name="annual_income"
+                  ng-required="reg.user_details.off_address=='true'">
+                  <option value="">Select</option>
+                  <option value="Under $25k">Under $25k</option>
+                  <option value="$25k+">$25k+</option>
+                  <option value="$50k+">$50k+</option>
+                  <option value="$100k+">$100k+</option>
+                  <option value="$250k+">$250k+</option>
+                  <option value="$500k+">$500k+</option>
+                  <option value="$1m+">$1m+</option>
+                  <option value="$5m+">$5m+</option>
+                  <option value="$10m+">$10m+</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span><b>Office Address</b></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Address Line 1 </label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-required="reg.user_details.off_address=='true'"
+                    ng-model="reg.user_details.company_address1" id="office_ad1" name="company_address1" type="text"
+                    ng-touched>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.company_address1.$error.required && registration_form2.company_address1.$touched">
+                  * required</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Address Line 2 </label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-required="reg.user_details.off_address=='true' "
+                    ng-model="reg.user_details.company_address2" id="office_ad2" name="company_address2" type="text"
+                    ng-touched>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.company_address2.$error.required && registration_form2.company_address2.$touched">
+                  * required</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Town / City </label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-required="reg.user_details.off_address=='true'"
+                    ng-model="reg.user_details.company_city" id="company_city" name="company_city" type="text"
+                    ng-touched ng-pattern="/^([\s.]?[a-zA-Z]+)+$/">
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.company_city.$error.required && registration_form2.company_city.$touched">*
+                  City is required</span>
+              </div>
+              <div class="col">
+                <label for="ex3">Zip Code </label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-minlength='3' ng-maxlength='6'
+                    ng-required="reg.user_details.off_address=='true'" ng-model="reg.user_details.company_pincode"
+                    id="company_pincode" name="company_pincode" type="text" ng-touched ng-pattern="/^[a-zA-Z0-9]*$/">
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.company_pincode.$error.required && registration_form2.office_locality.$touched">*
+                  Zip Code is required</span>
+                <span class="validationerrors"
+                  ng-if="(registration_form2.company_pincode.$error.minlength && registration_form2.company_pincode.$dirty) || (registration_form2.company_pincode.$error.maxlength && registration_form2.company_pincode.$dirty)">
+                  Enter valid Zip Code</span>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col">
+                <label for="ex3">State</label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-required="reg.user_details.off_address=='true'" id="office_state"
+                    ng-model="reg.user_details.company_state" name="office_state" type="text" ng-touched>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.office_state.$error.required && registration_form2.office_state.$touched">*
+                  State is required</span>
+              </div>
+              <div class="col">
+                <label for="ex3">Country </label>
+                <label class="">
+                  <select class="edit-selection" ng-model="reg.user_details.company_country" name="offcountry"
+                    id="company_country" ng-required="reg.user_details.off_address=='true'">
+                    <option value="">Select </option>
+                    <option ng-repeat="data in reg.country" value="{{data.name}}">{{data.name}}</option>
+                  </select>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.offcountry.$error.required && registration_form2.offcountry.$touched">*
+                  Country is required</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span><b> Add Practice Country Details</b></span>
+              </div>
+            </div>
+            <section ng-repeat="name in data.names track by $index">
+              <div class="row">
+                <div class="col">
+                  <label for="ex3">Country<span style="color:red">*</span></label>
+                  <select class="edit-selection add-country" ng-model="name.practice_country" name="country"
+                    ng-required="true">
+                    <option value="">Select</option>
+                    <option ng-repeat="data in reg.country track by $index" value="{{data.name}}">{{data.name}}</option>
+                  </select>
+                  <span class="validationerrors"
+                    ng-if="registration_form2.country.$error.required && registration_form2.country.$touched">* Country
+                    is
+                    required</span>
+                </div>
+                <div class="col">
+                  <label for="ex3"> City <span style="color:red">*</span></label>
+                  <label class="item item-input item-label">
+                    <input id="practice_city" ng-required="true" ng-model="name.practice_city" name="practice_city"
+                      type="text" ng-pattern="/^([\s.]?[a-zA-Z]+)+$/">
+                  </label>
+                  <span class="validationerrors"
+                    ng-if="registration_form2.practice_city.$error.required && registration_form2.practice_city.$touched">*
+                    City
+                    is required </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="ex3">Zip code <span class="validationerrors">*</span></label>
+                  <label class="item item-input item-label">
+                    <input class="form-control" ng-minlength='3' ng-required="true" ng-maxlength='6' id="home_pincode"
+                      ng-model="name.pincode" name="pincode" type="text" ng-touched ng-pattern="/^[a-zA-Z0-9]*$/">
+                  </label>
+                  <span class="validationerrors"
+                    ng-if="registration_form2.pincode.$error.required && registration_form2.pincode.$touched"> Zip code
+                    is
+                    required</span>
+                  <span class="validationerrors"
+                    ng-if="(registration_form2.pincode.$error.minlength && registration_form2.pincode.$dirty) || (registration_form1.pincode.$error.maxlength && registration_form1.pincode.$dirty)">
+                    Enter valid Zip code</span>
+                </div>
+                <div class="col">
+                  <label for="ex3">&nbsp;</label>
+                  <div>
+                    <button type="button" ng-click="addRow($index)" value="Add" ng-show="$last">Add</button>
+                    <button type="button" ng-click="deleteRow($event,name)" value="Delete"
+                      ng-show="$index != 0">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="row">
+              <div class="col">
+                <span><b>Languages known</b></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Languages known to Speak <span class="validationerrors">*</span></label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-pattern="/^[a-zA-Z ]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z ]*)*$/"
+                    id="language" ng-model="reg.user_details.language_known" name="language" type="text"
+                    ng-required="true" ng-touched>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.language.$error.required && registration_form2.language.$touched">*
+                  Languages known to speak</span>
+                <span class="validationerrors"
+                  ng-if="registration_form2.language.$error.pattern && registration_form2.language.$dirty">*Only
+                  characters allowed </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Languages known to Read & Write<span class="validationerrors">*</span></label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-pattern="/^[a-zA-Z ]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z ]*)*$/"
+                    id="language_read" ng-model="reg.user_details.languages_known_read_write" name="language_read"
+                    type="text" ng-required="true" ng-touched>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.language_read.$error.required && registration_form2.language_read.$touched">*Languages
+                  known to Read and Write</span>
+                <span class="validationerrors"
+                  ng-if="registration_form2.language_read.$error.pattern&& registration_form2.language_read.$dirty">*Invalid
+                  Language</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ex3">Primary Language Spoken <span class="validationerrors">*</span></label>
+                <label class="item item-input item-label">
+                  <input class="form-control" ng-pattern="/^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$/"
+                    id="mother_tongue" ng-model="reg.user_details.mother_tongue" name="mother_tongue" type="text"
+                    ng-required="true" ng-touched>
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.mother_tongue.$error.required && registration_form2.mother_tongue.$touched">*
+                  Primary Language Spoken</span>
+                <span class="validationerrors"
+                  ng-if="registration_form2.mother_tongue.$error.pattern && registration_form2.mother_tongue.$dirty">*Invalid
+                  Language </span>
+              </div>
+            </div>
+            <div class="list">
+              <label for="ex3">{{reg.user_details.answer[0].Question}} <span style="color:red">*</span></label>
+              <div class="row">
+                <div class="col col-50">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[0].Answer" name="realtor"
+                    ng-value="'yes'">Yes</ion-radio>
+                </div>
+                <div class="col">
+                  <ion-radio class="radio radio-inline" ng-click="reg.answerclear()"
+                    ng-model="reg.user_details.answer[0].Answer" name="realtor" ng-value="'no'">No</ion-radio>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="reg.user_details.answer[0].Answer == 'yes'">
+              <div class="item item-input item-label">
+                <input type="text" allow-only-numbers ng-model="reg.user_details.answer[0].Remark[0].Answer"
+                  ng-pattern="/^[0-9]*$/" placeholder="Year of Business" name="year_of_business"
+                  ng-required="reg.user_details.answer[0].Answer == 'yes'" />
+              </div>
+              <span class="validationerrors"
+                ng-if="registration_form2.year_of_business.$error.required && registration_form2.year_of_business.$touched">*
+                year of business required</span>
+              <span class="validationerrors"
+                ng-if="registration_form2.year_of_business.$error.min || registration_form2.year_of_business.$error.max">
+                The value must be in range 1 to 99</span>
+              <span class="validationerrors" ng-if="registration_form2.year_of_business.$error.number"> Not valid
+                number!</span>
+              <span class="validationerrors" ng-if="registration_form2.year_of_business.$error.pattern">* Enter valid
+                input</span>
+
+              <div class="item item-input item-label">
+                <input type="number" ng-model="reg.user_details.answer[0].Remark[1].Answer" placeholder="Total clients"
+                  name="total_clients" ng-pattern="/^[0-9]*$/"
+                  ng-required="reg.user_details.answer[0].Answer == 'yes'" />
+              </div>
+              <span class="validationerrors"
+                ng-if="registration_form2.total_clients.$error.required && registration_form2.total_clients.$touched">*
+                total clients required</span>
+              <span class="validationerrors" ng-if="registration_form2.total_clients.$error.pattern">* Enter valid
+                input</span>
+
+              <div class="item item-input item-label">
+                <input type="number" ng-model="reg.user_details.answer[0].Remark[3].Answer" ng-pattern="/^[0-9]*$/"
+                  placeholder="Total Advisor" name="total_advisor"
+                  ng-required="reg.user_details.answer[0].Answer == 'yes'" />
+              </div>
+              <span class="validationerrors"
+                ng-if="registration_form2.total_advisor.$error.required && registration_form2.total_advisor.$touched">*
+                total advisor required</span>
+              <span class="validationerrors" ng-if="registration_form2.total_advisor.$error.pattern">* Enter valid
+                input</span>
+              <div class="">
+                <select class="edit-selection-dropdown edit-selection"
+                  ng-model="reg.user_details.answer[0].Remark[2].Answer" name="transcation"
+                  ng-required="reg.user_details.answer[0].Answer =='yes'">
+                  <option value=""> Select </option>
+                  <option value="Under $25k">Under $25k</option>
+                  <option value="$25k+">$25k+</option>
+                  <option value="$50k+">$50k+</option>
+                  <option value="$100k+">$100k+</option>
+                  <option value="$250k+">$250k+</option>
+                  <option value="$500k+">$500k+</option>
+                  <option value="$1m+">$1m+</option>
+                  <option value="$5m+">$5m+</option>
+                  <option value="$10m+">$10m+</option>
+                </select>
+                <span class="validationerrors"
+                  ng-if="registration_form2.transcation.$error.required && registration_form2.transcation.$touched">*
+                  required</span>
+              </div>
+            </div><br />
+
+            <div class="list">
+              <label for="ex3">{{reg.user_details.answer[1].Question}} <span style="color:red">*</span></label>
+              <div class="row">
+                <div class="col col-50">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[1].Answer"
+                    ng-click="reg.infrastructure();" name="infrasturure" ng-value="'yes'">Yes</ion-radio>
+                </div>
+                <div class="col">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[1].Answer" name="infrasturure"
+                    ng-value="'no'">No</ion-radio>
+                </div>
+              </div>
+
+            </div>
+            <div ng-show="reg.user_details.answer[1].Answer == 'yes'">
+              <div class="list">
+                <textarea class="form-textarea" type='text' ng-required="reg.user_details.answer[1].Answer == 'yes'"
+                  placeholder="Office Address" ng-model="reg.user_details.answer[1].Remark" rows="4"
+                  cols="50"></textarea>
+              </div>
+            </div><br />
+
+            <div class="list">
+              <label for="ex3">{{reg.user_details.answer[2].Question}} <span style="color:red">*</span></label>
+              <div class="row">
+                <div class="col col-50">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[2].Answer"
+                    name="financialOrganization" ng-click="reg.finances_org_yes();" ng-value="'yes'">Yes</ion-radio>
+                </div>
+                <div class="col">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[2].Answer"
+                    name="financialOrganization" ng-click="reg.finances_org_no();" ng-value="'no'">No</ion-radio>
+                </div>
+              </div>
+            </div>
+            <div ng-show="reg.user_details.answer[2].Answer == 'yes'">
+              <div>
+                <label class="item item-input">
+                  <input type="text" placeholder="Institution Name"
+                    ng-model="reg.user_details.answer[2].Remark[0].Remark[0].Answer" name="institution_name"
+                    ng-required>
+                </label>
+                <span class="validationerrors" ng-if="registration_form2.institution_name.$error.required">* Institution
+                  name required</span>
+                <br>
+              </div>
+              <div>
+                <label class="item item-input">
+                  <input type="email" placeholder="Official Email/Registration id"
+                    ng-model="reg.user_details.answer[2].Remark[0].Remark[2].Answer" name="official_email_id"
+                    ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                    ng-required="reg.user_details.answer[2].Answer == 'yes'">
+                </label>
+                <span class="validationerrors" ng-if="registration_form2.official_email_id.$error.pattern">* please
+                  enter valid email</span>
+                <br>
+              </div>
+
+              <div>
+                <label class="item item-input">
+                  <input type="text" placeholder="Company URL"
+                    ng-model="reg.user_details.answer[2].Remark[0].Remark[1].Answer" name="registration_id"
+                    ng-blur="reg.append(data.Answer,$index)"
+                    ng-pattern="/^(https?:\/\/)?(www\.)?[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/"
+                    ng-required="reg.user_details.answer[2].Answer == 'yes'">
+                </label>
+                <span class="validationerrors" ng-if="registration_form2.registration_id.$error.pattern">* please enter
+                  valid URL</span>
+                <br>
+              </div>
+              <div>
+                <label class="item item-input">
+                  <input type="text" placeholder="Year of association" min='1' max="99" ng-pattern="/^[0-9]*$/"
+                    ng-model="reg.user_details.answer[2].Remark[0].Remark[3].Answer" name="year_of_association"
+                    ng-required>
+                </label>
+                <span class="validationerrors" ng-if="registration_form2.year_of_association.$error.required">* please
+                  enter year of association</span>
+                <span class="validationerrors"
+                  ng-if="registration_form2.year_of_association.$error.min || registration_form2.year_of_association.$error.max">
+                  The value must be in range 1 to 99</span>
+                <span class="validationerrors" ng-if="registration_form2.year_of_association.$error.number"> Not valid
+                  number!</span>
+                <span class="validationerrors" ng-if="registration_form2.year_of_association.$error.pattern">* Enter
+                  valid input</span>
+                <br>
+              </div>
+            </div><br>
+
+            <div class="list">
+              <label for="ex3">{{reg.user_details.answer[3].Question}} <span style="color:red">*</span></label>
+              <div class="row">
+                <div class="col col-50">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[3].Answer"
+                    name="trainingprogram" ng-value="'yes'">Yes</ion-radio>
+                </div>
+                <div class="col">
+                  <ion-radio class="radio radio-inline" ng-model="reg.user_details.answer[3].Answer"
+                    name="trainingprogram" ng-value="'no'">No</ion-radio>
+                </div>
+              </div>
+              <span class="validationerrors" ng-if="reg.user_details.answer[3].Answer == 'no'">
+                To become a digital asset advisor, we will require that you undergo an online training program offered by The Digital Assets Academy
+              </span>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <span><b>Digital Foot prints</b></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label class="item item-input item-floating-label pinkbottomborder">
+                  <input ng-model="reg.user_details.link_url" placeholder="Link URL" name="link_url" type="text"
+                    ng-touched ng-pattern="/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/" />
+                </label>
+                <span class="validationerrors"
+                  ng-if="registration_form2.link_url.$error.required && registration_form2.link_url.$touched">* URL link
+                  is required</span>
+                <span class="validationerrors" ng-if="registration_form2.link_url.$error.pattern">* Enter valid URL
+                  link</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" ng-click="reg.save_digital_link()">
+                <button class="m-upwrdz-half-btn" ng-disabled="registration_form2.link_url.$invalid">
+                  ADD
+                </button>
+                <div class="row" ng-repeat="res in reg.results">
+                  <div class="col">
+                    <p> {{res}} </p>
+                  </div>
+                  <div class="col" ng-click="reg.delete_digital_link_data(res)">
+                    <button class="form-btn">delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="m-upwrdz-btn-block m-upwrdz-full-btn" ng-click="reg.editprofile2();"
+                  ng-disabled="registration_form2.$invalid || reg.user_details.answer[0].Answer == null || reg.user_details.answer[1].Answer == null
+            || reg.user_details.answer[2].Answer == null || reg.user_details.answer[3].Answer == null">SUBMIT</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ion-content>
+</ion-view>

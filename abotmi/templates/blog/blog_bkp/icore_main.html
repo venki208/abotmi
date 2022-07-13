@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {% block custom_theme_css %}
+       <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+       <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+       <link href="{% static 'css/new_css/blog.css' %}" rel="stylesheet">
+    {% endblock %}
+    {% block top_header %}
+       {% include 'header2.html' %}
+    {% endblock %}
+    {% block main_content %}
+        <section class="dashboard-bg1a" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 bloggroups">
+                    <p>
+                    <a href="/blog/icore/add-post/"><strong><font class="n-span-pink-color">CONTRIBUTE TO THE ABOTMI BLOG?</font></strong></a></p>
+                        {% block icore_enteries_all %} {% endblock %}
+
+                        {% block icore_read_more %} {% endblock %}
+
+                        {% block icore_comments %} {% endblock %}
+
+                        {% block blog_body_plain %} {% endblock %}
+                        {% if icore.number %}
+                            {% if icore.has_previous or icore.has_next %}
+                                <ul class="pager">
+                                    {% if icore.has_previous %}
+                                        <li class="previous">
+                                            <a href="?page={{ icore.previous_page_number }}" class="btn btn-effect">prev</a>
+                                        </li>
+                                    {% endif %}
+                                    <li>
+                                        <a class="btn blog-btn"><font color:"#FFF">Page {{ icore.number }} of {{ icore.paginator.num_pages }}</font></a>
+                                    </li>
+                                    {% if icore.has_next %}
+                                        <li class="next">
+                                            <a href="?page={{ icore.next_page_number }}" class="btn btn-effect">next</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <!-- Blog page right_side bar starts-->
+                    <div class="col-md-3">
+                        <div class="widget">
+                            <h6 class="title">Search Blog</h6>
+                            <hr class="blog-hr">
+                            <form role="form" name="search_form" id="search_form" method="POST" action="/blog/icore/search_posts/">
+                                {% csrf_token %}
+                                    <input type="text" name="search_name" id="search_name" class="form-control icon-magnifier blog-search" autocomplete="off" placeholder="Search Here">
+                            </form>
+                        </div>
+                        <div class="widget">
+                            <h6 class="title">Recent Posts</h6>
+                            <hr class="blog-hr">
+                            <div class="row n-margin-0">
+                                {% block icore_recent_posts %} {% endblock %}
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <h6 class="title">Top Authors</h6>
+                            <hr class="blog-hr">
+                            <div class="row n-margin-0">
+                                {% block top_authors %}{% endblock %}
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <h6 class="title">Top Ranked Blogs</h6>
+                            <hr class="blog-hr">
+                            <div class="row n-margin-0">
+                                {% block top_posts %}{% endblock %}
+                            </div>
+                        </div>
+                        {% block tags_right_side %} {% endblock %}
+                    </div>
+                <!--Bolog page right side bar ends-->
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    {% block footer %}
+       {{ block.super }}
+    {% endblock %}
+    {% block copy_rights %}
+       {{ block.super }}
+    {% endblock %}
+    {% block bootstrap-modal %}
+        {{ block.super }}
+    {% endblock %}
+    {% block theme_scripts %}
+        <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+        <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+        {% block star_rating_icorepost %} {% endblock %}
+    {% endblock %}
+    {% block icore_post_script %}
+    {% endblock %}
+    {% block rating_script %}
+    {% endblock %}
+    {% block scripts %}
+       {{ block.super }}
+    {% endblock %}

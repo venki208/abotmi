@@ -1,0 +1,85 @@
+# This setting is done for dev.abotmi.com server
+server {
+    listen 80 default_server;
+    server_name dev.abotmi.com;
+    return 301 https://dev.abotmi.com$request_uri;
+}
+
+server {
+    listen 443;
+    server_name dev.abotmi.com;
+    ##
+    # Enable Modsecurity
+    ##
+    modsecurity on;
+    modsecurity_rules_file /etc/nginx/modsec/main.conf;
+
+    client_max_body_size 50M;
+    server_tokens off;
+
+    # SSL SETTINGS
+    ssl on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_dhparam             /etc/ssl/abotmi/dhparam.pem;
+    ssl_certificate         /etc/ssl/abotmi/abotmi.cer;
+    ssl_certificate_key     /etc/ssl/abotmi/abotmi.key;
+    ssl_trusted_certificate /etc/ssl/abotmi/abotmi-interm.cer;
+    ssl_ciphers   EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA256:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EDH+aRSA+AESGCM:EDH+aRSA+SHA256:EDH+aRSA:EECDH:!aNULL:!eNULL:!MEDIUM:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS:!RC4:!SEED;
+    ssl_prefer_server_ciphers on;
+
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    ssl_session_timeout 10m;
+    ssl_session_cache shared:SSL:10m;
+
+    # Adding Headers for site
+    add_header           Front-End-Https    on;
+    add_header Content-Security-Policy "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com *.gstatic.com *.googleapis.com *.facebook.com *.linkedin.com *.twitter.com tawk.to *.facebook.net *.youtube.com s.ytimg.com dev.abotmi.com *.upwrdz.com ipinfo.io cdn.jsdelivr.net *.mlegion.net *.googletagmanager.com *.google-analytics.com";
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Xss-Protection "1; mode=block";
+    add_header Strict-Transport-Security "max-age=31536000;";
+    add_header "X-UA-Compatible" "IE=Edge";
+
+    # LOG FILES
+    access_log      /var/log/nginx/abotmi.access.log;
+    error_log       /var/log/nginx/abotmi.error.log;
+
+    keepalive_timeout    70;
+    root /home/abotmi/;
+
+    # Only allow specific request methods
+    if ($request_method !~ ^(GET|HEAD|POST|DELETE|PUT|PATCH|OPTIONS)$ ) { return 444; }
+
+
+    error_page 500 502 503 504 /custom_50x.html;
+    location = /custom_50x.html {
+        root /home/abotmi/50xdir;
+        internal;
+    }
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_cookie_path / "/; secure; HttpOnly";
+        proxy_http_version 1.1;
+        proxy_pass http://127.0.0.1:8000;
+    }
+    
+    location /trex {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:8001;
+    }
+
+    location /static/ {
+        try_files $uri /;
+        expires 30d;
+    }
+}
+

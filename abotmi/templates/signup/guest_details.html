@@ -1,0 +1,158 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+    <style type="text/css">
+        .intl-tel-input{
+            width: 100%;
+        }
+        .guest-padding-div-myidenty{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+        }
+        .footer-upwrdz-main{
+            position: absolute !important;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .add-client-btn{
+            width: 60%;
+            margin-top: 5px;
+        }
+        @media (max-width: 960px){
+            .footer-upwrdz-main {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    </style>
+{% endblock %}
+{% block base_scripts %}
+    {{block.super}}
+    <script type="text/javascript">
+        var member_login_recaptcha = '';
+        var correctCaptcha_member_login = function(response) {
+            validate_recptcha(member_login_recaptcha, 'help_member_login_recaptcha');
+        };
+        function member_recaptcha(){
+            member_login_recaptcha = grecaptcha.render('Recaptcha_member_login_button',{
+                'sitekey' : recapkey,
+                'callback': correctCaptcha_member_login
+            });
+            grecaptcha.reset(member_login_recaptcha);
+        }
+    </script>
+{% endblock %}
+{% block main_content %}
+    <div class="container">
+        <div class="row guest-padding-div-myidenty text-center">
+        {% if advisor_user_profile.status.my_identity_status %}
+            <div class="{% if not advisor_user_profile.status.my_repute_status %}col-sm-offset-3{% endif %}col-sm-6">
+            {% if not user.is_authenticated %}
+                <a name="my_identity" id="my_identity_button" class="btn add-client-btn" onclick="show_modal('identity')" >My Identity</a>
+            {% else %}
+                <a class="btn add-client-btn" href="{{DEFAULT_DOMAIN_URL}}/profile/{{slug}}">My Identity</a>
+            {% endif %}
+            </div>
+        {% endif %}
+        {% if title != 'Profile_details' %}
+        {% endif %}
+        {% if advisor_user_profile.status.my_repute_status %}
+            <div class="{% if not advisor_user_profile.status.my_identity_status %}col-sm-offset-3{% endif %}col-sm-6">
+            {% if not user.is_authenticated %}
+                <a name="my_repput" id="my_repput_client_button" class="btn add-client-btn" onclick="show_modal()">My Repute</a>
+            {% else %}
+                <a class="btn add-client-btn" href="{{DEFAULT_DOMAIN_URL}}/repute_index/{{slug}}">My Repute</a>
+            {% endif %}
+            </div>
+        {% endif %}
+        {% if not advisor_user_profile.status.my_repute_status and not advisor_user_profile.status.my_identity_status %}
+            <p>Sorry, Advisor has blocked the identity page .To view please contact advisor directly</p>
+        {% endif %}
+        </div>
+    </div>
+    <input type="hidden" name="page_type" value="">
+{% endblock %}
+{% block bootstrap-modal %}
+    {{block.super}}
+    <div class="modal fade upwardz-modal" role="dialog" id="identity" name="identity" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color">MEMBER SIGNUP FORM</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="">
+                        <div class="tab-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Name</label>
+                                        <input type="text" class="form-control" id='guest_name' autocomplete="off" name="name" placeholder="Enter Name" min-length='3' max-length='25' required="true">
+                                        <span class="help-block" id="help_guest_name"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email ID</label>
+                                        <input type="text" class="form-control" id='guest_email' name='email' placeholder="Enter Email ID"  name="email1" is-email='true' required="true">
+                                        <span class="help-block" id="help_guest_email"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Mobile Number</label>
+                                        <input type="text" class="form-control" id='guest_mobile' name='mobile' placeholder="Enter Mobile Number" is-mobile="true" required="true" autocomplete="off">
+                                        <span class="help-block" id="help_guest_mobile"></span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div id="Recaptcha_member_login_button" class="recaptcha1 form-group" tabindex="3"></div>
+                                            <span class="help-block" id="help_member_login_recaptcha"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <label class="text-center">Registered Member/Advisor Login here <span><a id="id_guest_login_tab" name="login_a" class="pull-right" tabindex="5">&nbsp;<u> Login </u></a></span> </label> </p>
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <button type="button" class="btn upwrdz-button" id="id_submit_guest" onclick="guest_details();">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block theme_scripts %}
+    {{block.super}}
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/new_js/guest_details.js' %}" charset="utf-8"></script>
+    <script type="text/javascript">
+        var slug_url = '{{slug}}';
+        var advisor_user_profile_id = '{{advisor_user_profile.id}}';
+        var profile_link = '/profile/{{slug}}/';
+        var repute_link = '/repute_index/{{slug}}';
+        var title = '{{title}}';
+    </script>
+{% endblock %}

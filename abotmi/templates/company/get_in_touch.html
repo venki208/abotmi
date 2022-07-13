@@ -1,0 +1,163 @@
+{% extends 'company/company_base.html' %}
+{% load staticfiles %}
+{% block slider %}
+{% endblock %}
+{% block custom_theme_css %}
+    <style media="screen">
+        .table-border{
+            border-left: 1px solid #ccc !important;
+            border-right: 1px solid #ccc !important;
+            border-bottom: 1px solid #ccc !important;
+        }
+        .intl-tel-input{
+            display: block !important;
+        }
+    </style>
+{% endblock %}
+{% block important_css %}
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+{% endblock %}
+{% block main_content %}
+    <section class="privacy-section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 n-padding-t-30">
+                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-lg-8 col-md-8 col-sm-8" style="color:#000;">
+                        <form method="POST" action="#" class="reia_contact_form" name="reia_contact_form" id="reia_contact_form">
+                        {% csrf_token %}
+                            <div class="row n-margin-0">
+                                <div class="form-group control-group col-lg-6 col-md-6 col-xs-12">
+                                    <div class="control">
+                                        <input type="text" name="name" id="name" class="form-control input" placeholder="Name" required="true" aria-required="true">
+                                    </div>
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group control-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="control mobile-numbers">
+                                        <input type="text" name="mobile_number" id="mobile_number" onchange="check_user_mobile_exist('mobile_number','mobilecode1');" class="form-control input" placeholder="Mobile Number" required="true" aria-required="true" data-toggle="tooltip" title="">
+                                    </div>
+                                    <span class="help-block" id="help-block-mobile_number"></span>
+                                </div>
+                            </div>
+                            <div class="row n-margin-0">
+                                <div class="form-group control-group col-lg-6 col-md-6 col-xs-12">
+                                    <div class="control">
+                                        <input type="text" name="email" id="email" class="form-control input" placeholder="Email ID" required="true" aria-required="true">
+                                    </div>
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group control-group col-lg-6 col-md-6 col-xs-12">
+                                    <div class="control">
+                                        <input type="text" name="location" id="location" class="form-control input" placeholder="Location-City" required="true" aria-required="true">
+                                    </div>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="row n-margin-0">
+                                <div class="form-group control-group col-lg-12 col-md-12 col-xs-12">
+                                    <div class="control">
+                                        <textarea rows="5" placeholder="Write to us (Why do you want to contact us?)" class="form-control input" name="content_msg" id="content_msg"></textarea>
+                                    </div>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <input type="button" value="Send Message" name="contact_submit" class="btn blog-btn" id="contact_submit" onclick="get_in_touch();" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/WearProtection.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/additional-methods.min.js' %}"></script>
+    <script src="{% static 'js/validate.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#mobile_number").intlTelInput({
+           geoIpLookup: function(callback) {
+             $.getJSON('http://ipinfo.io', function(resp){
+               var countryCode = (resp && resp.country) ? resp.country : "";
+               callback(countryCode);
+             });
+           },
+          nationalMode: false,
+          initialCountry: "in"
+        });
+    });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var allCountries = '{{ allcountrycode }}';
+            allCountries=allCountries.replace(/&#39;/gi,"\"");
+            allCountries='{"row":'+allCountries+'}';
+            var obj = JSON.parse(allCountries);
+
+            for (var i = 0; i <obj.row.length; i++) {
+                var data = obj.row[i];
+                $('#mobilecode1').append($('<option>', {
+                    value: data.dial_code+'-',
+                    text: data.dial_code+' ('+data.name+')'
+                }));
+            }
+        });
+
+        function check_user_mobile_exist(mobile){
+            var intlNumber = $('#'+mobile).intlTelInput("getNumber");
+            var isValidNumber = $('#'+mobile).intlTelInput("isValidNumber");
+            if(isValidNumber == true){
+                document.getElementById('mobile').style.border='';
+                document.getElementById('help-block-mobile_number').innerHTML = "";
+            }else{
+                document.getElementById(mobile).value = "";
+                document.getElementById('mobile').style.border='1px solid #C32F2F';
+                document.getElementById('help-block-mobile_number').innerHTML='Enter valid Mobile Number';
+            }
+        }
+
+        function get_in_touch(){
+            if($('#reia_contact_form').valid()){
+                var token = "{{ csrf_token }}";
+                document.body.style.cursor='wait';
+                document.getElementById('contact_submit').value = 'Sending ...'
+                $.ajax({
+                    url: '/contact_us_reia/',
+                    type: 'POST',
+                    beforeSend: function (request) {
+                        request.setRequestHeader("X-CSRFToken", token );
+                    },
+                    data: {
+                        name: $('#reia_contact_form').find('#name').val(),
+                        mobile_number: $('#reia_contact_form').find('#mobile_number').val(),
+                        email: $('#reia_contact_form').find('#email').val(),
+                        location: $('#reia_contact_form').find('#location').val(),
+                        content_msg: $('#reia_contact_form').find('#content_msg').val()
+                    },
+                    success: function(response){
+                        if (response == 'success') {
+                            alert('Your request has been sent successfully!');
+                            window.location.href='/';
+                        }
+                    },
+                    error:function(response){
+                    }
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+{% endblock %}
+{% block theme_scripts %}
+    {{ block.super }}
+{% endblock %}

@@ -1,0 +1,132 @@
+{% load staticfiles %}
+{% load utils_tags %}
+<table class="table table-bordered table-striped dataTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>RERA Registration Number</th>
+            <th>REAR State </th>
+            <th>Certification documents</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rera in json_rera_details %}
+        <tr>
+            <td> {{forloop.counter}} </td>
+            <td> {{rera.rera_registration_no}}  </td>
+            <td> {{rera.rera_state}} {{rera.certification_document.documents}} </td>
+            <td>
+                {% if rera.certification_document %}
+                <table>
+                <tr>
+                    <td>
+                        {% with rera.certification_document.documents.url|split_path:'/' as dt %}
+                            {% with dt|last as lt %}
+                                <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                            {% endwith %}
+                        {% endwith %}
+                    </td>
+                    <td>
+                        <button type="button" id="{{ rera.certification_document.documents.url }}" class="btn btn-primary" title="Preview" onclick="preview_of_rera_certificate(id)">
+                            View
+                        </button>
+                        <small class='label pull-center bg-green'>
+                            {{rera.certification_document.status|default:'NA'}}
+                        </small>&nbsp;
+                        {% if rera.certification_document.status != 'verified' and rera.certification_document.status != 'rejected' %}
+                            <button type="button" id="{{rera.certification_document.documents}}" class="btn btn-success" title="Approved"
+                            onclick="verify_regulatory_renewal_document(id, 'rera', 'verified')">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </button>
+                            {% else %}
+                            <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </button>
+                        {% endif%}
+                        {% if rera.certification_document.status != 'verified' and rera.certification_document.status != 'rejected' %}
+                            <button type="button" id="{{ rera.certification_document.documents }}" class="btn btn-danger" title="Rejected"
+                            onclick="verify_regulatory_renewal_document(id, 'rera', 'rejected')">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                            {% else %}
+                            <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        {% endif%}
+                        {% endif %}
+                    </td>
+                </tr>
+                </table>
+                {% if rera.rera_renewal_records %}
+                <table>
+                    <p>
+                        <b>RERA Renewal Certificates</b>
+                    </p>
+                    {% for r_ren_records in rera.rera_renewal_records %}
+                    <tr>
+                        <td>
+                            {% with r_ren_records.documents.url|split_path:'/' as dt %}
+                                {% with dt|last as lt %}
+                                    <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                {% endwith %}
+                            {% endwith %}
+                        </td>
+                        <td>
+                            <button type="button" id="{{ r_ren_records.documents.url }}" class="btn btn-primary" title="Preview" onclick="preview_of_rera_certificate(id)">
+                                View
+                            </button>
+                            <small class='label pull-center bg-green'>
+                                {{r_ren_records.status|default:'NA'}}
+                            </small>&nbsp;
+                            {% if r_ren_records.status != 'verified' and r_ren_records.status != 'rejected' %}
+                                <button type="button" id="{{r_ren_records.documents}}" class="btn btn-success" title="Approved"
+                                onclick="verify_regulatory_renewal_document(id, 'rera', 'verified')">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </button>
+                                {% else %}
+                                <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </button>
+                            {% endif%}
+                            {% if r_ren_records.status != 'verified' and r_ren_records.status != 'rejected' %}
+                                <button type="button" id="{{ r_ren_records.documents }}" class="btn btn-danger" title="Rejected"
+                                onclick="verify_regulatory_renewal_document(id, 'rera', 'rejected')">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                                {% else %}
+                                <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            {% endif%}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>RERA Registration Number</th>
+            <th>REAR State </th>
+            <th>Certification documents</th>
+        </tr>
+    </tfoot>
+</table>
+
+
+<script>
+    function preview_of_rera_certificate(id_doc){
+        $('#rera_doc_preview').prop('data', id_doc);
+        $("#rera_regulatory_data_modal").modal("hide");
+        $("#rera_preview_doc_modal").modal("show");
+    }
+
+    function close_preview_rera_preview_modal(){
+        $("#rera_preview_doc_modal").modal("hide");
+        $("#rera_regulatory_data_modal").modal("show");
+    }
+</script>

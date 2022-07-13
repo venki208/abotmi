@@ -1,0 +1,62 @@
+<ion-view>
+	<ion-side-menus>
+    	<ion-side-menu-content>
+				<upwrdz-Tabs></upwrdz-Tabs>
+				<ion-content class="scroll m-upwrdz-editpage-content">
+					<div class="editpage-title-bar">
+						<span>VIEW ADVISORS</span>
+						<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+					</div>
+					<div  class="row" ng-repeat = "data in advisor.referred_advisor_details_list" >
+						<div class="col">
+							<div class="row accordion-toggle" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+								<div class="col col-80">{{data.name}}</div>
+								<div class="col col-20"><i class="fa fa-chevron-down pull-right"></i></div>
+							</div>
+							<div class="row accordion-content default">
+								<p class="row">
+									<span class="col col-40">Name</span>
+									<span class="col">{{data.name}}</span>
+								</p>
+								<p class="row">
+									<span class="col col-40">Email</span>
+									<span class="col">{{data.email}}</span>
+								</p>
+								<p class="row">
+									<span class="col col-40">Mobile Number</span>
+									<span class="col">{{data.phone}}</span>
+								</p>
+								<p class="row">
+									<span class="col col-40">Location</span>
+									<span class="col">{{data.location}}</span>
+								</p>
+								<p class="row">
+									<span class="col col-40">No of Txns</span>
+									<span class="col">{{data.earnings_and_transaction.transaction_count}}</span>
+								</p>
+								<p class="row">
+									<span class="col col-40">Earning</span>
+									<span class="col">{{data.earnings_and_transaction.earnings}}</span>
+								</p>
+								<p class="row">
+									<span class="col col-40">Status</span>
+									<span ng-if="data.userprofile.is_wpb_user">
+										Course Enrolled
+									</span>
+									<span ng-if="data.userprofile.is_register_advisor">
+										Registered
+									</span>
+									<span ng-if="data.userprofile && !(data.userprofile.is_wpb_user || data.userprofile.is_register_advisor)">
+										Signup
+									</span>
+									<span ng-if="!(data.userprofile || data.userprofile.is_register_advisor || data.userprofile.is_wpb_user)">
+										UnRegistered
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</ion-content>
+    	</ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

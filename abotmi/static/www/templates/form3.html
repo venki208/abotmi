@@ -1,0 +1,87 @@
+<ion-view>
+  <ion-nav-bar class="bar" align-title="center">
+        <ion-nav-back-button class="button-clear" side="left">
+            <i class="icon ion-arrow-left-a light"></i> Back
+        </ion-nav-back-button>
+        <ion-nav-title>
+       <h4 class="modaltitle whitefont">Registration Form</h4>
+    </ion-nav-title>
+   </ion-nav-bar>
+<ion-content>
+    <div class="logincenterdiv"ng-init="track.user_details.answer[2].Remark[0].Remark =[]" >
+     <form name="registration_form3" novalidate ng-submit="reg.editprofile3(track.user_details);">
+       <div ="list">
+         <label for="ex3">{{track.user_details.answer[0].Question}} </label>
+            <input type="radio" ng-model="track.user_details.answer[0].Answer" name="realtor" value="Yes"> Yes<br>
+            <input type="radio"ng-model="track.user_details.answer[0].Answer" name="realtor" value="No"> No<br>
+        </div>
+
+
+      <div ng-show="track.user_details.answer[0].Answer == 'Yes'">
+          <div class="item">
+              Year of Business
+            <input type="text" ng-model="track.user_details.answer[0].Remark[0].Answer" placeholder ="Year of Business" name ="year_of_business" ng-required ="track.answer[0].Answer == 'Yes'"/>
+        </div>
+            <h7 class="validationerrors"  ng-show="registration_form3.year_of_business.$error.required && registration_form3.year_of_business.$touched">* required</h7>
+
+        <div class ="item">
+             Total Advisor
+                <input type = "text" ng-model="track.user_details.answer[0].Remark[1].Answer" placeholder="Total Advisor"name ="total_advisor"ng-required="track.answer[0].Answer == 'Yes'"/>
+                <h7 class="validationerrors"  ng-show="registration_form3.total_advisor.$error.required && registration_form3.total_advisor.$touched">* required</h7>
+    </div>
+         <div class ="item">
+             Total clients
+                <input type= "text" ng-model="track.user_details.answer[0].Remark[3].Answer" placeholder="Total clients"name ="total_clients" ng-required="track.answer[0].Answer == 'Yes'"/>
+                <h7 class="validationerrors"  ng-show="registration_form3.total_clients.$error.required && registration_form3.total_clients.$touched">* required</h7>
+        </div>
+         <div class ="item">
+             Transcation
+                <select ng-model="track.user_details.answer[0].Remark[2].Answer">
+                    <option value=""> Select </option>
+                    <option value="Below 50000">Below 50000</option>
+                    <option value="Above 50000 and Below 1000000" >Above 50000 and Below 1000000</option>
+                    <option value="Above 1000000">Above 1000000</option>
+                </select>
+            <h7 class="validationerrors"  ng-show="registration_form3.transcation.$error.required && registration_form3.transcation.$touched">* required</h7>
+        </div>
+    </div>
+
+      <div class="list">
+        <label for="ex3">{{track.user_details.answer[1].Question}} </label>
+                <input type="radio" ng-model="track.user_details.answer[1].Answer" name="infrasturure" value="Yes"> Yes<br>
+                <input type="radio"ng-model="track.user_details.answer[1].Answer" name="infrasturure" value="No"> No<br>
+     </div>
+             <div ng-show="track.user_details.answer[1].Answer == 'Yes'">
+                 <div class ="list">
+                     <textarea ng-required="track.user_details.answer[1].Answer == 'Yes'" placeholder="Office Address" ng-model ="track.user_details.answer[1].Remark"rows="4" cols="50"></textarea>
+         </div>
+     </div>
+     <div class ="list">
+       <label for="ex3">{{track.user_details.answer[2].Question}}</label>
+               <input type="radio" ng-model ="track.user_details.answer[2].Answer" name="financialOrganization" value="Yes"> Yes<br>
+               <input type="radio" ng-model ="track.user_details.answer[2].Answer"name="financialOrganization" value="No"> No<br>
+       </div>
+       <div ng-show ="track.user_details.answer[2].Answer == 'Yes'">
+           <div  ng-repeat= "data in track.user_details.answer[2].Remark[0].Remark">
+               <div class ="item">
+                {{data.Question}}
+                    <input type="text" ng-required="track.user_details.answer[2].Answer == 'Yes'" ng-model="data.Answer"  name ="company_name"  ng-touched />
+
+        </div>
+    </div>
+
+            <!-- <h7 class="validationerrors"  ng-show="registration_form3.company_name.$error.required && registration_form3.company_name.$touched">* required</h7> -->
+            <input type="button" value ="Delete"  ng-click="track.delete(track.user_details.answer[2].Remark[0].Remark,$index);">
+            <input type="button" value ="Add " ng-click="track.addinstituite();" ng-disabled="registration_form3.company_name.$invalid" >
+
+    </div>
+       <div class ="list">
+         <label for="ex3">{{track.user_details.answer[3].Question}} </label>
+             <input type="radio" ng-model="track.user_details.answer[3].Answer" name="trainingprogram" value="Yes">Yes<br>
+             <input type="radio" ng-model="track.user_details.answer[3].Answer"name"trainingprogram" value="No"> No<br>
+         </div>
+
+             <button  class="button buttoninset whitefont pinkbutton" ng-disabled="registration_form3.$invalid || track.user_details.answer[0].Answer == null || track.user_details.answer[1].Answer == null || track.user_details.answer[2].Answer == null || track.user_details.answer[3].Answer == null">SUBMIT</button>
+       </div>
+    </ion-content>
+</ion-view>

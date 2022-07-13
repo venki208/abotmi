@@ -1,0 +1,254 @@
+{% extends 'meetup/meetup_base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block custom_theme_css %}
+    {{block.super}}
+    <link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/meetup.css" type="text/css">
+    <style>
+    .check-box-view{
+      padding-bottom: 10px;
+    }
+    .schdule-div input[type="text"]{
+      width: 100%;
+      height: 32px;
+    }
+    .registration-form-div textarea{
+      height: 100px !important;
+    }
+    .meetup-popup-btn{
+      display: block ;
+      opacity: 1 ;
+
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .model-popup-dialog {
+    width: 600px;
+    margin: 10% auto;
+    }
+    .model-popup-dialog .close {
+      color: #FFFEFE;
+      opacity: 1;
+      background: #f61493;
+      font-weight: 300;
+      font-size: 16px;
+      padding: 5px;
+      border-radius: 10%;
+      }
+    .input-group-addon{
+      color: #fff;
+    }
+    .mrg-tb60{
+        margin-bottom: 60px;
+        margin-top: 60px;
+    }
+    .glyphicon-remove{
+        color: #8e8e90;
+    }
+    .glyphicon-th{
+        color: #8e8e90;
+    }
+    .help-error {
+        color: #f90000;
+    }
+    </style>
+{% endblock %}
+{% block main_content %}
+        <section class="subpage-reia-primary" id="about">
+            <div class="container">
+                <div class="col-md-8 col-md-offset-2 col-lg-10 col-lg-offset-1">
+                    <form action="." method="POST" class="two mrg-tb60" id="meet_up_form">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{event_id}}" name="event_id">
+                        <div class="row form-group registration-form-div n-margin-0">
+                            <div class="col-md-6 col-sm-3 n-padding-l-0 n-padding-r-5">
+                                <div class="control upwrdz-log-panel">
+                                    <label for="exampleInputEmail1">Name Of The Event: *</label>
+                                    <input type="text" name="name" id="id_name" value="{{event_data_list.name}}" class="form-control" placeholder="Name*" onchange="check_validation(name,'help_id_name')">
+                                </div>
+                                <span class="help-error" id="help_id_name"></span> 
+                            </div>
+                            <div class="col-md-6 col-sm-3 n-padding-l-0 n-padding-r-5">
+                                <div class="form-group registration-form-div">
+                                    <div class="control upwrdz-log-panel">
+                                        <label for="exampleInputEmail1">Landmark: *</label>
+                                        <input type="text" name="landmark" value="{{event_data_list.meetup_location}}" id="id_landmark" value="" class="form-control" placeholder="Landmark*" onchange="check_validation(name,'help_id_landmark')">
+                                    </div>
+                                <span class="help-error" id="help_id_landmark"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="">
+                            <div class="col-md-6 col-sm-6 form-group registration-form-div n-margin-0">
+                                <div class="control upwrdz-log-panel">
+                                    <label for="exampleInputEmail1">Description: *</label>
+                                    <textarea name="description" id="id_description" value"" rows="8" cols="80" class="form-control" placeholder="Description*" onchange="check_validation(name,'help_id_description')">{{event_data_list.description}}</textarea>
+                                </div>
+                                <span class="help-error" id="help_id_description"></span>
+                            </div>
+                            <div class="col-md-6 col-sm-6 form-group registration-form-div n-margin-0">
+                                <div class="control upwrdz-log-panel">
+                                    <label for="exampleInputEmail1">Address: *</label>
+                                    <textarea name="address" id="id_address" rows="8"  value"" cols="80" class="form-control" placeholder="Address*" onchange="check_validation(name,'help_id_address')">{{event_data_list.address}}</textarea>
+                                </div>
+                                <span class="help-error" id="help_id_address"></span>
+                            </div>
+                        </div>
+                        <div class="row n-margin-0" style="">
+                            <div class="col-md-6 col-sm-3 n-padding-l-0 n-padding-r-5">
+                                <div class="form-group registration-form-div">
+                                    <div class="control upwrdz-log-panel">
+                                        <label for="exampleInputEmail1">Location: *</label>
+                                        <input type="text" name="location" id="id_location" value="{{event_data_list.meetup_location}}" class="form-control" placeholder="Location*" onchange="check_validation(name,'help_id_location')">
+                                    </div>
+                                <span class="help-error" id="help_id_location"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-3 n-padding-l-0">
+                                <div class="form-group registration-form-div">
+                                    <div class="control upwrdz-log-panel">
+                                        <label for="exampleInputEmail1">Project:</label>
+                                        <!-- {% if project_name %} -->
+                                        <select class="form-control" name="project" id=id_project>
+                                            <option value="" selected >Select</option>
+                                            {% for project in project_name %}
+                                                <option value="{{ project.project_name}}-{{project.project_id}}">{{ project.project_name}} - {{project.project_id}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <!-- temporarly commented this code  -->
+                                        <!-- {% else %}
+                                        <select class="form-control" name="project" id=id_project>
+                                            <option value="{{event_data_list.uplyf_project}}" selected >Select</option>
+                                                <option value="{{event_data_list.uplyf_project}}"> {{event_data_list.uplyf_project}}</option>
+                                        </select>
+                                        {% endif %} -->
+                                    </div>
+                                <span class="help-error" id="help_id_project">&nbsp;</span>
+                                </div>
+                            </div>                        
+                            <div class="col-md-6 col-sm-3 n-padding-l-0 n-padding-r-5">
+                                <div class="form-group registration-form-div schdule-div">
+                                    <div class="control upwrdz-log-panel">
+                                    <label for="exampleInputEmail1">Scheduled Date & Time: *</label><br/>
+                                    {{ form.scheduled }}
+                                    </div>
+                                <span class="help-error" id="help_id_scheduled">{{form.scheduled.errors}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-3 n-padding-l-0">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> 
+                                            Duration: * &nbsp;  &nbsp;  Hours</label>
+                                            <div class="control upwrdz-log-panel">
+                                                <select class="form-control" name="hours" id="id_hours">
+                                                    {% for hrs in hours %}
+                                                        <option value="{{hrs}}">   {{hrs}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> Minutes</label>
+                                            <div class="control upwrdz-log-panel">
+                                            <select class="form-control" name="minutes" id="id_minutes">
+                                                {% for min in minuts %}
+                                                    <option value="{{min}}">{{min}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group proceed-btn">
+                                            <button type="button" value="Create an event" class="btn upwrdz-button" data-toggle="modal" data-target="#myModal" onclick="validate_and_submit();">Submit</button>
+                                            <a class="btn upwrdz-button" href="/meetup/list_meetup_events/">CANCEL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
+                        
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script>
+        var selected_project = "{{event_data_list.uplyf_project}}";
+        var hour ="{{event_data_list.hours}}";
+        var minute ="{{event_data_list.minute}}"
+        $(document).ready(function(){
+            if (selected_project){
+                $("#id_project").val(selected_project);
+            }
+            if(hour || minute){
+                 $("#id_hours").val(hour);
+                 $("#id_minutes").val(minute); 
+            }
+        });       
+    </script>
+    <script type="text/javascript">
+        function modelpopup(){
+            document.getElementById('myModal').style.display="none";
+            document.getElementById('myModal').style.opacity="0";
+        }
+    </script>
+    <script type="text/javascript">
+        function validate_meetup_form(){
+            var fields = true;
+            if($("input[name=scheduled]").val() == ''){
+                $("#help_id_scheduled").html('Please Select Scheduled Date & Time');
+                $("#id_scheduled").focus();
+                fields = false;
+            }
+            if($("#id_location").val().trim() == ''){
+                $("#help_id_location").html('Please Enter Location');
+                $("#id_location").focus();
+                fields = false;
+            }
+            if($("#id_landmark").val().trim() == ''){
+                $("#help_id_landmark").html('Please Enter Landmark');
+                $("#id_landmark").focus();
+                fields = false;
+            }
+            if($("#id_address").val().trim() == ''){
+                $("#help_id_address").html('Please Enter Address');
+                $("#id_address").focus();
+                fields = false;
+            }
+            if($("#id_description").val().trim() == ''){
+                $("#help_id_description").html('Please Enter Description');
+                $("#id_description").focus();
+                fields = false;
+            }
+            if ($("#id_name").val().trim() == ''){
+                $("#help_id_name").html('Please Enter Name');
+                $("#id_name").focus();
+                fields = false;
+            }
+            return fields
+        }
+        function validate_and_submit(){
+            var all_filled = validate_meetup_form();
+            if(all_filled == true){
+                $("#meet_up_form").submit();
+            }
+        }
+        function check_validation(name, help_id) {
+            if($("input[name="+name+"]").val() != ''){
+                $("#"+help_id).html('');
+            }
+        }
+    </script>
+    <script src="/static/js/WearProtection.js" type="text/javascript"></script>
+{% endblock%}
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

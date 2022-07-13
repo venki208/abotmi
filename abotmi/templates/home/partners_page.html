@@ -1,0 +1,307 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+    <style>
+
+        .abotmi-abotu-whyus-section {
+            min-height: 10rem !important;
+        }
+        @media(max-width:575px){
+            .advisor-section-cards-finacial .help-img{
+                text-align:center;
+            }
+            .advisor-section-cards-finacial .help-img img{
+                width: 300px;
+            }
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <!-- Header -->
+    <header class="abotmi-abotu-whyus-section">
+        <div class="container">
+            <div class="row abotmi-inner-banner align-items-center mt-5 pt-5">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-3">
+                    <h3>Partners</h3>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="abotmi-about-section abotmi-about-section-bg">
+        <div class="container advisor-section-cards-finacial">
+            <div class="row align-items-center">
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <h4 class="text-left pt-3 pb-5">ABOTMI helps you to :</h4>
+                    <div class="about-content">
+                        <ul>
+                            <li>Find professionals in digital asset space in order to make the existing practices develop standards in this industry.</li>
+                            <li>Contribute your valuable experience, data, contacts, vision, strategy and connect with like minded experts who care about investor protection and reputation.</li>
+                            <li>Fill in the gaps of the digital asset infrastructure by connecting advisors and investors.</li>
+                            <li>Foster innovation, job creation and investments in the industry.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 help-img">
+                        <img src="{% static 'V2_theme/images/aboutus/image-9-min.jpg' %}" class="img-fluid">
+                </div>
+            </div>
+            <h6 class="text-center pb-5 pt-5"><b>Supporting the cause of investor protection</b></h6>
+        </div>
+    </section>
+    <!-- commented for sprint 8 release -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3  text-center pt-4">
+                    <a href="https://www.securitize.io" target="_blank"><img src="{% static 'V2_theme/images/partners/securitize.png' %}" class="img-fluid"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.vertalo.com" target="_blank"><img src="{% static 'V2_theme/images/partners/vertalo.jpg' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="http://www.novablock.io" target="_blank"><img src="{% static 'V2_theme/images/partners/nova.jpg' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3  text-center pt-4">
+                    <a href="https://www.sandw.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/sullivan-logo.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.ey.com" target="_blank"><img src="{% static 'V2_theme/images/partners/ey.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.bitbullcapital.com" target="_blank"><img src="{% static 'V2_theme/images/partners/bitbull.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.floridablockchainfoundation.org" target="_blank"><img src="{% static 'V2_theme/images/partners/florida.jpg' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.block5ventures.com" target="_blank"><img src="{% static 'V2_theme/images/partners/block.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://fishercataliotti.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/fc.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="http://www.fungible.network/" target="_blank"><img src="{% static 'V2_theme/images/partners/fungible.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://whitepolarbear.org" target="_blank"><img src="{% static 'V2_theme/images/partners/wpb.png' %}" class="img-fluid" style="width: 150px;"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="http://www.apereum.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/apereum.jpg' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://wccstandards.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/wccs.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="http://pcgadvisory.com" target="_blank"><img src="{% static 'V2_theme/images/partners/pcg-advisory.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="http://chinainstitute.org" target="_blank"><img src="{% static 'V2_theme/images/partners/china.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="http://diyblockchain.co" target="_blank"><img src="{% static 'V2_theme/images/partners/diy.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://soramitsu.co.jp/en/" target="_blank"><img src="{% static 'V2_theme/images/partners/soramitsu.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://uwblockchain.org" target="_blank"><img src="{% static 'V2_theme/images/partners/uw.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://celsius.network/" target="_blank"><img src="{% static 'V2_theme/images/partners/celsius.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.archax.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/archax.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://mlgblockchain.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/mlg-logo.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://okto.io/" target="_blank"><img src="{% static 'V2_theme/images/partners/okto-logo.png' %}"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center pt-4">
+                    <a href="https://www.swarm.fund/" target="_blank"><img src="{% static 'V2_theme/images/partners/swarm.png' %}" class="img-fluid" style="width: 150px;"></a>
+                </div>
+                <div class="col-md-3 col-sm-3 text-center mt-5">
+                    <a href="https://www.koreconx.io/" target="_blank"><img src="{% static 'V2_theme/images/partners/kore.png' %}" class="img-fluid" style="width: 150px;"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <section class="abotmi-about-section mt-5 mb-5">
+            <div class="container text-center">
+            <div class="row abotmi-about-section">
+                <div class="col-md-12">
+                    <div class="customer-logos">
+                        <div class="slide">
+                            <a href="https://www.securitize.io" target="_blank"><img src="{% static 'V2_theme/images/partners/securitize.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.vertalo.com" target="_blank"><img src="{% static 'V2_theme/images/partners/vertalo.jpg' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://www.novablock.io" target="_blank"><img src="{% static 'V2_theme/images/partners/nova.jpg' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.sandw.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/sullivan-logo.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.ey.com" target="_blank"><img src="{% static 'V2_theme/images/partners/ey.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.bitbullcapital.com" target="_blank"><img src="{% static 'V2_theme/images/partners/bitbull.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.floridablockchainfoundation.org" target="_blank"><img src="{% static 'V2_theme/images/partners/florida.jpg' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.block5ventures.com" target="_blank"><img src="{% static 'V2_theme/images/partners/block.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://fishercataliotti.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/fc.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://www.fungible.network/" target="_blank"><img src="{% static 'V2_theme/images/partners/fungible.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://whitepolarbear.org" target="_blank"><img src="{% static 'V2_theme/images/partners/wpb.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://www.apereum.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/apereum.jpg' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://wccstandards.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/wccs.png' %}"></a>
+                        </div> -->
+                        <!-- <div class="slide">
+                            <img src="{% static 'V2_theme/images/partners/3.png' %}">
+                        </div> -->
+                        <!-- <div class="slide">
+                            <a href="http://pcgadvisory.com" target="_blank"><img src="{% static 'V2_theme/images/partners/pcg-advisory.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://chinainstitute.org" target="_blank"><img src="{% static 'V2_theme/images/partners/china.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://diyblockchain.co" target="_blank"><img src="{% static 'V2_theme/images/partners/diy.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://soramitsu.co.jp/en/" target="_blank"><img src="{% static 'V2_theme/images/partners/soramitsu.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://uwblockchain.org" target="_blank"><img src="{% static 'V2_theme/images/partners/uw.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://celsius.network/" target="_blank"><img src="{% static 'V2_theme/images/partners/celsius.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.archax.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/archax.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://mlgblockchain.com/" target="_blank"><img src="{% static 'V2_theme/images/partners/mlg-logo.png' %}"></a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://okto.io/" target="_blank"><img src="{% static 'V2_theme/images/partners/okto-logo.png' %}"></a>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        </section> -->
+
+    <section class="abotmi-about-section">
+        <div class="container advisor-section-cards-finacial">
+            <div class="row align-items-center">
+                <h6 class="text-center pb-5 pt-5">When industry leaders come together, <br/>they can make an impact!</h6>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <img src="{% static 'V2_theme/images/aboutus/image-10-min.jpg' %}" class="img-fluid">
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-12 abotmi-about-section-content">
+                    <h4 class="text-left pt-3 pb-5">Why Us?</h4>
+                    <div class="about-content">
+                        <ul>
+                            <li>We are driven by a single purpose "Investor Protection"</li>
+                            <li>Our vision is to be a leader as the most reliable and trusted digital asset protection platform globally.</li>
+                            <li>Our values define the success of the future</li>
+                            <li>Our belief in Shaping the future, is radically different than just solving the problems of the past.</li>
+                            <li>Our commitment is to conduct all services in a lawful, prudent and a professional manner. We always will put our members first as we promise to provide them with the best resources available.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="abotmi-about-section mt-5 text-center">
+        <div class="container">
+            <div class="map-container">
+                <img src="{% static 'V2_theme/images/aboutus/world-map.png' %}" class="img-fluid"/>
+                <div class="point usa" data-toggle="tooltip" title="USA"></div>
+                <div class="point canada" data-toggle="tooltip" title="Canada"></div>
+                <div class="point singapore" data-toggle="tooltip" title="Singapore"></div>
+                <div class="point malaysia" data-toggle="tooltip" title="Malaysia"></div>
+                <div class="point israel" data-toggle="tooltip" title="Israel"></div>
+                <div class="point netherlands" data-toggle="tooltip" title="Netherlands"></div>
+                <div class="point france" data-toggle="tooltip" title="France"></div>
+                <div class="point rusia" data-toggle="tooltip" title="Russia"></div>
+                <div class="point japan" data-toggle="tooltip" title="Japan"></div>
+                <div class="point india" data-toggle="tooltip" title="India"></div>
+                <div class="point china" data-toggle="tooltip" title="China"></div>
+            </div>
+        </div>
+    </section>
+
+    {% if not user.is_authenticated %}
+    <section class="abotmi-advisor-section-div pt-3">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <a class="btn" name="signup_a">Register Now</a>
+                    <h3>Start Building Your Reputation</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'V2_theme/js/slick.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+			$('.customer-logos').slick({
+				slidesToShow: 4,
+				slidesToScroll: 1,
+				autoplay: true,
+				autoplaySpeed: 1000,
+				arrows: true,
+				dots: false,
+					pauseOnHover: false,
+					responsive: [{
+	    				breakpoint: 768,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    }, 
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    { 
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1
+                        },
+                	}]
+			});
+		});
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+{% endblock %}

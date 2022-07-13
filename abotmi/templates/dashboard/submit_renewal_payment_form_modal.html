@@ -1,0 +1,214 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+{{ form.media }}
+<link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+<div class="modal fade upwardz-modal" id="crisil_renewal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="panel upwrdz-log-panel panel-default">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <h3 class="modal-title n-span-blue-color">CRISIL RENEWAL</h3>
+                <hr class="modal-heading-hr">
+            </div>
+            <div class="panel-body pannel-popup-content" id="crisil_renewal-body">
+                <form class="form-horizontal" id="renewal_payment_form" name="renewal_payment_form" method="POST" enctype="multipart/form-data">
+                    <div class="col-md-offset-1 col-sm-12 col-md-9">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label">Bank Name*</label>
+                            <div class="col-sm-10 col-md-8">
+                                <input class="form-control" placeholder="Bank Name" name="bank_name" id="bank_name" type="text" onchange="clear_error_msg(id,name); validateAlpha('bank_name');">
+                                <span class="help-block" id="help-text-bank_name"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label">Reference Number*</label>
+                            <div class="col-sm-10 col-md-8">
+                                <input class="form-control" placeholder="Reference Number" name="reference_number" id="reference_number" type="text" onchange="clear_error_msg(id,name);">
+                                <span class="help-block" id="help-text-reference_number"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label">Date of Payment*</label>
+                            <div class="col-sm-10 col-md-8">
+                                <div class='input-group date' id='datetimepicker'>
+                                    <input type="text" name="payment_date" id="payment_date" class="form-control date" autocomplete="off" placeholder="yyyy-mm-dd" onchange="clear_error_msg(id,name);">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                                </div>
+                                <span class="help-block" id="help-text-payment_date"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label">Amount*</label>
+                            <div class="col-sm-10 col-md-8">
+                                <input class="form-control" placeholder="Amount" name="amount" id="amount" type="text" onchange="clear_error_msg(id,name);" value="{{ amount }}" readonly>
+                                <span class="tax-text">Including all taxes</span>
+                                <span class="help-block" id="help-text-amount"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {% if user.profile.advisor.crisil_application_status == CRISIL_EXPIRED %}
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label">Years Selected*</label>
+                            {% else %}
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label date">Expiry date*</label>
+                            {% endif %}
+                            <div class="col-sm-10 col-md-8">
+                                {% if user.profile.advisor.crisil_application_status == CRISIL_EXPIRED %}
+                                <input class="form-control" placeholder="Years Selected" name="years_selected" value="{{ CERTIFICATE_RENEWAL_YEAR }}" id="years_selected" type="text" onchange="clear_error_msg(id,name);" readonly>
+                                {% else %}
+                                <input class="form-control" placeholder="Years Selected" name="years_selected" value="{{ user.profile.advisor.crisil_expiry_date|date:'d-m-Y'}}" id="years_selected" type="text" onchange="clear_error_msg(id,name);" readonly>
+                                {% endif %}
+                                <span class="help-block" id="help-text-years_selected"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 col-md-4 control-label">Reference Doc*</label>
+                            <div class="col-sm-10 col-md-8">
+                                <input type="file" name="renewal_reference_doc" class="form-control" id="id_renewal_reference_doc" value="" onchange="clear_error_msg(id,name);">
+                                <span class="help-block" id="help-text-renewal_reference_doc"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-2 col-md-9 col-sm-12">
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-default upwrdz-button btn-block" id="id_cancel_transaction" data-dismiss="modal" onclick="$('.input').val('');">
+                                Cancel
+                            </button>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-default upwrdz-button btn-block" id="id_re_transaction_details" onclick="submit_bank_details();">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="crisil_thanks_payment_information" style="display:none;">
+    <p class="text-center">
+        Thank you for providing Details
+    </p>
+    <div class="text-center">
+        <button type="button" id="id_crisil_button" class="btn btn-default upwrdz-button" onclick="window.location.reload();">Ok</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#datetimepicker").datetimepicker({
+        minView: 2,
+        startView: 2,
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });
+</script>
+
+    <script type="text/javascript">
+        function validating_personal_information_page(){
+            var missed_filed_count = 0;
+            var bank_name = $("#bank_name").val();
+            if(bank_name == '' || bank_name == null){
+                document.getElementById('bank_name').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-bank_name').innerHTML='Please Enter Bank Name';
+                $("#bank_name").focus();
+                missed_filed_count++;
+            }
+            var reference_number = $("#reference_number").val();
+            if(reference_number == '' || reference_number == null){
+                document.getElementById('reference_number').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-reference_number').innerHTML='Please Enter reference number';
+                $("#reference_number").focus();
+                missed_filed_count++;
+            }
+            var payment_date = $("#payment_date").val();
+            if(payment_date == '' || payment_date == null){
+                document.getElementById('payment_date').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-payment_date').innerHTML='Please enter payment date ';
+                $("#payment_date").focus();
+                missed_filed_count++;
+            }
+            var renewal_reference_doc = $("#id_renewal_reference_doc").val();
+            if(renewal_reference_doc == '' || renewal_reference_doc == null){
+                document.getElementById('id_renewal_reference_doc').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-renewal_reference_doc').innerHTML='Please upload the document ';
+                $("#id_renewal_reference_doc").focus();
+                missed_filed_count++;
+            }
+            var amount = $("#amount").val();
+            if(amount == '' || amount == null){
+                document.getElementById('amount').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-amount').innerHTML='Please enter amount ';
+                $("#amount").focus();
+                missed_filed_count++;
+            }
+            if($("#amount").val() < 100 || $("#amount").val() > 50000){
+                document.getElementById('Enter Amount').innerHTML = 'Enter Amount above 100 INR below 50000 INR';
+            }
+
+            if(missed_filed_count<1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function submit_bank_details(){
+            var token = "{{ csrf_token }}";
+            var validation_result = validating_personal_information_page();
+            var form_data = new FormData($('#renewal_payment_form')[0]);
+            if(validation_result == true){
+                $("#renewal_details").attr("disabled", true);
+                $("#renewal_details").html('<option> Processing ...</option>');
+                $.ajax({
+                    type: 'POST',
+                    url : '/dashboard/renewal_submit_crisil_form/',
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    async: true,
+
+                    success:function(response){
+                        if(response=='success'){
+                            $("#crisil_renewal-body").html('');
+                            var thanks_information = $("#crisil_thanks_payment_information").html();
+                            $('#crisil_renewal-body').html('');
+                            $("#crisil_renewal-body").html(thanks_information);
+                        } else {
+                            alert('unable to Renewal Your Payment. \n Please try again after some time.');
+                        }
+                    }
+                });
+            }
+        }
+        function validateAlpha(str) {
+            var name = document.getElementById(str);
+            var alpha = /^[a-zA-Z()\s]+$/.test(name.value);
+            if(alpha)
+                 {return true;}
+            else {
+                document.getElementById(str).value = "";
+                alert("Enter valid Input");
+            }
+        }
+
+        function clear_error_msg(id,name){
+            if($("#"+id).val() != ''){
+                var nationality_value = $("#"+id).val();
+                document.getElementById(id).style.border='';
+                document.getElementById('help-text-'+name).innerHTML='';
+            }
+            else{
+                $("#"+id).focus();
+            }
+        }
+    </script>
+    <script src="/static/js/WearProtection.js" type="text/javascript"></script>

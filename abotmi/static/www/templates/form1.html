@@ -1,0 +1,332 @@
+<ion-view>
+    <ion-nav-bar class="bar" align-title="center">
+       <ion-nav-back-button class="button-clear" side="left">
+          <i class="icon ion-arrow-left-a light"></i> Back
+        </ion-nav-back-button>
+        <ion-nav-title>
+           <h4 class="modaltitle whitefont">Registration Form</h4>
+        </ion-nav-title>
+   </ion-nav-bar>
+   <ion-content>
+        <div class="logincenterdiv" ng-init ="reg_user_details =''" >
+            <form name="registration_form1" novalidate ng-submit="reg.editprofile1(track.user_details);">
+                <div class ="row">
+                    <div class = "item">
+                       <select ng-required ="true" ng-model = "track.user_details.suffix" name ="suffix">
+                            <option value=""> Select </option>
+                             <option  value ='Mr'>Mr</option>
+                             <option value= 'Ms' >Ms</option>
+                              <option value='Dr' >Dr</option>
+                             <option value='Prof'>Prof</option>
+                        </select>
+                        <span class="validationerrors"  ng-show="registration_form1.suffix.$error.required && registration_form1.suffix.$touched">*required</span>
+                    </div>
+                    <div class="item">
+                         <label for="ex2">First Name <span >*</span></label>
+                         <label class="item item-input item-floating-label pinkbottomborder">
+                                <input  id="f_name" ng-model="reg.user_details.first_name"  placeholder="First Name" ng-required= "true" name="f_name" type="text" ng-touched />
+                        </label>
+                        <span class="validationerrors"  ng-show="registration_form1.f_name.$error.required && registration_form1.f_name.$touched">*required</span>
+                    </div>
+                </div>
+            <div class ="row">
+                  <div class ="item">
+                      <label for="ex3">Middle Name</label>
+                           <label class="item item-input item-floating-label pinkbottomborder">
+                                 <input  ng-model="reg.user_details.middle_name" id="m_name" placeholder="Middle Name"  name="m_name" type="text" value="{{reg.user_details.middle_name}}"/>
+                          </label>
+                 </div>
+                 <div class ="item">
+                       <label for="ex3">Last Name <span >*</span></label>
+                             <label class="item item-input item-floating-label pinkbottomborder">
+                                    <input  ng-model="reg.user_details.last_name" ng-required="true" placeholder="Last Name" id="l_name" name="l_name" type="text"/>
+                            </label>
+                                     <span class="validationerrors" ng-show="registration_form1.l_name.$error.required && registration_form1.l_name.$touched">*required</span>
+                </div>
+           </div>
+           <div class ="row" ng-required ="true">
+                    <label for="ex3">Gender<span >*</span></label>
+                               <input ng-checked= "reg.user_details.gender == 'M'" type="radio" value="M" name="gender"ng-model ="reg.user_details.gender" />
+                                         Male<br>
+                               <input type="radio" ng-checked="reg.user_details.gender == 'F'" value= "F" name="gender" ng-model ="reg.user_details.gender"/> Female<br>
+                               <input type="radio" ng-checked="reg.user_details.gender == 'O' "value = "O" name="gender" ng-model ="reg.user_details.gender"/> Other
+                    </label>
+                       <span class="validationerrors" ng-show="registration_form1.gender.$error.required && registration_form1.gender.$touched">* required</span>
+                </div>
+           <div class  ="row" >
+                <div class ="item"
+                      <label for="ex3">Date of Birth<span>*</span></label>
+                            <label class="item item-input item-floating-label pinkbottomborder">
+                                         <input select-date="track.user_details.birthday"  ng-required="true" id="date" ng-model= "track.user_details.birthday" placeholder="Date of Birth" name="birthday"  type="text" ng-touched/>
+                                          </label>
+                                         <span class="validationerrors" ng-show="registration_form1.birthday.$error.required && registration_form1.birthday.$touched">* required</span>
+                </div>
+                 <div class ="item">
+                           <label for="ex3">Mobile Number<span>*</span></label>
+                            <label class="item item-input item-floating-label pinkbottomborder">
+                                 <input  id="mobilenumber" ng-required="true" placeholder="Mobile number" ng-model ="reg.user_details.mobile" name="mobile" string-to-number type="text" ng-minlength="10" ng-maxlength="10" type="text" ng-pattern="/^[0-9]*$/">
+                            </label>
+                                  <span class="validationerrors" ng-show="registration_form1.mobile.$error.required && registration_form1.mobile.$touched">* *required</span>
+                                  <span class="validationerrors" ng-show="(registration_form1.mobile.$error.minlength && registration_form1.mobile.$dirty) || (registration_form1.mobile.$error.maxlength && registration_form1.mobile.$dirty)" > Enter valid 10 digits number</span>
+                       </div>
+                </div>
+
+
+                <div class = "row">
+                         <div class ="item">
+                                 <input ng-checked ="reg.user_details.email"onclick="document.getElementById('emmail').disabled = false; document.getElementById('email').disabled = true;"type="radio" name="emaill" ng-model = "reg.user_details.eemail" value= "true"> <label for="ex3">Email id<span>*</span></label>
+
+                                  <label class="item item-input item-floating-label pinkbottomborder">
+                                        <input  disabled= "true" class="form-control" ng-required="reg.user_details.eemail"  id="emmail" placeholder="Email" ng-model="reg.user_details.email" name="email" type="email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" ng-touched >
+
+                                 </label>
+                                        <span class="validationerrors" ng-show="registration_form1.email.$error.required && registration_form1.email.$touched">*required</span>
+                                        <span class="validationerrors" ng-show="registration_form1.email.$error.email && registration_form1.email.$touched"> Email ID is not valid</span>
+                             </div>
+                        </div>
+
+                <div class = "row">
+                        <div class ="item">
+
+                             <input ng-checked ="track.user_details.secondary_email" onclick="document.getElementById('email').disabled = false;document.getElementById('emmail').disabled = true;" type="radio" name="emaill" ng-model = "reg.user_details.secemaill" value = "true"><label for="ex3">Secondary Email id<span>*</span></label>
+                                    <label class="item item-input item-floating-label pinkbottomborder">
+                                          <input  id="email" ng-model="track.user_details.secondary_email" name="secondadvisor_email" type="text" ng-required="reg.user_details.secemaill" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"ng-touched >
+
+                                    </label>
+                                            <span class="validationerrors" ng-show="registration_form1.secondadvisor_email.$error.required && registration_form1.secondadvisor_email.$touched">*required</span>
+                                            <span class="validationerrors" ng-show="registration_form1.secondadvisor_email.$error.email && registration_form1.secondadvisor_email.$touched"> Email ID is not valid</span>
+                        </div>
+                </div>
+                Register With: Any one atleast
+                <br></br>
+                <div class ="row">
+                    <div class ="item">
+                        <label class = "checkbox">
+                            <input type="checkbox"  name="irda" ng-model="track.user_details.irda" ng-true-value="'A' "ng-false-value="'B'"> IRDA<br>
+                        </label>
+                                <div ng-show="track.user_details.irda == 'A'"  >
+                                    <label for="ex3">Registration id<span>*</span></label>
+                                        <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input  ng-required= "track.user_details.irda" ng-model="track.user_details.IRDA_registration_no" id="irdaregistration_number"  placeholder = "IRDA registration id" name="registration_number"  type="text"  >
+                                        </label>
+
+                                                <span class="validationerrors" ng-show="registration_form1.registration_number.$error.required && registration_form1.registration_number.$touched">Irda registration number  is required</span>
+                                        <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-date ="track.user_details.irdadate" ng-required = "reg.user_details.irda" id="date" placeholder ="Expiry Date" ng-model = "track.user_details.IRDA_expire_date" name="irdadate"  type="text"  >
+                                        </label>
+                                                <span class="validationerrors" ng-show="registration_form1.irdadate.$error.required && registration_form1.irdadate.$touched"> * required</span>
+                                </div>
+                    </div>
+                <div class ="item">
+                     <label class = "checkbox">
+                            <input type="checkbox" ng-true-value="'A' "ng-false-value="'B'"name="amfi"  ng-model ="track.user_details.amfi"  > AMFI<br>
+                     </label>
+                            <div ng-show="track.user_details.amfi == 'A'"  >
+                                  <label for="ex3">Registration id<span>*</span></label>
+                                        <label class="item item-input item-floating-label pinkbottomborder">
+                                            <input ng-required = "track.user_details.amfi" ng-model ="track.user_details.AMFI_registration_no" id="registration_number" placeholder ="AMFI registration id"  name="amfiregistrationnumber" disabled="true" type="text" >
+                                 </label>
+                                        <span class="validationerrors" ng-show="registration_form1.amfiregistrationnumber.$error.required && registration_form1.amfiregistrationnumber.$touched">AMFI registration number  is required</h7>
+                                        <label class="item item-input item-floating-label pinkbottomborder">
+
+                                            <input select-date="reg.user_details.AMFI_expire_date" id="amfidate" ng-required= "track.user_details.amfi" disabled = "true" ng-model ="track.user_details.AMFI_expire_date" placeholder  name="amfidate"  type="text">
+                                        </label>
+                                        <span class="validationerrors" ng-show="registration_form1.amfidate.$error.required && registration_form1.amfidate.$touched">AMFI Expiry Date is required</span>
+                           </div>
+                    </div>
+
+
+                </div>
+                </label>
+                <div class = "row">
+                    <div class ="item">
+                          <label class = "checkbox">
+                                <input type="checkbox" name="sebi" ng-true-value="'A' "ng-false-value="'B'"ng-model = "track.user_details.sebi"/> SEBI<br>
+                         </label>
+                                <div ng-show="track.user_details.sebi == 'A'" >
+                                    <label for="ex3">Registration id<span>*</span></label>
+                                    <label class="item item-input item-floating-label pinkbottomborder">
+                                            <input  ng-required = "track.user_details.sebi"  ng-model = "track.user_details.SEBI_registration_no"id="registration_number" placeholder ="SEBI Registration id" name="sebiregistration_number"  type="text"  >
+                                     </label>
+                                            <span class="validationerrors" ng-show="registration_form1.sebiregistration_number.$error.required && registration_form1.sebiregistration_number.$touched">SEBI registration number  is required</span>
+
+
+                                     <label class="item item-input item-floating-label pinkbottomborder">
+                                             <input select-date ="track.user_details.SEBI_expire_date" ng-required = "track.user_details.sebi" id="date" ng-model = "track.user_details.SEBI_expire_date" name="sebidate"  type="text"  >
+                                     </label>
+                                     <span class="validationerrors" ng-show="registration_form1.sebidate.$error.required && registration_form1.sebidate.$touched">SEBI Expiry Date is required</span>
+                                 </div>
+                             </div>
+
+
+
+
+                     <div class ="item">
+                           <label class = "checkbox">
+                               <input type="checkbox"   ng-model= "track.user_details.rera_checked" name="rera" ng-true-value= "'A'"ng-false-value="'B'"/> RERA<br>
+                           </label>
+
+
+                            <div ng-show="track.user_details.rera_checked == 'A'"  >
+                                 <div ng-repeat="rera in track.user_details.RERA_details">
+                                          <label for="ex3">Registration id<span>*</span></label>
+                                                <label class="item item-input item-floating-label pinkbottomborder">
+                                                        <input  ng-required= "track.user_details.rera_checked" ng-model="rera.rera_registration_no" id="registration_number"  name="reraregistrationnumber" placeholder="RERA registration ID"  type="text" ng-touched/>
+                                                </label>
+                                                        <span class="validationerrors" ng-show="registration_form1.reraregistrationnumber.$error.required && registration_form1.reraregistrationnumber.$touched">registration number  is required</span>
+                                                <label class="item item-input item-floating-label pinkbottomborder">
+                                                        <input  ng-required = "track.user_details.rera_checked" placeholder ="State" ng-model ="rera.rera_state" id="rera_state" name="rerastate" type="text" ng-touched/>
+                                                </label>
+                                                        <span class ="validationerrors" ng-show ="registration_form1.rerastate.$error.required && registration_form1.rerastate.$touched">*required </span>
+                                                <label class="item item-input item-floating-label pinkbottomborder">
+                                                        <input  ng-required= "track.user_details.rera_checked" select-date="rera.rera_expire_date" id="date" ng-model ="rera.rera_expire_date" name="reradate" ng-touched  type="text" />
+                                                </label>
+                                                        <span class="validationerrors" ng-show="registration_form1.reradate.$error.required && registration_form1.reradate.$touched">RERA expiry date  is required</span>
+                                                        <input type ="button"value ="DELETE" ng-if="$index >=1"ng-click="reg.delete(track.user_details.RERA_details,$index);">
+                                </div>
+                                                        <input type ="button"value ="ADD"  ng-click="reg.adddata(track.user_details.RERA_details);" ng-disabled ="registration_form1.reraregistrationnumber.$invalid || registration_form1.rerastate.$invalid ||  registration_form1.reradate.$invalid ">
+
+                         </div>
+
+                   </div>
+                </div>
+                <div class = "row" >
+                    <div class ="item">
+                         <label class = "checkbox">
+                             <input type="checkbox" ng-checked ="dsa.dsa_bank_name" ng-model ="track.user_details.dsa_checked"ng-true-value= "'A'"   ng-false-value="'B'" name="dsa"> DSA<br>
+                             </label>
+                                    <div ng-show="track.user_details.dsa_checked == 'A'"  >
+                                        <div ng-repeat="dsa in track.user_details.DSA_details">
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input  id="dsa_bankname"    ng-required="track.user_details.dsa_checked" ng-model ="dsa.dsa_bank_name" name="bankname" placeholder = "Bank Name" type="text" ng-touched >
+                                            </label>
+                                                <span class="validationerrors" ng-show="registration_form1.bankname.$error.required && registration_form1.bankname.$touched">Bank Name  is required</span>
+
+                                                <label class="item item-input item-floating-label pinkbottomborder">
+                                                    <input  id="dsacode"  ng-required = "track.user_details.dsa_checked" name="dsacode" ng-model ="dsa.dsa_code"  placeholder ="DSA CODE" type="text" ng-touched>
+                                            </label>
+                                                    <span class="validationerrors" ng-show="registration_form1.dsacode.$error.required && registration_form1.dsacode.$touched">DSA code  is required</span>
+                                            <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input id="howlong" ng-required = "track.user_details.dsa_checked" ng-model ="dsa.dsa_how_long_associated" name="dsahowlong" placeholder="how long valid"  type="text">
+                                        </label>
+
+                                                <input type ="button" value ="Delete" ng-if="$index >=1" ng-click="reg.delete(track.user_details.DSA_details,$index);">
+
+                                    </div>
+                                                <input type ="button" value = "ADD" ng-click="reg.adddata(track.user_details.DSA_details);" ng-disabled= "registration_form1.dsacode.$invalid || registration_form1.bankname.$invalid" >Add More</button>
+                                </div>
+
+                            </div>
+                </label>
+                <div class ="item">
+                        <label class = "checkbox">
+                             <input type="checkbox" ng-model ="track.user_details.otherregister" name="otherregister"ng-true-value= "'A' "ng-false-value="'B'" > Others<br>
+                                 </label>
+                                        <div ng-show="track.user_details.otherregister == 'A'"  >
+
+                                                <label class="item item-input item-floating-label pinkbottomborder">
+                                                        <input placeholder ="AUTHORITY" ng-required = "track.user_details.otherregister" ng-model ="track.user_details.other_registration_state"id="authority"  name="otherauthority"  type="text"  >
+                                                                <span class="validationerrors" ng-show="registration_form1.otherauthority.$error.required && registration_form1.otherauthority.$touched">Authority name is required</span>
+                                                </label>
+
+                                                    <label class="item item-input item-floating-label pinkbottomborder">
+                                                        <input  id="registration_number" ng-required = "track.user_details.otherregister" ng-model="track.user_details.other_registration_no" placeholder = "Registration number" name="otherregistration_number"  type="text"/>
+                                                </label>
+                                                    <span class="validationerrors" ng-show="registration_form1.otherregistration_number.$error.required && registration_form1.otherregistration_number.$touched">Registration number required</span>
+                                                    <label class="item item-input item-floating-label pinkbottomborder">
+                                                <input select-date="track.user_details.other_expiry_date"  id="date"  ng-model ="track.user_details.other_expiry_date" name="otherdate"  type="text"/>
+                                            </label>
+                                 </div>
+                          </div>
+                </div>
+                <div class ="row">
+                    <div class ="item">
+                              <label for="ex3">Country of Practice <span>*</span></label>
+                              <label class="item item-input item-floating-label pinkbottomborder">
+                                    <select ng-model="track.user_details.practice_country" name="country" ng-required ="true">
+
+                                        <option value="">-- Select a Country --</option>
+                                        <option ng-repeat="data in reg.country track by $index" value="{{data.name}}">{{data.name}}</option>
+                                    </select>
+                                    <span class="validationerrors" ng-show="registration_form1.country.$error.required && registration_form1.country.$touched">Country is required</span>
+                     </div>
+                </div>
+                <div class ="row">
+                    <div class ="item">
+                             <label for="ex3"> Location of Practice<span>*</span></label>
+                                <label class="item item-input item-floating-label pinkbottomborder">
+                                    <input  id="location_practice" ng-required = "true" ng-model="track.user_details.practice_location"  name="location_practice"  type="text"  >
+                                </label>
+                                    <span class="validationerrors" ng-show="registration_form1.location_practice.$error.required && registration_form1.location_practice.$touched">Location is required </span>
+                    </div>
+               </div>
+                <div class = "row">
+                    <div class ="item">
+                             <label for="ex3">Total Clients Served</label>
+                                <label class="item item-input item-floating-label pinkbottomborder">
+                                    <input  id="clients_served" ng-model="track.user_details.total_clients_served"  name="total_clients"  type="number"  >
+                                </label>
+                </div>
+                    <div class ="item">
+                             <label for="ex3">Total Advisors Connected</label>
+                                <label class="item item-input item-floating-label pinkbottomborder">
+                                    <input  id="advisor_connected"  ng-model="track.user_details.total_advisors_connected"  name="clients_served"  type="text"  >
+                                </label>
+                     </div>
+                </div>
+                <div class ="item">
+                             <label class="item item-input item-floating-label pinkbottomborder">
+                                 <label for="ex3">Educational Qualification</label>
+                                        <input id="educational_qualification"  ng-model="track.user_details.highest_qualification" name="educationalqualification"  type="text"  >
+                                    </label>
+                </div>
+                Current Financial Instruments Sold / Advised by me*
+                <input type ="button" ng-model="reg.user_details.checkbutton" ng-disabled="registration_form1.area.$invalid" value = "ADD" ng-click="reg.adddata(track.user_details.Advisory_ins);">
+
+                 <div ng-repeat="advisory in track.user_details.Advisory_ins">
+                     <div class="row">
+                         <div class="list">
+                             <select ng-model="advisory.instruments" name="type"
+                                 ng-required="reg.user_details.checkbutton">
+                                 <option value="Real estate">Real Estate</option>
+                                 <option value="Equity">Equity</option>
+                                 <option value="Wealth Advisory">Wealth Advisory</option>
+                                 <option value="Mutual Fund">Wealthy Advisory</option>
+                                 <option value="Insurance ">Insurance</option>
+                                 <option value="Port Folio management ">Port Folio management</option>
+                             </select>
+                             <span class="validationerrors"
+                                 ng-show="registration_form1.type.$error.required && registration_form1.type.$touched">
+                                 *required </span>
+                         </div>
+
+                         <div class="item">
+                             <label class="item item-input item-floating-label pinkbottomborder">
+                                 <input id="typedata" ng-required="reg.user_details.checkbutton"
+                                     placeholder="Financial Experience" ng-model="advisory.experience" name="area"
+                                     type="text" ng-touched />
+                             </label>
+                             <span class="validationerrors"
+                                 ng-show="registration_form1.area.$error.required && registration_form1.area.$touched">
+                                 *required </span>
+                         </div>
+                     </div>
+                     <input type="button" value="Delete"
+                         ng-click="reg.delete(track.user_details.Advisory_ins,$index); ">
+                 </div>
+
+                <div class="list">
+                    <label for="ex3">My Promise to the Client<span>*</span></label>
+                    <label class="item item-input item-floating-label pinkbottomborder">
+                        <input id="promise" ng-model="track.user_details.my_promise" name="promise" type="textbox">
+                    </label>
+                </div>
+                <span class="validationerrors"
+                    ng-show="registration_form1.promise.$error.required && registration_form1.promise.$touched">
+                    *required </span>
+                <button class="button buttoninset whitefont pinkbutton"
+                    ng-disabled="registration_form1.$invalid || !(track.user_details.otherregister == 'A' || track.user_details.sebi == 'A' || track.user_details.rera_checked == 'A' || track.user_details.dsa_checked == 'A' || track.user_details.amfi == 'A'|| track.user_details.irda == 'A')">SUBMIT</button>
+               </form>
+        </div>
+</ion-content>
+</ion-view>

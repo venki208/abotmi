@@ -1,0 +1,335 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_css/ekyc/ekyc-5.css' %}">
+{% endblock %}
+{% block main_content %}
+<!--navigationover here-->
+<section class="advisor-form parent-section-one">
+	<div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class='toast-message' id="last_visited" style='display:none'>You have completed {{message}} continue to complete the registration</div>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <div class='toast-message' id="digi_profile" style='display:none'>You have completed {{profile_toast_message}} Complete the Registration to see your Digital Profile</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <h2 class="title-block">Advisor Registration Form</h2>
+        </div>
+        <div class="col-sm-12 upwrdz-steps-advisor">
+            {% include 'common/ekyc-steps.html' with result=result %}
+        </div>
+        <div class="col-sm-12 upwrdz-steps-advisor-content registration-form-div">
+            <fieldset class="the-fieldset">
+                <h3>Education</h3>
+                <div class="row">
+                    <div class="col-sm-12 advisor-form-padding center" id="main_div">
+                        <div class="education_form">
+                            <div class="row form-group registration-form-div">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-sm-12">
+                                    <label for="ex2">School <span >*</span></label>
+                                    <input class="form-control" onfocus="this.placeholder = ''" name="school" id="school" type="text" value="{{ educational_details.school }}" required="true" is-text='true'>
+                                    <span class="help-block" id="help_text_school"></span>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-sm-12">
+                                    <label for="ex2">Degree <span >*</span></label>
+                                    <input class="form-control" onfocus="this.placeholder = ''" name="qualification" id="qualification" type="text" 
+                                    value="{{ educational_details.qualification }}" required="true" is-text='true'>
+                                    <span class="help-block" id="help_text_qualification"></span>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-sm-12">
+                                    <label for="ex3">Field of study</label>
+                                    <input class="form-control" onfocus="this.placeholder = ''" id="field_of_study" name="field_of_study" type="text" 
+                                    value="{{ educational_details.field_of_study }}" is-text='true'>
+                                    <span class="help-block" id="help_text_field_of_study"></span>
+                                </div>
+                                <!-- <div class="col-sm-6 col-md-6 col-lg-6 col-sm-12">
+                                    <label for="ex3">Grade </label>
+                                    <input class="form-control" onfocus="this.placeholder = ''" id="grade" name="grade" value="{{ educational_details.grade }}" type="text" onkeyup="validate_field_onkeypress(id,'help_text_grade', 'grade')" required="required">
+                                </div> -->
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-sm-12">
+                                    <label for="ex1">Activities (Sororities, Fraternities, Clubs)</label>
+                                    <textarea cols="50" rows="4" onfocus="this.placeholder = ''" name="activities" id="activities" value="{{ educational_details.activities }}">{{ educational_details.activities }}</textarea>
+                                    <span class="help-block" id="help_text_activities"></span>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-sm-8">
+                                    <label for="ex3">From Year<span>*</span></label>
+                                    <select name="from_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" id="from_year" value="{{ educational_details.from_year }}" required="true" is-select='true'>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span class="help-block" id="help-text-from_year"></span>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-sm-8">
+                                    <label for="ex3">To year (or expected)<span>*</span></label>
+                                    <select name="qualification_to_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" id="to_year" value="{{ educational_details.to_year }}" required="true" is-select='true'>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span class="help-block" id="help-text-to-year"></span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="certification_details" name="certification_details" value="">
+                            {% comment %} upload file {% endcomment %}
+                            <form action="/signup/upload_file/" name="upload_doc0" id="upload_doc0" method="post" class="contact-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <div class="form-group col-sm-12 form-nline reg-step4">
+                                    <div class="registration-form-div" id="proof_nonindian" style="display: inline-flex;">
+                                        <div class="text-left pan-card">
+                                            <label><span>Upload Document *</span></label>
+                                        </div>
+                                        <div class="pt-3" style="display:none;">
+                                            <input type="text" name="documents_type" id="documents_type" value="educational_doc">
+                                            <input type="hidden" name="reupload" value="true">
+                                        </div>
+                                        {% if user_educational_doc %}
+                                            {% for doc in user_educational_doc %}
+                                            <div class="download_link_color_pan">
+                                                <label id="paper_clip0" class="col-sm-2 col-sm-4 fileinput fileinput-new hide password-verification-card" data-provides="fileinput">
+                                                    <span class="btn btn-default btn-file" id="educational_docs">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i><input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                                                    </span>
+                                                </label>
+                                                <span class="attach_class hiding{{doc.id}} n-padding-r-5" id="id_attached" name="attached">Uploaded</span>
+                                                <a id="{{ doc.id }}" class="hiding{{doc.id}} download_link_color n-padding-r-5" href="{{ doc.documents.url }}" onclick="window.open('{{ doc.documents.url }}', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=250,left=500,width=550, height=550'); return false;"><i class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Preview image"></i> </a>
+                                                <a class="hiding{{ doc.id }}" onclick="removeDocument({{doc.id}},'paper_clip0');"><i class='fa fa-trash download_link_color' aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Delete"></i></a>
+                                            </div>
+
+                                            {% endfor %}
+                                        {% else %}
+                                        <div class="file-uploadone">
+                                            <label id="paper_clip0" class="col-sm-2 fileinput fileinput-new password-verification-card" data-provides="fileinput"> 
+                                        
+                                                <span class=""> 
+                                                    <input type="file" class="hide" id="document_pan" name="document" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                                                </span> 
+                                                <!-- insted of using two different approachs to upoload 
+                                                    files change to one approach. -->
+                                                
+                                            <span class="btn btn-light">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i><input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                                                </span> 
+                                            </label> 
+                                        </div>
+                                        {% endif %}
+                            
+                                    </div>
+                                    <span class="help-block" id="help_text_document"></span>
+                                </div>
+                            </form>
+                        </div>
+                        <h3>
+                            Certification
+                        </h3>
+                        <div class="row advisor-add-certificate-registrator" id="certification_div">
+                            <div class="input_fields_wrap col-sm-12">
+                                <div class="input_fields_wrapper" id="form_validations">
+                                    {% if certification_details %}
+                                        {% for cd in certification_details %}
+                                        <form class="certificate" id="certificate_form_id{{forloop.counter}}" role="form"
+                                            data-toggle="validator" method="post" action="">
+                                            <div class="form-row row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="certificate_name">Certification name:</label>
+                                                    <input value="{{ cd.certification_name }}" type="text" class="form-control"
+                                                        id="certificate_name" data-minlength="3" name="certificate_name"
+                                                        placeholder=" " pattren="[a-zA-Z0-9._]{3,40}" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="certificate_authority">Certification authority:</label>
+                                                    <input value="{{ cd.certi_authority }}" type="text" class="form-control"
+                                                        id="certificate_authority" data-minlength="4"
+                                                        name="certificate_authority" placeholder=""
+                                                        pattren="[a-zA-Z0-9._]{3,40}+" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-row row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="licence_number">License number</label>
+                                                    <input value="{{ cd.licence_number }}" type="text" class="form-control"
+                                                        id="licence_number" name="licence_number" placeholder=""
+                                                        pattren="[a-zA-Z0-9]{4,10}" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="certificate_url">Certification URL</label>
+                                                    <input value="{{ cd.certi_url }}" type="url" class="form-control"
+                                                        id="certificate_url" name="certificate_url" placeholder="" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-row row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="from_year">From Year</label>
+                                                    <select name="from_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" cert_year_val="{{ cd.from_year }}" required="true" is-select='true'>
+                                                        <option value="">Select</option>
+                                                    </select>
+                                                <span class="help-block" id="help-text-from_year"></span>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="to_year">To Year (or expected)</label>
+                                                    <select name="to_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" cert_year_val="{{ cd.to_year }}" required="true" is-select='true'>
+                                                            <option value="">Select</option>
+                                                    </select>
+                                                <span class="help-block" id="help-text-to-year"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row row form-group">
+                                                <div class="checkbox col-md-12">
+                                                    <label>
+                                                        <input class="form-check-input" type="checkbox" id="gridCheck" name="gridCheck" {% if cd.is_expire %}checked{% endif %}> This Certification does not expire
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-row row form-group">
+                                                <div class="upload_file {% if cd.certificate_doc %}hide{% endif %}" name="upload_div">
+                                                    <div class="col-md-12 form-inline">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                Upload Certificate (Transcript, Diploma) 
+                                                                <span class="btn btn-light">
+                                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                                    <input type="file" id="file_upload" name="cert_document" class="file form-control hide" accept="image/*, application/pdf">
+                                                                    <input type="hidden" name="certificate_doc" value="{{ cd.certificate_doc }}">
+                                                                    <input type="hidden" name="certificate_doc_id" value="{{ cd.certificate_doc_id}}">
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="attached_div upload-icons" name="attached_div">
+                                                    {% if cd.certificate_doc %}
+
+                                                        <span class="attach_class hiding{{cd.certificate_doc_id}} n-padding-r-5" id="id_attached" name="attached">Uploaded</span>
+                                                            <a id="{{ cd.certificate_doc_id }}" class="hiding{{cd.certificate_doc_id}} download_link_color n-padding-r-5" onclick="preview_image('{{ cd.certificate_doc }}');"><i class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Preview image"></i> </a>
+                                                            <a class="hiding{{ cd.certificate_doc_id }}" onclick="remove_certificate_doc({{cd.certificate_doc_id}});"><i class='fa fa-trash download_link_color' aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Delete"></i></a>
+
+                                                        </span>
+
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% if forloop.counter > 1 %}
+                                            <div class="col-2">
+                                                <a class="remove_field" onclick="remove_certificate('{{forloop.counter}}')">Delete Certificate</a>
+                                            </div>
+                                            {% endif %}
+                                        </form>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </div>
+                                    <div class="add_certificate_div">
+                                        <a id="add_certificate_btn">Add Certificate</a>
+                                    </div>
+                            </div>
+                            <div id="results"></div>
+                            <div class="row n-margin-0 registration-form-div">
+                                <div class="col-md-12 proceed-btn" style="text-align: center;">
+                                    <a href="/signup/business_information/"
+                                        class="btn back-btn-gray kyc-btn-primary text-center">Back</a>
+                                    <a onclick="submit_educational_qualification();" class="btn kyc-btn-primary"
+                                        id="submit_proceed_btn">Submit & Proceed</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </fieldset>
+    </div>
+    
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token}}">
+    </div>
+</section>
+{% endblock %}
+{% block bootstrap_modal %}
+{{ block.super }}
+    <div id="submit_document_modal"></div>
+
+
+    <div class="modal fade" id="simple-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title n-span-blue-color">
+                    {{ MODAL_TITLE | default:'THANK YOU !' }}</h3><hr class="modal-heading-hr">
+            </div>
+            <div class="modal-body" id="email_modal-body">
+                <div class="col-md-12 success-popup" >
+                    <p class="success-popup why-reia-content">Congratulations!</p>
+                    <p class="success-popup why-reia-content hide" id="kyc_complete_block">Your registration is complete.</p>
+                    <p class="hide" id="kyc_incomplete_block"></p>
+                </div>
+                <div class="text-center">
+                    <a style="padding:7px 30px;" class="btn upwrdz-button text-center" href="/my_identity/" id="ok_btn">Ok</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- <div class="modal fade upwardz-modal" id="simple-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                <h3 class="modal-title n-span-blue-color">
+                    {{ MODAL_TITLE | default:'THANK YOU !' }}</h3><hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="email_modal-body">
+                    <div class="col-md-12 success-popup" >
+                        <p class="success-popup why-reia-content">Congratulations!</p>
+                        <p class="success-popup why-reia-content hide" id="kyc_complete_block">Your registration is complete.</p>
+                        <p class="hide" id="kyc_incomplete_block"></p>
+                    </div>
+                    <div class="text-center">
+                        <a style="padding:7px 30px;" class="btn upwrdz-button text-center" href="/my_identity/" id="ok_btn">Ok</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="modal fade" id="show_image_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading fix-modal-heading">
+                    <h4>
+                        Preview
+                        <span class="pull-right"><i class="fa fa-times-circle"  data-dismiss="modal" aria-hidden="true"></i></span>
+                    </h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="image_show_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{{block.super}}
+    <script>
+        var cert_from_year = '{{certification_details.from_year}}';
+        var cert_to_year = '{{certification_details.to_year}}';
+        var edu_from_year = '{{ educational_details.from_year }}';
+        var edu_to_year = '{{ educational_details.to_year }}';
+        var options = [];
+        var to_year_options = [];
+    </script>
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+    <script src="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.js' %}"></script>
+    <script src="{% static 'js/new_js/ekyc/certification.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/new_js/ekyc/education.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/new_js/upload_document.js' %}" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit_proceed_btn").click(function (e) {});
+        });
+        function scroll_top_certification(elem){
+            $('html, body').animate({
+                    scrollTop: $(elem).find('[name="certificate_doc_id"]').closest('.form-group').offset().top - 90
+                }, 0);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block lib_css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+<script src="{% static 'js/jquery-ui.min.js' %}" charset="utf-8"></script>
+<link href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}" rel="stylesheet">
+{% endblock %}
+{% block custome_css %}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+{% endblock %}
+{% block main_content %}
+    <section class="advisor-profile-view">
+            <div class="clearfix">&nbsp;</div>
+            <div class="bg-img "></div>
+            <div id= "view_user_profile_div" class="container justify-content-center Nomarg">
+                <div class="row">
+                    <div class="col-md-10 m-auto">
+                        <div class="card card-outline-secondary">
+                            <div class="investor-image-body rounded-circle img-thumbnail">
+                                <div class="img-fluid id-profile-pic">
+                                    {% if profile_pic %}
+                                        <img src="{{ profile_pic }}"  class="img-fluid rounded-circle img-thumbnail" id="id_image_tag"/>
+                                    {% else %}
+                                        <img src="{% static 'images/contactimg.png' %}"  class="img-fluid rounded-circle img-thumbnail" id="id_image_tag"/>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if is_own_profile %}
+                            <a class="pencil-edit"><i class="fa fa-pencil" aria-hidden="true" onclick="showediteditform()"></i></a>
+                            {% endif %}
+                            <h3 class="text-center">{{ investor_user.get_full_name }}</h3>
+                            <div class="card-body investor-profile-view-div">
+                                <form class="form">
+                                    <div class="row Nomarg">
+                                        <div class="col-md-12 col-sm-12 Icons">
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-envelope-o" aria-hidden="true"></i>Email</p><p class="text-center prole-colan">:</p class="text-right"><p id="view_email" class="prole-result">&nbsp;{{investor_user_profile.email|default:'Nil'}}</p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-phone" aria-hidden="true"></i>Mobile</p><p class="text-center prole-colan">:</p class="text-right"><p  id="view_mobile"  class="prole-result">&nbsp;{{investor_user_profile.mobile|default:'Nil'}}</p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-map-marker" aria-hidden="true"></i>City</p><p class="text-center prole-colan">:</p class="text-right"><p class="prole-result">&nbsp;<span id="view_city"> {{investor_user_profile.city|default:'Nil'}}</span></p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-envelope-o" aria-hidden="true"></i>Zip Code</p><p class="text-center prole-colan">:</p class="text-right"><p   class="prole-result">&nbsp;<span id="view_pincode">{{investor_user_profile.pincode|default:'Nil'}}</span></p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-calendar" aria-hidden="true"></i>Birth Date</p><p class="text-center prole-colan">:</p class="text-right"><p id="view_birthdate" class="prole-result">&nbsp;{{investor_user_profile.birthdate|date:'M,d,Y'|default:'Nil'}}</p></div>
+                                            <div class="profile-setion {% if investor_user_profile.gender == 'O' %}hide{% endif %}" id="gender_block"><p class="text-left prole-title"><i class="fa fa-envelope-o" aria-hidden="true"></i>Gender</p><p class="text-center prole-colan">:</p class="text-right"><p id="view_gender" class="prole-result">
+                                            {% if investor_user_profile.gender == 'M' %}
+                                            Male{% elif investor_user_profile.gender == 'F' %}Female{% else %}Nil{% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- edit form div -->
+            <div id="edit_user_profile_div" class="container justify-content-center Nomarg hide">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 m-auto">
+                            <div class="card card-outline-secondary">
+                                <div class="investor-image-body rounded-circle img-thumbnail">
+                                    <div data-content="Click to view/upload Profile Picture" class="img-fluid image id-profile-pic" id="id_profile_pic">
+                                        {% if profile_pic %}
+                                            <img src="{{ profile_pic }}"  class="img-fluid rounded-circle img-thumbnail" id="id_image_tag"/>
+                                        {% else %}
+                                            <img src="{% static 'images/contactimg.png' %}"  class="img-fluid rounded-circle img-thumbnail" id="id_image_tag"/>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="card-body investor-profile-edit-div">
+                                    <form class="form" id="edit_user_profile_form" name="edit_user_profile_form">
+                                        <div class="row Nomarg">
+                                            <div class="col-md-12 col-sm-12 Icons">
+                                                <div class="profile-setion control-group">
+                                                    <p class="text-left prole-title"><img src="{% static 'V2_theme/images/investor-icons/name.png' %}" class="pr-2">First Name</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" value = "{{investor_user_profile.first_name}}" id="inv_first_name" name="inv_first_name" placeholder="" required="true" class="input-xlarge pl-2 pr-2">
+                                                        <span class="help-block" id="inv_error_first_name"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion control-group">
+                                                    <p class="text-left prole-title"><img src="{% static 'V2_theme/images/investor-icons/name.png' %}" class="pr-2">Last Name</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" value = "{{investor_user_profile.last_name}}" id="inv_last_name" name="inv_last_name" placeholder="" required="true" class="input-xlarge pl-2 pr-2">
+                                                        <span class="help-block" id="inv_error_last_name"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion control-group">
+                                                    <p class="text-left prole-title"><i class="fa fa-envelope-o" aria-hidden="true"></i>Email</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" id="inv_email" name="inv_email" placeholder="" required="true" value = "{{investor_user_profile.email}}" class="input-xlarge pl-2 pr-2" disabled>
+                                                        <span class="help-block" id="inv_error_email"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion">
+                                                    <p class="text-left prole-title"><i class="fa fa-phone" aria-hidden="true"></i>Mobile</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" value = "{{investor_user_profile.mobile|default:''}}" id="inv_mobile" name="inv_mobile" placeholder="" is-mobile="true" class="input-xlarge pr-2">
+                                                        <span class="help-block" id="inv_error_mobile"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion">
+                                                    <p class="text-left prole-title"><i class="fa fa-map-marker" aria-hidden="true"></i>City</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" id="inv_city" name="inv_city" placeholder="" value = "{{investor_user_profile.city}}" class="input-xlarge pl-2 pr-2">
+                                                        <span class="help-block" id="inv_error_city"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion">
+                                                    <p class="text-left prole-title"><i class="fa fa-map-marker" aria-hidden="true"></i>Zip Code</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" value = "{{investor_user_profile.pincode}}" id="inv_pincode" name="inv_pincode"
+                                                        is-num="true"
+                                                        onchange="validate_pincode_investor('inv_pincode');" placeholder="" class="input-xlarge pl-2 pr-2">
+                                                        <span class="help-block" id="inv_error_zipcode"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion">
+                                                    <p class="text-left prole-title"><img src="{% static 'V2_theme/images/investor-icons/gender.png' %}" class="pr-2">Gender</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result pt-2">
+                                                        <label class="radio inline">
+                                                            <input type="radio" id="inv_gender" name="inv_gender" value="O">
+                                                            <span>Prefer Not to say</span>
+                                                        </label>
+                                                        &nbsp;&nbsp;
+                                                        <label class="radio inline">
+                                                            <input type="radio" id="inv_gender_male" name="inv_gender" value="M">
+                                                            <span>Male</span>
+                                                        </label>
+                                                        &nbsp;&nbsp;
+                                                        <label class="radio inline">
+                                                            <input type="radio"  id="inv_gender_female" name="inv_gender" value="F">
+                                                            <span>Female</span>
+                                                        </label>
+                                                        <span class="help-block" id="inv_error_gender"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion date-picker-view date-picker-view-one">
+                                                    <p class="text-left prole-title"><i class="fa fa-calendar" aria-hidden="true"></i>Birth Date</p>
+                                                    <p class="text-center prole-colan">:</p>
+                                                    <p class="prole-result controles">
+                                                        <input type="text" id="inv_birthdate_invester" name="inv_birthdate_invester" placeholder="" value = "{{investor_user_profile.birthdate|date:'M,d,Y'}}"  onClick="$('#birthdate_invester').focus();" class="input-xlarge birthdate_invester pl-2 pr-2">
+                                                        <span class="help-block" id="inv_error_birthday"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="profile-setion text-center ">
+                                                    <button type="button" class="btn save-btn mt-3 mb-3" onClick="submit_investor_edit_profile();">SAVE DETAILS</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+<div id="my_identity_modal"></div>
+{% endblock %}
+{% block lib_scripts %}
+    {{block.super}}
+    <script>
+        var gender = '{{user_profile.gender}}';
+    </script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.min.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/new_js/investor_dashboard.js' %}"></script>
+    <script src="{% static 'js/new_js/html2canvas.js' %}"></script>
+
+
+{% endblock %}

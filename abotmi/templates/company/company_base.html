@@ -1,0 +1,22 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custom_theme_css %}
+<link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_css/company.css' %}">
+{% endblock %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block main_content %}
+{% endblock %}
+{% block bootstrap-modal %}
+{% endblock %}
+{% block theme_scripts %}
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        var token = "{{csrf_token}}";
+    </script>
+    <script src="{% static 'js/new_js/company/company_base.js' %}"></script>
+{% endblock %}

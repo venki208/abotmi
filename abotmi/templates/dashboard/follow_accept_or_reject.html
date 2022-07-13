@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+</head>
+<body>
+        <table style="border: 1px solid black; padding:30px; position: absolute; margin: auto; top: 0; right: 0;bottom: 0;left: 0;" width="450" cellspacing="0" cellpadding="0" border="0"> 
+        <tr> 
+            <td width="127" style="vertical-align:top;padding-right:10px">
+                <a style="display:inline-block" href="{{url}}">
+                    <img style="border:none; margin: 20px;" width="100" src="{% static 'V2_theme/images/half-logo-content.png' %}">
+                </a>
+            </td>
+            <td style="border-left:solid #191919 2px; padding-left: 20px;" width="12"></td> 
+            <td style="vertical-align: top; padding-top: 35px; text-align:left;color:#000000; font-family:Source Sans Pro, sans-serif; text-align:left"> 
+                <span>
+                    <b><span style="color:#191919; font-weight: 600; font-size:30px;font-family:Source Sans Pro, sans-serif">
+                        {% if accept %}
+                        You’re now following {{ follow_advisor.user_profile.user.get_full_name }}
+                        {% elif reject %}
+                        You’re no longer following {{ follow_advisor.user_profile.user.get_full_name }}
+                        {% elif invalid %}
+                        Not Found
+                        {% else %}
+                        This Link has been Expired
+                        {% endif %}
+                    </span></b> 
+            </td> 
+        </tr> 
+        </table> 
+</body>
+</html>

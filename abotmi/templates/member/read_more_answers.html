@@ -1,0 +1,121 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    <link href="{% static 'css/new_css/get_advice.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main_content %}
+    <section class="parent-section subpage-reia-primary-div mt-5 pt-5 mb-5 pb-5">
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-sm-9 advisor-description">
+                    <div class="col-md-12">
+                    {% if get_advice_obj %}
+                        <h2 class="get-advice-heading">{{get_advice_obj.question_title}}</h2>
+                        <span class="get-advice">
+                            By {{get_advice_obj.user_profile.first_name}} | {{get_advice_obj.created_date|date:"D, d M Y"}}
+                        </span>
+                        <p class="get-advice-desc">{{get_advice_obj.description}}</p>
+                        <a href="/member/get_questions_list/" class="btn upwrdz-button">Go Back</a>
+                        {% if answer_obj%}
+                        <button type="button" class="btn upwrdz-button" disabled title="You cannot answer your own Question\s">Give Advice</button>
+                        {% else %}
+                        <button type="button" class="btn upwrdz-button" onclick="give_advice('{{get_advice_obj.id}}');">Give Advice</button>
+                        {% endif %}
+                        {% if get_advice_obj.document_ids %}
+                        <button type="button" class="btn upwrdz-button btn-color" onclick="download_docs('{{get_advice_obj.id}}');" title="Download the question documents"> View Documents </button>
+                        {% else %}
+                        <button type="button" class="btn upwrdz-button" disabled /> View Documents</button>
+                        {% endif %}
+                        <input type="hidden" value="{{get_advice_obj.id}}" id="question_id">
+                    {% endif %}
+                    {% if give_advice_obj %}
+                        <hr />
+                        <h3>Answers</h3>
+                        {% for obj in give_advice_obj %}
+                            <div class="col-sm-12 get-side-advice">{{obj.answer}}</div>
+                            <div class="col-sm-12">
+                                {% if obj.document_ids %}
+                                <button type="button" class="btn upwrdz-button btn-color" onclick="download_answer_docs('{{obj.id}}');" title="Download the answer documents"> View Documents </button>
+                                {% else %}
+                                <button type="button" class="btn upwrdz-button" disabled /> View Documents</button>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                            <hr>
+                            <p class="get-side-advice-more text-center">No Answer Found </p>
+                    {% endif %}
+                    </div>
+                </div>
+                <!-- page right_side bar -->
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h6 class="side-search">Search Questions</h6>
+                        <input type="text" id="search_answers" class="form-control" autocomplete="off">
+                        <span class="help-block" id="help_text_search_div"></span>
+                        <div id="list_ad"></div>
+                        <hr class="border-div">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+    {% include 'member/give_advice_modal.html' %}
+    <div id="give_advice_model"> </div>
+    <div id="give_advice_common_model"> </div>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/new_js/upload_document.js' %}"></script>
+    <script src="{% static 'js/new_js/give_advice.js' %}"></script>
+    <script src="{% static 'js/new_js/search_questions.js' %}"></script>
+    {% comment %} <script type='text/javascript'>
+        function download_docs(question_id) {
+            var token = csrf_token;
+            $.ajax({
+                type: "POST",
+                url: "/member/download_docs/",
+                data: {
+                    question_id: question_id
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                success: function (response) {
+                    $('#give_advice_model').html('');
+                    $('#give_advice_model').html(response);
+                    $('#view_document_model').modal({
+                        show: true,
+                        keyboard: false,
+                        backdrop: 'static'
+                    });
+                }
+            });
+        }
+    </script> {% endcomment %}
+    {% comment %} <script type="text/javascript">
+        function download_answer_docs(question_id) {
+            var token = csrf_token;
+            $.ajax({
+                type: "POST",
+                url: "/member/download_advisors_docs/",
+                data: {
+                    answer_id: question_id
+                },
+                beforeSend: function (request) {
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                success: function (response) {
+                    $('#give_advice_model').append(response);
+                    $('#view_document_model').modal({
+                        show: true,
+                        backdrop: 'static',
+                        keyboard: false,
+                    });
+                }
+            });
+        }
+    </script> {% endcomment %}
+{% endblock %}

@@ -1,0 +1,283 @@
+#abotmi-mainNav ul li .btn:hover {
+    color: #fff;
+    background: #f26b45;
+}
+
+#abotmi-mainNav {
+    min-height: 75px;
+}
+
+#abotmi-mainNav .navbar-toggler {
+    font-size: 30px;
+    padding: 0;
+    color: #fff;
+    border: 0px solid #ffffff;
+}
+
+#abotmi-mainNav .navbar-toggler:focus {
+    outline: none;
+}
+
+#abotmi-mainNav .navbar-brand {
+    color: #161616;
+    font-weight: 700;
+    padding: 8px 0;
+}
+
+#abotmi-mainNav .navbar-nav .nav-item:hover {
+    color: fade(white, 80%);
+    outline: none;
+    background-color: transparent;
+}
+#abotmi-mainNav .navbar-nav .nav-item .dropdown-with-icons .dropdown-item{
+    border-bottom: 1px #e8e8e8 solid;
+    padding: 0.5rem 1.5rem;   
+}
+#abotmi-mainNav .navbar-nav .nav-item .dropdown-with-icons .dropdown-item:last-child{
+    border-bottom: 0px #e8e8e8 solid;
+}
+#abotmi-mainNav .navbar-nav .nav-item .dropdown-with-icons .dropdown-item:active{
+    background-color: #f8f9fa;
+    color: #000;
+}
+#abotmi-mainNav .navbar-nav .nav-item .dropdown-with-icons{
+    padding: 0px;
+    border-radius: 0px;
+}
+#abotmi-mainNav .navbar-nav .nav-item:active,
+#abotmi-mainNav .navbar-nav .nav-item:focus {
+    outline: none;
+    background-color: transparent;
+}
+
+#abotmi-mainNav.navbar-shrink {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 30px 4px;
+}
+
+#abotmi-mainNav.navbar-shrink li .btn.login_btn {
+    color: #fff !important;
+    background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    padding: 4px 15px;
+    border-radius: 30px;
+    margin: 0px 5px;
+}
+
+#abotmi-mainNav.navbar-shrink .navbar-toggler {
+    font-size: 30px;
+    color: #d53d2b;
+}
+
+#abotmi-mainNav.navbar-shrink .landing-scroll-before {
+    display: none;
+}
+
+#abotmi-mainNav.navbar-shrink .landing-scroll-after {
+    display: block;
+}
+
+.landing-scroll-before {
+    display: block;
+}
+
+.landing-scroll-after {
+    display: none;
+}
+
+
+@media(max-width:800px) {
+    .navbar-light .navbar-nav .dropdown-menu {
+        position: static;
+        float: none;
+        display: block;
+    }
+    .abotmi-header-navigation .navbar-collapse {
+        background: #05549e;
+        padding: 30px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        color: #fff;
+    }
+
+    #abotmi-mainNav ul li .btn {
+        text-align: left;
+    }
+
+    #abotmi-mainNav.navbar-shrink li .btn.login_btn {
+        color: #fff;
+        background: transparent;
+        padding: 4px 0px;
+        border-radius: 30px;
+        margin: 0px;
+    }
+    .after-login-myidentity-btn a{
+        font-size: 25px;
+        font-weight: 600;
+        color: #fff !important;
+    }
+    .after-login-welcome-btn, .after-login-welcome-btn:hover{
+        color: #fff;
+        padding: .5rem 0rem;
+    }
+    .notification-header-div{
+        right: auto !important;
+        left: 0 !important;
+    }
+    .abotmi-banner{
+        margin-top: 140px;
+    }
+}
+
+@media (min-width: 800px) and (max-width:992px) {
+    .navbar-expand-lg .navbar-toggler {
+        display: none;
+    }
+
+    .collapse:not(.show) {
+        display: block;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 1%;
+        flex-basis: 0;
+        -ms-flex-positive: 1;
+        flex-grow: 0;
+    }
+
+    #abotmi-mainNav .nav-link {
+        padding: 0.4rem 10px;
+    }
+    .abotmi-after-login-my-identity{
+        display: flex !important;
+        flex-basis: auto;
+        flex-grow: 1 !important;
+    }
+}
+
+@media (min-width: 800px) {
+    #abotmi-mainNav ul li .btn {
+        background: linear-gradient(90deg, rgb(213, 61, 43) 20%, rgb(219, 106, 46) 100%);
+        padding: 4px 15px;
+        border-radius: 30px;
+        margin: 0px 5px;
+        color: #fff !important;
+        min-width: 90px;
+    }
+
+    #abotmi-mainNav {
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+        background-color: transparent;
+        -webkit-transition: background-color 0.3s ease-in-out;
+        transition: background-color 0.3s ease-in-out;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 30px 4px;
+    }
+
+    #abotmi-mainNav .navbar-brand {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    #abotmi-mainNav .nav-link {
+        -webkit-transition: none;
+        transition: none;
+        padding: 0.4rem 1rem;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0px 2px;
+    }
+
+    .abotmi-inner-navigation#abotmi-mainNav .nav-link {
+        color: #000;
+    }
+
+    #abotmi-mainNav .nav-link:hover {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .abotmi-inner-navigation#abotmi-mainNav .nav-link:hover {
+        color: #000;
+    }
+
+    #abotmi-mainNav .nav-link:active {
+        color: #000;
+    }
+
+    #abotmi-mainNav.navbar-shrink .navbar-brand {
+        color: #ffffff;
+    }
+
+    #abotmi-mainNav.navbar-shrink .nav-link {
+        color: #000 !important;
+    }
+    .after-login-myidentity-btn a {
+        font-size: 22px !important;
+        font-weight: 600 !important;
+        color: #000;
+        /* padding-bottom: 20px !important; */
+        /* border-bottom: 4px #05549e solid; */
+        padding: 0px !important;
+        margin-left: 40px !important;
+        line-height: 62px;
+        margin-top: 10px !important;
+    }
+    .after-login-myidentity-btn.active a{
+        border-bottom: 4px #05549e solid;
+    }
+}
+.header-profile {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 12px 14px;
+}
+.n-user-img.header-profile{
+    padding: 0px !important;
+}
+.advisor-pro-pic {
+    /* margin-top: 10px; */
+    margin-right: 6px;
+}
+.list-style-none{
+    list-style: none !important;
+}
+.single_logo{
+    width: 60px;
+}
+
+.notificationButton .dropdown-menu{
+    min-width: 18rem;
+    max-width: 25rem;
+    text-align: left;
+    margin-top: 10px;
+    text-overflow: hidden;
+  }
+  .notificationButton .dropdown-menu h6{
+    color: #006cc0;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+.notificationButton .dropdown-toggle::after{
+    content: none;
+}
+.custome-badge{
+    background: #20529e;
+    color: #FFF;
+    position: absolute;
+    top: -4px;
+    right: 8px;
+    font-size: 11px;
+}
+@media (max-width: 930px) and (min-width:800px) {
+    #abotmi-mainNav .nav-link {
+        padding: 0.4rem 0.5rem;
+        font-size: 12px;
+    }
+}

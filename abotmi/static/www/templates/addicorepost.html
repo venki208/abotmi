@@ -1,0 +1,73 @@
+<ion-view>
+	<ion-side-menus>
+    	<ion-side-menu-content>
+					<upwrdz-Tabs></upwrdz-Tabs>
+						<ion-content overflow-scroll="true" class="scroll m-upwrdz-editpage-content">
+								<div class="editpage-title-bar">
+									<span>CREATE ICORE</span>
+									<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ui-sref="app.myhub">
+								</div>
+								<!--Commented for now
+									<div ng-if="!track.user_details.certified_advisor" > Only Certified Advisors can create blog.
+									<div ng-click="addpost.goBack();"><u>Go Back</u></div>
+								</div>-->
+								<div class="blog-edit-section" id="about">
+								<!--<section class="blog-section" id="about" style="margin: 30px;margin-top:10px;" ng-if="track.user_details.certified_advisor">-->
+								<!-- Page Content -->
+								<form role="form" name="icore_add_post" enctype="multipart/form-data" novalidate>
+										<div class="list list-inset other-inset black-border">
+											<p>Blog Title*</p>
+											<label  class="item item-input">
+											<input type="text"  id="title" name="title" ng-model="addpost.post.title" ng-required="true" placeholder="Enter Your Blog Title">
+											</label>
+											<span class="validationerrors" ng-show="icore_add_post.title.$error.required && icore_add_post.title.$touched">Title is required.</span>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<p>Blog Content Text Area*</p>
+											<label>
+											<textarea ui-tinymce="icore.tinyMceOptions" name="content" ng-model="addpost.post.content" ng-required="true" placeholder="Blog Content" ></textarea>
+											</label>
+											<span class="validationerrors" ng-show="icore_add_post.name.$error.required && icore_add_post.name.$touched">Content is required.</span>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<button class="m-upwrdz-btn" ng-click="addpost.show_media_form = true">Add Media</button>
+											<ng-include type="text/html" src="'templates/addmediaform.html'"></ng-include>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<p>Tag your Blog</p>
+											<label class="item item-input">
+												<input type="text" name="add_tag" id="add_tag"  placeholder="Ex:Real Estate" ng-model="addpost.post.tags"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<p>Blog Categories</p>
+											<label class="item item-input">
+											<input class=" input" type = "text" ng-model="addpost.post.categories.toString()"/><br>
+										</div>
+										<div class="row">
+											<div class="col">
+												<ion-list ng-repeat="list in addpost.categories">
+												  <ion-checkbox name="{{ list.name }}" id= "{{ list.name }}" value="{{ list.name }}"
+													ng-checked="addpost.categories.indexOf(list.name) > -1" ng-click="addpost.toggleSelection(list.name)">{{ list.name }}</ion-checkbox>
+												</ion-list>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<div style="visibility: hidden;">
+													<input type="text" id="featured_image" name="featured_image"></input>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<button class="btn blog-btn m-upwrdz-btn" ng-disabled="icore_add_post.$invalid" ng-click="addpost.submitPost();" style="margin-right:0px;">Submit</button>
+												<button class="btn blog-btn m-upwrdz-btn" ng-click="addpost.goBack();" style="margin-right:0px;">Cancel</button>
+											</div>
+										</div>
+									</form>
+							</div>
+					</ion-content>
+    	</ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

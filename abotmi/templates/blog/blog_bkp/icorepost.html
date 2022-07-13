@@ -1,0 +1,280 @@
+{% extends 'blog/icore_main.html' %}
+{% load staticfiles %}
+{% block icore_read_more %}
+<style  type="text/css">
+    .fb_iframe_widget{
+    display: flex;
+    position: relative;
+    }
+</style>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">
+                {{icore.title}}<small>by
+                <a href="#">
+                    {{icore.author.name}}
+                </a></small>
+            </h2>
+            <div class='rateit' id="rating" data-rateit-resetable="false"></div>
+            <div class="bloggroups">
+                {% if icore.featured_image.guid %}
+                    <a>
+                        <img class="img-responsive img-blog" src="{{icore.featured_image.guid}}" width="100%" alt="{{ data.slug }}"  width="100%" />
+                    </a>
+                {% else %}
+                    <a href="/blog/icore/{{data.ID}}/post/">
+                        <img src="{% static 'images/blog2.png' %}" alt=""  width="100%" />
+                    </a>
+                {% endif %}
+            </div>
+            <p><i class="fa fa-clock-o"></i> Posted on: {{ icore.date }}</p>
+            <div style="text-align: justify;">
+                {{icore.content | safe}}
+            </div>
+            </br></br>
+            Category : {% for cat  in icore.terms.category %}
+                <a href="/blog/icore/category_posts/?cat={{ cat.name }}">{{ cat.name }}</a>,
+            {% endfor %}
+            <div class="blogs-links">
+                <ul>
+                    <li>
+                        <input id="fb_link_url"
+                            type="hidden"
+                            class ="fb_iframe_widget"
+                            value="{{icore.link}}" />
+                        <div id="fb-btn"
+                            class="fb-like"
+                            data-href="{{icore.link}}"
+                            data-layout="button_count"
+                            data-action="like"
+                            data-show-faces="true"
+                            data-share="true">
+                        </div>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share"
+                            class="twitter-share-button"
+                            data-hashtags="NorthFacing"
+                            data-count="horizontal">
+                            Tweet
+                        </a>
+                    </li>
+                    <li>
+                        <script type="IN/Share"
+                            data-url="{{icore.link}}"
+                            data-counter="right">
+                        </script>
+                    </li>
+                    <li>
+                        <div class="g-plusone"
+                            data-size="medium"
+                            data-annotation="inline"
+                            data-width="300"
+                            data-height="30"
+                            data-action="share"
+                            data-href="{{icore.link}}"
+                            data-callback="trackgoogle">
+                        </div>
+                    </li>
+                </ul>
+             </div>
+             <button type="button" class="btn upwrdz-button" onClick="back();">
+                 <i class="fa fa-arrow-left"></i>Back
+             </button>
+             <hr class="blog-line">
+        </div>
+    </div>
+{% endblock %}
+{% block icore_comments %}
+    <h1 class="comments_title"> {{ icore_comment.count }} Comments </h1>
+    <div id="comments">
+        {% if request.user.profile.advisor.is_register_advisor %}
+            <div id="respond">
+                <h4 class="respond-title">Post a comment</h4>
+            </div>
+            <!--post form satrts  -->
+            <form method="post" accept-charset="utf-8" id="icore_add_comment" role="form" name="icore_add_comment" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group control-group">
+                            <div class="control comment-box">
+
+                                <input type="text" autocomplete="off" name="comment" id="comment" class="form-control input" placeholder="comment" tabindex="4">
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                    <button type="button" class="btn upwrdz-button" onClick="postComment();">Comment</button>
+                </div>
+                </div>
+            </form>
+            <!--Form Ends  -->
+        {% else %}
+            <div id="respond">
+                <h1 class="respond-title" style="font-size:22px;">Only registered advisor can comment</h1>
+                <br />
+                <br />
+                {% if not user.profile.is_advisor %}
+                    <a href="/signup/register_advisor/" class="btn btn-success"> click here to register </a>
+                    <br />
+                    <br />
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="row">
+            <ul class="comment-list">
+                {% if icore_comment %}
+                    {% for comment in icore_comment %}
+                        <li>
+                            <div id="comment_box_clearfix"></div>
+                            {% if comment.status == "approved" %}
+                                <div class="comment-box clearfix">
+                                    <div class="user">
+                                        <a href="#">
+                                            {% if comment.author.avatar %}
+                                                <img src="{{ comment.author.avatar }}" class="img-circle" alt="{{comment.author.name}}">
+                                            {% else %}
+                                                <img src="{% static 'new_images/blog/avatar3.png' %}" class="img-circle" alt="{{comment.author.name}}">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="comment-content">
+                                        <h4 class="comment-by">
+                                            {{ comment.author.name }}
+                                        </h4>
+                                        <p class="wordwrap">{{ comment.content | striptags }}</p>
+                                        <br/>
+                                        <br/>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                   <div id="comment_box_clearfix"></div>
+                    <h4 class="comment-box" id="no_comment">
+                        <p>No comments.</p>
+                    </h4>
+                {% endif %}
+                <div class="comment-content" id="comment-content" style="display:none;">
+                    <div id="display_comments" name="display_comments" >
+                        <h4 class="comment-by" id="comment-by"> </h4>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block icore_recent_posts %}
+    {% if icore_object_main %}
+        {% for data in icore_object_main|slice:":4" %}
+            <div class="col-sm-12">
+                <div class="media">
+                    {% if data.featured_image.guid %}
+                        <a class="pull-left" href="/blog/icore/{{data.ID}}/post/">
+                            <img class="media-object" src="{{data.featured_image.guid}}" style="width:64px; height:64px;" alt="" />
+                        </a>
+                    {% else %}
+                        <a class="pull-left" href="/blog/icore/{{data.ID}}/post/">
+                            <img class="media-object" src="{% static 'images/blog2.png' %}" style="width:64px; height:64px;" alt="" />
+                        </a>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading mhT">
+                            <a href="/blog/icore/{{data.ID}}/post/">
+                                {{data.title}}
+                            </a><br />
+                            <small>{{data.date}}</small>
+                        </h4>
+                        <p><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{data.author.name}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No recent post are found.</p>
+    {% endif %}
+{% endblock %}
+{% block star_rating_icorepost %}
+{% endblock %}
+{% block icore_post_script %}
+{% endblock %}
+{% block top_posts %}
+    {% if count %}
+        {% for post in count reversed %}
+            <div class="col-sm-12">
+                <div class="media">
+                    {% if post.author.avatar %}
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{{post.author.avatar}}" alt="" style="width:64px; height:64px;">
+                        </a>
+                    {% else %}
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{% static 'images/blog2.png' %}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading mhT"><a href="/blog/icore/{{post.ID}}/post/">{{post.title}}</a><br>
+                            <small>{{post.date}}</small>
+                        </h4>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{post.author.name}}
+                        <p style="margin-bottom:10px;"><i class="fa fa-facebook-square" aria-hidden="true"> {{ post.facebook_count }}</i>
+                            <i class="fa fa-google-plus-square" aria-hidden="true"> {{ post.google_count }}</i>
+                            <i class="fa fa-linkedin-square" aria-hidden="true"> {{ post.linkedin_count }}</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12">
+            <p>No top ranked blog are found.</p>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block top_authors %}
+    {% if count %}
+        {% for post in count %}
+            <div class="col-sm-12">
+                <div class="media">
+                    {% if post.author.avatar %}
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{{post.author.avatar}}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% else %}
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{% static 'images/blog2.png' %}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading mhT"><a href="/blog/icore/{{post.ID}}/post/">{{ post.author.name }}</a><br>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12">
+            <p>No top ranked Authors are found.</p>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="//platform.linkedin.com/in.js" type="text/javascript">
+        lang: en_US
+    </script>
+    <script type="text/javascript">
+        var token = "{{csrf_token}}";
+        var post_id = "{{ icore.ID }}";
+        var rating_val = '{{ rating.ratings}}';
+        var votes = '{{ rating.votes|default:0 }}';
+        var icore_id = '{{icore.ID}}';
+        var is_advisor = '{{user_profile.is_advisor}}';
+        var user_first_name = "{{ user.profile.first_name }}";
+        var profile_pic = "{{ profile_pic|default:'/static/new_images/avatar3.png'}}";
+    </script>
+    <script src="{% static 'js/new_js/blog_post_view.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,65 @@
+ <ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <upwrdz-Tabs></upwrdz-Tabs>
+                <ion-content class="m-upwrdz-editpage-content" ng-init="webinar.details=''">
+                    <div class="editpage-title-bar">
+                        <img src="../www/img/back_arrow_25px.png" class="back-btn" ui-sref="app.myhub.view_webinar">
+                        Create Webinar Event
+                    </div>
+                    <form name="webinarform"  novalidate ng-submit="webinar.submit()">
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <input type="text" placeholder="Event Name"  maxlength="50" ng-model="webinar.details.name" ng-required="true" name="name" ng-blur="webinar.get_room_name()" ng-touched/>
+                            </label>
+                            <span class="validationerrors" ng-if="webinarform.name.$error.required && webinarform.name.$touched"> Event name is required</span>
+                            <span class="validationerrors" ng-if="webinar.details.room_name== 'false'">Please enter new event name</span>
+                        </div>
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <textarea cols="40" name="lobby_description" ng-model="webinar.details.lobby_description" placeholder="Description" rows="10" ng-required="true" ng-touched></textarea>
+                            </label>
+                            <span class="validationerrors" ng-if="webinarform.lobby_description.$error.required && webinarform.lobby_description.$touched"> Description is required</span>
+                        </div>
+
+                        <div class="list list-inset first-inset black-border meetup-uplyf-project-drop">
+                            <ion-list>
+                                <div class="item" ion-datetime-picker seconds am-pm ng-model="webinar.details.datetimeValue" only-valid="{'after':'today', 'inclusive':true}">
+                                  <input ng-disabled="true" ng-class="{removetag : webinar.details.datetimeValue}" name="datetimeValue"
+                                    placeholder="Select Date and Time" class="no-border" min="{{webinar.now.getTime()}}" ng-required="true"/>
+                                  {{webinar.details.datetimeValue | date: 'yyyy-MM-dd H:mm:ss'}}
+                                </div>
+                            </ion-list>
+                            <span class="validationerrors" ng-if="webinarform.datetimeValue.$error.required && webinarform.datetimeValue.$touched"> Schedule time is required is required</span>
+                            <div ng-required="true" name="time_more" ng-touched ng-if="webinar.details.datetimeValue.getTime() <= webinar.now.getTime()">
+                                <span class="validationerrors"> Please enter the valid date/time </span>
+                            </div>
+                        </div>
+                        <div class="list list-inset first-inset black-border">
+                            <label class="item item-input">
+                                <input type="number" placeholder="Duration in Minutes" ng-pattern="/^\d{0,9}$/" max="180" min="5" ng-model="webinar.details.duration" ng-required="true" name="duration" ng-touched/>
+                            </label>
+                            <span class="validationerrors" ng-if="webinarform.duration.$error.required && webinarform.duration.$touched "> Duration is required</span>
+                            <span class="validationerrors" ng-if="webinarform.duration.$error.min">Enter minimum 5 minutes</span>
+                            <span class="validationerrors" ng-if="webinarform.duration.$error.max">Enter maximum 180 minutes</span>
+                        </div>
+
+                        <div class="list list-inset first-inset black-border meetup-uplyf-project-drop">
+                            <select ng-model="webinar.details.uplyf_project" name="uplyf_project"
+                                ng-options="x as x for x in webinar.details">
+                                <option value="">Select Uplyf Project</option>
+                            </select>
+                        </div>
+                        <div class="row end-button">
+                            <div class="col col-50">
+                                <button class="full-button" ng-disabled="!webinar.details.datetimeValue || (webinar.details.datetimeValue.getTime() <= webinar.now.getTime()) || webinarform.$invalid || webinar.details.room_name=='false' || webinar.details.room_name==''">Submit</button>
+                            </div>
+                            <div class="col col-50">
+                                <button class="full-button" ui-sref="app.myhub.view_webinar">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+              </ion-content>
+          </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

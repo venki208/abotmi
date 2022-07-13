@@ -1,0 +1,110 @@
+<ion-view>
+	<ion-side-menus>
+    <ion-side-menu-content>
+				<upwrdz-Tabs></upwrdz-Tabs>
+        <ion-content class="m-upwrdz-editpage-content">
+						<div class="editpage-title-bar">
+							<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+							REFER ADVISOR
+						</div>
+						<form name="advisor.looplist" novalidate ng-submit="advisor.referAdvisorSubmit()">
+								<div class="list list-inset first-inset black-border" ng-init="advisor.enableDetails();">
+									<label class="item item-input">
+										<input type="text" placeholder="Name" ng-model="advisor.refer.name" ng-required="true" name="name" ng-touched ng-pattern="/^[a-zA-Z ]*$/"/>
+									</label>
+                  <span class="validationerrors" ng-if="advisor.looplist.name.$touched && advisor.looplist.name.$error.required">Name is required</span>
+                  <span class="validationerrors" ng-if="advisor.looplist.name.$error.pattern"> Enter only alphabet</span>
+								</div>
+								<div class="list list-inset other-inset black-border">
+									<label class="item item-input">
+										<input type="email" placeholder="Email ID" ng-model="advisor.refer.email" ng-required="true" name="email" ng-touched
+										    ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4}))$/" ng-blur="advisor.check_refer_email(advisor.refer.email)"/>
+									</label>
+                  <span class="validationerrors" ng-if="advisor.looplist.email.$error.required && advisor.looplist.email.$touched">Email ID is required</span>
+                  <span class="validationerrors" ng-if="advisor.looplist.email.$error.pattern">Enter valid email id</span>
+								</div>
+								<div class="list list-inset other-inset black-border">
+									<div class="item item-input national-number-flog">
+										<input type="text" id="phone" placeholder="Mobile Numbers"  name="mobile"  ng-touched/>
+									</div>
+                  <!-- <span class="validationerrors" ng-if="advisor.looplist.mobile.$error.required && advisor.looplist.mobile.$touched"> Mobile Number is required</span>
+                  <span class="validationerrors" ng-if="advisor.looplist.mobile.$error.pattern"> Enter valid 10 digits number</span> -->
+								</div>
+								<div class="list list-inset other-inset black-border">
+									<label class="item item-input">
+										<input type="text" placeholder="Location" ng-model="advisor.refer.location" name="location" ng-required="true" ng-touched/ ng-pattern="/^([\s.]?[a-zA-Z]+)+$/" >
+									</label>
+                  <span class="validationerrors" ng-if="advisor.looplist.location.$error.required && advisor.looplist.location.$touched"> Location  is required</span>
+								</div>
+								<div ng-if="advisor.show_add_info">
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<input type="text" placeholder="Products Serviced" ng-model="advisor.refer.products" name="products"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">Registered financial advisor
+												<ion-radio ng-model="advisor.refer.is_registered" ng-value="1">Yes</ion-radio>
+												<ion-radio ng-model="advisor.refer.is_registered" ng-value="0">No</ion-radio>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<input type="text" placeholder="SEBI Registration Number" ng-model="advisor.refer.sebi" name="sebi"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<input type="text" placeholder="AMFI Registration Number" ng-model="advisor.refer.amfi" name="amfi"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<input type="text" placeholder="IRDA Registration Number" ng-model="advisor.refer.irda" name="irda"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<input type="text" placeholder="CRISIL Verified Number" ng-model="advisor.refer.crisilnumber" name="crisilnumber"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<input type="number" placeholder="How long you know?" ng-model="advisor.refer.knownduration" name="knownduration" ng-minlength="1" ng-maxlength="2" ng-pattern="/^[0-9]*$/" min="1" max="99"/>
+											</label>
+										</div>
+										<div class="list list-inset other-inset black-border">
+											<label class="item item-input">
+												<textarea placeholder="Why do you believe he/she can become an advisor?" ng-model="advisor.refer.justify" name="justify"></textarea>
+											</label>
+										</div>
+							  </div>
+								<!-- <div class="row"> commented for future purpose
+									<div class="col">
+										<button class="m-upwrdz-full-btn" type="button" ng-click="advisor.show_add_info = !advisor.show_add_info">
+											ADDITIONAL INFORMATION
+										</button>
+									</div>
+								</div> -->
+								<div class="row">
+									<div class="col">
+											<p>
+												<a ui-sref="app.myhub.advisor_loop_tnc">Terms and Conditions</a>
+											</p>
+									</div>
+								</div>
+								<div class="row end-button">
+									<div class="col col-50">
+										<button class="full-button" ng-disabled="advisor.looplist.$invalid || advisor.advisor_boolen" type="submit">SUBMIT
+										</button>
+									</div>
+									<div class="col col-50">
+										<button class="full-button" type="button" back>CANCEL</button>
+									</div>
+								</div>
+						</form>
+        </ion-content>
+
+    </ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<style media="screen">
+    .upwrdz-log-panel {
+        margin-bottom: 0px;
+        background-color: #e6e6e6;
+        border-radius: 0px;
+    }
+
+    .follow-header {
+        text-align: center;
+        font-size: 20px;
+        color: #2e3380;
+        font-weight: 600;
+    }
+
+    .follow-now-button {
+        width: 25%;
+        padding: 8px 0px;
+        color: #fff !important;
+        text-transform: uppercase;
+        background: #f12284 !important;
+        border: 0;
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+    .pannel-popup-content-view-answers .get-advice-button{
+        width:100%;
+    }
+    .pannel-popup-content-view-answers .get-advice-button{
+        padding: 4px 15px;
+    }
+</style>
+<div class="modal fade upwardz-modal" id="view_advices_modal" name="view_advices_modal" aria-hidden="true">
+    <div class="modal-dialog modal-md upwrdz-view-client-model upwrdz-view-peerclient-model">
+        <div class="modal-content advisor-description">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h4 class="follow-header">VIEW ANSWERS</h4>
+                </div>
+                <div class="panel-body pannel-popup-content pannel-popup-content-viewpeers">
+                    <div class="alert alert-success" role="alert" id="download_text" style="display:none;">
+                        <strong>Success!</strong> Download completed.
+                    </div>
+                </div>
+                {% if give_advice_obj %}
+                {% for obj in give_advice_obj %}
+                <div class="panel-body pannel-popup-content pannel-popup-content-view-answers text-center" id="view_advices_modal_body">
+                    <div class="col-sm-8 get-side-advice">{{obj.answer}}</div>
+                    <div class="col-sm-4"><button type="button" class="btn get-advice-button btn-color" onclick="download_answer_docs('{{obj.id}}');"> view attachments </button></div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="get-side-advice text-center">This question has not yet answered.</p>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function download_answer_docs(question_id) {
+        var token = csrf_token;
+        $.ajax({
+            type: "POST",
+            url: "/member/download_advisors_docs/",
+            data: {
+                answer_id: question_id
+            },
+            beforeSend: function (request) {
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success: function (response) {
+                $("#view_document_model").remove();
+                $('#view_advices_modal').modal('hide')
+                $('#give_advice_common_model').append(response);
+                $('#view_document_model').modal({
+                    show: true,
+                    backdrop: 'static',
+                    keyboard: false,
+                });
+            }
+        });
+    }
+</script>

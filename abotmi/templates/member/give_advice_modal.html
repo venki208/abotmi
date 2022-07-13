@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<style>
+    .modal-content{
+        padding:0px 20px 20px;
+    }
+    .modal-content .close{
+       position:absolute;
+       top:15px;
+       right:15px;
+       font-weight:600;
+       background:transparent;
+   }
+   .modal-content h3{
+       font-size: 25px;
+       font-weight: 600;
+       color:#000 !important;
+       padding:20px 0px;
+   }
+   .modal-content input,
+   .modal-content textarea{
+       border-radius:5px !important;
+       background:#fff !important;
+       border:1px #ccc solid !important;
+       
+   }
+</style>
+<!-- Give advice model starts-->
+<div class="modal" tabindex="-1" role="dialog" id="give_advice_modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title n-span-blue-color text-center" id="send_modal-title">GIVE ADVICE</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <textarea class="form-control" id="advisors_answer"cols="50" rows="4" placeholder=""></textarea>
+                            <span class="help-block" id="help_advisors_answer"></span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" value="" id="question_ids">
+                <div class="row">
+                    <div class="col-12" id="give_advice_doc_id">
+                        <form action="#" method="post" id="give_advice_form" name="give_advice_form">
+                            <input type="hidden" name="give_advice_doc" id="give_advice_doc" value="">
+                            <div style="display:none;">
+                                <input type="text" name="documents_type" id="documents_type" value="GIVE_ADVICE">
+                            </div>
+                            <label id="paper_clip" class="col-xs-12 fileinput fileinput-new pan_clip" data-provides="fileinput">
+                                <span class="btn btn-default">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                    <input type="file" name="document" id="document" class="hide" accept="image/gif, image/jpeg, image/png, application/pdf" onchange="upload_advisor_docs('give_advice_form');">
+                                </span>
+                                <p class="n-span-white-color">Please Upload only GIF, JPEG, PNG, PDF files.</p>
+                            </label>
+                        </form>
+                         <div class="row abotmi-get-adivce-upload" id="give_advice_doc_id" style="padding-bottom:10px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn upwrdz-button" onclick="submit_advice();">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

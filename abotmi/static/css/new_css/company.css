@@ -1,0 +1,55 @@
+.btn-sm.upwrdz-button {
+    font-size: 12px;
+}
+
+.section {
+    margin-top: 40px;
+}
+
+.ad_list_tabs {
+    color: #2e3192
+}
+
+.nav-tabs>li.active>a.ad_list_tabs {
+    background-color: #2e3192 !important;
+    color: #fff !important;
+}
+
+.table-border {
+    border-left: 1px solid #ccc !important;
+    border-right: 1px solid #ccc !important;
+    border-bottom: 1px solid #ccc !important;
+}
+
+.badge {
+    margin-left: 5px;
+}
+
+.main-tab {
+    border-bottom: 0px;
+}
+
+.social-media-icons-links {
+    margin-bottom: 15px;
+}
+
+.social-media-icons-links .form-control {
+    padding-left: 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.social-media-icons-links label {
+    position: absolute;
+    top: -2px;
+}
+
+.social-media-icons-links label i {
+    font-size: 39px;
+    border-radius: 0px;
+}
+
+.additional_btn {
+    color: #FFF !important;
+    background-color: #e40b7d;
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+        function token(gettoken) {
+            var gettoken_andriod=gettoken;
+            if(gettoken_andriod.token){
+                if(gettoken_andriod.token != "null"){
+                    localStorage.setItem("jwttoken",gettoken_andriod.token);
+                }
+                
+                angular.element(document.getElementById('divID')).scope().ClientTokenMethod(gettoken_andriod.email_verified_status,gettoken_andriod.email,gettoken_andriod.first_name,gettoken_andriod.password,gettoken_andriod.last_name,gettoken_andriod.source,gettoken_andriod.gender,gettoken_andriod.next_url);
+
+            }else{
+                // Parse the JSON string into JavaScript object
+    var parsedJSONObject = JSON.parse(gettoken);
+    
+    // Extract the name out of parsed JavaScript object and do further processing
+         var ios_token=parsedJSONObject["token"];
+         var ios_email=parsedJSONObject["email"];
+         var ios_email_status=parsedJSONObject["email_verified_status"];
+         var ios_first_name=parsedJSONObject["first_name"];
+         var ios_password=parsedJSONObject["password"];
+         var ios_source=parsedJSONObject["source"];
+         var ios_last_name=parsedJSONObject["last_name"];
+         var ios_gender=parsedJSONObject["gender"];
+         var ios_next_url=parsedJSONObject["next_url"];
+
+         if (ios_token != "null"){
+            localStorage.setItem("jwttoken",ios_token);
+
+         }
+                
+                angular.element(document.getElementById('divID')).scope().ClientTokenMethod(ios_email_status,ios_email,ios_first_name,ios_password,ios_last_name,ios_source,ios_gender,ios_next_url);
+
+            }
+        }
+
+        function otp(otpsms) {
+            angular.element(document.getElementById('divID')).scope().ReciveOtpMethod(otpsms);
+        }
+
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Cache-Control" content="no-store,no-cache,must-revalidate"/>
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <!-- Prevents caching at the Proxy Server -->
+    <link rel="shortcut icon" href="/static/images/logoonly.png">
+    <meta http-equiv="Expires" content="Thu, 01 Jan 1970 00:00:00 GMT"/>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet" charset="utf-8">
+    <link href="css/ionic.contrib.drawer.css" rel="stylesheet">
+    <link href="css/ionic-rating.css" rel="stylesheet">
+
+    <link href="css/style_v1.css" rel="stylesheet">
+    <link href="css/style_v1_max480.css" rel="stylesheet">
+    <!-- Newly added CSS -->
+    <link href="css/style_new.css" rel="stylesheet">
+    <link href="css/angular-input-stars.css" rel="stylesheet">
+    <link href="lib/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/croppie.css" rel="stylesheet"  />
+    <link href="css/ion-datetime-picker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="intl-tel-input/build/css/intlTelInput.css">
+    <style>
+    .margin-r-10pr{
+      margin-left: 10%;
+    }
+    </style>
+    <!-- ionic/angularjs js -->
+    
+    
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic/js/angular/angular-resource.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/common/ngStorage.min.js"></script>
+    <script src="lib/common/angular-socialshare.js"></script>
+    <script src="lib/common/angular-input-stars.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script src="lib/common/moment.min.js"></script>
+    <script src="lib/common/ng-file-upload.min.js"></script>
+    <script src="lib/common/ionic.contrib.drawer.js"></script>
+    <script src="lib/common/ionic-rating.min.js"></script>
+    <script src="lib/common/ng-cordova.min.js"></script>
+    <script src="lib/common/jquery.min.js"></script>
+    <script src="lib/common/roundProgress.min.js"></script>
+    <script src="lib/sweetalert/sweetalert.min.js"></script>
+    <script src="lib/common/SweetAlert.min.js"></script>
+    <script src="lib/common/tinymce.js"></script>
+    <script src="lib/common/tinymce.min.js"></script>
+    <script src="lib/common/croppie.js"></script>
+    <script src="lib/common/ng-croppie.js"></script>
+    <script src="lib/common/ion-datetime-picker.min.js"></script>
+    <script src="lib/common/angular-jwt.min.js"></script>
+        <!-- Accordian script -->
+    <!--<script src="js/viewadvisoraccordian.js"></script>-->
+    <!-- app's js -->
+    
+    <script  src="js/retree.js" type="text/javascript"></script>
+    <script  src="js/ua-device-detector.js" type="text/javascript"></script>
+    <script  src="js/ng-device-dtector.js" type="text/javascript"></script>
+    <script src="js/ui-cropper.js" ></script>
+    <script src="js/app.module.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/factories.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="intl-tel-input/build/js/intlTelInput.js"></script>
+
+    <!--component -->
+
+      <!--Email_otp component -->
+      <script src="components/email_otp/email_module.js"></script>
+      <script src="components/email_otp/email_controller.js"></script>
+      <script src="components/email_otp/email_factories.js"></script>
+      <script src="components/email_otp/email_constants.js"></script>
+    <!--signup component -->
+    <script src="components/signup_login/signup_login_module.js"></script>
+    <script src="components/signup_login/signup_controller.js"></script>
+    <script src="components/signup_login/signup_factories.js"></script>
+    <script src="components/signup_login/signup_constants.js"></script>
+
+    <!--video component -->
+    <script src="components/video_process/video_module.js"></script>
+    <script src="components/video_process/video_controller.js"></script>
+
+    <!--myidentity component -->
+    <script src="components/myidentity/myidentity_module.js"></script>
+    <script src="components/myidentity/myidentity_controller.js"></script>
+    <script src="components/myidentity/myidentity_factories.js"></script>
+    <script src="components/myidentity/myidentity_constants.js"></script>
+    <script src="components/myidentity/myidentity_service.js"></script>
+    <!--myhub component -->
+    <script src="components/myhub/myhub_module.js"></script>
+    <script src="components/myhub/myhub_controller.js"></script>
+    <script src="components/myhub/myhub_factories.js"></script>
+    <script src="components/myhub/myhub_constants.js"></script>
+    <script src="components/myhub/myhub_services.js"></script>
+    <!-- eipv component -->
+    <script src="components/eipv_process/eipv_module.js"></script>
+    <script src="components/eipv_process/eipv_controller.js"></script>
+    <script src="components/eipv_process/eipv_factories.js"></script>
+    <script src="components/eipv_process/eipv_constants.js"></script>
+    <!-- mygrowth components -->
+    <script src="components/mygrowth/mygrowth_module.js"></script>
+    <script src="components/mygrowth/mygrowth_controller.js"></script>
+    <script src="components/mygrowth/mygrowth_factories.js"></script>
+    <script src="components/mygrowth/mygrowth_constants.js"></script>
+      <!-- user registration components -->
+      <script src="components/registration_process/reg_module.js"></script>
+      <script src="components/registration_process/reg_controller.js"></script>
+      <script src="components/registration_process/reg_factories.js"></script>
+      <script src="components/registration_process/reg_constants.js"></script>
+
+      <!-- eipv step2 -->
+      <script src="components/eipv-verification-step2/eipv_module_verification.js"></script>
+      <script src="components/eipv-verification-step2/eipv_controller_verification.js"></script>
+      <script src="components/eipv-verification-step2/eipv_factories_verification.js"></script>
+      <script src="components/eipv-verification-step2/eipv_constants_verification.js"></script>
+
+    <script src="js/yt-player-min.js" ></script>
+    <script src="js/youtube-player.min.js" ></script>
+    <!--introduction component -->
+    <script src="components/intro_screens/intro_screen.module.js"></script>
+    <script src="components/intro_screens/intro_screens_controller.js"></script>
+
+  </head>
+  <body ng-app="reiaapp">
+      <div ng-controller="ClientToken" id="divID">
+      </div>
+    <ion-nav-view class="upwrdz-signup-signin"></ion-nav-view>
+  </body>
+</html>

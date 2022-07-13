@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!-- Languages Modal HTML Starts-->
+<div class="modal fade" tabindex="-1" role="dialog" id="languageModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="modal-title n-span-blue-color" id="send_modal-title">Languages Spoken</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form class="panel-body" onsubmit="return false;">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="id_languages" value="{{user_profile.language_known}}" min-length='3' required='true' onkeyup="validate_field_onkeypress(id, 'help_id_languages', 'Languages');" placeholder="Enter the languages you know (For Ex: Hindi, English)">
+                                <span class="help-block" id="help_id_languages"></span>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="button" name="button" class="btn upwrdz-button my-identity-modal-btn" id="language_button" onclick="save_languages();">SUBMIT</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Languages Modal Ends-->

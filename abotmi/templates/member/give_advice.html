@@ -1,0 +1,73 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    <link href="{% static 'css/new_css/get_advice.css' %}" rel="stylesheet">
+    <style>
+        .n-padding-r-5{
+            padding-right: 5px;
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <section class="parent-section subpage-reia-primary-div mt-5 pt-5">
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-sm-9">
+                    {% if get_advice_obj %}
+                        {% for obj in get_advice_obj|slice:":5" %}
+                            <div class="col-md-12">
+                                <h3 class="get-advice-heading"><a href="{% url 'member:read_more_answer'%}?question_id={{obj.id}}">{{obj.question_title}}</a></h3>
+                                <span class="get-advice">By {{obj.user_profile.first_name}} | {{obj.created_date|date:"D, d M Y"}}</span>
+                                <p class="get-advice-desc">{{obj.description|truncatewords:50}}</p>
+                                {% if obj.user_profile.id == request.user.profile.id %}
+                                <button type="button" class="btn upwrdz-button" disabled title="You cannot answer your own Question\s">Give Advice</button>
+                                {% else %}
+                                <button type="button" class="btn upwrdz-button" onclick="give_advice('{{obj.id}}');">Give Advice</button>
+                                {% endif %}
+                                {% if obj.document_ids %}
+                                <button type="button" class="btn upwrdz-button" onclick="download_docs('{{obj.id}}');"> View Documents</button>
+                                {% comment %} {% else %}
+                                <button type="button" class="btn upwrdz-button" disabled /> View Documents</button> {% endcomment %}
+                                {% endif %}
+                                <input type="hidden" value="{{obj.id}}" id="question_id">
+                                <hr class="border-div">
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="get-no-questions text-center">Questions have not yet asked.</p>
+                    {% endif %}
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget" id="search_div">
+                        <div>
+                            <h6 class="side-search">Search Questions</h6>
+                            <input type="text" id="search_answers" class="form-control class" autocomplete="off">
+                        </div>
+                        <span class="help-block" id="help_text_search_div"></span>
+                        <div id="list_ad"></div>
+                        <hr class="border-div">
+                        {% if get_advice_obj %}
+                            {% for obj in get_advice_obj|slice:":3" %}
+                                <h4 class="get-side-heading">{{obj.question_title}}</h4>
+                                <span class="get-side-advice">{{obj.user_profile.first_name}} | {{obj.created_date}}</span>
+                                <p class="get-side-advice question_break">{{obj.description|truncatewords:6}}<a class="read-more" href="{% url 'member:read_more_answer'%}?question_id={{obj.id}}">&nbsp; Read More</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <p class="get-no-questions-displayed text-center">Questions have not yet asked.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+    <div id="give_advice_common_model"> </div>
+    {% include 'member/give_advice_modal.html' %}
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/new_js/upload_document.js' %}"></script>
+    <script src="{% static 'js/new_js/give_advice.js' %}"></script>
+    <script src="{% static 'js/new_js/search_questions.js' %}"></script>
+{% endblock %}

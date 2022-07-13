@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<style>
+    .modal-title.identity-title {
+        display: inline-flex;
+    }
+    .modal-title.identity-title img{
+        width: 36px;
+        height: 33px;
+    }
+    .modal-side-content {
+        color: #2a3290;
+        text-align: center;
+    }
+    .content {
+        font-size: 18px;
+    }
+    .sub-content {
+        font-weight: 600;
+    }
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="reputation_index_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color identity-title">REPUTATION INDEX&nbsp;
+                        <img src="{% static 'new_images/ri-logo.png' %}" class="img-responsive header-tab-icons" alt="My Hub">
+                    </h3>
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <div class="col-md-12">
+                        <div class="row text-center">
+                            <span class="modal-side-content sub-content">Reputation is One of the Most Valuable Currency in Today's World.</span><br />
+                            <span class="modal-side-content sub-content">Helping Advisors to Be Reputation Rich.</span><br />
+                            <span class="modal-side-content sub-content">It's Simple, Secured, Transparent and Do It Yourself Way.</span><br />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <img src="{% static 'new_images/ri-infographic.png' %}" alt="reputation_img" class="img-responsive img-center">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <p class="content text-center">
+                                It's free for all advisors, all you must do is invest your current time to build your future prosperity. 11 Stakeholder, 600 Parameters, 45 Factors and more than 10,000 plus data point drive the assessment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

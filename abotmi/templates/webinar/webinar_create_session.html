@@ -1,0 +1,115 @@
+{% extends 'webinar/webinar_home.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block custom_theme_css %}
+<link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/static/css/validate.css">
+<link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+<style type="text/css">
+    .help-block{
+        color: #b94a48;
+    }
+    .webinar-event-form{
+        padding-top: 30px;
+    }
+    .mrg-b80{
+        margin-bottom: 80px;
+    }
+    .control-group.success input, .control-group.success select, .control-group.success textarea {
+      color: #FFF !important;
+    }
+    .control-group.error input, .control-group.error select, .control-group.error textarea {
+        color: #FFF !important;
+    }
+    .control-group.error > label, .control-group.error .help-block, .control-group.error .help-inline {
+        color: #ef0b0b !important;
+    }
+</style>
+{% endblock %}
+{% block important_scripts %}
+    {{ webinar_from.media }}
+{% endblock %}
+{% block main_content %}
+<section class="subpage-reia-primary mrg-b80" id="about">
+<div class="container parent-section">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form class="webinar-event-form" name="create_webinar_form" id="create_webinar_form" action="{% url 'webinar:create_webinar' %}" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
+            {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <legend>Create Webinar</legend>
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                    {% for field in webinar_from %}
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                            {{ field.label }}
+                            </div>
+                            <div class="col-sm-7 col-md-5">
+                                <div class="form-group control-group">
+                                    <div class="control upwrdz-log-panel">
+                                    {% render_field field class+="form-control input" %}
+                                    </div>
+                                    <span class="help-block">
+                                        {{ field.errors }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-3">&nbsp;</div>
+                    <div class="col-sm-7 col-md-5">
+                        <button id="webinar_submit_btn" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing ..." class="btn upwrdz-button" type="button" onclick="check_webinar_form();">SUBMIT</button>
+                        <a class="btn upwrdz-button" href="{% url 'webinar:dashboard' %}">CANCEL</a>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/additional-methods.min.js' %}"></script>
+<script type="text/javascript" src="/static/js/webinar_validate.js"></script>
+<script type="text/javascript">
+    function check_webinar_form(){
+        $('#webinar_submit_btn').button('loading');
+        if($('#create_webinar_form').valid()){
+            var date_valu = $('#id_starts_at').find("input").val();
+            if(date_valu != ""){
+                $('#create_webinar_form').submit();
+            } else {
+                $('#id_starts_at').parent().next().text('Please Schedule date & time !');
+                $('#webinar_submit_btn').button('reset');
+            }
+        } else {
+            $('#webinar_submit_btn').button('reset');
+            // this below line is keept it for deebuing
+            // $('#id_starts_at').parent().next().text('Please Schedule date & time !');
+        }
+    }
+
+    function enable_starts_at(){
+        $('input[name="starts_at"]').prop('readonly', true);
+    }
+
+    function disable_starts_at(){
+        $('input[name="starts_at"]').prop('readonly', false);
+    }
+</script>
+<script src="{% static 'js/WearProtection.js' %}"></script>
+{% endblock %}
+{% block theme_scripts %}
+    {{block.super}}
+{% endblock %}

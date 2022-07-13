@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<div class="modal fade" tabindex="-1" role="dialog" id="share_profile_by_email">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">SEND PROFILE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="id_mail" name="email" method="POST" action="">
+                            {% csrf_token %}
+                            <div class="row" id="add_fields">
+                                <div class="col-md-3">
+                                    <label class="control-label">Title <span>*</span></label>
+                                    <select class="form-control" id="id_title1" name='title1'>
+                                        <option value="Select">Select</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Dr">Dr</option>
+                                        <option value="Prof">Prof</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Name <span>*</span></label>
+                                    <input type="text" class="form-control" name="name1" id="id_name1" placeholder="Name">
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="control-label">Email <span>*</span></label>
+                                    <input type="text" class="form-control" name="email1" id="id_email1" placeholder="Email">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="control-label">Subject <span>*</span></label>
+                                    <input type="text" class="form-control" name="subject1" id="id_subject1" placeholder="Subject">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="control-label">Message</label>
+                                    <textarea class="form-control" rows="4" cols="50" id='id_mail_body_content1' name="mail_body_content1">{{user.profile.first_name |title}} has shared profile for your reference.</textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" id="id_send_mail_cancel" class="btn upwrdz-button my-identity-modal-btn-cancel" data-dismiss="modal" onclick="send_profile_mail_id(id);">Cancel</button>
+                    <button type="button" class="btn upwrdz-button my-identity-modal-btn" onclick="add_mail_fields();">Add</button>
+                    <button type="button" class="btn upwrdz-button my-identity-modal-btn" id="id_send_button" onclick="send_profile_mail_id(id);">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Email sending modal Ends -->
+<script src="{% static 'js/new_js/share_profile_by_email.js' %}" charset="utf-8"></script>

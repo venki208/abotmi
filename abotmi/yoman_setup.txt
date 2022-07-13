@@ -1,0 +1,22 @@
+# checking for node and npm 
+node --version && npm --version
+
+# updating npm to global and latest
+npm install --global npm@latest
+
+# Install the Yeoman toolset
+npm install --global yo
+
+# Errors?
+# If you see permission or access errors, such as EPERM or EACCESS, do not use sudo as a work-around. 
+# You can consult this guide for a more robust solution.
+# https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md
+
+# Confirm installation
+yo --version
+
+# Install an generator
+npm install --global generator-fountain-webapp
+
+# fix npm-g_nosudo
+https://github.com/glenpike/npm-g_nosudo

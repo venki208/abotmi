@@ -1,0 +1,63 @@
+<ion-view>
+  <ion-side-menus>
+    <ion-side-menu-content>
+      <upwrdz-Tabs></upwrdz-Tabs>
+      <ion-content class="m-upwrdz-editpage-content">
+        <div class="editpage-title-bar">
+          <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ui-sref="app.myhub">
+          MEETUP
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="full-button" ui-sref="app.myhub.meetup" >
+              CREATE MEETUP
+            </button>
+            <div class="meetup-upcoming-events">
+              <br>   <h2 ng-if="meetupview.details.length" style="font-size: 18px;">List Of Upcoming Events</h2><br/>
+              <h4 ng-if="!(meetupview.details.length)">No data  available</h4>
+            </div>
+            <ul id="accordion" class="accordion accordion-video-div">
+              <li>
+                <div ng-repeat = "data in meetupview.details" class="micro_learning_video_frame_div">
+                  <div class="row accordion-toggle" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+                    <h5>{{data.name}} <i class="fa fa-chevron-down pull-right"></i></h5>
+
+                  </div>
+                  <div class="row accordion-content default accordion-content-blog">
+                    <p class="row">
+                      <span class="col col-25">Name</span>
+                      <span class="col"><a class="adv-name-link" ui-sref="app.myhub.list_mail_invitation" class="col">{{data.name}}</a></span>
+                    </p>
+                    <p class="row">
+                        <span class="col col-25">Description</span>
+                        <span class="col">{{data.description}}</span>
+                      </p>
+                    <p class="row">
+                      <span class="col col-25">Address</span>
+                      <span class="col">{{data.address}}</span>
+                    </p>
+                    <p class="row">
+                      <span class="col col-25">Scheduled</span>
+                      <span class="col">{{data.scheduled}}</span>
+                    </p>
+                   
+                    <p class="row">
+                      <button class="full-button btn pink-btn-primary pink-btn-primary-view"><a  class="btn blue-btn-primary"  ng-click="meetupview.delete_meetup_event('{{data.meetup_event_id}}');"
+                        >
+                        Delete</a></button>
+                      </p>
+                      <p class="row">
+                        <button class="full-button btn pink-btn-primary pink-btn-primary-view"><a  class="btn blue-btn-primary"  ng-click="meetupview.update_meetup_event('{{data}}');"
+                          >
+                          Update</a></button>
+                        </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ion-content>
+      </ion-side-menu-content>
+    </ion-side-menus>
+  </ion-view>

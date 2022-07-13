@@ -1,0 +1,97 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<link href="{% static 'V2_theme/lib/dataTables/datatables.min.css' %}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+<style>
+
+  .upwrdz-log-panel .close{
+        position:absolute;
+        top:15px;
+        right:15px;
+        font-weight:600;
+        background:transparent;
+    }
+    .upwrdz-log-panel h3{
+        font-size: 25px;
+        font-weight: 600;
+    }
+    @media(max-width:991px){
+        .pannel-popup-content-viewpeers{
+            
+            overflow: scroll;
+        }
+        .pannel-popup-content-viewpeers .main-table{
+
+            width: 800px;
+        }
+    }
+
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="view-rank-client-modal" name="view-rank-client-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered upwrdz-view-client-model upwrdz-view-peer-model">
+        <div class="modal-content">
+            <div class="upwrdz-log-panel upwrdz-log-panel-view-clients">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <h3 class="n-span-blue-color text-center pt-4 pb-3 " id='title_span_view'></h3>
+            
+                <div class="pannel-popup-content pannel-popup-content-viewpeers" id="view-rank-client-modal-body">
+                    <div class="col-md-12">
+                    {% if member_rank_list %}
+                        <div class="bs-example">
+                            <div class="table-responsive main-table">
+                                <table id="table_id" name="table_id" class="table">
+                                    <span class="pull-right">
+                                        <a id="veiw-member-search-icon" onclick="enable_search()"><i class="fa fa-search-thin fa-lg"></i></a>
+                                    </span>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email ID</th>
+                                            <th>Mobile Number</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for ranking in member_rank_list %}
+                                    <tr>
+                                        <td>{{ranking.member_name}}</td>
+                                        <td>{{ranking.email}}</td>
+                                        <td>{{ranking.phone}}</td>
+                                        <td> {{ranking.status}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+    <p class="text-center">{% if status_message == 'Rated' %} No Peers found {% else %} No Clients Found  {% endif %}</p>
+{% endif %}
+<script src='{% static "V2_theme/lib/dataTables/datatables.min.js" %}'></script>
+{% if member_rank_list %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table_id').dataTable({
+                language: {
+                    paginate: {
+                        previous: "< Previous",
+                        next: "Next >"
+                    }
+                }
+            });
+            document.getElementById('table_id_filter').style.display = 'none';
+        });
+        function enable_search(){
+            document.getElementById('table_id_filter').style.display = 'block';
+            document.getElementById('veiw-member-search-icon').style.display = 'none';
+        }
+    </script>
+{% endif %}

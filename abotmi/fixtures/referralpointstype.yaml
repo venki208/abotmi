@@ -1,0 +1,90 @@
+[
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 10,
+      "name": "crisal_verification_advisor",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 10,
+      "name": "registered_advisor",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 1,
+      "name": "bonus_for_crossing_100s_advisor",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 5,
+      "name": "bonus_for_crossing_100s_advisor",
+      "level": 0
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 1,
+      "name": "advisor_completed_transaction",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 10,
+      "name": "advisor_completed_first_transaction",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 10,
+      "name": "signup_advisor",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "created_date": "2016-05-05T06:33:55Z",
+      "modified_date": "2016-05-05T06:33:55Z",
+      "points": 10,
+      "name": "certified_advisor",
+      "level": 1
+    },
+    "model": "datacenter.referralpointstype",
+    "pk": 10
+  }
+]

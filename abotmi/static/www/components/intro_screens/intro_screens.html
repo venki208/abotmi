@@ -1,0 +1,46 @@
+<ion-view>
+    <ion-content class="m-upwrdz-introduction-container" delegate-handle="myPageDelegate">
+          <ion-slide-box on-slide-changed="introCtrl.slideHasChanged($index)">
+                <ion-slide>
+                    <div class="col screen bluefont" style="background-image: url('img/Screen1.png')">
+                        <div class="text-center">
+                            <h3>YOUR REPUTATION IS <br/>YOUR BUSINESS</h3>
+                            <h5>Build and manage your reputation <br/>at Abotmi</h5>
+                        </div>
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="screen bluefont" style="background-image: url('img/Screen2.png')">
+                        <div class="col text-center">
+                            <h3>Digital Asset Advisors<br/> are Partners and <br/>Co-creators in a  <br/>investment journey</h3>
+                        </div>
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="screen bluefont" style="background-image: url('img/Screen3.png')">
+                        <div class="col text-center">
+                            <h3>Wealth protection is <br/> wealth creation</h3>
+                        </div>
+                    </div>
+                </ion-slide>
+                <ion-slide>
+                    <div class="screen bluefont" style="background-image: url('img/Screen4.png')">
+                        <div class="col text-center">
+                            <h3>"Investor protection" <br/> is a moral responsibility <br/>of every advisor</h3>
+                        </div>
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+                <div class="pull-down">
+                    <button ng-if="introCtrl.slide_index<3" class="slider-btn pull-right" ng-click="introCtrl.slideNext()">
+                        NEXT
+                    </button>
+                    <button ng-if="introCtrl.slide_index==3" class="slider-btn pull-right" ng-click="introCtrl.skip_continue()">
+                        CONTINUE
+                    </button>
+                    <button ng-if="introCtrl.slide_index<3" class="slider-btn" ng-click="introCtrl.skip_continue()">
+                        SKIP
+                    </button>
+                </div>
+    </ion-content>
+</ion-view>

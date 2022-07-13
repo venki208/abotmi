@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block main_content %}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<h3><center>Revenue Transaction Form</center></h3>
+<section class="blog-section" id="about" style="margin: 30px;margin-top:100px;">
+    <div class="container">
+        <div class="row">
+            <fieldset class="form-group">
+                <label> Make Transaction </label>
+            </fieldset>
+            <div class="col-lg-12 col-md-12 blog-creation-form">
+                <form
+                    action="/revenue/create-transaction/"
+                    method="post"
+                    accept-charset="utf-8"
+                    id="rev_tr" role="form" name="rev_tr" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <label>Transaction Details</label>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Client Email</label>
+                        {{email}}
+                        <input type="hidden"
+                            id="client_email"
+                            name="client_email"
+                            value={{email}}>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input type="text"
+                            id="product_id"
+                            name="product_id"
+                            placeholder="Product ID">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input type="text"
+                            id="transaction_value"
+                            name="transaction_value"
+                            placeholder="Transaction Value">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Client Platform</label>
+                        UPLYF
+                    </fieldset>
+                    <button type="button"
+                        class="btn blog-btn"
+                        onclick="submitPost();"
+                        style="margin-right:0px;">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    function submitPost(){
+        $("#rev_tr").submit();
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<div class="row">
+    {% if excluded_members %}
+        <div class="col-md-8 col-md-offset-2">
+            Select All
+            <button class="btn btn-success n-add-button" id="checkAll" style="display:inline;" onclick="check_all('check',id);">
+                <input type="checkbox" class="checkbox-class" autocomplete="off"><i class="glyphicon glyphicon-plus"></i>
+            </button>
+            <div class="alert alert-danger" role="alert" style="display:none;">Please select the clients.</div>
+        </div>
+        <div class="btn-group col-md-8 col-md-offset-2" data-toggle="buttons">
+            {% for new_members in excluded_members %}
+            <div class="row n-margin-0">
+                <div class="col-md-12 n-member-list-class" style="display:inline-block;">
+                    <p style="display:inline-block;margin-bottom:0px;">
+                        {{ new_members.user_profile }}<br />
+                    <label>Name</label>:<span>{{ new_members.user_profile.first_name }}{{ new_members.user_profile.last_name }}</span>, <label>Mobile Number</label>:<span>{{new_members.user_profile.mobile }}</span></p>
+                    <button class="btn btn-success n-check-btn n-add-button pull-right" id="{{new_members.user_profile.id}}" style="display:inline;">
+                        <input type="checkbox" class="checkbox-class" name='check_box' autocomplete="off"><i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="row n-margin-0">
+                <div class="col-md-12 n-member-list-class" style="display:inline-block;">
+                    <p style="display:inline-block;margin-bottom:0px;">
+                        <label>No Registered Clients Found.</label>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script type="text/javascript">
+    function check_all(check_opt,id){
+        if (check_opt =='check'){
+            $('.n-check-btn input[type="checkbox"]').prop('checked', true);
+            $('.btn-success input[type="checkbox"]').parent().addClass("active");
+            $('#'+id).removeAttr('onclick');
+            $('#'+id).attr('onclick',"check_all('uncheck',id);");
+        }
+        else {
+            $('.n-check-btn input[type="checkbox"]').prop('checked', false);
+            $('.btn-success input[type="checkbox"]').parent().removeClass("active");
+            $('#'+id).removeAttr('onclick');
+            $('#'+id).attr('onclick',"check_all('check',id);")
+        }
+    }
+    var selected_members, file_size;
+    function selected_emails(){
+        selected_members = $("input[name='check_box']:checked").map(function () {
+            return $(this).parent().attr('id');
+        }).get().join(',');
+        return selected_members;
+     }
+    function add_members_in_group(id){
+        if (id == 'add_member'){
+            var token = '{{csrf_token}}';
+            var total_members_selected = selected_emails();
+            if ($('input[name="check_box"]:checked').length < 1) {
+                $('.alert-danger').css('display','block');
+            }else{
+                $('.alert-danger').css('display','none');
+                $.ajax({
+                    type:'POST',
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    url:"{% url 'dashboard:add_member_in_group' %}",
+                    data:{
+                        members:total_members_selected,
+                        group_id:'{{ group_id }}'
+                    },
+                    success:function(response){
+                        if(response == 'success'){
+                            $("#id_new_member_list_modal").modal('hide');
+                            group_list_modal();
+                            $('#{{ group_id }}').trigger('click');
+                        }
+                    },
+                    error:function(response) {
+                    }
+                });
+            }
+        }else{
+            $("#id_new_member_list_modal").modal('hide');
+            group_list_modal();
+            $('#{{ group_id }}').trigger('click');
+        }
+    }
+</script>
+{% if excluded_members %}
+    <script type="text/javascript">
+        $('#id_add_member_in_group').css('display','inline-block');
+    </script>
+{% else %}
+<script type="text/javascript">
+    $('#id_add_member_in_group').css('display','none');
+</script>
+{% endif %}

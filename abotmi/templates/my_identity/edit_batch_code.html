@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<style>
+.hide{
+    display: none !important;    
+}
+</style>
+<!-- My Belief Modal HTML Starts-->
+<div class="panel-body pannel-popup-content modal-body text-center" id="your_profile_div">
+    <label style="text-decoration: underline;">Your Profile URL</label>
+    <form class="form-inline form-group">
+        <div class="form-group" style="word-break: break-all;width: 95%;">
+            <span id="html_batch">{{batch_url}}{{user_profile.batch_code}}</span>
+        </div>
+        <div class="form-group hide" id="id_batch_input_div">
+            <span id="basic-addon3" class="hide">{{batch_url}}</span>
+            <input type="text" class="form-control" id="basic_batch_url" max-length="35"
+            min-length="5" is-batch="true" required="true" value="{{user_profile.batch_code}}">
+        </div>
+        <div class="form-group">
+            <a id="id_edit_batch_code_btn" class="pd-l0">
+                <span class="pull-right custome-edit-icon" title="Click and write about yourself">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </span>
+            </a>
+        </div>
+        <div class="row" id="help_batch_codes_div" style="display:block; margin:auto;">
+        </div>
+    </form>
+    <span class="help-block" id="help_basic_batch_url"></span>
+    <div class="row hide" id="avail_btn_div">
+        <div class="col-12 text-center">
+            <button type="button" name="button" class="btn upwrdz-button my-identity-modal-btn" id="id_batch_avail_btn">Check Availability</button>
+        </div>
+    </div>
+</div>
+<!-- My belief Modal Ends-->
+<script type="text/javascript">
+    var default_server_url = '{{DEFAULT_DOMAIN_URL|default:"localhost"}}';
+    var advisor_name = '{{user_profile.first_name}}'+' '+'{{user_profile.last_name}}';
+</script>
+<script src="{% static 'js/new_js/batch_code.js' %}"></script>

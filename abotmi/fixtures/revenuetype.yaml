@@ -1,0 +1,163 @@
+[
+  {
+    "fields": {
+      "revenue_code":"RVN00001",
+      "revenue_name":"GET_CERTIFIED_REVENUE_FEE",
+      "description":"Advisors to pay a fees for getting their profile verified and certified from an external certification agency.(advisor to upwrdz 100%)"
+    },
+    "model": "datacenter.revenuetype",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00002",
+      "revenue_name":"CERTIFIED_PROVIDER_FEE",
+      "description":"upwrdz to pay a fees for getting advisor profile verified and certified from an external certification agency.(upwrdz to external 80%)"
+    },
+    "model": "datacenter.revenuetype",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00003",
+      "revenue_name":"GET_QUALIFIED_REVENUE_FEE",
+      "description":"Advisors to pay a fees each time they participate in an education program / training conducted through Upwrdz.(advisor to upwrdz 100%)"
+    },
+    "model": "datacenter.revenuetype",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00004",
+      "revenue_name":"QUALIFIED_PROVIDER_FEE",
+      "description":"upwrdz to pay a fees each time advisor participate in an education program / training conducted through Upwrdz.(upwrdz to external 80%)"
+    },
+    "model": "datacenter.revenuetype",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00005",
+      "revenue_name":"GET_CONNECTED_REVENUE_FEE",
+      "description":"Advisors can view the details of all the clients / potential leads, viewed their profile on Upwrdz. The fees to be paid by the advsiors to subscribe to this(advisor to upwrdz 100%)"
+    },
+    "model": "datacenter.revenuetype",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00006",
+      "revenue_name":"LISTING_REVENUE_FEE",
+      "description":"One-time fees to be paid by each business house, when they list their products on Upwrdz (client to upwrdz 100%)"
+    },
+    "model": "datacenter.revenuetype",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00007",
+      "revenue_name":"FACILITATION_REVENUE_FEE",
+      "description":"One-time fees to be paid by each business house, when they subscribe to access the profiles / Ranking of advisors listed on Upwrdz (client to upwrdz 100%)"
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 7
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00008",
+      "revenue_name":"PRODUCT_EDUCATION_REVENUE_FEE",
+      "description":"The product issuers to pay a fees each time they engage educational agencies to educate the clients / advisors on their products.(client to upwrdz 100%)"
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 8
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00009",
+      "revenue_name":"PRODUCT_EDUCATION_PROVIDER_FEE",
+      "description":"The product issuers to pay a fees each time they engage educational agencies to educate the clients / advisors on their products.(upwrdz to external 80%)"
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 9
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00010",
+      "revenue_name":"TRANSACTION_MANAGEMENT_FEE",
+      "description":"The product issuers to pay a transaction management fees, every time their product is sold through Upwrdz. (client platform to upwrdz 3% of transaction amount)"
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 10
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00011",
+      "revenue_name":"FACILITATOR_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 11
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00012",
+      "revenue_name":"TRX_LEAD_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 12
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00013",
+      "revenue_name":"TRX_MANAGER_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 13
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00014",
+      "revenue_name":"FIRST_TRX_BONUS_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 14
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00015",
+      "revenue_name":"CLI_ADV_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 15
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00016",
+      "revenue_name":"CLI_ADV_REF_ADV_FEE_A",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "revenue_code":"RVN00017",
+      "revenue_name":"CLI_ADV_REF_ADV_FEE_B",
+  },
+    "model":"datacenter.revenuetype",
+    "pk": 17
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00018",
+      "revenue_name":"CLI_REF_CLI_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 18
+  },
+  {
+    "fields":{
+      "revenue_code":"RVN00019",
+      "revenue_name":"CLI_REF_CLI_FEE_NO_ADV_FEE",
+    },
+    "model":"datacenter.revenuetype",
+    "pk": 19
+  },

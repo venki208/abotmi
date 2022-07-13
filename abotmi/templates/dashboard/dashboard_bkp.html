@@ -1,0 +1,1286 @@
+{% extends 'index.html' %}
+{% load social_media_tags %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link href="{% static 'css/new_css/dashboard.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+
+    <style media="screen">
+    .table-box .row{
+        background: rgba(125, 125, 127, 0.61);
+        margin: 20px;
+        padding:20px;
+    }
+    .table-box .form-group{
+        margin-bottom: 0;
+    }
+    @media (min-width:768px) {
+        .table-box .right-border{
+            border-right: 1px solid #fff;
+        }
+    }
+    @media (min-width: 576px){
+        .modal-dialog-centered {
+            min-height: calc(100% - (1.75rem * 2));
+        }
+        .model-dialog {
+            margin: 50px auto;
+        }
+    }
+    @media (max-width: 767px){
+        .abotmi-parent-section{
+            margin-top: 100px;
+        }
+    }
+
+    .table-box hr{
+        margin-top: 0px;
+        margin-bottom: 5px;
+        border-top: 1px solid rgba(255, 255, 255, 0.44);
+        width: 92%;
+        float: left;
+    }
+    .upwardz-modal .padding-tb8{
+      padding: 8px 0;
+    }
+    .upwrdz-myhub-one-height{
+        min-height: 230px;
+    }
+    .upwrdz-myhub-one-height{
+        border-right:1px #ccc solid;
+    }
+    .upwrdz-myhub-one-height:last-child{
+        border-right:0px #ccc solid;
+    }
+    .upwrdz-rating-ranking-main .btn-applynow{
+        background: #2c3690;
+        margin: 0px 0px;
+        border-radius: 0;
+        text-transform: uppercase;
+    }
+    .upwrdz-rating-ranking-main .btn-applynow a{
+        color: #fff;
+        text-decoration: none;
+        padding: 0px 10px;
+    }
+    .pd-bt-peer-check {
+        padding-top: 10px;
+    }
+    .pd-bt-peer-check .btn, .connect-view-btn .btn{
+        margin-bottom: 5px !important;
+    }
+    .uwd-crisil-verification{
+        padding-bottom: 10px;
+    }
+    .switch_slider{
+        position: relative;
+        left: 10px;
+        top: 10px;
+    }
+    .advice-btn{
+        background: #2c3690;
+        padding: 10px;
+    }
+    .question-mark-rating a{
+        text-decoration: none;
+        color: #fff;
+    }
+    .myrating-myranking-model .modal-header{
+        padding: 0px 15px;
+        height: 40px;
+        background:#2e3191;
+        border-radius: 5px 5px 0px 0px;
+        position: relative;
+    }
+    .myrating-myranking-model .modal-header .close, .myrating-myranking-model .modal-header .close:hover{
+        position: absolute;
+        top: 7px;
+        right: 17px;
+        font-size: 25px;
+        color: #fff;
+    }
+    .myrating-myranking-model .modal-header .close:focus {
+        outline: -webkit-focus-ring-color auto 0px;
+    }
+    .myrating-myranking-model .modal-header h3{
+        line-height: 40px;
+        font-size: 20px;
+        color: #fff;
+    }
+    .myrating-myranking-model p{
+        font-size: 14px;
+    }
+    .myrating-myranking-model .dashboard-rating-red{
+        color: #ed5a8c;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .myrating-myranking-model .modal-body{
+        max-height: 480px;
+        overflow-y: scroll;
+        min-height: auto;
+        width: 100%;
+    }
+    .myrating-myranking-model .btn-default:hover, .myrating-myranking-model .btn:focus{
+        background-color: #4749a0;
+        border: 0px;
+    }
+    .myrating-myranking-model .btn:focus{
+        outline: 0px auto -webkit-focus-ring-color;
+    }
+    .micro-right-border{
+        border-right: 0px solid #c7c7c7 !important;
+    }
+    .connect-view-btn .n-span-blue-color {
+        color: #2c3690 !important;
+        padding-right: 5px;
+        padding: 5px;
+    }
+    .abotmi-course-card-deck{
+        border: 1px #ccc solid;
+        color: #000;
+        padding: 10px;
+    }
+    .abotmi-course-card-deck .btn{
+        border-radius: 0px;
+        padding: 4px 25px;
+        color: #fff;
+        background: #2e3191;
+        font-size: 16px;
+        
+    }
+    .course-card-view-bottom-space{
+        margin-bottom: 20px;
+    }
+    @media(max-width:900px) and (min-width:768px){
+        .upwrdz-myhub-content-one .upwrdz-myhub-one-height{
+            width: 33%;
+        }
+        .uwd-crisil-verification .micro-right-view-one{
+            width:65%;
+        }
+        .uwd-crisil-verification .micro-right-view-two{
+            width:35%;
+            padding-left: 5px;
+
+        }
+    }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <div class="container parent-section abotmi-parent-section">
+        <div class="row col-grow">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 upwrdz-myhub-content col-xs-push-3">
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 upwrdz-myhub-content col-xs-push-3">
+
+                </div>
+                <div class="row upwrdz-myhub-content-one">
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 n-padding-t-30 upwrdz-myhub-one upwrdz-myhub-one-width upwrdz-myhub-one-height">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2 class="upwrdz-myhub-content-headers">My Rating & My Ranking<img src="{% static 'new_images/security-on.png' %}"/></h2>
+                            </div>
+                        </div>
+                        <div class="row upwrdz-rating-ranking-sec">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center upwrdz-rating-ranking-main right-border">
+                                <div class="upwrdz-rating-ranking">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <span>{{peer_rating|floatformat:1|default:0.0}}</span>
+                                </div>
+                                <p>Peers Rating</p>
+                                <ul>
+                                    <li><a onclick="invite_advisor_to_rate_modal('advisor')" title="Request to Rate">Request</a></li>
+                                    <li><a onclick="advisor_to_rate_list();" title="Rate your Peers">Rate Peers</a></li>
+                                    <li><a name="view_ratings" onclick="view_client_ranking('{{request.user}}','advisor');" title="View Details">View</a></li>
+                                    <li class="question-mark-rating"><a href="#" data-toggle="modal" data-target="#peerrating-view"><i class="fa fa-question-circle" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center upwrdz-rating-ranking-main">
+                                <div class="upwrdz-rating-ranking">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <span>{{member_rating|floatformat:1|default:0.0}}</span>
+                                </div>
+                                <p>Client Ranking</p>
+                                <ul>
+                                    <li><a onclick="invite_advisor_to_rate_modal('member');" title="Request to Rank">Request</a></li>
+                                    <li><a onclick="view_client_ranking('{{request.user}}','member');" title="View Details">View</a></li>
+                                    <li class="question-mark-rating"><a href="#" data-toggle="modal" data-target="#client-ranking"><i class="fa fa-question-circle" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 n-padding-t-30 upwrdz-myhub-one-50 upwrdz-myhub-one-height">
+                        <div class="row">
+                            <div class=" col-xs-12 upwrdz-rating-ranking-main">
+                                <h2 class="upwrdz-myhub-content-headers"> Peer Check <img src="{% static 'new_images/advisor_logo_icon.png' %}"/> </h2>
+                                <p>Check background of any <br/> financial advisors</p>
+                                <div class="pd-bt-peer-check">
+                                    <a href="/advisor_check/" class="btn btn-applynow n-span-white-color" title="Search Advisors">CHECK MORE</a>
+                                    <button type="button" class="btn btn-applynow n-span-white-color" onclick="view_do_not_follow();" title="Donot Follow Advisor">Do not follow</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 n-padding-t-30 upwrdz-myhub-one upwrdz-myhub-one-50 upwrdz-myhub-one-height">
+                        <!-- <h2 class="upwrdz-myhub-content-headers">&nbsp; </h2> -->
+
+                        <div class="row upwrdz-earning panel-body connect-view-btn">
+                            <div class="text-center">
+                                <img src="/static/new_images/wpb-logo.png" width="120px">
+                                <p style="margin:3px;"><button href=""  data-toggle="modal" data-target="#myModal" class="btn btn-applynow n-span-white-color" title="Courses" >COURSES</button></p>
+                                <div class="col-sm-6 col-xs-12 col-md-6">
+                                     <h2 class="upwrdz-myhub-content-headers">
+                                         Connect
+                                         <a title="Connect" onclick="list_connect_profile();" class="n-span-blue-color">
+                                             <u>{{ connect_profile_count | default:0 }}</u>
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 col-md-6">
+                                    <h2 class="upwrdz-myhub-content-headers">
+                                            &nbsp;&nbsp;View
+                                        <a title="View" onclick="list_profile_viewed();" class="n-span-blue-color">
+                                            <u>{{ profile_view_count | default:0 }}</u>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </div>
+                            <!-- commenting this piece of code we will use for future purpose -->
+                            <!-- {% if user_agent_country == REGION_IN %}
+                            <div class="text-center">
+                                <button type="button" class="btn btn-applynow" id="id_identity_pack" style="margin-bottom:5px;">Try Premium</button>
+                                <br />
+                                {% if sub_pkgs %}
+                                <a class="premium_view" onclick="try_premium_modal();">Views</a>
+                                {% endif %}
+                                <p style="font-weight:300">Try <b>Premium</b> subscription for free</p>
+                            </div>
+                            {% endif %} -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row upwrdz-client-management-main">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-sm-12 upwrdz-client-managementdiv">
+                        <div class="upwrdz-client-total">
+                            <div class="upwrdz-client-management">
+                                <div class="row no-margin">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 total-client-blue text-center">
+                                        <h2>{{ total_reffered_advisor_count | default:0 }}</h2>
+                                        <p>Total Loop</p>
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 client-management-light-b">
+                                        <h2 class="question-mark-rating"><img src="{% static 'new_images/user-profiole.png' %}"/>Advisor Loop <a href="#" data-toggle="modal" data-target="#advisor-loop"><i class="fa fa-question-circle" aria-hidden="true"></i></a></h2>
+
+                                        <div class="row client-management-inner-view">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center client-management-one">
+                                                <h2>{{ referred_register_advisor_count }}</h2>
+                                                <p>Registered</p>
+                                            </div>
+                                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-center client-management-two">
+                                                <h2>{{ referred_unregister_advisor_count }}</h2>
+                                                <p>Un&nbsp;-&nbsp;Registered</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 client-management-light-w text-center">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button right-border">
+                                            <a class="n-span-blue-color" onClick="refer_advisor();" title=" Refer & Earn ">LOOP</a>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button">
+                                            <a class="n-span-blue-color" onclick="view_loop('{{request.user}}');" title="View Advisor Loop Details">VIEW</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="upwrdz-client-management">
+                                <div class="row no-margin">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 total-client-blue text-center">
+                                        <h2> {{total_earnings}}</h2>
+                                        <p>Total&nbsp;Earnings</p>
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 client-management-light-b">
+                                        <h2><img src="{% static 'new_images/coins_white.png' %}"/> My Earnings </h2>
+                                        <div class="row client-management-inner-view">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center client-management-one">
+                                                <h2>{{ total_advisor_earning }}</h2>
+                                                <p>Advisor Earning</p>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center client-management-two">
+                                                <h2>{{ total_referral_earning }}</h2>
+                                                <p>Referral Earning</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 client-management-light-w text-center">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button right-border">
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button">
+                                                <a class="n-span-blue-color">VIEW </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 upwrdz-client-courses">
+                        <div class="upwrdz-client-management">
+                            <div class="row no-margin">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 total-client-blue text-center">
+                                    <h2>{{ total_members_count }}</h2>
+                                    <p>Total&nbsp;Clients</p>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 client-management-light-b">
+                                    <h2><img src="{% static 'new_images/user-profiole.png' %}"/>Client&nbsp;Management</h2>
+                                    <div class="row client-management-inner-view">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center client-management-one">
+                                            <h2>{{ registered_members_count }}</h2>
+                                            <p>Registered</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center client-management-two">
+                                            <h2>{{ un_registered_members_count }}</h2>
+                                            <p>Un&nbsp;-&nbsp;Registered</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 client-management-light-w text-center">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button right-border">
+                                            <!-- Commented for this version -->
+                                            <!-- onClick="choose_user_role();" -->
+                                            <!-- onClick="launch_uplyf('advisor');" -->
+                                            <!-- n-span-blue-color -->
+                                            {% if user_status == EXISTING_UPLYF_USER %}
+                                                <a title="COMING SOON" class="" id="id_launch_uplyf_button" autocomplete="off" class="disabled">GO TO GREATX</a>
+                                            {% else %}
+                                                <a title="COMING SOON" class="" id="id_launch_uplyf_button" autocomplete="off" class="disabled">GO TO GREATX</a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="dropdown client-management-dropdown n-padding-15">
+                                                <a class="dropdown-toggle" id="menu1" data-toggle="dropdown">MANAGE <i class="fa fa-angle-down pull-right" style="color: #333;margin-top: 4px"></i></a>
+
+                                                <ul class="dropdown-menu text-center" role="menu" aria-labelledby="menu1">
+                                                    <!-- commented , its needed to be add later-->
+                                                    <!-- onClick="add_member('{{request.user}}');"  -->
+                                                    <!-- onclick="view_member();" -->
+                                                    <!-- onclick="manage_transaction();" -->
+                                                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" title="COMING SOON">ADD</a></li>
+                                                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" title="COMING SOON">VIEW</a></li>
+                                                    <!-- commented on 04-10-17 on the bases of requirement -->
+                                                    <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">GROUP</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="load_send_group_email_modal();">SEND MAIL</a></li> -->
+                                                    <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" title="COMING SOON">TRANSACTIONS</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upwrdz-client-management">
+                            <div class="row no-margin">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 total-client-blue text-center">
+                                    <h2>{{ total_enquiries }}</h2>
+                                    <p>Total&nbsp;Enquiry</p>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 client-management-light-b">
+                                    <h2><img src="{% static 'new_images/user-profiole.png' %}"/>Enquiry&nbsp;Management</h2>
+                                    <div class="row client-management-inner-view">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center client-management-one">
+                                            <h2 id="dash_accept">{{enquiry_management_accepted}}</h2>
+                                            <p>Accepted</p>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 text-center client-management-one">
+                                            <h2 id="dash_reject">{{enquiry_management_rejected}}</h2>
+                                            <p class="declined-dashboard">Declined</p>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center client-management-two">
+                                            <h2 id="dash_inprog">{{enquiry_management_inprogress}}</h2>
+                                            <p>In&nbsp;Progress</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 client-management-light-w text-center">
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button">
+                                        <a class="n-span-blue-color" onClick="client_enquiry('{{request.user}}');" title="Check the status">OPEN</a>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 management-button right-border">
+                                        <a class="n-span-blue-color" onclick="list_enquiried_clients();" title="View Enquiries">VIEW</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <!-- commented for future use -->
+                            <!-- stream content comes here -->
+                            <!--<div class="upwrdz-corestream-course-one upwrdz-corestream-course col-md-12">
+                                <h2 class="upwrdz-corestream-header-one upwrdz-icore-top"><img src="/static/images/icore-icon.png" class="img-responsive">
+                                    </h2>
+                                {% for icore in token_obj_all|slice:":3" %}
+                                    {% if user.is_authenticated %}
+                                        <a href="/blog/icore/{{icore.ID}}/post/">
+                                            <b>{{icore.title }}</b><br/>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                                <h4><a href="/blog/icore/" title="ICORE"> GO TO ICORE</a></h4>
+                                <span class="total-blogs">Total Blogs: {{total_icore_posts}}</span>
+                            </div>
+
+                        </div>-->
+                        <!--end   -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xs-pull-9 upwrdz-myhub-sidenav">
+                <div class="row">
+                    <div class="uwd-block-one col-xs-12">
+                        <h2>Invite Friends</h2>
+                        <ul>
+                            <!-- Commented temporarly -->
+                            <li class="invite-friends">
+                                <a href="{% url 'meetup:list_meetup_events' %}">
+                                    <img src="/static/new_images/mlegion-logo.jpg" class="img-responsive" title=" Meet Up" style="width: 45px;">
+                                </a>
+                            </li>
+                            <li class="invite-friends">
+                                <a href="{% url 'webinar:dashboard' %}">
+                                    <img src="/static/new_images/new_webinar_icon.png" class="img-responsive" title=" Webinar">
+                                </a>
+                            </li>
+                            <li class="invite-friends hide">
+                                <a onClick="facebookLogin('dashboard');">
+                                    <img src="/static/new_images/fb.png" class="img-responsive" title="Facebook">
+                                </a>
+                            </li>
+                            <li class="invite-friends hide">
+                                <a onClick="onLinkedInLoad('dashboard');">
+                                    <img src="/static/new_images/linkd.png" class="img-responsive" title="LinkedIn">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="divider col-xs-12"></div>
+                    {% if user_agent_country == REGION_IN %}
+                    <div class="uwd-block-one col-xs-12">
+                        <h2>D&B Verification (DBV)</h2>
+                        <div class="row uwd-crisil-verification">
+                            <!-- <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 micro-right-border micro-right-view-one"> -->
+                                <!-- <img src="{% static 'new_images/crisil.png' %}"> -->
+                                <!-- {% if crisil_app_status == CRISIL_NOT_APPLIED %} -->
+                                    <!-- <button type="button" class="btn btn-applynow" onclick="show_apply_crisil_modal('crisil_modal');">Apply Now</button> -->
+                                <!-- {% elif crisil_app_status == CRISIL_EXPIRED or crisil_app_status == CRISIL_EXPIRED_BY_USER %} -->
+                                    <!-- <button type="button" class="btn btn-applynow" onclick="load_crisil_renewal_payment_modal();" title="CRISIL Renewal">RENEWAL</button> -->
+                                <!-- {% endif %} -->
+                            <!-- </div> -->
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 crisil-verfication-oneadvisor micro-right-view-two">
+                                <!-- commented for future use -->
+                              <!--<p><a data-toggle="modal" data-target="#payment_details" title="Payment Details">Make Payment</a></p>-->
+                                <div class="crisil-verfication-advisor-one" >
+                                    <p><a onclick="" data-toggle="modal" data-target="#db-verification"  title="HOW IT WILL"> <u> HOW IT WORKS?</u> </a></p>
+                                    <p><a onclick="show_crisil_faq_modal()" title="CRISIL FAQ"> <u> FAQ </u> </a></p>
+                                    <!-- <p><a onclick="call_crisil_terms_conditions();" title="CRISIL verification Terms and conditions"><u> T & C </u></a></p> -->
+                                </div>
+                            </div>
+                            <div class="col-xs-12 upwrdz-enter-payment">
+                                {% if crisil_app_status == CRISIL_APPLIED %}
+                                    <button type="button" class="btn upwrdz-btn" onclick="load_crisil_payment_modal();">Enter Payment Details</button>
+                                {% elif crisil_app_status == CRISIL_PAYMENT_SUBMITTED or crisil_app_status == CRISIL_RENEWAL_PAYMENT_SUBMITTED %}
+                                    <label>Bank Name:</label><br>
+                                    {{ user_profile.payment.bank_name }}<br>
+                                    <label>Cheque / DD / Ref No:</label><br>
+                                    {{ user_profile.payment.cheque_dd_no }}<br>
+                                    <label>Cheque / DD - Date:</label><br>
+                                    {{ user_profile.payment.cheque_dd_date }}<br>
+                                    <label>Paid Amount:</label><br>
+                                    {{ user_profile.payment.discounted_amount }} INR<br>
+                                    <p id="status" class="text-justify" style="word-break: normal;">
+                                        Please wait while your transaction is processing.
+                                    </p>
+                                {% elif crisil_app_status == CRISIL_PAYMENT_RE_SUBMIT or crisil_app_status == CRISIL_RENEWAL_PAYMENT_RE_SUBMIT or crisil_app_status == CRISIL_VERIFICATION_FAILED  %}
+                                    <button type="button" class="btn upwrdz-btn" onclick="load_crisil_payment_modal();">Re-enter Payment Details</button>
+                                {% elif crisil_app_status == CRISIL_CERTIFICATE_IN_PROCESS or crisil_app_status == CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS %}
+                                    <i>
+                                        Your payment has been received<br /> successfully. CRISIL Verification process has been initiated.
+                                    </i>
+                                {% elif crisil_app_status == CRISIL_GOT_CERTIFICATE %}
+                                    <label>CRISIL REGNo:</label><br />
+                                    {{ advisor.crisil_registration_number }}<br />
+                                    <label>CRISIL Exp Date:</label><br />
+                                    {{ advisor.crisil_expiry_date|date:'F Y' }}<br />
+                                    <label>Number of years applied:</label>
+                                    {{ no_of_years_selected }}<br />
+                                    <i>
+                                        <a href="" onclick="click_to_download('{{request.user}}');" class="n-span-blue-color">Click here</a> to download certificate
+                                    </i>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!-- Give advice block -->
+                    <div class="divider col-xs-12"></div>
+                    <div class="uwd-block-one uwd-block-two uwd-crisil-verification col-xs-12">
+                        <h2>Advice</h2>
+                        <div class="crisil-verfication-oneadvisor-one">
+                            <a class="btn btn-applynow advice-btn" href="{% url 'member:get_questions_list' %}">GIVE YOUR ADVICE</a>
+                        </div>
+
+                    </div>
+                    <!-- Starts MICRO LAN block -->
+                    <div class="divider col-xs-12"></div>
+                    <div class="uwd-block-one uwd-block-two col-xs-12">
+                        <h2>Micro Learning </h2>
+                        <div class="row uwd-crisil-verification">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 micro-right-border crisil-verfication-oneadvisor-one">
+                                <!-- commented for future use -->
+                                <!-- <button type="button" class="btn btn-applynow" id="id_create_vedio" title="Request to shoot video"> Create  Video</button> -->
+                                <button type="button" class="btn btn-applynow" title="Upload your YouTube video" onclick="upload_my_video('#video-upload-modal','#dashboard_modal');">Upload Video</button>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 crisil-verfication-oneadvisor crisil-verfication-oneadvisor-one">
+                                <div class="col-sm-4 col-md-4 col-lg-4 mob-address-col">
+                                    <label for="ex3">Calendly<span>*</span></label> 
+                                    <input type="text" onfocus="this.placeholder = ''" name="id_calendly" id="id_calendly" class="form-control" onchange="" value="{{advisor.calendly_link}}" onkeyup="validate_field_onkeypress(id, 'help-text-calendly', 'Calendly link');" required>
+                                    {% comment %} validateAlpha('','help-text-calendly'); {% endcomment %}
+                                    <button type="button" class="btn btn-applynow" id="calendly" onclick="save_link()">Link</button>
+                                    <span class="help-block" id="help-text-calendly"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 crisil-verfication-oneadvisor crisil-verfication-oneadvisor-one">
+                                <div class="crisil-verfication-advisor-one">
+                                    <!-- <p><a onclick="micro_learning_packages_model()"> <u> Packs </u> </a></p> -->
+                                    <p><a onclick="get_microlearning_faq_modal()"> <u> FAQ </u> </a></p>
+                                    <p><a onclick="call_crisil_terms_conditions();" title="Micro learning terms and conditions"> <u> T & C </u> </a></p>
+                                    <p><a onclick="micro_modal();" title="How it will"><u>HOW IT WORKS? </u></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- upwrdz news -->
+                    <div class="divider col-xs-12"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 upwrdz-corestream-head-row">
+                        <div class="uwd-block-one">
+                            <h2>ABOTMI News</h2>
+                        </div>
+                        <div class="vticker">
+                            <ul class="news-listing">
+                                {% for news in news_content %}
+                                    <p>
+                                        {{ news.notice }}  <br /><br />
+                                    </p>
+                                    {% empty %}
+                                        <p>No news available.</p>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% comment %}
+                    <!-- Below code is Commented for future use, because in this release we do not need this code -->
+                    <!-- Starts Transit pincode -->
+                    <div class="divider col-xs-12"></div>
+                    <div class="uwd-block-one uwd-block-two col-xs-12">
+                        <h2>Check pincode </h2>
+                        <div class="row uwd-crisil-verification">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <button type="button" class="btn btn-applynow" onclick="show_check_pincode_model();" title="Get pincode model">Get Pincode</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bootstrap-modal %}
+    {{block.super}}
+    <!-- end of ranking modal -->
+    <div id="dashboard_modal"></div>
+    <!-- USER roles -->
+    <div class="modal fade" id="uplyf_user_role" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog popup-modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading">
+                    <h4 class="modal-title" id="share-modal-label">
+                        User Role
+                    </h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="uplyf_user_role-body">
+                    <div class="radio ">
+                      <label class="user-radio-btn">
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="advisor">
+                        Advisor
+                      </label>
+                      <label class="user-radio-btn">
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="member">
+                        Client
+                      </label>
+                    </div>
+                    <div>
+                        <button type="button" id="id_user_selection" class="btn btn-primary popup-btn"  onclick="video_shoot_request();">Ok</button>
+                        <button type="button" id="cancel_selection" class="btn n-bg-grey" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+                <div class="modal-footer" id="uplyf_user_role-footer">
+                    <!-- This Body footer can be reused -->
+                    <!-- Ajax will load footer content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- USER roles -->
+    <!-- (who didnot add any clients in UPwrdz ) modal popup  -->
+    <div class="modal fade upwardz-modal" id="id_advisor_count_client_modal" tabindex="-1" role="dialog" aria-labelledby="id_new_member_list_modal_title" aria-hidden="true">
+        <div class="modal-dialog popup-modal-dialog">
+            <div class="panel panel-default upwrdz-log-panel">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">REQUEST TO ADD A CLIENT</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content text-center" id="id_advisor_count_client_modal">
+                    To get a access in GREATEX add your clients in ABOTMI and proceed...
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- dynamic form for launch uplyf -->
+    <div id="form_div" data-role="popup" class="ui-content" style="min-width:250px;">
+    </div>
+
+    <!-- Add client aadhaar email verification model -->
+    <div class="modal fade add_client_email_verification_model"  id="add_client_email_verification_model" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog">
+            <form name="add_clent_email_verification_form"  id="add_clent_email_verification_form" >
+                <div class="panel panel-default popup-panel">
+                    <div class="panel-heading dash-heading">
+                        <h4>
+                            e-KYC
+                            <span>id='title_span'</span>
+                        </h4>
+                    </div>
+                    <div class="panel-body pannel-popup-content">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p>Thank you. Your e-KYC is verified successfully.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputEmail">Username *</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control no-spin" id="aadhaar_email" name="aadhaar_email" placeholder="Please provide Email Address" autocomplete="off" required/>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" id="checkbox_same_alternate_email" onChange="set_alternative_email();" value="">Use same email for alternate email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row n-margin-b-10">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputAlternateEmail">Alternate email *</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control no-spin" id="alternate_email" name="alternate_email" placeholder="Alternate Email Address" autocomplete="off"  required/>
+                                <span>This will be communication email address.</span>
+                            </div>
+                        </div>
+                        <div class="row n-margin-b-10">
+                            <div class="col-md-4">
+                                <label class="control-label" for="inputMobile">Mobile Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control no-spin" id="aadhaar_mobile" name="adhaar_mobile" placeholder="Mobile number" autocomplete="off" required/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <button type="button" class="btn btn-primary" id="cancel_btn"  onClick="cancel_create_member()" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Canceling">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="generate_aadhaar_otp"  data-loading-text="<i class='fa fa-spinner fa-spin '></i> Confirming">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- end of Add client email verification model -->
+    <!-- Payment Details -->
+    <div class="modal fade upwardz-modal" id="payment_details" name="payment_details" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color">MAKE PAYMENT</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-contentpanel-body pannel-popup-content" id="email_modal_body">
+                        <p class="texttable-box .row{
+                            background: rgba(125, 125, 127, 0.61);
+                            margin: 20px;
+                            padding:20px;
+                        }
+                        .table-box .form-group{
+                            margin-bottom: 0;
+                        }
+                        @media (min-width:768px) {
+                            .table-box .right-border{
+                                border-right: 1px solid #fff;
+                            }
+                        }
+                        @media (min-width: 576px){
+                            .modal-dialog-centered {-center">
+                            Please add the Payee account details given below and make the payment
+                        </p>
+                        <h4 class="n-h4 text-center">Payee Account Details</h4>
+                        <div class="table-box">
+                            <div class="row">
+                                <div class="col-sm-6 right-border form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-5">Account Name <span style="float:right;"> : </span></label>
+                                        <div class="col-sm-7">
+                                            Datanet Techno Solutions Pvt Ltd
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label class="col-sm-5">Account Number   <span style="float:right;"> : </span></label>
+                                        <div class="col-sm-7">
+                                            204011148405
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label class="col-sm-5">Bank Name <span style="float:right;"> : </span></label>
+                                        <div class="col-sm-7">
+                                            Kotak Mahindra Bank
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-5">Branch <span style="float:right;"> : </span></label>
+                                        <div class="col-sm-7">
+                                            M.G.Road
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label class="col-sm-5">Location <span style="float:right;"> : </span></label>
+                                        <div class="col-sm-7">
+                                            Bangalore
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label class="col-sm-5">IFSC Code <span style="float:right;"> : </span> </label>
+                                        <div class="col-sm-7">
+                                            KKBK0008066
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center col-md-offset-1 col-md-10">
+                            Once the payment is made, you will need to provide the payment details and upload the relevant document. Please note that your CRISIL verification process will commence only after the relevant payment document is uploaded.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Payment Details -->
+
+
+
+    <!-- Pincode Confirmation Popup -->
+    <div id="pincode_confirmation_modal" class="modal fade upwardz-modal" role="dialog" name="pincode_confirmation_modal" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                         <h3 class="modal-title n-span-blue-color">Check your current Pincode</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="video-request-modal-body">
+                        <div class="row padding-tb8">
+                            <div class="form-group col-md-12" data-toggle="toggle">
+                                <input class="form-control" placeholder="Please enter 4 or 6 digit pincode" name="current_pincode" id="current_pincode" type="text" pattern="^[1-9]\d{3}$|^[1-9]\d{5}$" required='true'>
+                                <span class="help-block" ></span>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" onclick="transit_hyperlocal_api_call();"  class="btn upwrdz-button" >SUBMIT</button>
+                                <button type="button" class="btn upwrdz-button" onclick="cancel_pincode_confirmation_popup();">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- models -->
+<div class="modal fade"  id="client-ranking" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+      <div class="modal-content myrating-myranking-model">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle">Client Ranking</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ul style="padding-left: 20px;">
+               <li> Here is an opportunity to showcase that all the goodwill you have built in the past</li>
+               <li>Here is an opportunity to showcase the loyalty that you hold with your client base</li>
+               <li>Here is an opportunity, what your customer thinks about you</li>
+               <li>Here is an opportunity to improve yourself and become better to best.</li>
+            </ul>
+            <p>Invite your existing clients from various part of your business and ask them to rank you, rank your services, rank your skills that you possess, rank your communication, product knowledge, allow them to do it by their way.</p>
+            <p>Client ranking will enable the new clients to know more about every advisor by knowing what their existing client think about them, how they felt about them in their past dealings.</p>
+            <p class="text-center"><button type="button"  class="btn btn-default add-client-btn" onclick="invite_advisor_to_rate_modal('member');"> Additional Information</button></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade"  id="peerrating-view" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+          <div class="modal-content myrating-myranking-model">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Peer Rating</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>To build your credit worthiness, build trust between the community to show the strength of the network and community built by you, here is an opportunity for every advisor to explore all the potential to the new client as well as to the existing client.</p>
+              <p>Send an invite to the industry peers, ask them to Rate you.</p>
+              <p>It’s a simple process, share their name, email id and the mobile number and invite them. We will do the rest, your peer will be invited to rate you by mail, by sms, if needed even we will call and follow up to rate you.</p>
+              <p>The objective is to establish the trust, build social community in understanding the advisor better, and establish a reference point, which can also lead to acquire new client relationship.</p>
+              <p class="text-center"><button type="button"  class="btn btn-default add-client-btn" onclick="invite_advisor_to_rate_modal('advisor')";> Invite a peer to rate you</button></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="modal fade"  id="advisor-loop" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content myrating-myranking-model">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Loop</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <h3>Sharing is caring</h3>
+                <p><b>How it works</b></p>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <ol>
+                                <li>You can loop any advisor from any location.</li>
+                                <li>All you have to do is to share name, email id, mobile number and the city of the proposed advisor; we will contact them with your reference.</li>
+                                <li>This advisor will be added in your loop.</li>
+                                <li>Every time when you refer an advisor you earn 10 points.</li>
+                                <li>You can redeem this points at the end of every year.</li>
+                                <li>On the registration of the advisor you get another 10 points.</li>
+                                <li>On certification of the advisor you get another 10 points.</li>
+                                <li>On the first transaction of the advisor you get 10 points.</li>
+                                <li>On verification of the advisor you get 10 more points.</li>
+                                <li>Every time when that advisor introduces any other advisor you get 2 points.</li>
+                                <li>Every time when that advisor does a transaction you get 1 point.</li>
+                                <li>When you get 100 points you get bonus of 5 more points.</li>
+                                <li>On every 100 points you reach you get an additional bonus points as surprise.</li>
+                            </ol>
+                        </div>
+                        <div class="text-center col-md-5">
+                            <img class="img-responsive mx-auto" src="/static/new_images/loop-advisor-map.png">
+                        </div>
+                    </div>
+                    <h3>Terms and Conditions</h3>
+                    <ol>
+                            <li>You can always share, connect, and discuss opportunities.</li>
+                            <li>You will get the first information on their activities.</li>
+                            <li>You can share your activities to them.</li>
+                            <li>You will be peer rated and you can rate and rank them through peer rating.</li>
+                        </ol>
+                        <p class="dashboard-rating-red"></p>
+                        <p class="text-center"><button type="button"  class="btn btn-default add-client-btn" onclick="refer_advisor();" title="Refer & Earn"> Start looping now</button></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade"  id="db-verification" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+              <div class="modal-content myrating-myranking-model">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="exampleModalLongTitle">D&B Verified advisor </h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                    <p>On your registration you can apply for D&B Verification, any registered advisor can participate in this.</p>
+                    <p>The verification and the award is an independent process of D&B, it’s as per their grading criteria.</p>
+                    <p>Every D& B verified advisor can use the D&B verification in all their communication materials with the unique number.</p>
+                    <p>To get D&B Verified, every advisor has to pay onetime fee  as per the terms and conditions of D&B.</p>
+                    <p class="text-center"><button type="button"  class="btn btn-default add-client-btn" title="COMING SOON" onclick="" disabled>Apply for D&B verification</button></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+<!-- models end -->
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/plugins/underscore-min.js"></script>
+    <script type="text/javascript" src="{% static 'js/new_js/google_api.js' %}"></script>
+    <script type="text/javascript">
+        var csrf_token = "{{csrf_token}}";
+        var wpb_url = "{{wpb_url}}";
+        $( document ).ready(function() {        
+            $(".setsize").each(function() {
+                $(this).height($(this).width());
+            });
+        });
+        $(window).on('resize', function(){
+            $(".setsize").each(function() {
+                $(this).height($(this).width());
+        });
+        });
+    </script>
+    <script src="{% static 'js/new_js/wpb.js' %}"></script>
+    <script type="text/javascript">
+        //var registered_members_in_upadvisor-looplyf = "{{ registered_members_count }}";
+        var create_uplyf_session_url = "{% url 'dashboard:create_users_session' %}";
+        var uplyf_server_name = "{{uplyf_server_name}}"
+        var certificate_cost = "{{CRISIL_CERTIFICATE_VALUE}}";
+        var crisil_tax_percentage = "{{TAX_PERCENTAGE_CRISIL}}";
+        var no_of_years_selected = "{{no_of_years_selected}}";
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var payment_status_code = '{{payment_status_code}}';
+            var payment_result_data = '{{payment_result_data}}';
+            if(payment_status_code == '200' | payment_status_code == '400'){
+              if(payment_result_data != ''){
+                alert(payment_result_data);
+              }
+            }
+            $('.loader-view').hide();
+            $("#aadhaar_email").val("");
+            $("#aadhaar_mobile").val("");
+            var is_kyc_success = "{{is_kyc_success}}";
+            if(is_kyc_success == "False"){
+                alert("Error occured in verifying ekyc. Please try it again.")
+            }
+            if(is_kyc_success == "True"){
+                $("#aadhaar_email").removeAttr("disabled");
+                $("#aadhaar_mobile").val("{{aadhaar_mobile}}");
+                var aadhaar_email = "{{email_from_aadhaar}}";
+                if(aadhaar_email != "None"){
+                    $("#aadhaar_email").val("{{email_from_aadhaar}}");
+                    $("#aadhaar_email").attr('disabled','disabled');
+                }
+                var is_ekyc_verified_data_present = "{{is_ekyc_verified_data_present}}";
+                if(is_ekyc_verified_data_present == "True"){
+                    $('#add_client_email_verification_model').modal({
+                        show: true,
+                        backdrop: 'static',
+                        keyboard: false,
+                    });
+                }
+            }else{
+                $("#aadhaar_email").removeAttr("disabled");
+            }
+            var is_adhaar_no_invalid = '{{is_adhaar_no_invalid}}';
+            if(is_adhaar_no_invalid == "True"){
+                alert("Aadhaar number is not correct. Please provide correct aadhaar number.")
+            }
+        })
+    </script>
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.easy-ticker.js' %}" ></script>
+    <!-- facebook integration part -->
+    {% comment %} <script type="text/javascript">
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : "{% get_social_media 'FACEBOOK_API' %}",
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+    </script>
+    <script type="text/javascript" src="{% static 'js/new_js/facebook.js' %}"></script> {% endcomment %}
+    {% comment %} <script type="text/javascript" src="https://platform.linkedin.com/in.js">
+        api_key: {{LINKEDIN_API}}
+        authorize: true
+        scope: r_basicprofile,r_emailaddress,w_share
+    </script> {% endcomment %}
+    {% comment %} <script type="text/javascript" src="{% static 'js/new_js/linkedin.js' %}"></script> {% endcomment %}
+    <script type="text/javascript" src="{% static 'js/new_js/geo_location_tracking.js' %}"></script>
+    <script src="{% static 'js/reia_dashboard.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/new_js/youtube_video.js' %}" charset="utf-8"></script>
+    <script type="text/javascript">
+
+    $("#add_clent_email_verification_form").submit(function(event){
+        event.preventDefault();
+        $('.loader-view').show();
+        var token = "{{ csrf_token }}";
+        var aadhaar_email = $("#aadhaar_email").val();
+        var alternate_email = $("#alternate_email").val();
+        var aadhaar_mobile = $("#aadhaar_mobile").val();
+        if(aadhaar_email != " " && aadhaar_mobile != '' && alternate_email !=" "){
+            $.ajax({
+                type:"POST",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                url:"{% url 'aadhaar:create_client_in_uplyf' %}",
+                data:{"email":aadhaar_email,"alternate_email":alternate_email},
+                success:function (response) {
+                  $('#add_client_email_verification_model').modal('hide');
+                  $('.loader-view').hide();
+                  alert(response.data);
+                },
+                error:function(response) {
+                  $('.loader-view').hide();
+                  alert(response.responseJSON.data);
+                }
+            });
+        }else {
+            alert("Please fill the details");
+        }
+    });
+
+    function cancel_create_member(evt){
+      $('.loader-view').show();
+      var token = "{{ csrf_token }}";
+      $.ajax({
+          type:"POST",
+          beforeSend: function(request){
+              request.setRequestHeader("X-CSRFToken", token);
+          },
+          url:"{% url 'aadhaar:delete_session_aadhaar_values' %}",
+          data:{},
+          success:function (response) {
+            $('.loader-view').hide();
+            $('#add_client_email_verification_model').modal('hide');
+          },
+          error:function(response) {
+            $('.loader-view').hide();
+            $('#add_client_email_verification_model').modal('hide');
+          }
+      });
+    }
+
+    function set_alternative_email(){
+      if($("#checkbox_same_alternate_email").is(':checked')){
+        $("#alternate_email").val($("#aadhaar_email").val());
+      }else{
+        $("#alternate_email").val("");
+      }
+    }
+
+        // looping functions
+        function save_refer_advisor(){
+            var validation_result=validate_all();
+            if(validation_result == true){
+                refreshtable();
+                var table = html_to_json();
+                var token = "{{csrf_token}}";
+                $("#loop_advisor").attr("disabled", true);
+                $("#loop_advisor").html('<option> Processing ...</option>');
+                $.ajax({
+                    type: "POST",
+                    url: "/dashboard/save_refer_advisor/",
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    data: {jsondata:table},
+                    success: function(response) {
+                        if(response=='success'){
+                            $("#loop_advisor").attr("disabled", false);
+                            $('#refer-advisor-modal-body').html(
+                                '<p class="text-center" style="font-size:16px;">Loop successful</p>'
+                            );
+                            window.location.reload();
+                        }
+                        else{
+                            $('#refer-advisor-modal-body').html(
+                                '<p>Unable to Loop/Refer Advisor <br />'+
+                                    ' Please try again after sometime</p>'
+                            );
+                        }
+                    },
+                    error: function(response){
+                        $('#refer-advisor-modal-body').html(
+                            '<p>Unable to Loop/Refer Advisor <br />'+
+                                ' Please try again after sometime</p>'
+                        );
+                    }
+                });
+            }
+        }
+
+        function html_to_json() {
+            var json = '{';
+            var otArr = [];
+            var tbl2 = $('#loop_list tbody tr').each(function(i) {
+                x = $(this).children();
+                var itArr = [];
+                x.each(function() {
+                    itArr.push('"' + $(this).text() + '"');
+                });
+                otArr.push('"' + i + '": [' + itArr.join(',') + ']');
+            })
+            json += otArr.join(",") + '}'
+
+            return json;
+        }
+    </script>
+    <!-- <script type="text/javascript">
+        $('button').click(function(){
+            var $this = $(this);
+        $this.toggleClass('following')
+        if($this.is('.following')){
+            $this.addClass('wait');
+        }
+        }).on('mouseleave',function(){
+        $(this).removeClass('wait');
+        })
+    </script> -->
+    <!-- micro learning modal  -->
+    <script>
+    function micro_modal(){
+        $.ajax({
+            method: 'GET',
+            url: '/micro-learning-modal/',
+            beforeSend: setHeader,
+            success: function (response) {
+                $("#common_base_modal").html('');
+                $("#common_base_modal").html(response);
+                show_bootstrap_modal('#micro_learning_modal');
+            },
+            error: function (response) {
+                alert('Unable to process your request \n Please try again after some time.');
+            }
+        });
+    }
+    </script>
+
+
+<div class="modal fade upwardz-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="panel upwrdz-log-panel panel-default">
+                            <div class="modal-header modal-header-border-bottom text-center">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i class="fa fa-times-thin fa-2x"></i>
+                                    </button>
+                                    <h3 class="modal-title n-span-blue-color">Courses List</h3>
+                                    <hr class="modal-heading-hr">
+                                </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            {% if get_all_wpb_course_json %}
+                                {% for objects in get_all_wpb_course_json.crypto_courses %} 
+                                    <div class="col-md-6 col-sm-6 col-xs-12 course-card-view-bottom-space">
+                                        <div class="card-deck mb-3 text-center abotmi-course-card-deck">
+                                            <div class="card mb-4 box-shadow">
+                                                <div class="card-header">
+                                                    <h4 class="my-0 font-weight-normal">
+                                                        {{ objects.name }}
+                                                    </h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    {% if get_all_wpb_course_json.crypto_status %}
+                                                        <button class="btn btn-xs n-background-blue-color" title=" Join Course " onClick="joining_course('{{objects.course_id}}','{{objects.name}}');">GO TO WPB</button>
+                                                    {% endif %}
+                                                    {% if get_all_wpb_course_json.crypto_status == None %}
+                                                        <button class="btn btn-xs n-background-blue-color" title=" Join Course " onClick="joining_course('{{objects.course_id}}','{{objects.name}}');">JOIN</button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {% for objects in get_all_wpb_course_json.ico_courses %} 
+                                    <div class="col-md-6 col-sm-6 col-xs-12 course-card-view-bottom-space">
+                                        <div class="card-deck mb-3 text-center abotmi-course-card-deck">
+                                            <div class="card mb-4 box-shadow">
+                                                <div class="card-header">
+                                                    <h4 class="my-0 font-weight-normal">
+                                                        {{ objects.name }}
+                                                    </h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    {% if get_all_wpb_course_json.ico_status %}
+                                                        <button class="btn btn-xs n-background-blue-color" title=" GO TO WPB " onClick="joining_course('{{objects.course_id}}','{{objects.name}}');">GO TO WPB</button>
+                                                    {%endif%}
+                                                    {% if get_all_wpb_course_json.ico_status == None %}
+                                                        <button class="btn btn-xs n-background-blue-color" title=" Join Course " onClick="joining_course('{{objects.course_id}}','{{objects.name}}');">JOIN</button>
+                                                    {%endif%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {% if get_all_wpb_course_json.crypto_courses == None and get_all_wpb_course_json.ico_courses == None%}
+                                    {% for objects in get_all_wpb_course_json %} 
+                                        <div class="col-md-6 col-sm-6 col-xs-12 course-card-view-bottom-space">
+                                            <div class="card-deck mb-3 text-center abotmi-course-card-deck">
+                                                <div class="card mb-4 box-shadow">
+                                                    <div class="card-header">
+                                                        <h4 class="my-0 font-weight-normal">
+                                                            {{ objects.name }}
+                                                        </h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <button class="btn btn-xs n-background-blue-color" title=" Join Course " onClick="joining_course('{{objects.course_id}}','{{objects.name}}');">JOIN</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% else %}
+                                <div class="col-md-6 col-sm-6 col-xs-12 course-card-view-bottom-space">
+                                    <div class="card-deck mb-3 text-center abotmi-course-card-deck">
+                                        <div class="card mb-4 box-shadow">
+                                           No Courses Available
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

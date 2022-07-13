@@ -1,0 +1,71 @@
+<ion-view>
+	<ion-side-menus>
+		<ion-side-menu-content>
+			<upwrdz-Tabs></upwrdz-Tabs>
+			<ion-content class="m-upwrdz-editpage-content">
+				<div class="row editpage-title-bar">
+					<div class="back-btn" back>
+						<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow">
+					</div>
+					<div class="col">
+						Share Through Email
+					</div>
+				</div>
+				<form name="emailshare" class="" novalidate ng-submit="share.shareThroughEmail();">
+					<div class="row">
+						<div class="col">
+							<div class="list">
+								<select ng-model="share.emailshare.title" ng-options="opt for opt in share.titleoptions"
+									name="title" ng-touched ng-required="true">
+									<option value="" selected="selected">Select</option>
+								</select>
+								<span class="validationerrors"
+									ng-if="emailshare.title.$error.required && emailshare.title.$touched"> Title is
+									required</span>
+							</div>
+							<div class="list other-inset black-border">
+								<label class="item item-input">
+									<input ng-model="share.emailshare.name" placeholder="Name" type="text" name="name"
+										ng-required="true" ng-touched />
+								</label>
+								<span class="validationerrors"
+									ng-if="emailshare.name.$error.required && emailshare.name.$touched"> Name is
+									required</span>
+							</div>
+							<div class="list other-inset black-border">
+								<label class="item item-input">
+									<input ng-model="share.emailshare.email_to" placeholder="Email ID" type="email"
+										name="email" ng-required="true"
+										ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4}))$/"
+										ng-touched />
+								</label>
+								<span class="validationerrors"
+									ng-if="emailshare.email.$error.required && emailshare.email.$touched"> Email ID is
+									required</span>
+								<span class="validationerrors"
+									ng-if="emailshare.email.$error.pattern && emailshare.email.$dirty"> Enter valid
+									email id</span>
+							</div>
+							<div class="list other-inset black-border">
+								<label class="item item-input">
+									<input ng-model="share.emailshare.subject" placeholder="Subject" type="text"
+										name="subject" ng-required="true" ng-touched />
+								</label>
+								<span class="validationerrors"
+									ng-if="emailshare.subject.$error.required && emailshare.subject.$touched"> Subject
+									is required</span>
+							</div>
+							<div class="list other-inset black-border">
+								<div class="item item-input">
+									<textarea
+										class="cardtextfont">{{share.user_details.profile.first_name}} has shared profile for your reference.</textarea>
+								</div>
+							</div>
+							<button class="button full-button" ng-disabled="emailshare.$invalid">Send</button>
+						</div>
+					</div>
+				</form>
+			</ion-content>
+		</ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<style>
+    .modal-title.identity-title {
+        display: inline-flex;
+    }
+    .modal-side-content {
+        {% comment %} color: #2a3290; {% endcomment %}
+        text-align: center;
+    }
+    .content {
+        font-size: 18px;
+    }
+    .sub-content{
+        font-weight: 600;
+        width: 70%;
+        margin: auto;
+    }
+    .share_icons{
+        list-style: none;
+        display: inline-flex;
+    }
+    .micro-img-sec{
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .upwardz-modal .close{
+       position:absolute;
+       top:15px;
+       right:15px;
+       font-weight:600;
+       background:transparent;
+   }
+   .upwardz-modal h3{
+       font-size: 25px;
+       font-weight: 600;
+   }
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="calendly_how_it_works_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-4">
+                <h3 class="pt-4 pb-4 text-center">Calendly</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="fa fa-times-thin">x</span>
+                </button>
+                <div class="pannel-popup-content">
+                    <div class="col-md-12">
+                        <p class="modal-side-content text-center">If you’d like to connect with an investor, please create a<a href="https://calendly.com" target="_blank"> basic Calendly plan</a> which is absolutely free!</p>
+                    </div>
+                    <div class="col-md-12">
+                        <h3>Features:</h3>
+                        <ul>
+                            <li>Calendar integration with Google Calendar, Office 365, Outlook and iCloud</li>
+                            <li>Schedule unlimited events</li>
+                            <li>Personalized Calendly link</li>
+                            <li>Automated event notifications</li>
+                        </ul>
+                        <p>Make your life easier to connect with clients by scheduling appointment time’s that are convenient for you. New and existing clients will appreciate the ease of connecting with you over discovery calls in order to build strong relationships and increase retention rates.</p>
+                    </div>
+                    
+        </div>
+    </div>
+</div>
+<script>
+    var videoPlayer = document.getElementById("myVideo");
+    $("#vd_cls").on('click', function (e) {
+        videoPlayer.pause();
+    });
+</script>

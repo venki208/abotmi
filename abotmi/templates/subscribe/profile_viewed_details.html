@@ -1,0 +1,93 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<div class="modal fade upwardz-modal" id="try_premium" name="try_premium" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg subscription-number-details">
+        <div class="panel panel-default upwrdz-log-panel">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4  premium-package">
+                                <div class="input-group stylish-input-group">
+                                    <input type="text" class="form-control"  placeholder="Search">
+                                </div>
+                                <ul class="text-left">
+                                    {% for member in member_list %}
+                                        <li onclick="get_member_details({{member.pid}});">
+                                            <a>
+                                                {{ member.member_name }}<i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-sm-8 premium-package-detailes-main">
+                                <div class="premium-package-detailes" id="member-detials-body">
+                                    Click on any one of member on member list to view details.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var identity_pack = $("#id_identity_pack");
+    function get_member_details(id){
+        var token = csrf_token;
+        $.ajax({
+            type: "POST",
+            url: "/subscribe/get-member-details/",
+            data: { pid : id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken" , token);
+            },
+            success: function(response){
+                if(response != "Not Access") {
+                    var ht = '<ul>';
+                    data = JSON.parse(response);
+                    for(var i=0; i<data.length; i++){
+                        for(var key in data[i]) {
+                            if(i==0){
+                                ht = ht+'<li>'+data[i][key]+'</label>';
+                            }
+                            else{
+                                ht = ht+'<li><p><label>'+key+'</label><label>\
+                                    <i class="fa fa-minus" aria-hidden="true"></i>'+data[i][key]+'</label>\
+                                </p></li>';
+                            }
+                        }
+                    }
+                    ht = ht+'<button class="btn danger" id="id_identity_pack" onclick="show_pacakages();">UPGRADE</button>';
+                    $('#member-detials-body').html('');
+                    $('#member-detials-body').html(ht);
+                }
+                else{
+                    alert(response);
+                }
+            }
+        });
+    }
+
+    function show_pacakages(){
+        $('#try_premium').modal('hide');
+        $.ajax({
+            type:"GET",
+            url:"/subscribe/load-identity-pack/",
+            beforeSend: function(request) {
+                request.setRequestHeader("X-CSRFToken",csrf_token);
+            },
+            success: function(response){
+                $('#dashboard_modal').html('');
+                $('#dashboard_modal').html(response);
+                show_bootstrap_modal('#identity_pack_list_modal');
+            }
+        });
+    }
+</script>

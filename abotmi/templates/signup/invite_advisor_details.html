@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block base_css %}
+   {{ block.super }}
+{% endblock %}
+{% block theme_css %}
+       {{ block.super }}
+{% endblock %}
+{% block custom_theme_css %}
+   {{ block.super }}
+{% endblock %}
+{% block base_scripts %}
+   {{ block.super }}
+{% endblock %}
+{% block top_header %}
+   {{ block.super }}
+{% endblock %}
+{% block top_menu_bar %}
+   {{ block.super }}
+{% endblock %}
+{% block important_css %}
+   {{ block.super }}
+{% endblock %}
+{% block slider %}
+{% endblock %}
+{% block main_content %}
+    <div class="service section">
+        <div class="container">
+            <form class="contact-form" id="advisor_invite_form" name="advisor_invite_form" method="post" action="/signup/save_invite_advisor_modal/">
+                {% csrf_token %}
+                <div class="row">
+                    {% for field in form.visible_fields %}
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <div class="control-group">
+                                        <b>{{field.label}}</b>: {{field}}
+                                        {% if field.errors %}
+                                        {{field.errors}}
+                                        {% endif %}
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" name="submit1" id="submit1" class="btn btn-effect" value="SUBMIT"> Invite <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+   {{ block.super }}
+{% endblock %}
+{% block copy_rights %}
+   {{ block.super }}
+{% endblock %}
+{% block bootstrap-modal %}
+   {{ block.super }}
+{% endblock %}
+{% block theme_scripts %}
+   {{ block.super }}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    <!-- eb1b95 -->
+    <!-- <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}"> -->
+    {% if not user.is_authenticated %}
+        <style>
+            body{
+                padding-top: 123px;
+            }
+            .start-up{
+                text-align: center;
+                font-size: 16px;
+                font-weight: 700;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/advice-banners.png' %}">
+        <div class="container">
+            <h2>GET ADVICE</h2>
+        </div>
+    </section>
+    <section class="reputation-static abotmi-reputation-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/get-advice.png' %}"> 
+                        <h3 class="n-h4"><b>Get Advice</b></h3>
+                        <ul class="text-left">
+                            <li><b>Receive free advice on digital assets (security token offerings) from qualified advisors. All you have to do is to ask a question or for advice from multiple advisors.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <a type="button" class="btn " name="signup_a">GET ADVICE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    {{block.super}}
+{% endblock %}

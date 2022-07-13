@@ -1,0 +1,86 @@
+<ion-view>
+    <ion-content class="m-upwrdz-video-container" delegate-handle="myPageDelegate">
+        <button ion-button class="button button-block reg-btn" disabled id="register" ng-click="video.register()" name="button">
+          REGISTER NOW
+        </button>
+        <div class="row">
+          <div class="col alert-text">
+            <a class="ion-android-bulb"></a>
+            Watch  video to proceed further
+          </div>
+        </div>
+        <div class="vt-block" id="vt-block-1"  >
+            <div class="" id="video_modal" data-toggle="modal" role="dialog" aria-hidden="true">
+              <div class="">
+                  <div class="modal-content">
+                    <div class="panel upwrdz-log-panel panel-default" style="border: 0px solid rgba(255, 255, 255, 0.29);">
+                          <div class="panel-body pannel-popup-content modal-body upwrdz-after-login-screen">
+                              <div class="">     
+                                  <div ng-controller="videoCtrl as video_Ctrl">
+                                  <video class="video-size" id="myVideo1" controls playsinline="true" controlsList="nodownload" >
+                                          <source src="{{video_Ctrl.vid}}" frameborder="0" type="video/mp4" allowfullscreen>                       
+                                    </video>
+                                    </div>
+                                  <div class="pull-right" ng-click="video.register()">
+                                    <a  id="end1" class="v-btn">REGISTER</a>
+                                  </div>
+                                  <!-- <div class="">
+                                    <a class="v-btn" id="my_Video1" ng-click="video.scrollTo('vt-block-2')" >PLAY NEXT</a>
+                                  </div> -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-80">
+            <p class="vt-text">ABOTMI is bringing India's first organized Professional Investment Rated,</p>
+            <p class="showMe1 vt-text" style="display:none">
+                Ranked Professional Advisory community for the Existing Advisors as well as the Future Advisors.
+            </p>
+          </div>
+
+          <div class="col" ng-click="video.expand1()" >
+            <a class="button button-icon rt-btn ion-chevron-down pull-right" href=""></a>
+          </div>
+        </div>
+        <!-- <div class="vt-block" id="vt-block-2">
+          <div class="" id="video_modal" data-toggle="modal" role="dialog" aria-hidden="true">
+            <div class="">
+                <div class="modal-content">
+                    <div class="panel upwrdz-log-panel panel-default" style="border: 0px solid rgba(255, 255, 255, 0.29);">
+                        <div class="panel-body pannel-popup-content modal-body upwrdz-after-login-screen">
+                            <div class="">
+                                <div ng-controller="videoCtrl as video_Ctrl">
+                                <video class="video-size" id="myVideo2" controls controlsList="nodownload">
+                                  <source src="{{video_Ctrl.vid}}" frameborder="0" type="video/mp4" allowfullscreen>
+                                </video>
+                                </div>
+                                <div ng-click="video.register()">
+                                  <a   id="end2" class="pull-right v-btn">REGISTER</a>
+                                </div>
+                                <div ng-click="video.scrollTo('vt-block-1')">
+                                  <a id="my_Video2" class="v-btn" >PLAY NEXT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div> -->
+      <!-- <div class="row">
+        <div class="col col-80">
+          <p class="vt-text">ABOTMI is bringing India's first organized Professional Investment Rated, </p>
+          <p class="showMe2 vt-text" style="display:none">
+              Ranked Professional Advisory community for the Existing Advisors as well as the Future Advisors.
+          </p>
+        </div>
+        <div class="col" ng-click="video.expand2()">
+          <a class="button button-icon rt-btn ion-chevron-down pull-right"></a>
+        </div>
+      </div> -->
+    </ion-content>
+</ion-view>

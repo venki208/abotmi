@@ -1,0 +1,67 @@
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<h3><center>Revenue Transaction Statement</center></h3>
+<center>Total Payable : <b>{{ pay }}</b> <br/></center>
+<center>Total Receivable : <b>{{ receive }}</b> <br/></center>
+<center>Total Wallet Money : <b>{{ wallet }}</b><br/></center>
+<center>Parent Advisor : {{ parent_email }}<br/></center>
+<center>Grand Parent Advisor : {{ grand_parent_email }}</center><br/>
+<a href="/revenue/list-client/">Make New Transaction</a>
+{% if rev_details %}
+<center>
+    <table>
+        <tr>
+            <th> SERVICE ADVISOR </th>
+            <th> CLIENT </th>
+            <th> TYPE OF REVENUE </th>
+            <th> ID </th>
+            <th> PRODUCT ID </th>
+            <th> TRANSACTION VALUE </th>
+            <th> REVENUE (in %)  </th>
+            <th> REVENUE (in Rs) </th>
+            <th> STATUS </th>
+            <th> METHOD OF RECEIVE </th>
+        </tr>
+        {% for data in rev_details reversed %}
+        <tr>
+            <td> {{ data.service_advisor }}</td>
+            <td> {{ data.client }}</td>
+            <td> {{ data.revenue_type }}</td>
+            <td> {{ data.id }}</td>
+            <td> {{ data.product_id }}</td>
+            <td> {{ data.transaction_value }}</td>
+            <td> {{ data.revenue_in_percentage }}</td>
+            {% if data.status == "Receivable" %}
+                <td> + {{ data.revenue }}</td>
+            {% elif data.status == "Payable" %}
+                <td> - {{ data.revenue }}</td>
+            {% endif %}
+            <td> {{ data.status }}</td>
+            {% if data.wallet  %}
+                <td> Wallet Money </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+{% else %}
+<center>
+    <br/>No records Found
+</center>
+{% endif %}
+<br/>

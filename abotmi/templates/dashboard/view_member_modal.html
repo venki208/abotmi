@@ -1,0 +1,186 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+{% load widget_tweaks %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#view-member-modal-label').html('');
+        $('#view-member-modal-label').html('{{ MODAL_NAME }}');
+    });
+</script>
+<style>
+    .status-button {
+        background-color: #fbfceb !important;
+        color: #2e3191 !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+</style>
+<link href="/static/admin_theme/plugins/datatables/dataTables.bootstrap.css"
+rel="stylesheet" type="text/css" />
+<div class="modal fade upwardz-modal" role="dialog" id="view-member-modal" name="view-member-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg upwrdz-view-client-model upwrdz-view-peerclient-model">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">VIEW CLIENTS</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content pannel-popup-content-viewpeers" id="view-member-modal-body">
+                    <div class="col-md-12">
+                    {% if view_members or view_invited_members or client_list %}
+                        <div class="bs-example">
+                            <div class="table-responsive">
+                                <table id="table_id" name="table_id" class="table ">
+                                    <span class="pull-right">
+                                        <a id="veiw-member-search-icon" onclick="enable_search()"><i class="fa fa-search-thin fa-lg"></i></a>
+                                    </span>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Email ID
+                                            </th>
+                                            <th>
+                                                Mobile number
+                                            </th>
+                                            <th>
+                                                Added Date
+                                            </th>
+                                            <th>
+                                                No. of Txns
+                                            </th>
+                                            <th>
+                                                Status
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for user_profile_data in client_list %}
+                                        <tr>
+                                            <td>
+                                                {{ user_profile_data.first_name }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.email }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.mobile }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.created_date|slice:"0:10"}}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.no_of_transactions | default:0 }}
+                                            </td>
+                                            {% if user_profile_data.is_register_member == True %}
+                                            <td> 
+                                                <span class="label label-success status-button">Registered</span>
+                                            </td>
+                                            {% else %}
+                                            <td>
+                                                <span class="label label-warning status-button">UnRegistered</span>
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                    {% for user_profile_data in view_members %}
+                                        <tr>
+                                            <td>
+                                                {{ user_profile_data.user_profile_name }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.user_profile_email }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.user_profile_mobile }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.created_date|slice:"0:10"}}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.no_of_transactions }}
+                                            </td>
+                                            {% if user_profile_data.is_register_member == True %}
+                                            <td>
+                                                <span class="label label-success status-button">Registered</span>
+                                            </td>
+                                            {% else %}
+                                            <td>
+                                                <span class="label label-warning status-button">UnRegistered</span>
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                    {% for user_profile_data in view_invited_members %}
+                                        <tr>
+                                            <td>
+                                                {{ user_profile_data.first_name }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.email }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.mobile_no }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.created_date|slice:"0:10" }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.no_of_transactions }}
+                                            </td>
+                                            {% if user_profile_data.is_rejected == False %}
+                                            <td>
+                                                <span class="label label-success status-button">In Progress</span>
+                                            </td>
+                                            {% else %}
+                                            <td>
+                                                {% if user_profile_data.user_reject_count >= 3 %}
+                                                    <span class="label label-danger status-button">Blocked</span>
+                                                {% else %}
+                                                    <span class="label label-warning status-button">Rejected</span>
+                                                {% endif %}
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center">No Clients Found</p>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if view_members or view_invited_members %}
+<script src="/static/admin_theme/plugins/datatables/jquery.dataTables.js"
+        type="text/javascript"></script>
+<script src="/static/admin_theme/plugins/datatables/dataTables.bootstrap.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#table_id').dataTable({
+            language: {
+                paginate: {
+                    previous: "< Previous",
+                    next: "Next >"
+                }
+            }
+        });
+        document.getElementById('table_id_filter').style.display = 'none';
+    });
+    function enable_search(){
+        document.getElementById('table_id_filter').style.display = 'block';
+        document.getElementById('veiw-member-search-icon').style.display = 'none';
+    }
+</script>
+{% endif %}

@@ -1,0 +1,494 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% spaceless %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title|default:'Home'}} | ABOTMI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Facebook/Linkedin share meta tags -->
+    <meta prefix="og: http://ogp.me/ns#" property="og:url" content="{{DEFAULT_DOMAIN_URL}}"/>
+    <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Abotmi"/>
+    <meta prefix="og: http://ogp.me/ns#" property="og:description" content="Abotmi is a professional network that connects you with the most reliable and trustworthy digital asset advisors across the globe."/>
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{DEFAULT_DOMAIN_URL}}/static/V2_theme/images/new_logo.png"/>
+    <!-- end Facebook share meta tags -->
+
+    <link rel="shortcut icon" href="{% static 'V2_theme/images/fav-icon.png' %}">
+    
+    <!-- Common css/js -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'V2_theme/bs_4/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'V2_theme/bs_4/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <link href="{% static 'css/new_css/footer.css' %}" rel="stylesheet">
+    <input type="hidden" name="csrf_token" id="id_csrf_token" value="{{csrf_token}}">
+    <script>
+        var csrf_token = '{{csrf_token}}';
+        var user_agent_country = '{{user_agent_country|lower}}';
+    </script>
+    <link href="{% static 'V2_theme/css/base.css' %}" rel="stylesheet">
+    <script src="{% static 'V2_theme/js/common.js' %}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=" https://www.googletagmanager.com/gtag/js?id=UA-142343017-1"></script> 
+    <script> 
+        window.dataLayer = window.dataLayer || []; 
+        function gtag(){dataLayer.push(arguments);} 
+        gtag('js', new Date()); 
+
+        gtag('config', 'UA-142343017-1'); 
+    </script> 
+    <!-- End common css/js -->
+
+    <!-- Custome css block -->
+    {% block custome_css %}
+        <link href="{% static 'V2_theme/lib/full-slider.css' %}" rel="stylesheet">
+        <link href="{% static 'V2_theme/lib/animation.css' %}" rel="stylesheet">
+        <link href="{% static 'css/new_css/youtube_loader.css' %}" rel="stylesheet">
+    {% endblock %}
+    <!-- End Custome block css -->
+    
+    <!-- Responsive css -->
+    <link href="{% static 'V2_theme/css/responsive.css' %}" rel="stylesheet">
+    <!-- End Responsive css -->
+    {% block lib_css %}
+    {% endblock %}
+    {% comment %} <script src="{% static 'js/new_js/common.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+    <script src="{% static 'js/logout.js' %}" ></script>
+    <script src="{% static 'js/rating_ranking.js' %}" charset="utf-8"></script>
+    
+    
+
+    {% endspaceless %}
+    <script src="{% static 'js/websocketbridge.js' %}"></script>
+    <script src="{% static 'js/websocket.js' %}"></script>
+</head>
+<body>
+    <!-- Header -->
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+    <!-- End Header -->
+    {% block main_content %}
+        <!-- Header Slider -->
+        <header class="abotmi-banner-header abotmi-advisor-banner-content position-relative">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="row abotmi-banner align-items-center">
+                    <div class="col-md-6 col-sm-6 col-xs-12 text-left abotmi-mobile-header">
+                        <div class="bd-example">
+                            <img src="{% static 'V2_theme/images/no1investor.png' %}" class="img-fluid number-one-investor"/>
+                            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators landing-carousel-div">
+                                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <h2 class="mx-auto mt-2 mb-4">
+                                        <b>Helping you to build your reputation globally</b>
+                                        <br/>
+                                        Become a Digital Asset Advisor
+                                    </h2>
+                                    {% if not user.is_authenticated %}
+                                    <a name='signup_a' class="btn js-scroll-trigger">
+                                        GET STARTED
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="carousel-item">
+                                    <h2 class="mx-auto mt-2 mb-4">
+                                        <b>Enabling you to transform as a Digital Asset Advisor</b>
+                                        <br/>
+                                        Become a Digital Asset Advisor
+                                    </h2>
+                                    {% if not user.is_authenticated %}
+                                    <a name='signup_a' class="btn js-scroll-trigger">
+                                        GET STARTED
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="carousel-item">
+                                    <h2 class="mx-auto mt-2 mb-4">
+                                        <b>Get certified and verified as a Digital Asset Advisor</b>
+                                        <br/>
+                                        Become a Digital Asset Advisor
+                                    </h2>
+                                    {% if not user.is_authenticated %}
+                                    <a name='signup_a' class="btn js-scroll-trigger">
+                                        GET STARTED
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 abotmi-banner-img abotmi-mobile-header text-center">
+                        <img src="{% static 'V2_theme/images/globe.png' %}" class="img-fluid"/>
+        
+                        <div class="header">
+                            <div class="star star-1"></div>
+                            <div class="star star-2"></div>
+                            <div class="star star-3"></div>
+                            <div class="star star-4"></div>
+                            <div class="star star-5"></div>
+                            <div class="star star-6"></div>
+                            <div class="star star-7"></div>
+                            <div class="star star-8"></div>
+                        </div> 
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div id="particles-js"></div>
+            <a class="scroll-down down">
+
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </a>
+        </header>
+        <!-- End Header Slider -->
+
+        <!-- Page Content -->
+        <section class="up abotmi-advisor-section-div-card pb-5" style="background: #f3f8fc;">
+            <div class="container advisor-section-cards-finacial abotmi-advisor-section text-center">
+                <div class="row benefits-section-div">
+                    <div class="alert-link col-xs-12 col-12 text-center pb-5 pt-5">
+                        <h2>Benefits for Both Parties</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row mx-auto align-items-center">
+                            <div class="col-xs-12 mx-auto">
+                                <!-- <div class="card card-content m-0 mb-3 p-2">
+                                    <h2>INVESTORS</h2>
+                                    <p>Discover and connect with verified Digital<br>Asset Advisors.</p>
+                                    <p>Gain access to a global community<br>of professionals across the world whom you<br>can finally trust.</p>
+                                    <p>Ask and receive answers to your questions<br>from qualified professionals.</p>
+                                    <p>Rate your professional advisor to help other<br>investors like you make the right choice.</p>
+                                    <p>Get connected to an advisor for free and<br>receive unbaised advice.</p>
+                                    <p>Quick access to an expert with unique<br>expertise in their local market.</p>
+                                    <p>Tailored advice in a simplified language<br>without complicated technical lectures.</p>
+                                </div> -->
+                                <img class="mobile-hide-div mx-auto img-fluid" src="{% static 'V2_theme/images/benefits_full.png' %}" alt="">
+                                <img class="desktop-hide-div img-fluid" src="{% static 'V2_theme/images/benefits_advisors.png' %}" alt="">
+                                <br/><br/>
+                                <img class="desktop-hide-div img-fluid" src="{% static 'V2_theme/images/benefits_investors.png' %}" alt="">
+                                <!-- <div class="card card-content  m-0 mb-3 p-2">
+                                    <h2>ADVISORS</h2>
+                                    <p>Helping you to build, manage, and share your<br>reputation within the digital asset ecosystem</p>
+                                    <p>Expanding your network by connecting with<br>investors and peers</p>
+                                    <p>Letting clients and peers connect, rate and<br>rank their experience with you</p>
+                                    <p>Let clients and peers connect, rate and rank<br>their experience with you.</p>
+                                    <p>Getting certified and verified as a Digital<br>Asset Advisor</p>
+                                    <p>Generating leads and monetizing your exist-<br>ing online presence</p>
+                                    <p>Publishing and sharing your digital profile<br>within the digital asset advisor ecosystem</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if not user.is_authenticated %}
+                    <a name="signup_a" class="btn mt-5">LEARN MORE</a>
+                {% endif %}
+            </div>
+        </section>
+        <section class="abotmi-advisor-section-main" id="how_it_works_section">
+            <div class="container">
+                <div class="row advisor-section-div">
+                    <div class="col-xs-12 col-12 text-center">
+                        <h2>How it works for Advisors?</h2>
+                    </div>
+                    <div class="col-sm-6 abt-hwtra-adv">
+                        <div class="row">
+                            <div class="col-sm-12 abt-hwtra-sub pl-5">
+                                <div class="pb-5 position-relative build-relative">
+                                    <img class="img-fluid" src="{% static 'V2_theme/images/Group-2308.png' %}" alt="">
+                                    <div class="transf-advi">
+                                        <h4 class="h3"><b>Transforming Advisors to Digital Asset Advisors</b></h4>
+                                        <p class="lead">ABOTMI provides free and high quality online education</p>
+                                        <p><a href="/advisor_page/">Read More</a></p>
+                                    </div>
+                                </div>
+                                <div class="pb-5 position-relative build-relative">
+                                    <img class="img-fluid" src="{% static 'V2_theme/images/Group-2309.png' %}" alt="">
+                                    <div class="transf-advi">
+                                        <h4 class="h3"><b>Build Reputation</b></h4>
+                                        <p class="lead">ABOTMI helps you to create your own professional identity with a profile of yourself. </p>
+                                        <p><a href="/advisor_page/">Read More</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 pl-5 howitwork-advisors-left">
+                                <div class="pb-5 position-relative build-relative">
+                                    <img class="img-fluid" src="{% static 'V2_theme/images/Group-2310.png' %}" alt="">
+                                    <div class="transf-advi">
+                                        <h4 class="h3"><b>Business Growth</b></h4>
+                                        <p class="lead">ABOTMI enables advisors to connect with globally</p>
+                                        <p><a href="/advisor_page/">Read More</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 abt-hwtra-advisors" id="how_it_w_anim">
+                    </div>
+                </div>
+        </section>
+        <section class="abotmi-advisor-section-main" style="background: #f3f8fc;">
+            <div class="container abotmi-advisor-section creating-wealth">
+                {% if not user.is_authenticated %}
+                <div class="row advisor-find-partner mt-3 mb-5 pb-3">
+                    <div class="col-md-12 text-center">
+                        
+                        <h3>Connect with an advisor that will help you<br/> along your digital asset journey</h3>
+                        <img class="img-fluid" src="{% static 'V2_theme/images/protecting-wealth.png' %}" alt="">
+                    </div>
+                    <div class="col-md-12 text-center connect-advisor">
+                        <h3>Protecting wealth is creating wealth!</h3>
+                    </div>
+                    <div class="col-md-4 pl-1 pr-1 advisor-form form-group">
+                        <select name="country_type" id="id_country_type" class="form-control custom-select d-block w-100" is-select="true" required="true">
+                            <option value="" selected>Country <span >*</span></option>
+                            <option value="US">USA</option>
+                            <option value="IN">India</option>
+                            <option value="SG">Singapore</option>
+                            <option value="MY">Malaysia</option>
+                        </select>
+                        <span id="id_country_type_error_msg" class="help-block"></span>
+                    </div>
+                    <div class="col-md-4 pl-1 pr-1 advisor-form form-group">
+                        <input type="text" name="ad_chk_loc" id="id_ad_chk_loc" class="form-control cust-place input-lg" placeholder="City*" value="{{ad_chk_loc}}" required="true">
+                        <span id="id_ad_chk_loc_error_msg" class="help-block"></span>
+                    </div>
+                    <div class="col-md-4 pl-1 pr-1 advisor-form form-group">
+                        <input type="text" name="ad_chk_f_name" id="id_ad_chk_f_name" class="form-control cust-place input-lg" placeholder="Advisor Name"  value="{{ad_chk_name}}">
+                        <span id="id_ad_chk_f_name_error_msg" class="help-block"></span>
+                    </div>
+                    <div class="col-md-12 text-center mt-5 mb-5">
+                        <a class="btn" name="" id="discover_more" onclick="validate_member_input();">SEARCH</a>
+                        <h4 class="mt-4">It's Free!</h4>
+                    </div>
+                </div>
+                {% endif %}
+             </div>
+        </section>
+                
+        <section class="abotmi-benefits-section mt-2">
+            <div class="container advisor-limitless">
+                <div class="row text-left advisor-below-content-div">
+                    <div class="col-md-12 col-sm-12 col-xs-12 pb-1 text-center">
+                        <h3>These Benefits are Limitless</h3>
+                    </div>
+                    <div class="col-md-8 mt-5 content-benefits">
+                        <div class="row responsive-left">
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits1.png' %}" alt="">Expect more<br/> and work less!</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits2.png' %}" alt="">Quickly and safely<br/> connect with new clients</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits3.png' %}" alt="">Become undefeated<br/> in the digital asset space</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits4.png' %}" alt="">Easily climb the<br/> professional ladder</p>
+                            </div>
+                        </div>
+                        <div class="row responsive-left">
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits5.png' %}" alt="">Get recognized<br/> for your success!</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits6.png' %}" alt="">Make work feel<br/> less like work!</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><img class="max-width-md mb-3" src="{% static 'V2_theme/icons/benefits7.png' %}" alt="">Thrive in your career<br/> to live the lifestyle you’ve<br/> always dreamed of!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center mt-5 ">
+                        <img class="max-width-md mb-3 img-fluid" src="{% static 'V2_theme/images/benefits.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="abotmi-advisor-section-div mt-2" style="background: #f3f8fc; padding-bottom: 80px !important;">
+            <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+                <div class="w-100 row pb-3 text-center advisor-below-content-facts">
+                    <h3 class="w-100">Facts</h3>
+                </div>
+                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner advisor-section-div" role="listbox">
+                        <div class="carousel-item active">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <img class="d-block img-fluid" src="{% static 'V2_theme/images/advisors-two.png' %}" alt="First slide">
+                                </div>
+                                <div class="col-md-6 advisor-business-section">
+                                    <div class="right-text-area pl-md-5 pl-sm-0 pl-xl-0 mt-sm-4 mt-xl-4">
+                                        <div class="text-left">
+                                            <h4 class="alert-link">61% of Advisors spend their time on Administrative Tasks</h4>
+                                        </div>
+                                        <div class="about-content text-left">
+                                            <p class="mb-4">Focus on Client Retention Build your reputation</p>
+                                            {% if not user.is_authenticated %}
+                                            <a name="signup_a" class="btn">GET STARTED</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <img class="d-block img-fluid" src="{% static 'V2_theme/images/advisors.png' %}" alt="First slide">
+                                </div>
+                                <div class="col-md-6 advisor-business-section">
+                                    <div class="right-text-area pl-md-5 pl-sm-0 pl-xl-0 mt-sm-4 mt-xl-4">
+                                        <div class="text-left">
+                                            <h4 class="alert-link">Expand And Grow Your Financial Advisory Business Globally</h4>
+                                        </div>
+                                        <div class="about-content">
+                                            <p class="mb-4">Enable The World To Find You Become a Digital Asset Advisor</p>
+                                            {% if not user.is_authenticated %}
+                                            <a name="signup_a" class="btn">GET STARTED</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="abotmi-advisor-section abotmi-advisor-section-div pt-5">
+            <div class="container advisor-section-cards-finacial pt-4">
+                <div class="row advisor-section-div advisor-section-div">
+                    <div class="col-sm-12 col-12 pb-5 text-center advisor-below-content-facts">
+                        <h3>Testimonals</h3>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 abotmi-partner-carousal pb-xl-5">
+                        <div id="carouselExampleIndicators01" class="carousel carousel-img-slide slide my-4" data-ride="carousel">
+                            <div class="carousel-media-screen-center">
+                                <ol class="carousel-indicators">
+                                    {% if testimonals %}
+                                        {% for testimonal in testimonals %}
+                                            <li data-target="#carouselExampleIndicators01" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ol>
+                                <div class="carousel-inner abotmi-carousel-inner-bullets" role="listbox">
+                                {% if testimonals %}
+                                    {% for testimonal in testimonals %}
+                                    <div class="carousel-item text-center {% if forloop.counter0 == 0 %} active {% endif %}">
+                                        <img class="img-responsive" src="{{testimonal.picture.url}}">
+                                        <h2 class="pt-3 pb-3" style="color: #414141">{{testimonal.description}}</h2>
+                                        <h2 style="color: rgb(43, 129, 223);">{{testimonal.endorser}}</h2>
+                                        <p class="mb-0">{{testimonal.endorser_company}}</p>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-center"><b>No Testimonials</b></p>
+                                {% endif %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators01" role="button" data-slide="prev">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators01" role="button" data-slide="next">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="youtube-player" data-id="pLhiikG2ISs"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="abotmi-advisor-section-div mt-2" style="background: #f3f8fc;">
+            <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+                <div class="row align-items-center advisor-section-div advisor-below-content-div">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                        <h3>Create Your First Verified Digital Profile!</h3>
+                        <img class="max-width-md mt-5 img-fluid" src="{% static 'V2_theme/images/digital-profile.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    {% if not user.is_authenticated %}
+                    <a class="btn mt-5 mb-3" name="signup_a">REGISTER NOW</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        <!-- End Page content -->
+    {% endblock %}
+    
+    <!-- Bootstrap modals -->
+    {% include 'common/common_alert_modal.html' %}
+    {% block bootstrap_modal %}
+        <div id="common_base_modal"></div>
+    {% endblock %}
+    <!-- End bootstrap modals -->
+
+    <!-- Footer -->
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock %}
+    <!-- End Footer -->
+    
+    {% block lib_scripts %}
+        <!-- Common lib scripts -->
+    {% endblock %}
+    
+    {% block scripts %}
+        <script>
+            var ip_region = "{{ ip_region}}";
+        </script>
+        <script>
+            $(document).ready(function() {
+                $(".down").click(function() {
+                    $('html, body').animate({
+                        scrollTop: $(".up").offset().top
+                    }, 1000);
+                });
+                });
+        </script>
+        {% if title in 'Home, Log In' %}
+        <script src="{% static 'V2_theme/lib/ball_js/ball.js' %}"></script>
+        <script src="{% static 'js/new_js/youtube_loder.js' %}"></script>
+        <script src="{% static 'V2_theme/js/stars.js' %}"></script>
+        <script src="{% static 'V2_theme/lib/particles/particles.min.js' %}"></script>
+        <script src="{% static 'V2_theme/js/particles.js' %}"></script>
+        <script src="{% static 'V2_theme/lib/waypoint/noframework.waypoints.min.js' %}"></script>
+        <script src="{% static 'V2_theme/lib/waypoint/inview.min.js' %}"></script>
+        <script src="{% static 'V2_theme/lib/lottie_animation/player/lottie.min.js' %}"></script>
+        <script src="{% static 'js/new_js/home_page.js' %}"></script>
+        {% endif %}
+        <script src="{% static 'V2_theme/bs_4/vendor/jquery/navigation.js' %}"></script>
+    {% endblock %}
+    
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/new_js/notification.js' %}"></script>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,215 @@
+{% load staticfiles %}
+<style>
+    .client_information{
+        padding-top: 5px;
+        text-align: initial;
+        width: 100%;
+    }
+    .add_member_model_generate_otp_btn{
+        width: 100%;
+        text-align: center;
+    }
+    .add-advisor-country-mobi .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 .selected-flag {
+        width: 68px !important;
+    }
+    .add-advisor-country-mobi .intl-tel-input.allow-dropdown.separate-dial-code .selected-dial-code {
+        padding-left: 25px !important;
+    }
+    .add-advisor-country-mobi .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input, .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input[type=text], .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input[type=tel]{
+        padding-left: 75px !important;
+    }
+    .add-advisor-country-mobi .intl-tel-input{
+        width: 100%;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+<div id="add-member-modal" class="modal fade upwardz-modal" role="dialog" name="add-member-modal" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">ADD A CLIENT</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="add-member-modal-body">
+                    <div class="alert alert-warning hide client_alert" role="alert" id="id_advisor_conformation">
+                        <strong>Client is already exists Do You want to map to Client?</strong> &nbsp; &nbsp;
+                        <button type="button" name="cancel_client_button" id="id_cancel_client_button" class="btn" onclick="cancel_map_client('id_advisor_conformation')">cancel</button>
+                        <button type="button" name="map_client_button" id="id_map_client_button" class="btn btn-primary">Ok</button>
+                    </div>
+                    <div class="alert alert-success hide" role="alert" id="id_success_alert">
+                        <div id="success_text"><strong>Successful!&nbsp;</strong> You have Added one.</div>
+                    </div>
+                    <form id="add_member_form" name="add_member_form" method="POST" autocomplete="off">
+                        <div class="text-center" role="alert" id="id_advisor_authorisation">
+                            <p style="font-size: 16px">Are you authorized to do the e-KYC for this client?</p>
+                            <div class="panel-body">
+                                <button type="button" name="cancel_button" id="id_no_button" onclick="no_auth_button('add_member_form')" class="btn btn-default add-client-btn" autocomplete="off"> NO</button>
+                                <button type="button" name="yes_button" id="id_yes_button" onclick="yes_auth_button('add_member_form')" class="btn btn-default add-client-btn" autocomplete="off"> YES</button>
+                            </div>
+                        </div>
+                        <div id="name_div" hidden>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3 col-md-3" data-toggle="toggle">
+                                <input class="form-control" placeholder="First Name" name="first_name" id="first_name" type="text" max-length='25' min-length='3' required='true' onkeyup="validate_field_onkeypress(id, 'help-text-first_name', 'First Name');" onchange="validateAlpha('first_name');">
+                                <span class="help-block" id="help-text-first_name"></span>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3 col-md-3" data-toggle="toggle">
+                                <input class="form-control" placeholder="Last Name" onblur="this.placeholder ='Last Name'" id="last_name" name="last_name" max-length='25'  min-length='1' required='true' onkeyup="validate_field_onkeypress(id, 'help-text-last_name', 'Last Name');" onchange="validateAlpha('last_name');"  type="text">
+                                <span class="help-block" id="help-text-last_name"></span>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3 col-md-3 add-advisor-country-mobi">
+                                <input class="form-control" class="form-control" id="mobile" placeholder="9876543210"  name="mobile" value="" type="tel" min-length=10 max-length=10 required="true" onkeyup="validate_field_onkeypress(id, 'help-text-mobile', 'Mobile Number');">
+                                <span class="help-block" id="help-text-mobile"></span>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3 col-md-3">
+                                <input type="text" name="primary_email" id="primary_email" class="form-control" required="required" placeholder="Your email id" onblur="this.placeholder = 'Your email id'" required='true' is-email="true" onchange="validateEmail_id('primary_email');" onkeyup="validate_field_onkeypress(id, 'help-text-primary_email', 'Email ID');">
+                                <span class="help-block" id="help-text-primary_email"></span>
+                            </div>
+                        </div>
+                        <div id="aadhaar_div" hidden>
+                            <div class="form-group col-md-offset-3 form-group col-md-6" id="aadhar_number_div">
+                                <input type="text" required="true" class="form-control" placeholder="Aadhaar Number" onblur="this.placeholder ='Aadhaar Number'" name="aadhar_number" id="aadhar_number"  min-length='12' max-length='12'  onkeyup="validate_field_onkeypress(id, 'help-text-aadhar_number', 'Aadhaar Number');" onchange="validate_aadhar('aadhar_number');">
+                                <span class="help-block" id="help-text-aadhar_number"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 text-center" id="agree_div" hidden>
+                            <div class="checkbox terms_agree" data-toggle="toggle">
+                                <input type="checkbox" name="iagree" value="" id="iagree" onChange="iagree_validation();"/>
+                                <label>I {{ user.first_name }}, agree to the <a onclick="toogle_client_information('i_agree_terms_conditions');" id="i_agree_terms_conditions1"><u>Terms & Conditions</u>.</a>
+                                </label>
+                                <span class="help-block" id="help-text-iagree"></span>
+                            </div>
+                            <div class="form-group  pull-left client_information div-border"        id="i_agree_terms_conditions" name="i_agree_terms_conditions" style="display:none;">
+                                <p>In all the following cases the words “I” & “me” refers to the “Registered Advisor” and the word “ABOTMI” denotes Datanet Techno Solutions Pvt Ltd.</p>
+
+                                    <ol>
+                                        <li>I agree and state that I am a Registered Advisor on the ABOTMI platform.</li>
+                                        <li>I agree and state that I am solely responsible for the client addition made and will not hold ABOTMI responsible for the same. </li>
+                                        <li>I agree and state that I have intimated my client of such addition on the ABOTMI platform and have obtained prior approval & consent from him to do the same.</li>
+                                        <li>I agree and state that I am authorized by the client to perform all actions deemed necessary to initiate the investment process, if any, on the client’s behalf.</li>
+                                        <li>I agree to indemnify ABOTMI from the client addition process and all such processes that lead to initiating the investment on client’s behalf.</li>
+
+                                        <li>I agree and state that I shall be solely responsible for any action taken on behalf of my client and the outcome of action thereon. The client shall not hold ABOTMI or Uplyf responsible for any such actions.</li> 
+                                        <li>I shall at all times observe the high legal and ethical standards as set down by  ABOTMI and shall be responsible for the implementation of all or any policies deemed fit by  ABOTMI. I shall put in my best efforts to render services that are satisfactory to ABOTMI.</li>
+                                        <li>I will at all times, strictly abide by the Code of Business Conduct and Ethics more particularly described on the website of ABOTMI.</li>
+                                        <li>I shall not engage in any conduct or action, which would result in any conflict of interest with ABOTMI, and which is more particularly described in the Code of Business Conduct and Ethics as available on the website of ABOTMI.</li>
+                                        <li>I shall not guarantee any minimum return to the customers, shall not charge any fee to customers nor shall I deal in private outside the website with any of the customers with regard to any products or opportunities known to me through ABOTMI and its associated platforms. I shall not provide any schemes, discount or any information which are prohibited from being disclosed along with the services or are prohibited under law.</li>
+                                        <li>I shall be solely liable for any guaranteed returns promised to customers which are not agreed with ABOTMI in advance.</li>
+                                        <li>ABOTMI shall not be held liable for any communication and information exchanged between me and the client. I accept and acknowledge that I shall not hold ABOTMI responsible for any communication carried out between me and the client.</li>
+                                    </ol>
+                            </div>
+                        </div>
+                        <div class="form-group  pull-left add_member_model_generate_otp_btn" id="aadhaar_submit_btn_div" hidden>
+                            <div id="aadhar_number_div">
+                                <button type="button" onclick="got_to_send_otp();" title="Click to Verify" class="btn btn-default add-client-btn" id="generate_aadhaar_otp" autocomplete="off">Click to Verify</button>
+                                {% comment %}
+                                <button type="button" name="save_continue_add_member" id="id_save_continue_add_member" class="btn btn-default add-client-btn" onclick="reset_add_client_form('add_member_form');">BACK</button>
+                                {% endcomment %}
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group col-lg-12 col-md-12 col-xs-12 text-center" id="save_member_div" hidden>
+                        <button type="button" name="save_member_data" id="save_member_data" class="btn btn-default add-client-btn" onclick="save_member_data(id);" title="saving member"> Add Client</button>
+                        {% comment %}
+                        <!--  Commmented temporarily -->
+                        <button type="button" name="save_continue_add_member" id="id_save_continue_add_member" class="btn btn-default add-client-btn" onclick="reset_add_client_form('add_member_form');">BACK</button>
+                        {% endcomment %}
+                    </div>
+                    <div class="form-group col-lg-12 col-md-12 col-xs-12 ">
+                        <div data-toggle="toggle" onclick="toogle_client_information('why_to_add_your_client');">
+                            <p class="n-margin-0 text-center"><a href="#" >Why to add your Client?</a></p>
+                        </div>
+                        <div class="form-group  pull-left client_information" id="why_to_add_your_client" name="why_to_add_your_client" style="display: none;">
+                            <hr>
+                            <p>
+                                Our objective is to help you as an Advisor
+                                <ul>
+                                    <li>To move essential activities such as reporting, administration, client data aggregation and compliance oversight onto time-saving digital platforms.</li>
+                                    <li>To achieve Dynamic advice through daily client data capture.</li>
+                                    <li>Drive operational efficiency by reducing client queries/requests and the need for ad-hoc client reporting.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                ABOTMI platform will enable Clients to
+                                <ul>
+                                    <li>Automated account opening.</li>
+                                    <li>Mobile account access.</li>
+                                    <li>Online aggregated investment portfolio reporting (daily or real-time).</li>
+                                    <li> Video-conferencing with relationship managers.</li>
+                                    <li> Needs-driven online educational content.</li>
+                                    <li>360-degree asset viewing and updates.</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div data-toggle="toggle" onclick="toogle_client_information('how_to_add_your_client');">
+                            <p class="n-margin-0 text-center"><a href="#" >How to add your Client?</a></p>
+                        </div>
+                        <div class="form-group  pull-left client_information"  id="how_to_add_your_client" name="how_to_add_your_client" style="display: none;">
+                            <hr>
+                            <p>
+                                Add a Client
+                                <ul>
+                                    <li>You can register your client on his/her behalf.</li>
+                                    <li>Key in all the necessary KYC details of your client.</li>
+                                    <li>Click “Save & Close”.</li>
+                                    <li>A confirmation mail would be sent to both you and your client.</li>
+                                    <li>Your client has to upload the required documents.</li>
+                                    <li>Once the required documents are uploaded, on confirmation and verification, you and your client would get the login credentials.</li>
+                                    <li>you can manage your client’s investments through your dashboard, with his/her consent.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                Add multiple Clients
+                                <ul>
+                                    <li>Adding multiple clients is similar to Add a client procedure.</li>
+                                    <li>Key in all the necessary KYC details of your client.</li>
+                                    <li>Click “Save & Add Client”.</li>
+                                    <li>Continue with the steps listed in Add a client procedure.</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div data-toggle="toggle" onclick="toogle_client_information('client_management');">
+                            <p class="n-margin-0 text-center"><a href="#" >Benefits of managing Clients through ABOTMI</a></p>
+                        </div>
+                        <div class="form-group  pull-left client_information"  id="client_management" name="client_management" style="display: none;">
+                            <hr>
+                            <p>We at ABOTMI understand that clients are becoming more tech-savvy. Hence,  it will be increasingly important for advisors to fulfill their digital expectations.</p>
+                            <p style="font-weight: bold;">
+                            Our Objective is to make Advising to become more personalised, more efficient and more optimised.</p>
+                            <ul>
+                                We enable financial advisors
+                                <li>Reachable via video link/chat/personal messaging.</li>
+                                <li>Offer responsive websites/mobile apps.</li>
+                                <li>Set-up Client dashboards/self-reporting/interactive interfaces that allow Clients to analyse/visualise in detail the performance of their investments.</li>
+                                <li>Provide real-time recommendations based on the client’s behaviours.</li>
+                                <li>Create goal-based video games (i.e. applying ‘gamification’ to real estate based investment with a goal-based approach).</li>
+                                <li>Get real-time updates of the client’s risk profile and real-time adjustment of the investment mix. Integrated E-KYC for client verification.</li>
+                                <li>Aggregation of asset classes to give a 360-degree view of the client’s real-time personal balance sheet.</li>
+                                <li>Brokerage for investment products (including third-party products) based on a 360-degree Client view of behaviors and goals.</li>
+                            </ul>
+                            <p style="font-weight: bold;">
+                            Helping YOU to be the digital family office of your Client </p>
+                            <p>We hope you can expand your client base by attracting the new on-line generation of Clients. Also, by capturing and integrating client data digitally, investment advisors may eventually be able to consider offering this highly personalised life guidance to families with lower levels of assets - expanding the client base. </p>
+                        </div>
+                    </div>
+                    <form action='https://prod.aadhaarbridge.com/kua/_init' class="hide" method='post' id='adhaar_form'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+<script src="{% static 'js/kyc_validate.js' %}"></script>
+<script src="{% static 'js/dashboard_validate.js' %}"></script>
+<script src="{% static 'js/add_member.js' %}"></script>
+
+<script type="text/javascript">
+    var user_aadhaar = '{{user_profile.adhaar_card}}';
+    var email1 = '{{user.username}}';
+</script>

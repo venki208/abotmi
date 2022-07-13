@@ -1,0 +1,3 @@
+# NSDL
+NSDL_PWD = 'iNet@123'
+NSDL_KEY = 'V0143101'

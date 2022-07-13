@@ -1,0 +1,174 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+{% endblock %}
+{% block main_content %}
+    <header class="abotmi-abotu-whyus-section">
+        <div class="container">
+            <div class="row abotmi-inner-banner align-items-center mt-5 pt-5">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-3">
+                    <h3>Why Us</h3>
+                    <p><b>Become Educated Before Choosing an Opportunity</b></p>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+    
+    <!-- Page Content -->
+    <section class="abotmi-about-section pt-5 pb-5" style="background: #f3f8fc;">
+        <div class="container advisor-section-cards-finacial">
+            <div class="row align-items-center">
+                <h4 class="text-center pt-3 pb-5"><span style="color:#f15132">When industry leaders come together, they can make an impact!</span></h4>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    
+                    <div class="about-content">
+                        <p>ABOTMI solves one of the major challenges that issuers, advisors, and investors face on a daily basis. They’re incapable of accessing all of the digital asset opportunities globally.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <img src="{% static 'V2_theme/images/why-us/image-1-min.jpg' %}" class="img-fluid"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="abotmi-about-section pt-2 pb-5">
+        <div class="container advisor-section-cards-finacial" >
+            <h6 class="text-center pb-5 pt-5">ABOTMI offers opportunities for advisors and investors by partnering with <span style="color:#2b81df">The Digital Assets Academy.</span></h6>
+            <div class="row align-items-center abotmi-row-section" style="background: #f3f8fc;">
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-md-5 pl-sm-5 pt-xl-5 pb-xl-5">
+                    <div class="mb-2 text-center">
+                        <h5 class="alert-link mb-2">Issuers</h5>
+                        <img src="{% static 'V2_theme/images/divider-line.png' %}"/>
+                    </div>
+                    <div class="about-content">
+                        <ul>
+                            <li>List and educate investors about offerings </li>
+                            <li>Provides access to multiple offerings </li>
+                            <li>Choose advisors to manage the offerings </li>
+                            <li>Educate advisors and investors on offerings through The Digital Assets Academy </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-0 pr-0">
+                    <img src="{% static 'V2_theme/images/why-us/image-2-min.jpg' %}" class="img-fluid"/>
+                </div>
+            </div>
+            <div class="row align-items-center abotmi-row-section" style="background: #f3f8fc;">
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-0 pr-0 abotmi-desktop-view">
+                        <img src="{% static 'V2_theme/images/why-us/image-3-min.jpg' %}" class="img-fluid"/>
+                    </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-md-5 pl-sm-5">
+                    <div class="mb-2 text-center">
+                        <h5 class="alert-link mb-2">Advisors</h5>
+                        <img src="{% static 'V2_theme/images/divider-line.png' %}"/>
+                    </div>
+                    <div class="about-content">
+                        <ul>
+                            <li>Connect to issuers </li>
+                            <li>Become educated about offerings </li>
+                            <li>P2P discovery about offerings </li>
+                            <li>Educate clients on offerings </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-0 pr-0 abotmi-mobile-view">
+                    <img src="{% static 'V2_theme/images/why-us/image-3-min.jpg' %}" class="img-fluid"/>
+                </div>
+                    
+            </div>
+            <div class="row align-items-center abotmi-row-section" style="background: #f3f8fc;">
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-md-5 pl-sm-5">
+                    <div class="mb-2 text-center">
+                        <h5 class="alert-link mb-2">Investors</h5>
+                        <img src="{% static 'V2_theme/images/divider-line.png' %}"/>
+                    </div>
+                    <div class="about-content">
+                        <ul>
+                            <li>Discover and learn about offerings </li>
+                            <li>Get connected to the right advisors </li>
+                            <li>Select the most reputable advisors based on qualifications, rankings and reviews </li>
+                            <li>Access to track opportunities and performance through certified advisors </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 pl-0 pr-0">
+                    <img src="{% static 'V2_theme/images/why-us/image-4-min.jpg' %}" class="img-fluid"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="abotmi-about-section abotmi-whyus-section-bg">
+        <div class="container advisor-section-cards-finacial">
+            <div class="row align-items-center">
+                <div class="col-md-8 col-sm-8 col-xs-12 abotmi-about-section-content">
+                    <h4 class="text-left pt-3 pb-5">Investor Protection</h4>
+                    <div class="about-content">
+                        <ul>
+                            <li>ABOTMI introduce access to investor protection by providing knowledge, security and loyalty to our clients empowered by our Ethical Commitment.</li>
+                            <li>Our platform connects investors, advisors, and issuers across the globe by offering a unique way to learn and share with one another. </li>
+                            <li>We work closely with the SEC, FINRA and SIPC to protect the investors interests and promote confidence in the market’s integrity. </li>
+                            <li>Our mission is to provide an independent investor education needed by all global market players to make informed investment decisions. </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                        <img src="{% static 'V2_theme/images/why-us/image-6-min.jpg' %}" class="img-fluid">
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="abotmi-about-section">
+        <div class="container advisor-section-cards-finacial">
+            <div class="row align-items-center">
+                <h6 class="text-center pb-5 pt-5">When industry leaders come together, <br/>they can make an impact!</h6>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <img src="{% static 'V2_theme/images/why-us/image-5-min.jpg' %}" class="img-fluid">
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-12 abotmi-about-section-content">
+                    <h4 class="text-left pt-3 pb-5">Ethical Commitment</h4>
+                    <div class="about-content">
+                        <ul>
+                            <li>Investor Protection is my moral responsibility.</li>
+                            <li>It’s my fiduciary duty to protect, secure, and monitor all your digital assets.</li>
+                            <li>I am personally committed to placing all my client’s needs first, as I have developed a variety of safeguards to ensure the protection of each client I work with.</li>
+                            <li>I strive to promote the value of independent advice by offering my clients expertise, tips, and practical everyday tools without any conflict of interest.</li>
+                            <li>I am committed to share and publish only relevant validated information about myself in ABOTMI.</li>
+                            <li>As a digital asset advisor it’s my responsibility to help every investor maximize their income and save for the future as we focus on wealth protection.</li>
+                            <li>I strive to confidentially protect any data that is provided by the digital asset investors regarding their personal information.</li>
+                            <li>We emphasize on trust, compliance and regulation in order to deliver the best protection and services for each client.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="abotmi-about-section abotmi-content-header-section" >
+        <div class="container text-center mt-5 mb-5">
+            <h4>My practice as a digital asset advisor<br/> is to live by these <span style="color: #d53d2b;">8 commitments</span> daily.</h4>
+        </div>
+    </section>
+
+    {% if not user.is_authenticated %}
+    <section class="abotmi-advisor-section-div mt-5" style="background: #f3f8fc;">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <a class="btn" name="signup_a">Register Now</a>
+                    <h3>Start Building Your Reputation</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}

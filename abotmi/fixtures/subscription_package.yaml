@@ -1,0 +1,150 @@
+ [
+  ##
+  ## SubscriptionCategoryMaster Constant data
+  ##
+  {
+    "fields": {
+      "category_name": "IDENTITY_PACK",
+    },
+    "model": "datacenter.subscriptioncategorymaster",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "category_name": "MICRO_LEARNING_PACK",
+    },
+    "model": "datacenter.subscriptioncategorymaster",
+    "pk": 2
+  },
+  ##
+  ## SubscriptionPackageMaster Constant data
+  ##
+  {
+    "fields": {
+      "package_code": "ML_PKG_STD_001",
+      "package_name": "ML_PKG_STD",
+      "package_description" : "This is STANDARD Micro learning package",
+      "package_type" : "STANDARD",
+      "package_amount": "10000",
+      "package_duration": "1",
+      "feature_data": '{"no_of_videos":"1",
+        "duration_of_video":"2.5 min each",
+        "content_duration":"3 min each",
+        "amount_to_pay":"10000/-"}',
+      "subscription_category_id" : "2",
+    },
+    "model": "datacenter.subscriptionpackagemaster",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "package_code": "ML_PKG_STD_002",
+      "package_name": "ML_PKG_STD",
+      "package_description" : "This is STANDARD Micro learning package",
+      "package_type" : "DELUXE",
+      "package_amount": "15000",
+      "package_duration": "1",
+      "feature_data": '{"no_of_videos":"3",
+        "duration_of_video":"2.5 min each",
+        "content_duration":"3 min each",
+        "amount_to_pay":"15000/-"}',
+      "subscription_category_id" : "2",
+    },
+    "model": "datacenter.subscriptionpackagemaster",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "package_code": "ML_PKG_STD_003",
+      "package_name": "ML_PKG_STD",
+      "package_description" : "This is STANDARD Micro learning package",
+      "package_type" : "PREMIUM",
+      "package_amount": "25000",
+      "package_duration": "1",
+      "feature_data": '{"no_of_videos":"6",
+        "duration_of_video":"2.5 min each",
+        "content_duration":"3 min each",
+        "amount_to_pay":"25000/-"}',
+      "subscription_category_id" : "2",
+    },
+    "model": "datacenter.subscriptionpackagemaster",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "package_code": "ID_PKG_STD_001",
+      "package_name": "ID_PKG_STD",
+      "package_description" : "This is STANDARD IDENTITY package",
+      "feature_data": '{"list_of_viewers":"ALL",
+        "number_of_viewer_details":"1",
+        "name":"True", "email":"True",
+        "contact_number":"True",
+        "when_they_visit":"False",
+        "social_media_link":"False",
+        "location":"False",
+        "viewer_registrations_status":"False",
+        "pupose_of_visit":"False",
+        "real_time_notification":"False",
+        "social_graph":"False",
+        "behavioural_graph":"False"}',
+      "package_type" : "STANDARD",
+      "package_amount": "16.00",
+      "package_duration": "1",
+      "subscription_category_id" : "1",
+    },
+    "model": "datacenter.subscriptionpackagemaster",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "package_code": "ID_PKG_DLX_002",
+      "package_name": "ID_PKG_DLX",
+      "package_description" : "This is DELUXE IDENTITY package",
+      "feature_data": '{"list_of_viewers":"ALL",
+        "number_of_viewer_details":"3",
+        "name":"True",
+        "email":"True",
+        "contact_number":"True",
+        "when_they_visit":"True",
+        "social_media_link":"True",
+        "location":"True",
+        "viewer_registrations_status":"False",
+        "pupose_of_visit":"False",
+        "real_time_notification":"False",
+        "social_graph":"False",
+        "behavioural_graph":"False"}',
+      "package_type" : "DELUXE",
+      "package_amount": "975.00",
+      "package_duration": "1",
+      "subscription_category_id" : "1",
+    },
+    "model": "datacenter.subscriptionpackagemaster",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "package_code": "ID_PKG_PRM_003",
+      "package_name": "ID_PKG_PRM",
+      "package_description" : "This is PREMIUM IDENTITY package",
+      "feature_data" : '{"list_of_viewers":"ALL",
+        "number_of_viewer_details":"ALL",
+        "name":"True",
+        "email":"True",
+        "contact_number":"True",
+        "when_they_visit":"True",
+        "social_media_link":"True",
+        "location":"True",
+        "viewer_registrations_status":"True",
+        "pupose_of_visit":"True",
+        "real_time_notification":"True",
+        "social_graph":"True",
+        "behavioural_graph":"True"}',
+      "package_type" : "PREMIUM",
+      "package_amount": "1950.00",
+      "package_duration": "1",
+      "subscription_category_id" : "1",
+    },
+    "model": "datacenter.subscriptionpackagemaster",
+    "pk": 6
+  },
+]

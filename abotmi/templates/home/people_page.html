@@ -1,0 +1,146 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    <style>
+        .build-color{
+            color: #eb1b95;
+        }
+        .partners-logo{
+            font-weight: 700;
+            font-size: large;
+        }
+        .abotmi-profile-people{
+            float: left;
+            width: 20%;
+            text-align: center;
+        }
+        .build-people-profile p{
+            margin: 5px 0px;
+        }
+        .abotmi-profile-ppl{
+            margin-top: 30px;
+        }
+        .abotmi-profile-people-row .abotmi-profile-people{
+            width: 210px;
+        }
+        .people-desgination{
+            font-size: medium;
+            font-weight: 600;
+        }
+        .abotmi-profile-people-row{
+            margin-top: 20%;
+        }
+        .abotmi-profile-people-row .abotmi-profile-ppl img{
+            margin: auto;
+        }
+        .start-up{
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700 !important;
+        }
+        @media (max-width:760px){
+            .abotmi-profile-people-row .abotmi-profile-ppl{
+                width: 33%;
+            }
+            .abotmi-profile-people-row{
+                margin-top: 15%;
+            }
+        }
+        @media (max-width:550px){
+            .abotmi-profile-people-row .abotmi-profile-ppl{
+                width: 50%;
+            }
+            .abotmi-profile-people-row{
+                margin-top: 10%;
+            }
+        }
+        @media (max-width:400px){
+            .abotmi-profile-people-row .abotmi-profile-ppl{
+                width: 100%;
+            }
+            .abotmi-profile-people-row{
+                margin-top: 10%;
+            }
+        }
+    </style>
+    {% if not user.is_authenticated %}
+        <style>
+            body{
+                padding-top: 123px;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/build-banners.png' %}">
+        <div class="container reputation-static-banner-position">
+            <h2>PEOPLE</h2>
+        </div>
+    </section>
+     <section class="reputation-static">
+        <div class="container">
+            <div class="row abotmi-build-main">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <!-- <h3 style="color: #e75581;"><b>People :</b></h3>
+                    <div class="abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/vision_icon.png' %}">
+                        <h4 class="n-h4 build-color"><b>Vision</b></h4>
+                        <p>To be a leader as the most reliable and trusted digital asset protection platform globally.</p>
+                    </div> -->
+                </div>
+                <div class="col-md-12 text-center">
+                    <div class="row abotmi-profile-people-row">
+                        <div class="col-md-3 col-sm-3 col-xs-3 abotmi-profile-ppl">
+                            <p><img src="{% static 'new_images/elise.png' %}" class="img-responsive"/></p>
+                            <div class="partners-logo">Elise Rosmarin</b></div>
+                            <div class="people-desgination">CEO</b></div>
+                            <p><a href="https://www.linkedin.com/in/elise-rosmarin-7b85b458/" target="_blank"><img src="{% static 'new_images/linkedin.png' %}"/></a></p>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 abotmi-profile-ppl">
+                            <p><img src="{% static 'new_images/lakshmi.png' %}" class="img-responsive"/></p>
+                            <div class="partners-logo"><b>Dr.Lakshmi&nbsp;Narayanan</b></div>
+                            <div class="people-desgination">Co-Founder</b></div>
+                            <p><a href="https://www.linkedin.com/in/lakshmi-narayanan-140b505a/" target="_blank"><img src="{% static 'new_images/linkedin.png' %}"/></a></p>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 abotmi-profile-ppl">
+                            <p><img src="{% static 'new_images/constantin.png' %}"class="img-responsive"/></p>
+                            <div class="partners-logo">Constantin Kogan</b></div>
+                            <div class="people-desgination">Chief Business Officer</b></div>
+                            <p><a href="https://www.linkedin.com/in/constantin-kogan/" target="_blank"><img src="{% static 'new_images/linkedin.png' %}"/></a></p>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 abotmi-profile-ppl">
+                            <p><img src="{% static 'new_images/saibaba.jpg' %}"class="img-responsive"/></p>
+                            <div class="partners-logo"><b>Saibaba Talluri</b></div>
+                            <div class="people-desgination">Director of Product Strategy</b></div>
+                            <p><a href="https://www.linkedin.com/in/talpa-saibaba-talluri-v-s-1926313/" target="_blank"><img src="{% static 'new_images/linkedin.png' %}"/></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn" name="signup_a">Register Now</a>
+                </div>
+            </div>
+            <p class="start-up">Start Building Your Reputation!</p>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

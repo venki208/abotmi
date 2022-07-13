@@ -1,0 +1,564 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/submit_eipv.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+    <style type="text/css">
+        .intl-tel-input{
+            width: 100%;
+        }
+        .help-block{
+            color: red;
+        }
+        /*Updated EIPV Modal CSS As on 5 oct 17 */
+        @media (min-width: 960px){
+          .eipv-dialog {
+            width: 960px !important;
+            margin: 30px auto;
+          }
+        }
+        @media (min-width: 760px) and (max-width:958px){
+          .eipv-dialog {
+            width: 760px !important;
+            margin: 30px auto;
+          }
+        }
+        .upwrdz-eipv-modal {
+            margin-bottom: 0px;
+            background-color: transparent;
+            border: 0px solid rgba(255, 255, 255, 0.29);
+            border-radius: 5px;
+        }
+        .upwrdz-eipv-modal .modal-header{
+            padding: 10px;
+            border-bottom: 1px solid transparent;
+            background: #2e2e80;
+        }
+        .upwrdz-eipv-modal .modal-header h4{
+            color: #fff !important;
+        }
+        .upwrdz-eipv-modal .panel-body{
+            background: #fff !important;
+            text-align: center;
+        }
+        .upwrdz-eipv-modal .panel-body .step-box{
+            display: inline-block;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+            min-height: 175px;
+            margin-right: 8px;
+            position: relative;
+        }
+        .upwrdz-eipv-modal .header-text{
+            background: #2e2e80;
+            color: #fff;
+            padding:8px;
+            font-size: 10px;
+        }
+        .upwrdz-eipv-modal .captured-slot{
+            padding: 0 10px 10px;
+            width: 175px;
+            height: 120px;
+        }
+        .upwrdz-eipv-modal .captured-slot img{
+            width: 100%;
+            height: 100%;
+        }
+        .upwrdz-eipv-modal .bottom-text{
+            font-size: 8px;
+            position: absolute;
+            bottom: 0;
+            width: 100% !important;
+            padding: 0 10px;
+            margin-top: 10px;
+        }
+        .eipv-video-recorder{
+            padding: 50px 120px 0px;
+        }
+        .eipv-block{
+            margin-top: 50px;
+        }
+
+        @media (max-width: 767px){
+            .advisor-form-e-vip-registration{
+                margin-top: 70px;
+            }
+            .eipv-video-recorder {
+                padding: 20px 10px 0px;
+            }
+            .eipv-block{
+              margin: 0px;
+              float: left;
+            }
+        }
+        @media (min-width: 760px) and (max-width:958px){
+            .eipv-video-recorder {
+                padding: 50px 10px 0px;
+            }
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+<section class="advisor-form" id="eipv">
+	<div class="container advisor-form-e-vip-registration">
+        <div class="col-md-12">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend n-green-bg">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                      <h3 title="electronic In-Person Verification"><span><img src="/static/images/tep-one.png" class="img-responsive" alt="Submit Documents"></span>Registration Form E-IPV</h3>
+                    </div>
+                    <div class="col-md-6 col-sm-6 eipv-block">
+                      <h4 class="pull-right">Please complete the registration</h4>
+                    </div>
+                  </div>
+                </legend>
+                {% if not advisor.ipv_status and not personal_info%}
+                    <div class="row  eipv-video-recorder">
+                        <div class="col-sm-7 col-xs-12">
+                            <div class="camera-recorder">
+                                <div id="my_camera" class="my-camera-eipv"></div>
+                                <div class="start-camera text-center">
+                                    <button type="button" name="button" class="btn upwrdz-button eipv-start-button" onclick="start_camera();">Start Camera</button>
+                                     <p class="panel-body">To do E-IPV your system camera has to be enabled.If your browser asks for permission to enable the camera, please grant.</p>
+                                </div>
+                            </div>
+                            <div class="row text-center n-margin-t-10">
+                                <div class="col-xs-8">
+                                {% if not eipv_face_capture %}
+                                    <button type="button" class="btn upwrdz-button capture hide n-margin-t-10" name="button" id="capture_button" picture-type="eipv_face_capture" onclick="capture_image(id);" autocomplete="off">Capture Face</button>
+                                {% elif not eipv_aadhaar %}
+                                    <button type="button" class="btn upwrdz-button capture hide n-margin-t-10" name="button" id="capture_button" picture-type="eipv_aadhaar" onclick="capture_image(id);" autocomplete="off">Capture ID Card</button>
+                                {% elif personal_info == 1 %}
+                                    <button type="button" class="btn upwrdz-button capture hide n-margin-t-10" name="button" id="capture_button" picture-type="eipv_signature" onclick="capture_image(id);" autocomplete="off">Personal Information</button>
+                                {% else %}
+                                    <button type="button" class="btn upwrdz-button capture hide n-margin-t-10" name="button" id="capture_button" picture-type="" onclick="capture_image(id);" autocomplete="off"></button>
+                                {% endif %}
+                                <button type="button" class="btn upwrdz-button reset hide n-margin-t-10" name="button" autocomplete="off">Reset</button>
+                                <button type="button" class="btn upwrdz-button upload hide n-margin-t-10" name="button" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Uploading" autocomplete="off">Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 col-xs-12 eipv-sidelist">
+                            <h4>E-IPV process - 3 simple steps</h4>
+                            <div class="col-md-12" id="id_eipv_points">
+                                <ul>
+                                    <li>Please make sure only your face is covered in the webcamera screen</li>
+                                </ul>
+                                <ol>
+                                    <li>Capture your face.</li>
+                                    <li>Capture your ID card</li>
+                                    <li>Fill your details</li>
+                                </ol>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 hide upwrdz-epiv-capture" id="id_record_started">
+                                    <ul>
+                                        <li class="face_class">
+                                            <i class='glyphicon glyphicon-ok custome-ok hide n-margin-r-5' id="step1-completed"></i>
+                                            <span class="eipv_span_heading n-padding-r-5">Capture Face</span>
+                                            {% if eipv_face_capture %}
+                                                <span class="child_eipv_span n-padding-r-5 ">&nbsp;Attached
+                                                    <a class="n-padding-r-5" onclick="preview_image('{{eipv_face_capture.documents.url}}');"  title="Preivew image">
+                                                        <i class='fa fa-eye' aria-hidden='true'></i>
+                                                    </a>
+                                                    <a class='' onclick="re_upload_document('eipv_face_capture');"  title="Reset/Re upload">
+                                                        <i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i>
+                                                    </a>
+                                                </span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="aadhaar_class">
+                                            <i class='glyphicon glyphicon-ok custome-ok hide n-margin-r-5' id="step2-completed"></i>
+                                            <span class="eipv_span_heading n-padding-r-5">ID Card</span></br>
+                                            <input type="radio" name="category" value="capture" onclick="show_upload_div('capture')" checked> Capture</br>
+                                            {% if eipv_aadhaar %}
+                                            <span class="child_eipv_span capture_opt n-padding-r-5 " id="capture_doc_id">&nbsp;Attached
+                                                <a class="n-padding-r-5" onclick="preview_image('{{eipv_aadhaar.documents.url}}');"  title="Preivew image">
+                                                    <i class='fa fa-eye' aria-hidden='true'></i>
+                                                </a>
+                                                <a class='' onclick="re_upload_document('eipv_aadhaar');"  title="Reset/Re upload">
+                                                    <i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i>
+                                                </a>
+                                            </span>
+                                            {% endif %}
+                                            </br>
+                                            <input type="radio" name="category" value="upload" onclick="show_upload_div('upload')"> Upload
+                                                <div class="row hide" id="doc_upload_div">
+                                                    <form action="/signup/upload_file/" name="id_card_doc" id="id_card_doc" method="post" class="contact-form" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="form-group col-xs-12 form-nline reg-step4">
+                                                            <div class="row registration-form-div registration-form-div-pancard" id="proof_indian">
+                                                                <div class="col-sm-4 col-xs-12 text-right pan-card">
+                                                                    <label>ID Card
+                                                                        <span>*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div style="display:none;">
+                                                                    <input type="text" name="documents_type" id="documents_type" value="eipv_doc">
+                                                                </div>
+                                                                {% if user_documents_indian_proof %} {% for doc in user_documents_indian_proof %}
+                                                                <div class="download_link_color_pan">
+                                                                    <label id="paper_clip0" class="col-sm-2 col-xs-4 fileinput fileinput-new pan_clip hide" data-provides="fileinput">
+                                                                        <span class="btn btn-default btn-file" id="pan_card">
+                                                                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                                            <input type="hidden" name="reupload" value="true">
+                                                                            <input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf"
+                                                                                onchange="UploadDocuments('id_card_doc','proof_indian', 'paper_clip0');">
+                                                                        </span>
+                                                                    </label>
+                                                                    <p class="attach_class hiding{{ doc.id }} n-padding-r-5" id="id_attached" name="attached">Attached</p>
+                                                                    <a id="{{ doc.id }}" class="hiding{{ doc.id }} download_link_color n-padding-r-5" href="{{ doc.documents.url }}" onclick="window.open('{{ doc.documents.url }}', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=250,left=500,width=550, height=550'); return false;">
+                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                    </a>
+                                                                    <a class="hiding{{ doc.id }}" onclick="removeDocument({{ doc.id }},'paper_clip0');">
+                                                                        <i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i>
+                                                                    </a>
+                                                                </div>
+                                                                {% endfor %} {% else %}
+                                                                <label id="paper_clip0" class="col-sm-2 fileinput fileinput-new  pan_clip" data-provides="fileinput">
+                                                                    <span class="btn btn-default">
+                                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                                        <input type="hidden" name="reupload" value="true">
+                                                                        <input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf"
+                                                                            onchange="UploadDocuments('id_card_doc','proof_indian', 'paper_clip0');">
+                                                                    </span>
+                                                                </label>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                        </li>
+                                        <li class="signarure_class">
+                                            <i class='glyphicon glyphicon-ok custome-ok hide n-margin-r-5' id="step5-completed"></i>
+                                            <span class="eipv_span_heading n-padding-r-5">Personal - Information</span>
+                                            {% if personal_info == 1 %}
+                                                <span class="child_eipv_span n-padding-r-5 ">&nbsp;Added
+                                                    <a class="n-padding-r-5"></a>
+                                                </span>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12">
+                                    <a data-toggle="modal" href="#what_is_eipv_modal">What is E-IPV?</a><br/>
+                                    <a data-toggle="modal" href="#how_it_works_eipv_modal">How it works?</a><br/>
+                                    <a data-toggle="modal" href="#privacy_policy_eipv_modal">Privacy Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row eipv-registration-form hide" id="id_form_div">
+                        <form class="form-horizontal" id="personal_info_form" name="personal_info_form" method="POST">
+                            {% csrf_token %}
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+                                        <label for="ex1">Title <span>*</span></label>
+                                        <select name="suffix" id="suffix" class="form-control" onchange="validate_field_onkeypress(id, 'help_text_suffix', 'title');">
+                                            <option>Select</option>
+                                            <option value="Mr">Mr</option>
+                                            <option value="Ms">Ms</option>
+                                            <option value="Dr">Dr</option>
+                                            <option value="Prof">Prof</option>
+                                        </select>
+                                        <span class="help-block" id="help_text_suffix"></span>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group form-one">
+                                            <label class="control-label">Name <span>*</span></label>
+                                            <input type="name" class="form-control" id="name" name="name" placeholder="Name"
+                                            title="Please enter name" value="{{user_profile.first_name}}" max-length='25' min-length='3' required='true' onkeyup="validate_field_onkeypress(id, 'help_text_first_name', 'name');">
+                                            <span class="help-block" id="help_text_first_name"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group form-one">
+                                            <label class="control-label">Address 1 <span>*</span></label>
+                                            <textarea class="form-control" cols="50" rows="5" id="address1" name="address1" title="Please enter Address" placeholder="Address1" max-length='100' min-length='7' required='true' onkeyup="validate_field_onkeypress(id, 'help_text_address', 'address1');"></textarea>
+                                            <span class="help-block" id="help_text_address"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="form-group form-one">
+                                                    <label class="control-label">Town / City <span>*</span></label>
+                                                    <input type="text" class="form-control" id="city" name="city" placeholder="city" value="{{user_profile.city}}" max-length='60' min-length='3' required='true' onkeyup="validate_field_onkeypress(id, 'help_text_city', 'city');">
+                                                    <span class="help-block" id="help_text_city"></span>
+                                                </div>
+                                            </div>
+                                            {% if user_agent_country == REGION_IN %}
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Pincode <span>*</span></label>
+                                                        <input type="text"
+                                                            is-num="true"
+                                                            min-length='5'
+                                                            max-length='6'
+                                                            class="form-control"
+                                                            id="pincode"
+                                                            name="pincode"
+                                                            required='true'
+                                                            title="Please enter the pincode"
+                                                            value="{{user_profile.pincode}}"
+                                                        />
+                                                        <span class="help-block" id="help_text_pincode"></span>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="form-group  form-one submit-pincode-form">
+                                                        <label class="control-label">Zipcode <span>*</span></label>
+                                                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="zipcode" value="{{user_profile.pincode}}" max-length='5' min-length='5' required='true' onkeyup="validate_field_onkeypress(id, 'help_text_zipcode', 'zipcode');">
+                                                        <span class="help-block" id="help_text_zipcode"></span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group form-one">
+                                                    <label for="country">Country *</label>
+                                                    <select name="country" class="form-control" id="country" onkeyup="validate_field_onkeypress(id, 'help-text-country', 'Country');">
+                                                        <option value="">Select</option>
+                                                        {% if country_list %}
+                                                            {% for country in country_list %}
+                                                            <option value="{{country}}">{{country}}</option>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <option value="United States">United States</option>
+                                                        {% endif %}
+                                                    </select>
+                                                    <span class="help-block" id="help-text-country"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Disclose your existing mobile number
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-one">
+                                        <label class="control-label">Email </label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{user_profile.email}}" readonly>
+                                        <span class="help-block" id="help_text_email"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-one eipv-verify-otp">
+                                        <label  class="control-label">Mobile Number<span>*</span></label>
+                                        <input type="text" class="form-control no-spin" id="mobile" name="mobile" placeholder="Mobile Number" value="{{user_profile.mobile}}" tabindex="1"  title="Please Enter Mobile number" is-mobile="true" onchange="onchange_mobile_save(id, 'help_text_mobile', 'mobile');">
+                                        <span class="help-block" id="help_text_mobile"></span>
+                                    </div>
+                                </div>
+                                {% if user_agent_country == REGION_IN %}
+                                <div class="col-md-12">
+                                    <p>
+                                    On submitting this form, you will receive OTP to your mobile number.Use it appropriately to help us to verify your mobile number.
+                                    </p>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" id="submit_div">
+                                    <a onclick="submit_forms();" id="id_eipv_submit_button" class="btn submit-eipv upwrdz-button">Submit</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% else %}
+                    <center><p>You Have completed the Registration.</p></center>
+                {% endif %}
+            </fieldset>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap-modal %}
+    <div class="modal fade upwardz-modal" id="show_image_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">PREVIEW</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="image_show_body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- model for e-ipv completed message -->
+    <div class="modal fade upwardz-modal" id="e_ipv_message_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <h3 class="modal-title n-span-blue-color">THANK YOU!</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="e_ipv_message_body">
+                    <div class="col-md-12 text-center">
+                        Your Registration has completed.<br />
+                        We have sent credentials to your logged in mail id.<br />
+                        Please check credentials for your confirmation.
+                    </div>
+                    <div class="col-md-12 text-center">
+                    <button type="button" id="e_ipv_message_ok" class="btn upwrdz-button" onclick="window.location.href='/'">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'common/verify_otp_modal_advisor.html' %}
+    <!-- model for otp verification -->
+    <div class="modal fade upwardz-modal" id="otp_verified_message_model1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color"><b>One Time Password(OTP)</b></h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content text-center">
+                    <div id="otp_verified_message_body">
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="button" id="otp_verified_message_ok" class="btn upwrdz-button" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade upwardz-modal" id="what_is_eipv_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">What is E-IPV?</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="">
+                    <p>
+                    E-IPV is electronic In-Person Verification as mandated for KYC compliance. During the eIPV process, you will be requested to enable video camera in your computer. Video will be captured to verify 1. your presence - make sure that your face is well covered in the video 2. Any Govt issued Identity documents. Please keep the documents handy before starting the eIPV process. Our backend team will verify the recording against the details we have got through E-IPV processes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade upwardz-modal" id="how_it_works_eipv_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog eipv-dialog-md">
+            <div class="panel upwrdz-eipv-modal panel-default">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h4 class="modal-title n-span-blue-color text-center">E-IPV PROCESS FLOW</h4>
+                </div>
+                <div class="panel-body" id="">
+                    <div class="step-box">
+                      <p class="header-text">
+                        STEP 1- FACE CAPTURE
+                      </p>
+                      <div class="captured-slot">
+                        <img src="/static/images/Asset1.png" class="img-responsive" alt="FACE RECORDING">
+                      </div>
+                      <p class="bottom-text">
+                        YOU WILL BE ASKED TO CAPTURE YOUR FACE.
+                      </p>
+                    </div>
+                    <div class="step-box">
+                      <p class="header-text">
+                        STEP 2- IDENTITY PROOF
+                      </p>
+                      <div class="captured-slot">
+                        <img src="/static/images/Asset3.png" class="img-responsive" alt="PAN CARD">
+                      </div>
+                      <p class="bottom-text">
+                        YOU WILL BE ASKED TO SHOW YOUR IDENTITY PROOF
+                      </p>
+                    </div>
+                    <div class="step-box">
+                      <p class="header-text">
+                        STEP 3- FILL THE FORM
+                      </p>
+                      <div class="captured-slot">
+                        <img src="/static/images/Asset5.png" class="img-responsive" alt="FILL FORM">
+                      </div>
+                      <p class="bottom-text">
+                        YOU WILL BE ASKED TO FILL A FORM
+                      </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade upwardz-modal" id="privacy_policy_eipv_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">Privacy Policy</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="">
+                    <p>Your privacy is important. We, at ABOTMI do not sell or transfer your personal identity information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block theme_scripts %}
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        var eipv_face_capture = '{{eipv_face_capture}}';
+        var eipv_aadhaar = '{{eipv_aadhaar}}';
+        var personal_info ='{{personal_info}}';
+        var user_profile_id = "{{user_profile.id}}";
+        var email_signup = "{{email_signup}}";
+        var suffix = "{{user_profile.suffix}}";
+        var address1 = "{{user_profile.address}}";
+        var user_agent_country = "{{user_agent_country}}";
+        $("#country").val(user_agent_country);
+        var username = '{{user.username}}';
+        var user_email_status = '{{user_status.email_verified}}'; 
+        if(suffix == '' || suffix == 'Selec'){
+            $('#suffix').val('Select');
+        }else{
+            $("#suffix").val('{{user_profile.suffix}}');
+        }
+        var advisors = "{{user_profile.is_advisor}}";
+        $("#register_menu").parent().remove();
+        $("input, textarea, select").attr('autocomplete', 'off');
+    </script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+    <script src="{% static 'js/submit_eipv.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/video_js/webcam.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/video_js/webcam.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/photo-capture.js' %}"></script>
+    <script src="{% static 'js/new_js/upload_document.js' %}"></script>
+{% endblock %}

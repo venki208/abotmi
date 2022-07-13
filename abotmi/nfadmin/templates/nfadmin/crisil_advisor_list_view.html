@@ -1,0 +1,378 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/nfadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_list/">
+        <i class="fa fa-user text-pink"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li class="active">
+      <a href="/nfadmin/crisil_advisor_list/">
+          <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+        <span>CRISIL Advisors</span>
+      </a>
+    </li>
+    <li>
+        <a href="/nfadmin/affiliated_companies/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companies</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/add_client_list/">
+            <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+            <span>Clients</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/company_spoc/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+            <span>Company Spoc</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_request/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Request</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/regulatory_registration_data_uploaded_url/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Regulatory Authentication</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/educational_authentication/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Educational Authentication</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+    <!-- Content Header (Page header) -->
+    {% block content-header %}
+    <section class="content-header">
+        <h1>CRISIL Advisor List</h1>
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    {% endblock %}
+
+<!-- Main content -->
+{% block main-content %}
+<section class="content">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box adm-box">
+                    <div class="box-header">
+                        <h3 class="box-title">CRISIL Advisor Table</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>User Email</th>
+                                    <th>Mobile</th>
+                                    <th>Bank Name</th>
+                                    <th>Ref No </th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for advisor in crisil_advisor_list %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                                        {{ advisor.user_profile.first_name }}
+                                        {{ advisor.user_profile.last_name }}
+                                    </td>
+                                    <td>{{advisor.user_profile.email}}</td>
+                                    <td>{{advisor.user_profile.mobile}}</td>
+                                    <td>
+                                        {{advisor.user_profile.payment.bank_name}}
+                                    </td>
+                                    <td>
+                                        {{ advisor.user_profile.payment.cheque_dd_no }}
+                                    </td>
+                                    <td align="center">
+                                        <small class='label pull-center bg-green'>
+                                            {{ advisor.crisil_application_status }}
+                                        </small>
+                                    </td>
+                                    <td>
+                                        {% if advisor.crisil_application_status == CRISIL_PAYMENT_SUBMITTED or advisor.crisil_application_status == CRISIL_RENEWAL or advisor.crisil_application_status ==  CRISIL_RENEWAL_PAYMENT_SUBMITTED %}
+                                            <button type="button" id="{{ advisor.user_profile.id }}" class="btn btn-info" onclick='view_crisil_advisor_modal(id);'title="View Details & Edit">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                        {% endif%}
+                                        {% if advisor.crisil_application_status == CRISIL_CERTIFICATE_IN_PROCESS or advisor.crisil_application_status == CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS %}
+                                            <button type="button" id="{{ advisor.id }}" class="btn btn-info" onclick="crisil_certificate_upload_form(id);"
+                                            title="Crisil Certificate Upload">
+                                                <i class="glyphicon glyphicon-upload"></i>
+                                            </button>
+                                        {% endif %}
+                                        {% if advisor.crisil_application_status == CRISIL_GOT_CERTIFICATE %}
+                                            <button type="button" id="{{ advisor.id }}" class="btn btn-success" onclick="crisil_certificate_upload_form(id);" title="Crisil Certificate Upload">
+                                                <i class="glyphicon glyphicon-upload"></i>
+                                            </button>
+                                        {% endif %}
+                                        {% if advisor.crisil_application_status == CRISIL_VERIFICATION_FAILED %}
+                                            <button type="button" id="{{ advisor.id }}" class="btn btn-warning" onclick="view_crisil_failed_feedback(id);" title="View CRISIL Verification failed feedback">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>User Email</th>
+                                    <th>Mobile</th>
+                                    <th>Bank Name</th>
+                                    <th>Ref No </th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</section><!-- /.content -->
+
+<div class="modal fade" id="CrisilAdvisorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="CrisilAdvisorModal-title">CRISIL Advisor Details</h4>
+            </div>
+
+            <div class="modal-body custome-model-body" id="CrisilAdvisorModal-body">
+               <!--Ajax call load Edit student form -->
+            </div>
+
+            <div class="modal-footer" id="CrisilAdvisorModal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="crisil_verification_failed_modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden='true'>
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="CrisilAdvisorModal-title">CRISIL Verification Failed</h4>
+            </div>
+            <div class="modal-body" id="crisil_verification_failed_feedback_modal_body">
+               <!--Ajax call load Edit student form -->
+            </div>
+            <div class="modal-footer" id="CrisilAdvisorModal-feedback-footer">
+                <button type="button" class="btn" id="id_save_cancel" data-dismiss="modal" onClick="$('.input').val('');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================================================================= -->
+
+<script type="text/javascript">
+    // Action -> Ajax to view advisor details
+    function view_crisil_advisor_modal(user_profile_id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/view_crisil_advisor_modal/",
+            beforeSend: function(request){
+                request.setRequestHeader('X-CSRFToken', token);
+            },
+            data: {
+                user_profile_id: user_profile_id
+            },
+            success: function (response){
+                $("#CrisilAdvisorModal").modal('show');
+                $("#CrisilAdvisorModal-body").html("");
+                $("#CrisilAdvisorModal-body").html(response);
+                var hidden_inputs = $('#hidden_inputs_buttons').html();
+                $('#CrisilAdvisorModal-footer').html('');
+                $('#CrisilAdvisorModal-footer').html(hidden_inputs);
+            }
+        });
+    }
+    // Action -> editing advisor crisil  details
+    function onchange_validating_crisil_edited_fields(){
+        var missed_field = 0;
+        if($("#payment_status").val() == 'bounced' || $("#payment_status").val() == 'invalid'){
+            if($('#id_remarks').val() == ''){
+                $("#help-text-payment-remark").html('Please Enter Remark');
+                $("#help-text-payment-received-date").html('');
+                $("#help-text-payment-status").html('');
+                missed_field = 1;
+            }else{
+                $("#help-text-payment-remark").html('');
+            }
+        }
+        if($("#payment_status").val()=='Select' && $("#payment_received_date").val()==''){
+            $("#help-text-payment-status").html('Please Select Payment Status');
+            missed_field = 1;
+        }
+        else if($("#payment_status").val()!='' || $("#payment_status").val()!='Select'){
+            if($("#payment_status").val() == 'paid' && $("#payment_received_date").val()==''){
+                $("#help-text-payment-received-date").html('Please Select Payment Recevied Date');
+                $("#help-text-payment-status").html('');
+                missed_field = 1;
+            }
+            else{
+                $("#help-text-payment-received-date").html('');
+            }
+        }
+        if($("#amount").val() == ''){
+            $("#help-text-payment-discount-amount").html('Please Enter Amount');
+            $("#amount").focus();
+            missed_field = 1;
+        }else{
+            $("#help-text-payment-discount-amount").html('');
+        }
+        if($("#cheque_dd_date").val() == ''){
+            $("#help-text-payment-cheque-dd-date").html('Please Enter Cheque/DD Date');
+            $("#cheque_dd_date").focus();
+            missed_field = 1;
+        }
+        else{
+            $("#help-text-payment-cheque-dd-date").html('');
+        }
+        if($("#cheque_dd_no").val() == ''){
+            $("#help-text-payment-cheque-dd-no").html('Please Enter Cheque/DD Number');
+            $("#cheque_dd_no").focus();
+            missed_field = 1;
+        }else{
+            $("#help-text-payment-cheque-dd-no").html('');
+        }
+        if($("#bank_name").val() == ''){
+            $('#help-text-payment-bank-name').html('Please Enter Bank Name');
+            $("#bank_name").focus();
+            missed_field = 1;
+        }else{
+            $('#help-text-payment-bank-name').html('');
+        }
+        return missed_field;
+    }
+    function edit_crisil_advisor_form() {
+        var missed_field = onchange_validating_crisil_edited_fields();
+        if (missed_field == 0){
+            $("#id_save_details").html('Please Wait...');
+            $('#id_save_details').prop('disabled', true);
+            $("#id_save_cancel").prop('disabled',true);
+            var form_data = new FormData($('#edit_crisil_advisor')[0]);
+            var token = "{{ csrf_token }}";
+            $.ajax({
+                type: 'POST',
+                url:"/nfadmin/edit_crisil_advisor_modal/",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data: form_data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                    if(response == 'success'){
+                        $('#CrisilAdvisorModal').modal('hide');
+                        window.location.reload();
+                    } else {
+                        alert('unable to save data');
+                    }
+                }
+            });
+        }
+    }
+    function crisil_certificate_upload_form(advisor_id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/crisil_certificate_modal/",
+            beforeSend: function(request){
+                request.setRequestHeader('X-CSRFToken', token);
+            },
+            data: {
+                advisor_id: advisor_id
+            },
+            success: function (responce){
+                $("#CrisilAdvisorModal").modal('show');
+                $("#CrisilAdvisorModal-body").html("");
+                $("#CrisilAdvisorModal-body").html(responce);
+                $("#CrisilAdvisorModal-footer").html('');
+                $("#CrisilAdvisorModal-footer").html($("#hidden-inputs-crisil-upload").html());
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    function view_crisil_failed_feedback(id) {
+        var token = '{{csrf_token}}';
+        $.ajax({
+            type: 'POST',
+            beforeSend: function (request) {
+                request.setRequestHeader('X-CSRFToken', token);
+            },
+            url: '/nfadmin/view_crisil_failed_feedback/',
+            data: {
+                'advisor_id': id
+            },
+            success: function (response) {
+                $("#crisil_verification_failed_feedback_modal_body").html('');
+                $("#crisil_verification_failed_feedback_modal_body").html('<p>'+response+'</p>');
+                $("#crisil_verification_failed_modal").modal('show');
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {{form.media}}
+    <!-- Deals with Scripts  -->
+    {% block base_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block theme_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block custom_theme_css %}
+        <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+        <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    {% endblock %}
+    {% block base_scripts %}
+       {{ block.super }}
+    {% endblock %}
+    <!-- HTML Content Starts -->
+    {% block top_header %}
+       {% include 'header2.html' %}
+    {% endblock %}
+    {% block main_content %}
+    {% endblock %}
+    {% block footer_base %}
+        {{ block.super }}
+    {% endblock %}
+    {% block copy_rights %}
+       {{ block.super }}
+    {% endblock %}
+    {% block bootstrap-modal %}
+       {{ block.super }}
+    {% endblock %}
+    <!-- HTML Content Ended -->
+
+    <!-- Scripts Start -->
+    {% block theme_scripts %}
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}
+    <!-- Scripts Ended -->

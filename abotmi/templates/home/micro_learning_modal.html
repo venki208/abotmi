@@ -1,0 +1,93 @@
+{% load staticfiles %}
+<style>
+    .modal-title.identity-title {
+        display: inline-flex;
+    }
+    .modal-side-content {
+        color: #2a3290;
+        text-align: center;
+    }
+    .content {
+        font-size: 18px;
+    }
+    .sub-content{
+        font-weight: 600;
+        width: 70%;
+        margin: auto;
+    }
+    .share_icons{
+        list-style: none;
+        display: inline-flex;
+    }
+    .micro-img-sec{
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .upwardz-modal .close{
+       position:absolute;
+       top:15px;
+       right:15px;
+       font-weight:600;
+       background:transparent;
+   }
+   .upwardz-modal h3{
+       font-size: 25px;
+       font-weight: 600;
+   }
+   @media(max-width:550px){
+    .micro-learning-social-media{
+        padding-left: 0px;
+    }
+    .micro-learning-social-media li img{
+        width: 40px;
+    }
+   }
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="micro_learning_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content p-4">
+                <h3 class="pt-4 pb-4 text-center">MICRO LEARNING</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="pannel-popup-content">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <p class="modal-side-content text-center sub-content">ABOTMI Facilitating Advisors to Create and Share 2 Minutes Curated Videos to Showcase Their Advisory Skills and Product Knowledge
+                            to the World.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row text-center pt-3">
+                        <div class="col-md-12">
+                            <p class="text-center">It’s easy and simple to share the videos through your personal social media.</p>
+                            <ul class="share_icons micro-learning-social-media">
+                                <li><img src="{% static 'new_images/facebook-logo.png' %}" alt="facebook"></li>
+                                <li><img src="{% static 'new_images/linkedin-logo.png' %}" alt="LI_logo"></li>
+                                <li><img src="{% static 'new_images/twitter.png' %}" alt="twitter_logo"></li>
+                                <li><img src="{% static 'new_images/email-logo.png' %}" alt="email_logo"></li>
+                                <li><img src="{% static 'new_images/whatsapp.png' %}" alt="whatsapp_logo"></li>
+                                <li><img src="{% static 'new_images/youtube-logo.png' %}" alt="youtube_logo"></li>
+                            </ul>
+                               
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <p class="content text-center">
+                                The closest link to the investor is the advisor. Advisor is the strongest influencer and the highest interactor. ABOTMI helping advisors to educate the investors by microlearning.
+                            </p>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var videoPlayer = document.getElementById("myVideo");
+    $("#vd_cls").on('click', function (e) {
+        videoPlayer.pause();
+    });
+</script>

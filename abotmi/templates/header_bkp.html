@@ -1,0 +1,344 @@
+{% load staticfiles %}
+{% spaceless %}
+<nav class="navbar navbar-custom new-upwrdz-navbar-custom navbar-fixed-top navbar-fixed-mobileres nav-shadow" role="navigation">
+    <div class="container-fluid pd-lr0 upwrdz-top-colors upwrdz-gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="pull-left">Beta Version</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container upwrdz-header-div">
+        <div class="navbar-header">
+            <a class="navbar-brand page-scroll" href="/">
+               <img src="{% static 'new_images/abotmi_logo_with_name.png' %}" alt="upwrdz-logo" class="img-responsive up_logo">
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse abotmi-header-div-menu navbar-right navbar-main-collapse collapse-navbar-profile-pic collapse-navbar-loginsignup abotmi-desktop-responsive">
+            <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                    {% if not advisor.is_register_advisor and not user_profile.is_company and not user_selected_role == 'investor' %}
+                        <li class="profile-pic-register-btn">
+                            <a href="{% url 'signup:face_capture' %}"  title="Click here to Register" class="n-span-black-color">Register</a>
+                        </li>
+                        {% endif %}
+                        <li class="dropdown upwrdz-profile-pic">
+                            {% if user_profile.is_company %}
+                                <span aria-required="true" data-toggle="tooltip" data-placement="bottom" title="{{user_profile.company_name}}" class="display_block welcome-pic-name">Welcome&nbsp;{{ user_profile.company_name|truncatechars_html:10}}</span>
+                            {% else %}
+                                <span aria-required="true" data-toggle="tooltip" data-placement="bottom" title="{{user.first_name}}" class="display_block welcome-pic-name">Welcome&nbsp;{{ user_profile.first_name|truncatechars_html:10 }}</span>
+                            {% endif %}
+                            {% if user_profile.picture %}
+                            <a href="#" class="dropdown-toggle display_block header-profile-pic" data-toggle="dropdown">
+                                <img src="{{ user_profile.picture.url }}" class="img-responsive n-user-img " alt="">
+                            </a>
+                            {% else %}
+                            <a href="#" class="dropdown-toggle display_block header-profile-pic header-profile-pic-one" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user default-profile"></i>
+                            </a>
+                            {% endif %}
+                            <ul class="dropdown-menu dropdown-menu-profile-pic">
+                                {% if advisor.is_register_advisor %}
+                                    <li class="dropdown-submenu left dropdown-submenu-left">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            Settings
+                                        </a>
+                                        <ul class="dropdown-menu profile-submenu">
+                                            <li>
+                                                <a href="{% url 'signup:face_capture' %}">Edit Profile</a>
+                                            </li>
+                                            <li><a href="{% url 'home:change_password' %}">Change Password</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                <li><a onclick="user_logout();">Signout</a></li>
+                            </ul>
+                        </li>
+                {% else %}
+                    
+                     <li class="abotmi-advisor-menu advisor-content dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/my_repute/my_repute_static/">
+                                How it works?
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-tip-nw">
+                                <a class="dropdown-item" href="/advisors/">Advisors</a>
+                                <a class="dropdown-item" href="/investors/">Investors</a>
+                              </div>
+                        </li>
+                    <!-- <li class="abotmi-advisor-menu advisor-content dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/my_repute/my_repute_static/">
+                            REPUTATION
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-tip-nw">
+                            <a class="dropdown-item" href="/my_repute/build_reputation/">Build Reputation</a>
+                            <a class="dropdown-item" href="/my_repute/manage_reputation/">Manage Reputation</a>
+                            <a class="dropdown-item" href="/my_repute/share_reputation/">Share Reputation</a>
+                          </div>
+                    </li> -->
+                    <li class="abotmi-advisor-menu investor-issuer-content hide">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/advice_page/">
+                            ADVICE
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-tip-nw">
+                            <a class="dropdown-item" href="/get_advice_page/">Get Advice</a>
+                            <a class="dropdown-item" href="/refer_advice_page/">Refer Advice</a>
+                            <a class="dropdown-item" href="/rate_advice_page/">Rate Advice</a>
+                          </div>
+                    </li>
+                    <li class="abotmi-advisor-menu issuer-content hide">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/advisor_page/">
+                            ADVISORS
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-tip-nw">
+                            <a class="dropdown-item" href="/advisor_page/">Connect Advisors</a>
+                            <a class="dropdown-item" href="/advisor_page/">Educate Advisors</a>
+                            <a class="dropdown-item" href="/advisor_page/">Share Offerings</a>
+                          </div>
+                    </li>
+                    <li class="abotmi-advisor-menu">
+                        <a class="dropdown-toggle" href="/about_us/">
+                            About Us
+                        </a>
+                        <!-- <div class="dropdown-menu dropdown-menu-tip-nw">
+                            <a class="dropdown-item" href="/purpose_page/">Purpose</a>
+                            <a class="dropdown-item" href="/people_page/">People</a>
+                            <a class="dropdown-item" href="/partners_page/">Partners</a>
+                          </div> -->
+                    </li>
+                    <li class="abotmi-advisor-menu">
+                        <a class="dropdown-toggle" href="/why_us/">
+                            WHY US
+                        </a>
+                        <!-- <div class="dropdown-menu dropdown-menu-tip-nw">
+                            <a class="dropdown-item" href="/opportunities_page/">Opportunities</a>
+                            <a class="dropdown-item" href="/protection_page/">Protection</a>
+                            <a class="dropdown-item" href="/ethical_commitment_page/">Ethical<br/> Commitment</a>
+                          </div> -->
+                    </li>
+                    <li class="login-button-btn advisor-content">
+                        <a class="login-btn btn adv_btn" name="login_a">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Log In
+                        </a>
+                    </li>
+                    <li class="login-button-btn get_free_advice_btn advisor-content">
+                        <a class="page-scroll login-btn btn adv_btn" name="signup_a">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Sign Up
+                        </a>
+                    </li>
+                    <!-- commented for temporarly -->
+                    <!-- <li class="login-button-btn investor-issuer-content hide">
+                        <a class="login-btn btn mem_btn" btn_type='free_advice' name="signup_a" id="get_free_advice_btn" onclick="set_title('');">Get Free Advice</a>
+                    </li> -->
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="abotmi-mobile-responsive abotmi-header-div-menu" id="navbarResponsive">
+                <div class="menu-overlay menu-close"></div>
+                <a href="#" class="menu-open ml-auto"><i class="fa fa-bars" aria-hidden="true"></i></a>
+
+                <div class="side-menu-wrapper" id="bs-sidebar-navbar-collapse-1">
+                <!-- <a href="#" class="menu-close"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> -->
+                <ul class="nav navbar-nav">
+                      {% if user.is_authenticated %}
+                          {% if not advisor.is_register_advisor and not user_profile.is_company and not user_profile.is_member %}
+                              <li class="profile-pic-register-btn">
+                                  <a href="{% url 'signup:face_capture' %}"  title="Click here to Register" class="n-span-black-color">Register</a>
+                              </li>
+                              {% endif %}
+                              <li class="dropdown upwrdz-profile-pic">
+                                  {% if user_profile.is_company %}
+                                      <span aria-required="true" data-toggle="tooltip" data-placement="bottom" title="{{user_profile.company_name}}" class="display_block welcome-pic-name">Welcome&nbsp;{{ user_profile.company_name|truncatechars_html:10}}</span>
+                                  {% else %}
+                                      <span aria-required="true" data-toggle="tooltip" data-placement="bottom" title="{{user.first_name}}" class="display_block welcome-pic-name">Welcome&nbsp;{{ user_profile.first_name|truncatechars_html:10 }}</span>
+                                  {% endif %}
+                                  {% if user_profile.picture %}
+                                  <a href="#" class="dropdown-toggle display_block header-profile-pic" data-toggle="dropdown">
+                                      <img src="{{ user_profile.picture.url }}" class="img-responsive n-user-img " alt="">
+                                  </a>
+                                  {% else %}
+                                  <a href="#" class="dropdown-toggle display_block header-profile-pic header-profile-pic-one" data-toggle="dropdown">
+                                      <i class="glyphicon glyphicon-user default-profile"></i>
+                                  </a>
+                                  {% endif %}
+                                  <ul class="dropdown-menu dropdown-menu-profile-pic">
+                                      {% if advisor.is_register_advisor %}
+                                          <li class="dropdown-submenu left dropdown-submenu-left">
+                                              <a class="dropdown-toggle" data-toggle="dropdown">
+                                                  Settings
+                                              </a>
+                                              <ul class="dropdown-menu profile-submenu">
+                                                  <li>
+                                                      <a href="{% url 'signup:aadhaar_verification' %}">Edit Profile</a>
+                                                  </li>
+                                                  <li><a href="{% url 'home:change_password' %}">Change Password</a></li>
+                                              </ul>
+                                          </li>
+                                      {% endif %}
+                                      <li><a onclick="user_logout();">Signout</a></li>
+                                  </ul>
+                              </li>
+                      {% else %}
+                        
+                        <li class="abotmi-advisor-menu advisor-content dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    How it works ?  &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </a>
+                                <ul class="dropdown-menu forAnimate" role="menu">
+                                    <li class="">
+                                      <a href="/advisors/">
+                                         Advisors 
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="/investors/">
+                                          investors
+                                      </a>
+                                    </li>
+                                </ul>
+                            </li>
+                          <!-- <li class="abotmi-advisor-menu advisor-content dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  REPUTATION &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                              </a>
+                              <ul class="dropdown-menu forAnimate" role="menu">
+                                  <li class="">
+                                    <a href="/my_repute/build_reputation//">
+                                        Build Reputation
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="/my_repute/manage_reputation//">
+                                        Manage Reputation
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="/my_repute/share_reputation//">
+                                        Share Reputation
+                                    </a>
+                                  </li>
+                              </ul>
+                          </li> -->
+                          <li class="abotmi-advisor-menu investor-issuer-content dropdown hide">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  ADVICE &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                              </a>
+                              <ul class="dropdown-menu forAnimate" role="menu">
+                                <li>
+                                    <a class="" href="/get_advice_page/">
+                                        Get Advice
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/refer_advice_page/">
+                                        Refer Advice
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/rate_advice_page/">
+                                        Rate Advice
+                                    </a>
+                                </li>
+                            </ul>
+                          </li>
+                          <li class="abotmi-advisor-menu issuer-content hide dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  ADVISORS &nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                              </a>
+                              <ul class="dropdown-menu forAnimate" role="menu">
+                                <li>
+                                    <a class="" href="/advisor_page/">
+                                        Connect Advisors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/advisor_page/">
+                                        Educate Advisors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/advisor_page/">
+                                        Share Offerings
+                                    </a>
+                                </li>
+                            </ul>
+                          </li>
+                          <li class="abotmi-advisor-menu dropdown">
+                              <a href="/about_us/" class="dropdown-toggle" >
+                                  ABOUT US
+                              </a>
+                              <!-- <ul class="dropdown-menu forAnimate" role="menu">
+                                <li>
+                                    <a class="" href="/purpose_page/">
+                                        Purpose
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/people_page/">
+                                        People
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/partners_page/">
+                                        Partners
+                                    </a>
+                                </li>
+                                
+                            </ul> -->
+                          </li>
+                          <li class="abotmi-advisor-menu dropdown">
+                              <a href="/why_us/" class="dropdown-toggle">
+                                  WHY US
+                                </a>
+                              <!-- <ul class="dropdown-menu forAnimate" role="menu">
+                                <li>
+                                    <a class="" href="/opportunities_page/">
+                                        Opportunities
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/protection_page/">
+                                        Protection
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="/ethical_commitment_page/">
+                                        Ethical<br/> Commitment
+                                    </a>
+                                </li>
+                            </ul> -->
+                          </li>
+                          <li class="login-button-btn advisor-content">
+                              <a class="login-btn btn adv_btn" name="login_a">
+                                  <i class="fa fa-user" aria-hidden="true"></i>
+                                  Login
+                              </a>
+                          </li>
+                          <li class="login-button-btn get_free_advice_btn advisor-content">
+                              <a class="page-scroll login-btn btn adv_btn" name="signup_a">
+                                  <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                  Sign Up
+                              </a>
+                          </li>
+                          <!-- commented for temporarly -->
+                          <!-- <li class="login-button-btn investor-issuer-content hide">
+                              <a class="login-btn btn mem_btn" btn_type='free_advice' name="signup_a" id="get_free_advice_btn" onclick="set_title('');">Get Free Advice</a>
+                          </li> -->
+                      {% endif %}
+                  </ul>
+              </div>
+            </div>
+
+
+    </div>
+
+
+
+
+</nav>
+{% endspaceless %}

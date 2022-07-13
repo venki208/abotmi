@@ -1,0 +1,35 @@
+.UZ-cd {
+    margin: auto;
+    max-width: 310px;
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #000;
+    height: 160px;
+}
+.us-dp {
+    float: left;
+    width: 60px;
+    margin-right: 12px;
+    height: 60px;
+    border-radius: 8px;
+}
+.tit {
+    margin-top: 4px;
+    margin-bottom: 0px;
+    font-size: 24px;
+}
+.lc {
+    margin-top: 4px;
+}
+.pr-btn {
+    padding: 8px 23px;
+    margin-top: 38px;
+    background: #fff;
+    border: 1px solid #a1a1a1;
+    float: left;
+}
+.c_l {
+    width: 48px;
+    margin-top: 30px;
+    float: right;
+}

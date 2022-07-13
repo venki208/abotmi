@@ -1,0 +1,14 @@
+.recaptcha1{
+    transform:scale(0.60);-webkit-transform:scale(0.60);transform-origin:0 0;-webkit-transform-origin:0 0;
+    height: 45px;
+    margin-bottom: 25px;
+}
+.recaptcha-help-block{
+    margin-bottom: 20px;
+}
+.loginmodal-container input[type=text], input[type=password]{
+    border: 1px solid #555;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}

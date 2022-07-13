@@ -1,0 +1,103 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    {% if not user.is_authenticated %}
+        <!-- <style>
+            body{
+                padding-top: 123px;
+            }
+        </style> -->
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/advisor-banner.png' %}">
+        <div class="container">
+            <h2>REPUTATION</h2>
+        </div>
+    </section>
+    <section class="reputation-static abotmi-reputation-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/reputation-icon1.png' %}"> 
+                        <h3>Build Reputation</h3>
+                        <p>Abotmi helps you to create your own unique identity and a profile for yourself. Expand your network by connecting with your counterparts. Let your customers and your peers know where to find you and contact you. They can also evaluate you, which will help design your reputation. Build your name, your credibility and make a mark in the industry with ABOTMI.</p>
+                        <p>Whether you like it or not everywhere you go, other people will be able to instantly access info about you with or without your knowledge or consent. ABOTMI enabling advisors to build, manage and share their digital identity in real time and share them</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
+                    <div class="abotmi-reputation-card-two abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/reputation-icon2.png' %}"> 
+                        <h3>Manage Reputation</h3>
+                        <p>Establish and manage the reputation by validating the credibility through a third party certification of the profile , rating and ranking through the peers and clients , prove the expertise and trustworthiness by client satisfaction and product / service delivery . </p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="abotmi-reputation-card-three abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/reputaion-share-repute.png' %}">
+                        <h3>Share Reputation</h3>
+                        <p>ABOTMI enables the advisors to share their individual digital real time profile with their existing clients, potential clients, peers network, industry bodies, regulators through social media, marketing communications ( mails, telegram , whatsapp ) and thereby build their real time reputation. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 abotmi-how-it-works-main">
+                    <h3>How it works ?</h3>
+                    <p>Reputation management is simple 5 step process</p>
+                    <ul class="how-it-works text-center">
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-one.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-two.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-three.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-four.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-five.png' %}">
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn" name="signup_a">Register now and start Building your Reputation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

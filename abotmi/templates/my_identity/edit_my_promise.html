@@ -1,0 +1,29 @@
+<!-- My Promise Modal HTML Starts -->
+{% load staticfiles %}
+<div class="modal fade upwardz-modal" id="mypromiseModal" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="send_modal-title">MY PROMISE</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content modal-body">
+                    <form class="panel-body">
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" id="id_promise" min-length='3' required='true' cols="50" rows="4" onkeyup="validate_field_onkeypress(id,'help_id_promise','My Promise');" placeholder="Write your promise to the Clients">{{ advisor.my_promise }}</textarea>
+                            <span class="help-block" id="help_id_promise"></span>
+                        </div>
+                    </form>
+                    <div class="row text-center">
+                        <button type="button" name="button" class="btn upwrdz-button" id="promise_button" onclick="save_my_promise();">submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- My Promise Modal Ends-->

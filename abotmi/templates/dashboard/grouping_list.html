@@ -1,0 +1,515 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" media="screen" title="no title" charset="utf-8">
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<style>
+.item{
+    border-top: 1px solid #FAFAFA;
+    padding: .78571429rem 1.14285714rem!important;
+    white-space: normal;
+    word-wrap: normal;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    border: none;
+    height: auto;
+    text-align: left;
+    border-top: none;
+    line-height: 1em;
+    color: rgba(0,0,0,.87);
+    padding: .78571429rem 1.14285714rem!important;
+    text-transform: none;
+    font-weight: 400;
+    box-shadow: none;
+    -webkit-touch-callout: none;
+    font-size: 14px;
+}
+.icon{
+    float: right;
+    top: 13px;
+    left: -4px;
+    font-size: 10px;
+}
+.model-pop-div .modal-header {
+    padding: 5px 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.model-pop-div .modal-subheader{
+    padding: 10px 20px;
+    border-bottom: 1px solid #e5e5e5;
+    background:#cfcece;
+}
+.model-pop-div .modal-subheader i{
+    font-size: 30px;
+    position: absolute;
+    top: 50px;
+}
+.model-pop-div .modal-subheader .content-div{
+    margin-left: 50px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: bold;
+}
+.model-pop-body input{
+    border-radius:0px;
+    border:1px #ccc solid;
+    padding-left: 0px;
+    margin-left: 5px;
+    padding: 0px;
+}
+.model-pop-body .form-group:last-child {
+    margin-bottom: 0;
+}
+.bottom-border{
+    border-bottom: 1px solid #ccc !important;
+    width: 100% !important;
+    margin: 0 6px;
+    max-width: 98%;
+    border-width: 0px;
+    border-color: #ccc;
+    padding-top: 10px;
+}
+.thumbnail img {
+    width: 100%;
+}
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+.search-output{
+    display: none;
+}
+
+/* end chips*/
+</style>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-group">
+                <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12 no-padding">
+                    <ul class="chat-group">
+                        {% for group in group_names_list %}
+                        <li class="left clearfix n-cursour-pointer" id="{{group.id}}">
+                            <span class="chat-img pull-left">
+                                <img src="/static/images/REIALogoonly.png"  />
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font" id="id_group_name{{group.id}}" onclick="get_group_members(id,'{{group.id}}','edit_block{{group.id}}');">{{ group.group_name }}</strong>
+                                    <input type="text" class="form-control" id="id_edit_group_name{{group.id}}" value="{{ group.group_name }}" style="display:none;width:60%;">
+                                    <span class="help-block" id="help-group-name{{group.id}}" style="display:none;"></span>
+                                    <strong class="pull-right text-muted" id="edit_block{{group.id}}" style="display:none;"><a onclick="edit_group('{{group.id}}','id_group_name{{group.id}}','id_edit_group_name{{group.id}}');">Edit</a></strong>
+                                </div>
+                                <!-- this will use in future -->
+                                <!-- <p class="n-margin-0">
+                                    <span>490 members</span>
+                                    <span><a href="#">Favorites</a></span>
+                                </p> -->
+                                <!-- end  -->
+                            </div>
+                            <hr class="bottom-border">
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" id="id_body_group_member_block">
+                    <!-- Ajax Content will load here. -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pull-right" id="edit_or_delete_button_div" style="display:none;">
+        <button type="button" name="button" class="btn btn-sm" id="id_cancel_update">Cancel</button>
+        <button type="button" class="btn btn-sm n-background-pink-color" name="button" id="id_delete_group">Delete</button>
+        <button type="button" name="update_group" class="btn btn-primary btn-sm" id="update_group">Update</button>
+    </div>
+    <div class="row text-center" id="id_create_group_div">
+        <button type="submit" class="btn pink-btn-primary" data-toggle="modal" data-target="#add_group"><spn class="chat-img pull-left"><i class="fa fa-plus" aria-hidden="true"></i></span> Create Group</button>
+    </div>
+
+    <!-- Create Group Modal -->
+    <div class="modal fade" id="add_group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel modal-content model-pop-div">
+                <!-- Modal Header -->
+                <div class="panel-heading dash-heading">
+                    <button type="button" class="close" onclick="dismiss_modal('add_group');">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Create New Group
+                    </h4>
+                </div>
+                <div class="modal-subheader">
+                    <h4 class="modal-title" id="myModalLabel">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <div class="content-div"><p class="n-margin-0">Create and share your group for new promotion, add events for launching new properties</p></div>
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body model-pop-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="inputEmail3">Group Name</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="id_new_group_name" placeholder="Group Name" style="padding-left:5px;"/>
+                                <span class="help-block" id="help-id_new_group_name"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="inputPassword3">Clients</label>
+                            <div class="col-sm-7">
+                                <div class="total-members" style="cursor:text;">
+                                    <div id="id_total_members" style="display:inline;">
+                                    </div>
+                                    <input type="text" class="search form-control" id="id_search" style="display:inline-block;width:9%;border:none; box-shadow:none !important;"/>
+                                    <i class="glyphicon glyphicon-triangle-bottom icon" style="cursor:pointer;"></i>
+                                </div>
+                                <span class="help-text" id="help-id_search"></span>
+                                <input type="hidden" id="id_total_clients_selected" value=""/>
+                                <div class="search-dropdown transition">
+                                    {% if total_members %}
+                                        {% for clients in total_members %}
+                                            <div class="item" id="{{clients.user_profile.id}}" data-value="{{ clients.user_profile }}" onclick="add_client_to_input(id,'id_total_members');">
+                                                {{ clients.user_profile }}
+                                                <span id="id_item_name{{clients.user_profile.id}}">{{ clients.user_profile.first_name }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="item">No Clients</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn n-bg-grey" onclick="dismiss_modal('add_group');">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn pink-btn-primary" onclick="create_new_group('id_total_clients_selected','id_new_group_name');">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Create Group Modal -->
+    <script type="text/javascript">
+        // Adding Group Name
+        function add_group_name(id, help_id){
+            value = $('#'+id).val();
+            var token = "{{ csrf_token }}";
+            if(value == ''){
+                $('#'+id).addClass('not_valid');
+                $('#'+help_id).html('Please Enter Group Name');
+            }else{
+                $('#'+id).removeClass('not_valid');
+                $('#'+help_id).html('');
+                $.ajax({
+                    type:'POST',
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    url:'/dashboard/add_group_name/',
+                    data:{
+                        group_name : value
+                    },
+                    success:function(response){
+                        if(response.result == 'exists'){
+                            $('#'+id).addClass('not_valid');
+                            $('#'+help_id).html('Group Name Already Exists.');
+                        }if(response.result == 'success'){
+                            $('#'+id).val('');
+                            excluded_member_list_modal(response.group_id);
+                        }
+                    },
+                    error:function(response){
+                    }
+                });
+            }
+        }
+        // Getting all members respected group
+        function get_group_members(id,group_id,edit_block_id){
+            var token = "{{ csrf_token }}";
+            $('#'+$('.active').find('input').attr('id')).css('display','none');
+            $('#'+$('.active').find('.primary-font').attr('id')).css('display','inline-block');
+            $('.active').removeClass('active');
+            $('.display_block').removeClass('display_block');
+            $("#"+$("#"+group_id).parent().attr('id')).addClass('active');
+            $.ajax({
+                type:'POST',
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                url:'/dashboard/group_members/',
+                data:{
+                    group_id : group_id
+                },
+                success:function(response){
+                    $('#id_body_group_member_block').html(response);
+                    $("#id_button_section").html($('#hidden_button_block').html());
+                    $("#"+group_id).addClass('active');
+                    $('#'+edit_block_id).addClass('display_block');
+                },
+                error:function(response) {
+                }
+            });
+        }
+        // Dissmiss the add group modal
+        function dismiss_modal(id){
+            $('#'+id).modal('hide');
+            if(id == 'id_grouping_list_modal'){
+                $('.modal-backdrop').remove();
+            }
+        }
+        // Edit the group name,group members
+        function edit_group(group_id,name_id,input_id){
+            $('#'+input_id).css('display','inline-block');
+            $('#'+name_id).css('display','none');
+            $('#id_create_group_div').css('display','none');
+            $('#edit_or_delete_button_div').css('display','inline-block');
+            $('.checkbox').each(function() {
+                ids = $(this).attr('id');
+                $('#'+ids).css('display','block');
+                $('#list_'+ids).css('display','block');
+            });
+            $('#update_group').removeAttr('onclick');
+            $('#update_group').attr('onclick',"update_group('"+group_id+"','"+input_id+"');");
+            $('#id_cancel_update').removeAttr('onclick');
+            $('#id_cancel_update').attr('onclick',"cancel_update('"+group_id+"','"+name_id+"','"+input_id+"');");
+            $('#id_delete_group').removeAttr('onclick');
+            $('#id_delete_group').attr('onclick',"delete_group('"+group_id+"');");
+            show_or_hide_update_delete_cancel_buttons('show');
+            $('#no_members').css('display','none');
+        }
+        // Cancel the Update
+        function cancel_update(group_id,name_id,input_id){
+            $('#edit_or_delete_button_div').css('display','none');
+            $('#id_create_group_div').css('display','block');
+            $("#"+name_id).css('display','inline-block');
+            $("#"+input_id).css('display','none');
+            $('#help-group-name'+group_id).css('display','none');
+            $('.checkbox').each(function() {
+                ids = $(this).attr('id');
+                $('#'+ids).css('display','none');
+            });
+            $('.new-members').each(function() {
+                ids = $(this).attr('id');
+                $('#'+ids).attr('checked', false);
+                $('#list_'+ids).css('display','none');
+            });
+            get_group_members(name_id,group_id,'edit_block'+group_id);
+            $('#no_members').css('display','block');
+            $('#'+input_id).val($('#'+name_id).html());
+        }
+        // Update the Group
+        function update_group(id,input_id){
+            if($('#'+input_id).val() == ''){
+                $('#help-group-name'+id).css('display','block');
+                $('#help-group-name'+id).html('Please Enter Group Name');
+                return false;
+            }else {
+                $('#help-group-name').html('');
+                $('#help-group-name').css('display','none');
+                var token = "{{ csrf_token }}";
+                var selected_members = selected_emails();
+                var unselected_exist_member = unselected_exist_member_emails();
+                $.ajax({
+                    type:'POST',
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    url:'/dashboard/update_group/',
+                    data:{
+                        group_name : $('#'+input_id).val(),
+                        group_id : id,
+                        members : selected_members,
+                        unselected_members : unselected_exist_member
+                    },
+                    success:function(response){
+                        if(response == 'success'){
+                            $('#id_group_name'+id).html($('#'+input_id).val());
+                            $("#id_group_name"+id).css('display','block');
+                            $('#help-group-name').css('display','none');
+                            $('#help-group-name').html('');
+                            $('#'+input_id).css('display','none');
+                            hide_input_checkedcheckboxes();
+                            hide_unchecked_div_lists();
+                            show_or_hide_update_delete_cancel_buttons('hide');
+                            get_group_members('id_group_name'+id,id,'edit_block'+id);
+                        }else{
+                            $("#"+input_id).focus();
+                            $('#help-group-name'+input_id).css('display','block');
+                            $('#help-group-name'+input_id).html('Group Name Already Exists');
+                        }
+                    },
+                    error:function(response){
+                    }
+                });
+            }
+        }
+        // hiding checked input box
+        function hide_input_checkedcheckboxes() {
+            $('.checkbox:checked').each(function() {
+                ids = $(this).attr('id');
+                $('#'+ids).css('display','none');
+            });
+            return true;
+        }
+        // hiding uncheked div Lists
+        function hide_unchecked_div_lists() {
+            $('.checkbox:not(:checked)').each(function() {
+                ids = $(this).attr('id');
+                $('#'+ids).css('display','none');
+                $('#list_'+ids).css('display','none');
+            });
+            return true;
+        }
+        // fetch the checked ids
+        function selected_emails(){
+            var selected_members = $("input[name='checkbox-1']:checked").map(function () {
+                return $(this).attr('id');
+            }).get().join(',');
+            return selected_members;
+        }
+        // Fetching Un Selected ids
+        function unselected_exist_member_emails() {
+            var unselected_exist_member = $(".exist_member:not(:checked)").map(function () {
+                ids = $(this).attr('id');
+                    return $(this).attr('id');
+            }).get().join(',');
+            return unselected_exist_member;
+        }
+        // Hiding cancel,Delete,Update buttons
+        function show_or_hide_update_delete_cancel_buttons(id) {
+            if (id == 'hide'){
+                $('#id_cancel_update').css('display','none');
+                $('#id_delete_group').css('display','none');
+                $('#update_group').css('display','none');
+                $('#id_create_group_div').css('display','block');
+            }else{
+                $('#id_cancel_update').css('display','inline-block');
+                $('#id_delete_group').css('display','inline-block');
+                $('#update_group').css('display','inline-block');
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        // onfocus of text field showing dropdown
+        $( "#id_search" ).focus(function() {
+            $('.search-dropdown').css('display','block');
+        });
+        // adding chips to the members div
+        function add_client_to_input(id,members_div){
+            var value = $('#id_item_name'+id).html();
+            $('#'+id).addClass('chip-active');
+            $('#'+members_div).append("<a class='chip' id='"+id+"' style='display:inline-block;'>"+value+"<span class='closebtn' onclick='remove_chip("+id+");'>&times;</span></a>");
+            var selected_chip_ids = selected_chip_emails();
+            $('#id_total_clients_selected').val(selected_chip_ids);
+            $('#id_search').val('');
+            $('#search-dropdown').css('display','block');
+            // searching the dropdown
+            $('.item').each(function() {
+                ids = $(this).attr('id');
+                $('#'+ids).removeClass('search-output');
+            });
+        }
+        // Fetching Selected Chip ids
+        function selected_chip_emails() {
+            var selected_chip_ids = $(".chip-active").map(function () {
+                ids = $(this).attr('id');
+                    return $(this).attr('id');
+            }).get().join(',');
+            return selected_chip_ids;
+        }
+        // remove Chips and showing that block in dropdown
+        function remove_chip(id) {
+            $('#'+id).remove();
+            $('#'+id).removeClass('chip-active');
+            var selected_chip_ids = selected_chip_emails();
+            $('#id_total_clients_selected').val(selected_chip_ids);
+        }
+        // Creating Group
+        function create_new_group(selected_clients_id,new_group_name_id) {
+            var token = "{{ csrf_token }}";
+            if($('#'+new_group_name_id).val() == '' || $('#'+selected_clients_id).val() == ''){
+                if($('#'+new_group_name_id).val() == ''){
+                    $('#help-'+new_group_name_id).html('Please Enter Group Name');
+                    return false;
+                }
+                if($('#'+selected_clients_id).val() == ''){
+                    $('#help-id_search').html('Please Select Clients');
+                    return false;
+                }
+            }else {
+                $('#help-'+new_group_name_id).html('');
+                $('#help-id_search').html('');
+                $.ajax({
+                    type:'POST',
+                    beforeSend: function(request){
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    url:'/dashboard/create_new_group/',
+                    data:{
+                        new_group_name : $('#'+new_group_name_id).val(),
+                        selected_clients : $('#'+selected_clients_id).val()
+                    },
+                    success:function(response){
+                        $('#add_group').modal('hide');
+                        group_list_modal();
+                    },
+                    error:function () {
+                    }
+                });
+            }
+        }
+        // on cliking out side of dropdown div hiding dropdown
+        $(document).mouseup(function (e){
+            var container = $(".total-members");
+            if (!container.is(e.target) // if the target of the click isn't the container...
+                && container.has(e.target).length === 0) // ... nor a descendant of the container
+            {
+                $('.search-dropdown').css('display','none');
+            }
+        });
+        // onclick of div (or) input showing dropdown
+        $('.total-members').click(function () {
+            $('.search-dropdown').css('display','block');
+            $("#id_search").focus();
+        })
+        // incresing and decresing the width of textbox
+        $(".search").on("keyup", function() {
+            if($("#id_search").val() == ''){
+                $("#id_search").css('width','9px');
+            }else{
+                $(this).css('width', $(this).val().length*15);
+            }
+            // searching the dropdown
+            $('.item').each(function() {
+                ids = $(this).attr('data-value');
+                if( ids.toLowerCase().indexOf( $('#id_search').val().toLowerCase() ) > -1 ) {
+                    ids = $(this).attr('id');
+                    $('#'+ids).removeClass('search-output');
+                }else{
+                    ids = $(this).attr('id');
+                    $('#'+ids).addClass('search-output');
+                }
+            });
+        });
+    </script>
+    {% if not group_names_list %}
+        <script type="text/javascript">
+            $("#add_group").modal('show');
+        </script>
+    {% endif %}

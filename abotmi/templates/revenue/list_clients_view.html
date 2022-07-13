@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block main_content %}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<h3><center>Clients list</center></h3>
+<center>
+<a href="/revenue/list-client/">Make New Transaction</a>
+<section class="blog-section" id="about" style="margin: 30px;margin-top:30px;">
+    <div class="container">
+        <div class="row">
+            <fieldset class="form-group">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>EMAIL</th>
+                        <th>MOBILE</th>
+                        <th>GENDER</th>
+                        <th>PLATFORM</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for data in clients_obj %}
+                    <tr>
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.first_name }} {{ data.last_name}}</td>
+                        <td>{{ data.email }}</td>
+                        <td>{{ data.mobile }}</td>
+                        <td>{{ data.gender }}</td>
+                        <td>{{ data.client_platform.platform_name }}</td>
+                        <td>
+                            <form
+                                action="/revenue/open-transaction/"
+                                method="post"
+                                accept-charset="utf-8"
+                                id="open_tr_{{data.id}}" role="form" name="open_tr_{{data.id}}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden"
+                                    id="client_id"
+                                    name="client_id"
+                                    value="{{data.id}}">
+                                <button type="button"
+                                    class="btn blog-btn"
+                                    onclick="submitPost(open_tr_{{data.id}});"
+                                    style="margin-right:0px;">
+                                    Make
+                                </button>
+                            </form>
+                        </td>
+                    </tr>  
+                    {% endfor %}
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</section>
+</center>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    function submitPost(id){
+        console.log(id);
+        $(id).submit();
+    }
+</script>
+{% endblock %}

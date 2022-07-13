@@ -1,0 +1,239 @@
+{% load staticfiles %}
+<style>
+.remove_field{
+    color: #5d9af3;
+}
+.add_certificate_div .my_identity_certificate{
+    position: relative;
+    top: -48px;
+    color: #0056b3 !important;
+}
+.add_certificate_div .my_identity_certificate:hover{
+    text-decoration: underline !important;
+}
+.remove_field{
+    color: #ff0000 !important;
+    position: relative;
+    top: -10px;
+}
+.hide{
+    display: none !important;
+}
+.upload_file .btn.btn-default{
+    box-shadow: 0px 0px 2px 1px #ccc;
+    margin: 0px 8px;
+}
+</style>
+<link rel="stylesheet" href="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.css' %}">
+<div class="modal fade" id="certificationModal" tabindex="-1" role="dialog" aria-labelledby="certificationModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="certificationModalCenterTitle">CERTIFICATION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="certification_div">
+                <div class="input_fields_wrap row">
+                    <div class="input_fields_wrapper col-12" id="form_validation">
+                            {% if not certification_details %}
+                            <form class="certificate" role="form" data-toggle="validator" method="post" action="" id="certificate_form_id{{forloop.counter}}">
+                            <div class="form-row row">
+                                <div class="form-group col-md-6">
+                                    <label for="certificate_name">Certification name:</label>
+                                    <input value="{{ cd.certification_name }}" type="text" class="form-control" id="certificate_name" data-minlength="3" name="certificate_name" placeholder=" " pattren="[a-zA-Z0-9._]{3,40}" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="certificate_authority">Certification authority:</label>
+                                    <input value="{{ cd.certi_authority }}" type="text" class="form-control" id="certificate_authority" data-minlength="4" name="certificate_authority" placeholder="" pattren="[a-zA-Z0-9._]{3,40}+" required>
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class="form-group col-md-6">
+                                    <label for="licence_number">Licence number</label>
+                                    <input value="{{ cd.licence_number }}" type="text" class="form-control" id="licence_number" name="licence_number" placeholder="" pattren="[a-zA-Z0-9]{4,10}" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="certificate_url">Certification URL</label>
+                                    <input value="{{ cd.certi_url }}" type="url" class="form-control" id="certificate_url" name="certificate_url" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class="form-group col-md-6">
+                                    <label for="from_year">From Year</label>
+                                    <select name="from_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" cert_year_val="{{ cd.from_year }}" required="true" is-select='true'>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span class="help-block" id="help-text-from_year"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="to_year">To Year (or expected)</label>
+                                    <select name="to_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" cert_year_val="{{ cd.to_year }}" required="true" is-select='true'>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span class="help-block" id="help-text-to-year"></span>
+                                </div>
+                            </div>
+                            <div class="form-row row form-group ml-2">
+                                <div class="checkbox col-md-12">
+                                    <label>
+                                        <input class="form-check-input" type="checkbox" id="gridCheck" name="gridCheck" {% if cd.is_expire %}checked{% endif %}> This Certification does not expire
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row row form-group">
+                                <div class="upload_file {% if cd.certificate_doc %}hide{% endif %}" name="upload_div">
+                                    <div class="col-md-12 form-inline">
+                                        <div class="form-group">
+                                            <label>
+                                                Upload Certificate (Transcript, Diploma)
+                                                <span class="btn btn-default">
+                                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                    <input type="file" id="file_upload" name="cert_document" class="file form-control hide" accept="image/gif, image/jpeg,image/png,application/pdf">
+                                                    <input type="hidden" name="certificate_doc" value="{{ cd.certificate_doc }}">
+                                                    <input type="hidden" name="certificate_doc_id" value="{{ cd.certificate_doc_id}}">
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if forloop.counter > 1 %}
+                            <div class="col-12">
+                                <a class="remove_field" onclick="remove_certificate('{{forloop.counter}}')">Delete Certificate</a>
+                            </div>
+                            {% endif %}
+                        </form>
+                        {% else %}
+                            {% for cd in certification_details %}
+                            <form class="certificate" role="form" data-toggle="validator" method="post" action="" id="certificate_form_id{{forloop.counter}}">
+                                <div class="form-row row">
+                                    <div class="form-group col-md-6">
+                                        <label for="certificate_name">Certification name:</label>
+                                        <input value="{{ cd.certification_name }}" type="text" class="form-control" id="certificate_name" data-minlength="3" name="certificate_name" placeholder=" " pattren="[a-zA-Z0-9._]{3,40}" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="certificate_authority">Certification authority:</label>
+                                        <input value="{{ cd.certi_authority }}" type="text" class="form-control" id="certificate_authority" data-minlength="4" name="certificate_authority" placeholder="" pattren="[a-zA-Z0-9._]{3,40}+" required>
+                                    </div>
+                                </div>
+                                <div class="form-row row">
+                                    <div class="form-group col-md-6">
+                                        <label for="licence_number">License number</label>
+                                        <input value="{{ cd.licence_number }}" type="text" class="form-control" id="licence_number" name="licence_number" placeholder="" pattren="[a-zA-Z0-9]{4,10}" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="certificate_url">Certification URL</label>
+                                        <input value="{{ cd.certi_url }}" type="url" class="form-control" id="certificate_url" name="certificate_url" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="form-row row">
+                                    <div class="form-group col-md-6">
+                                        <label for="from_year">From Year</label>
+                                        <select name="from_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" cert_year_val="{{ cd.from_year }}" required="true" is-select='true'>
+                                            <option value="">Select</option>
+                                        </select>
+                                        <span class="help-block" id="help-text-from_year"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="to_year">To Year (or expected)</label>
+                                        <select name="to_year" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" cert_year_val="{{ cd.to_year }}"  is-select='true'>
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row row form-group ml-2">
+                                    <div class="checkbox col-md-12">
+                                        <label>
+                                            <input class="form-check-input" type="checkbox" id="gridCheck" name="gridCheck" {% if cd.is_expire %}checked{% endif %}> This Certification does not expire
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-row row form-group">
+                                    <div class="upload_file {% if cd.certificate_doc %}hide{% endif %}" name="upload_div">
+                                        <div class="col-md-12 form-inline">
+                                            <div class="form-group">
+                                                <label>
+                                                    Upload Certificate (Transcript, Diploma) 
+                                                    <span class="btn btn-default">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                        <input type="file" id="file_upload" name="cert_document" class="file form-control hide" accept="image/*, application/pdf">
+                                                        <input type="hidden" name="certificate_doc" value="{{ cd.certificate_doc }}">
+                                                        <input type="hidden" name="certificate_doc_id" value="{{ cd.certificate_doc_id}}">
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="attached_div upload-icons" name="attached_div">
+                                        {% if cd.certificate_doc %}
+
+                                            <span class="attach_class hiding{{cd.certificate_doc_id}} n-padding-r-5" id="id_attached" name="attached">Uploaded</span>
+                                                <a id="{{ cd.certificate_doc_id }}" class="hiding{{cd.certificate_doc_id}} download_link_color n-padding-r-5" onclick="preview_image('{{ cd.certificate_doc }}');"><i class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Preview image"></i> </a>
+                                                <a class="hiding{{ cd.certificate_doc_id }}" onclick="remove_certificate_doc({{cd.certificate_doc_id}});"><i class='fa fa-trash download_link_color' aria-hidden='true' data-toggle="tooltip" data-placement="bottom" title="Delete"></i></a>
+
+                                            </span>
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+
+                                {% if forloop.counter > 1 %}
+                                <div class="col-12">
+                                    <a class="remove_field" onclick="remove_certificate('{{forloop.counter}}')">Delete Certificate</a>
+                                </div>
+                                {% endif %}
+                            </form>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="add_certificate_div w-100">
+                        <a id="add_certificate_btn" class="my_identity_certificate float-right mr-3">Add Certificate</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 proceed-btn" style="text-align: center;">
+                        <a onclick="save_certification();" class="btn upwrdz-button" id="submit_proceed_btn">UPDATE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- image modal -->
+<div class="modal fade" id="show_image_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="panel-heading dash-heading fix-modal-heading">
+                    <h4>
+                        Preview
+                        <span class="pull-right"><i class="fa fa-times-circle"  data-dismiss="modal" aria-hidden="true"></i></span>
+                    </h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="image_show_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end image modal -->
+<script>
+    var options = [];
+    var to_year_options = [];
+    var edu_from_year = '';
+    var edu_to_year = '';
+    function scroll_top_certification(elem){
+        $('#certificationModal').animate({
+                scrollTop: $(elem).offset().top - 500
+            }, 0);
+    }
+</script>
+<script src="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.js' %}"></script>
+<script src="{% static 'js/new_js/ekyc/certification.js' %}" charset="utf-8"></script>
+<script src="{% static 'js/new_js/upload_document.js' %}" charset="utf-8"></script>
+

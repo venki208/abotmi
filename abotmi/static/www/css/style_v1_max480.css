@@ -1,0 +1,83 @@
+@media screen and ( min-width: 360.1px) and (max-width: 800px ) {
+    .bannerimg{
+     height: 25em;
+     width: 56em;
+     overflow: hidden;
+    }
+    .iconlogin{
+      display: block;
+      max-height: 80px;
+      max-width : 80%;
+      margin: auto;
+      margin-left:47%;
+    }
+    .modaltitle{
+        margin: auto;
+        font-size: 18px;
+        top:30%;
+        left:35%;
+        font-weight: bold;
+    }
+    .mypageimg{
+      max-width: 22px;
+      max-height: 22px;
+      margin : 15px 9px;
+    }
+    .socialshare-btn{
+        padding: 2px;
+        border: 0px;
+        line-height: 0px;
+        border-radius: 10px;
+    }
+    .commentimg{
+        max-height: 40px;
+        max-width:40px;
+    }
+    .pull-right{
+      position: relative;
+      padding-right: 5px !important;
+    }
+    .countdiv{
+        position: relative;
+        text-align: right;
+    }
+    .registereddiv{
+        max-height: 30px;
+        min-height: 30px;
+        min-width: 30px;
+        max-width:30px;
+        margin: auto;
+    }
+    .helpimg{
+        max-height: 390px;
+        max-width: 370px;
+    }
+    ol {
+    list-style: none;
+    list-style-type: decimal;
+    list-style-position: inside;
+    }
+    ol li{
+        display: list-item;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    ol li:first-child{
+        padding-top: 30px;
+    }
+    .images{
+        max-width: 400px;
+        max-height: 400px;
+        margin : auto;
+    }
+    .viewpic{
+      max-width: 30px;
+      max-height: 40px;
+      padding-top: 10px;
+    }
+    .modalrow{
+        padding: 15px;
+    }
+
+}

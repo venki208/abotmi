@@ -1,0 +1,64 @@
+{% load staticfiles %}
+    <style>
+        .upwrdz-button-green{
+        background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%);
+        -webkit-background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%) !important;
+        font-size: 16px;
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-weight: 600;
+        color: #FFF !important;
+        font-size: 15px;
+        box-shadow: none;
+        letter-spacing: 0px;
+    }
+    </style>
+
+<div id="video-upload-modal" class="modal fade upwardz-modal" role="dialog" name="video-upload-modal" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog abotmi-calendly-model modal-dialog-centered">
+        <div class="modal-content">
+            <h4 class="modal-title text-center pt-3 pb-3 m-0" id="modalLabel">UPLOAD THE VIDEO</h4>
+            <button type="button" class="close calendly-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <form  name="video_url_form"  id="video_url_form" method="POST">
+                    {% csrf_token %} 
+                    <p class="text-left">
+                        <label class="mb-0">Title *</label>
+                        <input type="text" class="form-control no-spin" id="video_title" name="video_title" autocomplete="off" required="required" placeholder="Enter title of the video">
+                        <span class="control-label" id="video_title_validation" style="color:red;display:none;" for="inputEmail">Please enter title</span>
+                    </p>
+                    <p class="text-left">
+                        <label class="mb-0 mt-2">Description *</label>
+                        <textarea class="form-control" id="video_description" name="video_description" autocomplete="off" required="required" placeholder="Enter the description"></textarea>
+                        <span class="control-label" id="video_desc_validation" style="color:red;display:none;" for="inputEmail">Please enter description</span>
+                    </p>
+                    <p class="text-left">
+                        <label class="mb-0 mt-2">URL *</label>
+                        <input type="text" class="form-control" id="video_url" name="video_url" autocomplete="off" required="required" placeholder="Enter your YouTube video URL" />
+                        <span class="control-label" id="video_url_validation_null" style="color:red;display:none;" for="inputEmail">Please provide valid YouTube URL </span>
+                    </p>
+                     <div class="col-md-12 text-center pt-3 pb-3">
+                        <button type="button" id="video_preview" class="btn upwrdz-button-green" disabled="true" onclick="load_video_preview();">Preview</button>
+                        <button type="button" class="btn color-linear-btn" id="submitid" style="display:none;" onclick="advisor_video_upload();">Submit</button>
+                        <button type="button" class="btn gray-linear-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    </div>
+                    <div>
+                        <!-- <p class="text-center"><a onclick="get_microlearning_faq_modal()" title="Terms & Conditions"><b>Terms & Conditions</b></a></p> -->
+                        <p class="text-center" style="color:blue;"><a onclick="call_crisil_terms_conditions();" title="Micro learning terms and conditions"> <u>Terms & Conditions</u> </a></p>
+                    </div>
+                    {% comment %} <p class="text-center"><button type="button" class="btn color-linear-btn" onclick="save_link()">SUBMIT</button> {% endcomment %}
+                    {% comment %} <button type="button" class="btn gray-linear-btn" data-dismiss="modal">CANCEL</button></p> {% endcomment %}
+                    <div class="row form-group">
+                            <div class="col-md-12 text-center pt-3">
+                                <iframe style="display:none;" id="myIframe" frameborder="0" src="" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="{% static 'js/new_js/youtube_video.js' %}" charset="utf-8"></script>

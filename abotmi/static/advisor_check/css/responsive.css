@@ -1,0 +1,20 @@
+@media (min-width : 300px) and (max-width: 550px) {
+}
+@media(max-width:480px) {
+    .search-mobilebox{
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .searchbtn-upwrdz {
+        padding-left: 15px;
+        width: 100%;
+    }
+}
+@media(max-width:768px) {
+    .adv-stats img {
+        margin-bottom: 10px;
+    }
+    .adv-stats .mobile-advisorcount{
+        margin-bottom: 20px;
+    }
+}

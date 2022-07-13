@@ -1,0 +1,533 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/nfadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li >
+      <a href="/nfadmin/advisor_list/">
+        <i class="fa fa-user text-pink"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/crisil_advisor_list/">
+        <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+        <span>CRISIL Advisors</span>
+      </a>
+    </li>
+    <li class="active">
+        <a href="/nfadmin/affiliated_companies/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companies</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/add_client_list/">
+        <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+        <span>Clients</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/company_spoc/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Company Spoc</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_request/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Request</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/regulatory_registration_data_uploaded_url/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Regulatory Authentication</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/educational_authentication/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Educational Authentication</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+    <!-- Content Header (Page header) -->
+    {% block content-header %}
+       <section class="content-header">
+           <h1>Affiliated Companies</h1>
+           <!-- breadcrumb -->
+           <ol class="breadcrumb">
+               <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+               <li class="active">Dashboard</li>
+           </ol>
+       </section>
+    {% endblock %}
+
+<!-- Main content -->
+{% block main-content %}
+<section class="content">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box adm-box">
+                    <div class="box-header">
+                        <h3 class="box-title">Affiliated Companies Table</h3>
+                    </div><!-- /.box-header -->
+                    <div class="col-md-12" style="margin:5px 0px;">
+                        <button type="button" class="btn btn-success cmp-btn" id='id_create_button' name="create_button" data-toggle="modal" data-target="#create_company_modal">Create Company</button>
+                        <button type="button" class="btn btn-success cmp-btn" id='id_upload_company' name="upload_company" data-toggle="modal" data-target="#upload_company_bulk_data">Upload Company Data</button>
+                    </div>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Employees count</th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               {% for company in company_obj %}
+                                   <tr>
+                                       <td>{{forloop.counter}}</td>
+                                       {% if company.company_name %}
+                                           <td>
+                                               {{company.company_name}}
+                                           </td>
+                                       {% else %}
+                                           <td>{{company.domain_name}}</td>
+                                       {% endif %}
+                                       <td>{{company.users_count}}</td>
+                                       <td>
+                                           {% if not company.terms_and_conditions %}
+                                               <button class="btn btn-success" type="button" id="modal_{{company.id}}" onclick="call_send_mail_modal(id,{{company.id}},{{company.user_profile_id}});" title="send mail">
+                                                   <i class="glyphicon glyphicon-envelope"></i>
+                                               </button>
+                                           {% else %}
+                                               <small class="label pull-center bg-green">Created</small>
+                                           {% endif %}
+                                       </td>
+                                       <td>
+                                           {% if company.terms_and_conditions %}
+                                               <button type="button" name="view_company_details" id="id_view_company_details" class="btn btn-primary" onclick="company_details('{{company.user_profile_id}}')">
+                                                   View
+                                               </button>
+                                           {% endif %}
+                                       </td>
+                                   </tr>
+                                   <div class="hidden">
+                                       <input type="text" name="hidden_company_name" id="id_hidden_company_name_modal_{{company.id}}" value="{{company.domain_name}}">
+                                   </div>
+                               {% endfor %}
+                           </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Employees count</th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</section><!-- /.content -->
+<!-- Sendign Mail to Company modal -->
+<div class="modal fade" id="send_url_mail_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> Send Mail</h4>
+            </div>
+            <div class="modal-body" id="body_send_url_mail_modal" style="padding-bottom: 100px;">
+                <div class="col-sm-12 col-md-12 col-lg-12" style="display:none" id="message_div" data-toggle="toggle">
+                    <label for="ex3">You have already send the mail...</label>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <label for="ex3">Company Name <span>*</span></label>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8"  id="company_name_div_first">
+                    <input type="text" class="form-control" placeholder="name" name="to_company_name" id="to_company_name" onchange="validate_company_name();">
+                    <span class="help-block" id="help-text-to_company_name"></span>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8" id="company_name_div">
+                    <input type="text" class="form-control" id="resend_to_company_name" readonly>
+                    <span class="help-block" id="help-text-resend_to_company_name"></span>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <label for="ex3">Email Id <span>*</span></label>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8" id="email_div_first">
+                        <input class="form-control" type="text" placeholder="email" name="to_email_id" id="to_email_id" onchange="validate_email();">
+                        <span class="help-block" id="help-text-to_email_id"></span>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8" id="email_div">
+                    <input type="text" class="form-control" id="resend_to_email_id" readonly>
+                    <span class="help-block" id="help-text-resend_to_email_id"></span>
+                </div>
+            </div>
+            <div class="modal-footer" id="complete_course-modal-footer">
+                <div class="col-sm-12 col-md-12 col-lg-12" id="send_div" data-toggle="toggle">
+                    <button type="button" class="btn btn-primary pull-right" name="send_email_button" onClick="validate_and_send_mail(id);">Send</button>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12" id="resend_div" data-toggle="toggle">
+                    <button type="button" class="btn btn-primary pull-right" name="resend_email_button"  onClick="validate_and_resend_mail(id);">Resend</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Send mail Modal -->
+
+<!-- View Company Details Modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="id_company_details_modal" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Company Details</h4>
+            </div>
+            <div class="modal-body" id="id_body_company_details_modal">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Company Details Modal -->
+<!-- create company modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="create_company_modal" role="dialog" aria-labelledby="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Create Company</h4>
+            </div>
+            <div class="modal-body" id="id_body_create_company">
+                <div class="col-md-12">
+                    <label for="company">Company URL</label>
+                    <input type="text" class="form-control form-group" name="company_url" id="id_company_url" value="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success cmp-btn" name="company_button" id="id_create_company_button" onclick="create_company('id_company_url');">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End create company modal -->
+<!-- ================================================================= -->
+
+<!-- upload company data file modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="upload_company_bulk_data" role="dialog" aria-labelledby="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Upload Company Data</h4>
+            </div>
+            <div class="modal-body" id="id_body_upload_company_file">
+                <div class="col-md-12">
+                    <form action="" name="upload_company_file_form" id="id_upload_company_file_form" method="post" class="contact-form" enctype="multipart/form-data">
+                        <label for="company data">Companies</label>
+                        <input type="file" class="form-control form-group" name="company_data_file" id="id_upload_company_file" value="">
+                        <input type="hidden" id="binary_document" name="binary_document" value="">
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success cmp-btn" name="company_button" id="id_upload_excel_file" onclick="upload_company_data_file()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End upload company bulk data file modal -->
+<!-- ================================================================= -->
+
+
+<script type="text/javascript">
+function validate_and_send_mail(id){
+    var emailfield="to_email_id"
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    var email_id = document.getElementById('to_email_id').value;
+    var company_name = document.getElementById('to_company_name').value;
+    if(company_name=='' || company_name==null){
+        document.getElementById('help-text-to_company_name').innerHTML = "Please enter Company Name";
+    }else if(email_id == ''){
+        $("#help-text-to_email_id").html('Please Enter Email Id');
+    }
+    else if(!re.test(email_id)){
+        $("#help-text-to_email_id").html('Please Enter Valid Email Id');
+    }else{
+        document.getElementById('help-text-to_company_name').innerHTML = "";
+        $("#help-text-to_email_id").html('');
+        if(email_id != '') {
+            var token = "{{ csrf_token }}";
+            $.ajax({
+                type: "POST",
+                url: "/signup/check_email/",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data:{'username': email_id},
+                complete: function(e, xhr, settings) {
+                    status_code = e.status;
+                    if(status_code == 204){
+                        document.getElementById('help-text-'+emailfield).innerHTML = "";
+                        send_mail(email_id,company_name,id);
+                    }
+                    else{
+                        document.getElementById('help-text-'+emailfield).innerHTML = "Email Already Exist.";
+                        emailfield.focus;
+                    }
+                }
+            });
+        }
+    }
+}
+
+function validate_and_resend_mail(id){
+    var email_id = document.getElementById('resend_to_email_id').value;
+    var company_name = document.getElementById('resend_to_company_name').value;
+    var token = "{{ csrf_token }}";
+    resend_mail(email_id,company_name,id);
+}
+
+function validate_company_name(){
+    company_name = document.getElementById('to_company_name').value;
+    if(company_name=='' || company_name==null){
+        document.getElementById('help-text-to_company_name').innerHTML = "Please enter company name";
+    }else{
+        document.getElementById('help-text-to_company_name').innerHTML = "";
+    }
+}
+
+function validate_email(){
+    company_name = document.getElementById('to_email_id').value;
+    if(company_name=='' || company_name==null){
+        document.getElementById('help-text-to_email_id').innerHTML = "Please enter email id";
+    }else{
+        document.getElementById('help-text-to_email_id').innerHTML = "";
+    }
+}
+
+function send_mail(email_id,company_name,company_id){
+    var token = "{{ csrf_token }}";
+    $.ajax({
+        type:"POST",
+        url:"/nfadmin/send_mail_to_company/",
+        beforeSend: function(request){
+            request.setRequestHeader("X-CSRFToken", token);
+        },
+        data :{
+        'email_id':email_id,'company_name':company_name,'company_id':company_id
+        },
+        success:function(response){
+            $('#send_url_mail_modal').modal('hide');
+            $("#body_send_url_mail_modal").html("");
+            window.location.reload();
+        }
+    });
+}
+
+function resend_mail(email_id,company_name,company_id){
+    var token = "{{ csrf_token }}";
+    $.ajax({
+        type:"POST",
+        url:"/nfadmin/resend_mail_to_company/",
+        beforeSend: function(request){
+            request.setRequestHeader("X-CSRFToken", token);
+        },
+        data :{
+        'email_id':email_id,'company_name':company_name,'company_id':company_id
+        },
+        success:function(response){
+            $('#send_url_mail_modal').modal('hide');
+            $("#body_send_url_mail_modal").html("");
+            window.location.reload();
+        }
+    });
+}
+</script>
+<script type="text/javascript">
+    function call_send_mail_modal(id,company_id,user_id) {
+        var company_domain_name = $("#id_hidden_company_name_"+id).val();
+        $('#id_company_domain').html('@'+company_domain_name);
+        get_activation_key(company_id,user_id);
+        $("#send_url_mail_modal").modal('show');
+
+    }
+    function call_resend_mail_modal(id,company_id,user_id) {
+        var company_domain_name = $("#id_hidden_company_name_"+id).val();
+        $('#id_company_domain').html('@'+company_domain_name);
+        get_company_details(user_id);
+        $("#resend_url_mail_modal").modal('show');
+    }
+</script>
+<script type="text/javascript">
+    function company_details(id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type : 'POST',
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            url : '{% url "nfadmin:view_company_details" %}',
+            data : {'id': id},
+            success : function(response){
+                $('#id_body_company_details_modal').html('');
+                $('#id_body_company_details_modal').html(response);
+                $('#id_company_details_modal').modal('show');
+            },
+            error: function (response) {
+            }
+        })
+    }
+</script>
+<script type="text/javascript">
+    function get_company_details(id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type : 'POST',
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            url : '{% url "nfadmin:view_company_details_resend" %}',
+            data : {'id': id},
+            success : function(response){
+                $('#resend_to_email_id').val(response.email);
+                $("#resend_to_company_name").val(response.company_name);
+            },
+            error: function (response) {
+            }
+        })
+    }
+</script>
+
+<script type="text/javascript">
+function get_activation_key(company_id,user_id){
+    var token = "{{ csrf_token }}";
+    $.ajax({
+        type : 'POST',
+        beforeSend: function(request){
+            request.setRequestHeader("X-CSRFToken", token);
+        },
+        url : '{% url "nfadmin:get_company_activation" %}',
+        data : {'company_id': company_id},
+        success : function(result){
+            if(result == 'success'){
+                get_company_details(user_id);
+                $('#message_div').show()
+                $('#email_div').show()
+                $('#company_name_div').show()
+                $('#resend_div').show()
+                $('#email_div_first').hide();
+                $('#company_name_div_first').hide();
+                $('#send_div').hide();
+                $('[name="resend_email_button"]').attr('id',company_id);
+            }
+            else{
+                $('#message_div').hide();
+                $('#email_div').hide();
+                $('#company_name_div').hide();
+                $('#resend_div').hide();
+                $('#email_div_first').show();
+                $('#company_name_div_first').show();
+                $('#send_div').show();
+                $('[name="send_email_button"]').attr('id',company_id);
+            }
+        },
+        error: function (result){
+            // $('input[name="resend_button"]').css('display','none');
+        }
+    });
+
+}
+</script>
+<script type="text/javascript">
+    function create_company(id) {
+        var token = '{{csrf_token}}'
+        if($('#'+id).val() != ''){
+            $.ajax({
+                type : 'POST',
+                beforeSend:function (request) {
+                    request.setRequestHeader('X-CSRFToken', token);
+                },
+                url: '{% url "nfadmin:create_company" %}',
+                data:{
+                    'company_url': $('#'+id).val()
+                },
+                success:function (response) {
+                    if(response == 'success'){
+                        window.location.reload();
+                    }
+                },error:function (response) {
+                    alert('some thing went wrong!');
+                }
+            });
+        }else{
+            alert('Please enter Company URL')
+        }
+    }
+</script>
+<script>
+    function upload_company_data_file(){
+        var token = "{{ csrf_token }}";
+        var form_data = new FormData($('#id_upload_company_file_form')[0]);
+        $.ajax({
+            type: 'POST',
+            url : '/nfadmin/upload_company_excel_file/',
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data: form_data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success:function(response){
+                alert(response);
+                window.location.reload();
+            }
+        });
+    }
+</script>
+{% endblock %}

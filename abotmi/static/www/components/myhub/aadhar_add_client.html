@@ -1,0 +1,53 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+           <upwrdz-Tabs></upwrdz-Tabs>
+    <ion-nav-title>
+       <h4 class="modaltitle whitefont">Add Client Email</h4>
+    </ion-nav-title>
+      <ion-content>
+
+        <div overflow-scroll="true" class="m-upwrdz-tab-content">
+            <form name="add_client_email_verification_form" novalidate ng-submit="client.create_member_through_aadhar()">
+                <div class="panel panel-default popup-panel">
+                    <div class="panel-body pannel-popup-content">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p>Thank you. Your e-KYC is verified successfully.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="list list-inset other-inset black-border">Username*
+                                <label class="item item-input">
+                                    <input type="email" name="aadhaar_email" placeholder="Email Address" ng-model="track.add_aadhaar.email" ng-required="true"/>
+                                </label>
+                                <input type="checkbox" ng-model="track.add_aadhaar.checbox_value" ng-change="track.set_alternative_email();">Use same email for alternate email
+                            </div>
+                        </div>
+                        <h7 class="validationerrors" ng-show="add_client_email_verification_form.aadhaar_email.$error.required && add_client_email_verification_form.aadhaar_email.$touched">Email ID is required</h7>
+                        <div class="row n-margin-b-10">
+                            <div class="list list-inset other-inset black-border">Alternate email*
+                                <label class="item item-input">
+                                    <input type="email" name="alternative_email" placeholder="Email Address" ng-model="track.add_aadhaar.alternate_email" ng-required="true"/>
+                                </label>
+                                <span>This will be communication email address.</span>
+                            </div>
+                        </div>
+                        <h7 class="validationerrors" ng-show="add_client_email_verification_form.alternative_email.$error.required && add_client_email_verification_form.alternative_email.$touched">Alternative Email ID is required</h7>
+                        <div class="row n-margin-b-10">
+                            <div class="list list-inset other-inset black-border">Mobile Number
+                                <label class="item item-input">
+                                    <input type="email" name="mobile" placeholder="Mobile Number" ng-disabled="true"/>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="button" class="button buttoninset whitefont pinkbutton" ui-sref="app.page" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Canceling">Cancel</button>
+                        <button type="submit" class="button buttoninset whitefont pinkbutton" ng-disabled="add_client_email_verification_form.$invalid">Confirm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </ion-content>
+    </ion-side-menus>
+  </ion-side-menu-content>
+</ion-view>

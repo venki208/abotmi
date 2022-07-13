@@ -1,0 +1,61 @@
+<ion-view>
+	<ion-side-menus>
+		<ion-side-menu-content>
+			<ion-view>
+				<upwrdz-Tabs></upwrdz-Tabs>
+				<ion-content>
+					<div overflow-scroll="true" class="m-upwrdz-editpage-content">
+						<div class="editpage-title-bar">
+							<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+							Please Rate Your Peer
+						</div>
+						<form name="rateform">
+							<div class="row">
+								<p class="col"> 1. Reliability </p>
+								<rating max="5" name="trust" ng-model="raterank.rateproperty.trust"
+									ng-change="raterank.avgcal();" required="true"></rating>
+							</div>
+							<div class="row">
+								<p class="col"> 2. Risk disclosure </p>
+								<rating max="5" ng-model="raterank.rateproperty.financial"
+									ng-change="raterank.avgcal();" required="true"></rating>
+							</div>
+							<div class="row">
+								<p class="col"> 3. Accessibility </p>
+								<rating max="5" ng-model="raterank.rateproperty.comm" ng-change="raterank.avgcal();" required="true"></rating>
+							</div>
+							<div class="row">
+								<p class="col"> 4. Integrity </p>
+								<rating max="5" ng-model="raterank.rateproperty.advisory" ng-change="raterank.avgcal();" required="true"></rating>
+							</div>
+							<div class="row">
+								<p class="col"> 5. Commitment </p>
+								<rating max="5" ng-model="raterank.rateproperty.ethics" ng-change="raterank.avgcal();" required="true"></rating>
+							</div>
+							<div class="row">
+								<p class="col"> 6. Care for investor safety </p>
+								<rating max="5" ng-model="raterank.rateproperty.ccare" ng-change="raterank.avgcal();" required="true"></rating>
+							</div>
+							<div class="row">
+								<p class="col">Average Rating </p>
+								<rating max="5" ng-model="raterank.rateproperty.avgrate" readonly="true"></rating>
+							</div><br />
+							<div class="row smallfont">
+								<p>One star being the lowest and five the highest</p>
+							</div><br />
+							<div class="row end-button">
+								<div class="col col-50">
+									<button class="full-button" ng-disabled="rateform.$invalid"
+										ng-click="raterank.submitRating(raterank.rateproperty);">SUBMIT</button>
+								</div>
+								<div class="col col-50">
+									<button class="full-button" type="button" back>CANCEL</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</ion-content>
+			</ion-view>
+		</ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

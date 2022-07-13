@@ -1,0 +1,137 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+    {% block base_css %}
+       {{ block.super }}
+    {% endblock %}
+     {% block theme_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block custom_theme_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block base_scripts %}
+       {{ block.super }}
+    {% endblock %}
+    {% block important_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block important_scripts %}
+       {{ block.super }}
+    {% endblock %}
+    {% block top_header %}
+       {{ block.super }}
+    {% endblock %}
+    {% block top_menu_bar %}
+       {{ block.super }}
+    {% endblock %}
+    {% block slider %}
+    {% endblock %}
+    {% block main_content %}
+        <section class="body-section" id="about">
+            <div class="container body-container">
+                <div class="section-title">
+                    <b><u>Select Mails to send</u></b>
+                </div>
+                {% if referred_mails %}
+                    <form name="form" id="id_form" action="/dashboard/send_bulk_mails/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-md-12">
+                            {% for email in referred_mails %}
+                                <div class="col-md-12">
+                                    <input type="checkbox" name="email_list" id="{{email.id}}" value="{{ email}}" onclick="selected_emails(id);">
+                                    {{email}}
+                                </div>
+                            {% endfor %}
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="form-group control-group">
+                                        <div class="control">
+                                            <textarea id="mail_content" class="form-control" name="content" placeholder="Mail Body"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group control-group">
+                                        <div class="control">
+                                            <input type="file" class="form-control" name="file" id="id_file"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="hidden_input" id="id_hidden_input" value="" style="display:none;" />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <a href="/" class="btn btn-info">back</a>
+                                    <button type="button" class="btn btn-primary" name="bulk_mail" id="bulk_mail_send" onclick="validate_form();">send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% else %}
+                    There are No referred mails.
+                    <a href="/" class="btn btn-effect">back</a>
+                {% endif %}
+            </div>
+        </section>
+    {% endblock %}
+    {% block footer %}
+       {{ block.super }}
+    {% endblock %}
+    {% block copy_rights %}
+       {{ block.super }}
+    {% endblock %}
+    {% block bootstrap-modal %}
+    {% endblock %}
+    {% block theme_scripts %}
+        <script type="text/javascript">
+            function shrink_header(){
+                $('nav').addClass('shrink');
+                $("#about").addClass('n-margin-top-100');
+                $(".riea-logo-1").addClass('img_shrink');
+                $(".social-icons").addClass('width-93');
+            }
+            $(document).ready(function(){
+                shrink_header();
+            });
+        </script>
+    {% endblock %}
+    {% block slider_script %}
+    {% endblock %}
+    {% block scripts %}
+        <script type="text/javascript">
+            var values, file_size;
+            function selected_emails(id){
+                values = $("input[name='email_list']:checked").map(function () {
+                    return this.value;
+                }).get().join(',');
+                document.getElementById('id_hidden_input').value = values;
+            }
+
+            $('#id_file').on('change', function() {
+                if($('#id_file').val()){
+                    file_size = this.files[0].size/1024/1024
+                    return file_size;
+                }
+            });
+
+            function validate_form(){
+                var mail_content = document.getElementById('mail_content').value;
+                if ($('input[name="email_list"]:checked').length < 1) {
+                    alert('Please select atleast One Email Id');
+                }
+                else if (mail_content == "") {
+                    alert("Please Enter Mail body content");
+                }
+                else if (document.getElementById('id_file').value == '') {
+                    alert('Please Upload the document');
+                }
+                else if(file_size > 2.0){
+                    alert('The selected file is not valid, plz upload file which is less than 2MB');
+                    document.getElementById('id_file').value = '';
+                }
+                else{
+                    $('#id_form').submit();
+                }
+            }
+        </script>
+    {% endblock %}

@@ -1,0 +1,166 @@
+<ion-view>
+	<ion-side-menus>
+    	<ion-side-menu-content>
+			<upwrdz-Tabs></upwrdz-Tabs>
+			<ion-content>
+				<div overflow-scroll="true" class="m-upwrdz-editpage-content">
+						<div class="editpage-title-bar">
+								<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+								ICORE
+						</div>
+						<div class="list card icore-card">
+							<div class="item item-image">
+							<img ng-if="icore.eachpost.icoreimage.guid" src="{{icore.eachpost.icoreimage.guid}}">
+							<img ng-if="icore.eachpost.icoreimage == null" src="img/blog2.png">
+							</div>
+							<div class="row">
+							<div class="col col-75">
+									<p class="blog-title">{{icore.eachpost.title}}</p>
+									<p class="post-info"> POSTED ON: {{icore.eachpost.date}}</p>
+									<p class="blog-auth">AUTHOR - {{icore.eachpost.username}}</p>
+									<p class="blog-auth">Catagories -
+										<span ng-repeat="item in icore.eachpost.category">{{item}}{{$last ? '' : ','}}</span>
+									</p>
+							</div>
+								<div class="col col">
+									<p class="rating-text">RATE THIS BLOG</p>
+									<rating class="star-col black pull-right" ng-model="icore.eachpost.rating[3].meta_value" max="5"
+										ng-change="icore.rate_post()">
+									</rating>
+									<p class="rating-text">Ratings</p>
+									<p class="rating-count">{{icore.eachpost.rating[2].meta_value}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="icore-blog-content">
+							<p ng-bind-html="icore.eachpost.content">
+							</p>
+						</div>
+						<div class="blog-comment-section">
+							<div class="row">
+								<div class="col col-80">
+									<p class="headline">PLEASE DO LEAVE A COMMENT IF YOU LIKE THE POST</p>
+								</div>
+								<div class="col">
+									<p class="comment-counts">({{icore.eachpost.comments.length}})</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<form name="comment_form" ng-submit="icore.addComment()">
+										<label class="item item-input">
+											<input type="text" name="comment" ng-model="icore.eachpost.addcomment" ng-required="true" ng-touched="true"/>
+										</label><br/>
+										<button class="m-upwrdz-btn" ng-disabled="comment_form.$invalid">Submit</button>
+									</form>
+								</div>
+							</div>
+							<div class="row social-btn-section">
+								<div class="col">
+									<button class="button icon-left ion-thumbsup f-likes-btn">Likes 100</button>
+								</div>
+								<div class="col">
+									<button class="button share-btn">Share 12</button>
+								</div>
+								<div class="col">
+									<button class="button icon-left ion-social-twitter tweet-btn">Tweet</button>
+								</div>
+							</div>
+							<div class="row social-btn-section">
+								<div class="col">
+									<button class="button icon-left ion-social-linkedin linked-btn">Shares</button>
+								</div>
+								<div class="col">
+									<button class="button icon-left ion-social-googleplus google-btn">1000</button>
+								</div>
+								<div class="col">
+								</div>
+							</div>
+							<div class="row comment-section" ng-repeat="comment in icore.eachpost.comments">
+								<div class="col commentor-dp-block">
+									<div class="commentor-dp">
+										<img src="{{comment.author.avatar}}"/>
+									</div>
+								</div>
+								<div class="col col-80">
+									<p class="commentor-name">{{comment.author.name}}</p>
+									<div ng-bind-html="comment.content"</div>
+								</div>
+							</div>
+							<div ng-if="(icore.eachpost.comments.length == 0)" class="cardtextfont"> No Comments</div>
+							</div>
+						</div>
+					<!-- <div class="list" style="margin: 12px 3px;">
+						<div>
+							<img  ng-if="icore.eachpost.icoreimage!=null" src="{{icore.eachpost.icoreimage.guid}}"/>
+							<img ng-if="icore.eachpost.icoreimage==null" src="img/blog2.png"/>
+						</div>
+						<div class="icoreintro card" style="box-shadow:0 0px;margin: 5px 10px;">
+							<div class="row icore-font">
+								<rating class="star-col black" ng-model="icore.eachpost.rating[3].meta_value" max="5"
+									ng-change="icore.rate_post()">
+								</rating>
+								{{icore.eachpost.rating[3].meta_value}}
+							</div>
+							<div class="row">
+								<div class="cardheadingfont"><strong>{{icore.eachpost.title}}</strong></div>
+							</div>
+							<span class="row cardtextfont">
+									<div >by {{icore.eachpost.username}}</div>
+									<div>&nbsp&nbsp{{icore.eachpost.date | date : "dd-MM-y"}}</div>
+							</span><br/>
+							<div>
+								<div ng-bind-html="icore.eachpost.content"></div>
+							</div><br/>
+							<div class="cardheadingfont">
+							Category :
+							<span class="cardtextfont" ng-repeat="category in icore.eachpost.category">
+								{{category}},
+							</span>
+							<div>
+								<ul class="socialshare">
+								<li fb-like="icore.eachpost.link"></li>
+								<li><button class="socialshare-btn" ng-click="icore.postsocialshare('Facebook',icore.eachpost.link);"><i class="fa fa-facebook whitefont"></i></button></li>
+								<li><button class="socialshare-btn" ng-click="icore.postsocialshare('LinkedIn',icore.eachpost.link);"><i class="fa fa-linkedin whitefont"></i></button></li>
+								<li><button class="socialshare-btn" ng-click="icore.postsocialshare('Twitter',icore.eachpost.link);"><i class="fa fa-twitter whitefont"></i></button></li>
+								<li><button class="socialshare-btn" ng-click="icore.postsocialshare('Google',icore.eachpost.link);"><i class="fa fa-google-plus whitefont"></i></button></li>
+								<li><button class="socialshare-btn" ng-click="icore.postsocialshare('Whatsapp',icore.eachpost.link,'Kindly check the share blog post');"><i class="fa fa-whatsapp whitefont"></i></button></li>
+								</ul>
+							</div><br/>
+							</div>
+						</div>
+						<div class="cardheadingfont"><strong>Comments:</strong>
+							<form name="comment_form" ng-submit="icore.addComment()">
+							<div class="list list-inset other-inset black-border">Post a Comment
+								<label class="item item-input">
+									<input type="text" name="comment" ng-model="icore.eachpost.addcomment" ng-required="true" ng-touched="true"/>
+								</label><br/>
+								<button ng-disabled="comment_form.$invalid">COMMENT</button>
+							</div>
+							</form>
+							<div ng-repeat="comment in icore.eachpost.comments">
+							<div class="row">
+								<div class="col-25 commentimg">
+								<img src="{{comment.author.avatar}}"</img>
+								</div>
+								<div class="col-75" style="padding-left:10px;">
+									<div class="cardtextfont">{{comment.author.name}}</div>
+									<div ng-bind-html="comment.content"</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div ng-if="(icore.eachpost.comments.length == 0)" class="cardtextfont"> No Comments</div>
+						</div> -->
+						<div class="row">
+							<div class="col">
+								<p class="text-center">
+									<a ui-sref="app.myhub.createpost">Contribute to ABOTMI blog?</a>
+								</p>
+							</div>
+						</div>
+					</div>
+			</ion-content>
+	     </ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

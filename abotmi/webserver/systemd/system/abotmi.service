@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve abotmi project
+After=network.target
+
+[Service]
+User=abotmi
+Group=abotmi
+WorkingDirectory=/home/abotmi/abotmi
+Environment="PATH=/home/abotmi/env/bin"
+ExecStart=/home/abotmi/env/bin/uwsgi --ini /home/abotmi/abotmi/webserver/uwsgi/etc/init.d/reia-uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,37 @@
+<ion-view>
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <ion-content class="m-upwrdz-form-content">
+          <div class="editpage-title-bar">
+              <img src="../www/img/back_arrow_25px.png" class="back-btn" ng-if="ekyc.confirmed" alt="back arrow" ui-sref="app.myhub">
+               <p class="skip-fwd pull-right" menu-close ui-sref="app.editprofile">SKIP > ></p> 
+              <p class="form-step-text text-center">Step 1 - Passport number </p>
+          </div> 
+           <div class="logincenterdiv registration-steps-logincenterdiv" ng-init="login.user=''">    
+                <form name="adharnumberverify" novalidate ng-submit="ekyc.adharnumberverify()" ng-if="ekyc.aadhaar!='true'">
+                  <div class="row">
+                      <div class="col">
+                        <label class="item item-input">
+                          <input type="text" placeholder="Passport Number" ng-model="ekyc.number" name="number" ng-required="true"   ng-touched >
+                        </label>
+                        <span class="validationerrors" ng-show="adharnumberverify.number.$error.required && adharnumberverify.$touched">Passport Number is Requried </span>
+                        <span class="validationerrors" ng-if="(adharnumberverify.number.$error.minlength && adharnumberverify.number.$dirty) || (adharnumberverify.number.$error.maxlength && adharnumberverify.number.$dirty)" > Enter valid 12 digits number</span>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <button class="m-upwrdz-full-btn btn" ng-disabled="adharnumberverify.$invalid">SUBMIT</button>
+                    </div> 
+                </form>
+                <div ng-if="ekyc.aadhaar">
+                  <p class="aadhar-verified" >Passport Number Added Successfully
+                </p>
+                </div>
+            <form name="ekyc.aadhar_form" action="{{ekyc.AADHAAR_BRIDGE_API}}" method="post">
+              <div ng-repeat="(key, value) in ekyc.aadhaar_form">
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+              </div>
+            </form>
+               
+         </div>
+       </ion-content>
+  </ion-view>

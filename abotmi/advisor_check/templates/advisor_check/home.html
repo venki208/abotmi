@@ -1,0 +1,57 @@
+{% extends 'advisor_check/base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block main_content %}
+<section class="n-padding-tb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 text-center">
+                {% if not user.is_authenticated %}
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <button class="btn btn-primary n-background-blue-color" onclick="signup_user_modal('#login-modal');">Register Now</button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<div id="advisor_check_modal_div"></div>
+{% include 'common/social_media_verification.html' %}
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        var ses_ad_chk_name = "{{ad_chk_name|default:''}}";
+        var ses_ad_chk_email = "{{ad_chk_email|default:''}}";
+        var ses_ad_chk_mobile = "{{ad_chk_mobile|default:''}}";
+        var ses_ad_chk_loc = "{{ad_chk_loc|default:''}}";
+        var ses_ad_chk_reg = "{{ad_chk_reg|default:''}}";
+        var ses_inv_chk_login = "{{inv_chk_login|default:''}}";
+        var ses_social_auth = "{{social_auth_ses|default:''}}";
+        var is_member = "{{user_profile.is_member}}";
+        if(ses_ad_chk_name||ses_ad_chk_email||ses_ad_chk_mobile||ses_ad_chk_loc||ses_ad_chk_reg){
+            $("#id_name").val(ses_ad_chk_name);
+            $("#id_mobile").val(ses_ad_chk_mobile);
+            $("#id_email").val(ses_ad_chk_email);
+            $("#id_location").val(ses_ad_chk_loc);
+            $("#id_category").val(ses_ad_chk_reg);
+            $("#id_advisor_firm_form").submit();
+        }
+        if (ses_social_auth == "False" && is_member == 'True') {
+            $('#check_social_media_details').modal({
+                show: true,
+                keyboard: false,
+                backdrop: 'static'
+            });
+        }
+        if (ses_social_auth == "True" && ses_inv_chk_login) {
+            get_advice();
+        }
+        function social_btn(){
+            if(ses_inv_chk_login){
+                get_advice();
+            }
+        }
+    </script>
+{% endblock %}

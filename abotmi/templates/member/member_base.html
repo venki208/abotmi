@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+{% endblock %}
+{% block top_header %} {% include 'header2.html' %} {% endblock %}
+{% block main_content %}
+    <div class="container">
+        <div class="row text-center">
+            <h4>Hi {{ user_profile.first_name }} {{ user_profile.last_name }},</h4>
+            <p>Thank You for Login as member.</p>
+            <p>will comming soon...</p>
+        </div>
+    </div>
+{% endblock %}
+{% block bootstrap-modal %}{% endblock %}
+{% block theme_scripts %}{% endblock %}

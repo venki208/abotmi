@@ -1,0 +1,31 @@
+Template Tags in index_base
+    {% block base_css %}
+    {% endblock %}
+    {% block theme_css %}
+    {% endblock %}
+    {% block custom_theme_css %}
+    {% endblock %}
+    {% block base_scripts %}
+    {% endblock %}
+    {% block important_css %}
+    {% block important_scripts %}
+    {% block top_header %}
+    {% endblock %}
+    {% block top_menu_bar %}
+    {% endblock %}
+    {% block slider %}
+    {% endblock %}
+    {% block main_content %}
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
+    {% block copy_rights %}
+    {% endblock %}
+    {% block bootstrap-modal %}
+    {% endblock %}
+    {% block theme_scripts %}
+    {% endblock %}
+    {% block slider_script %}
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}

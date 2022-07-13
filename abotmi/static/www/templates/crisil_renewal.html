@@ -1,0 +1,57 @@
+<ion-view>
+     <ion-nav-bar class="bar" align-title="center">
+    <ion-nav-back-button class="button-clear" side="left">
+        <i class="icon ion-arrow-left-a light"></i> Back
+    </ion-nav-back-button>
+    <ion-nav-title>
+       <h4 class="modaltitle whitefont">CRISIL Renewal</h4>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content ng-init="track.crisil=''" class="halfyellowbg">
+    <form name="paymentform" class="list card formcard" novalidate ng-submit="track.crisil_renewalsubmit();">
+        <div class="list list-inset first-inset black-border">
+            <label class="item item-input">
+              <input type="text" placeholder="Bank Name" ng-model="track.crisil.bankname" name="name" ng-required="true" ng-touched/>
+            </label>
+        </div>
+        <h7 class="validationerrors" ng-show="paymentform.name.$error.required && paymentform.name.$touched"> Bank Name is required</h7>
+        <div class="list list-inset other-inset black-border">
+          <label class="item item-input">
+            <input type="text" placeholder="Reference Number" ng-model="track.crisil.refnumber" name="refnum" ng-required="true" ng-touched/>
+          </label>
+        </div>
+        <h7 class="validationerrors" ng-show="paymentform.refnum.$error.required && paymentform.refnum.$touched"> Reference Number is required</h7>
+        <div class="list list-inset other-inset black-border">
+          <label class="item item-input">
+            <input type="text" placeholder="Date Of Payment" ng-click="track.selectPayDate()" ng-model="track.crisil.paydate" name="date" ng-required="true" ng-touched/>
+          </label>
+        </div>
+        <h7 class="validationerrors" ng-show="paymentform.data.$error.required && paymentform.date.$touched"> Payment Date is required</h7>
+        <div class="list list-inset other-inset black-border">
+          <label class="item item-input readonly" style="border-width:0px;">
+            <input placeholder="Amount" type="number" ng-model="track.user_details.crisil_pay_amount" name="amount" readonly="true"/>
+          </label>
+        </div>
+        <div class="list list-inset other-inset black-border" ng-if="track.user_details.crisil_application_status == track.CRISIL_EXPIRED">
+          <label class="item item-input readonly" style="border-width:0px;">
+                <input placeholder="Years Selected" name="years_selected"  type="text" ng-model="track.CERTIFICATE_RENEWAL_YEAR" readonly/>
+          </label>
+        </div>
+        <div class="list list-inset other-inset black-border" ng-if="!(track.user_details.crisil_application_status == track.CRISIL_EXPIRED)">
+          <label class="item item-input readonly" style="border-width:0px;">
+            <input class="form-control" placeholder="Years Selected" name="years_selected" ng-model="track.user_details.crisil_expiry_date" id="years_selected" type="text" onchange="clear_error_msg(id,name);" readonly/>
+            <span class="help-block" id="help-text-years_selected"></span>
+          </label>
+        </div>
+        <div class="list list-inset other-inset black-border">
+          <label class="item item-input readonly" style="border-width:0px;">
+          <input class="button  greenfont white-font cardtextfont" placeholder="Bank Reference Document" type="file" ng-model="track.crisil.refdoc" ngf-select valid-file name="doc" ng-required="true" ng-touched id="refdoc"/>
+          </label>
+        </div>
+        <h7 class="validationerrors" ng-show="paymentform.doc.$error.required && paymentform.doc.$touched"> Reference Documemt is required</h7>
+        <div class="list-inset ">
+          <button class="button buttoninset whitefont pinkbutton" ng-disabled="paymentform.$invalid">Submit</button>
+        </div>
+      </form>
+  </ion-content>
+</ion-view>

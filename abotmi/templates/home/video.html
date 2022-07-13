@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<style type="text/css">
+    .video-size{
+        width: 100%;
+    }
+    .video-registration{
+        bottom: 8px;
+        right: 0px;
+    }
+    .video-registration-more{
+        left: 8px;
+    }
+    .video-playnext, .video-registration{
+        bottom: 80px;
+        font-size: 20px;
+        color: #fff;
+        background: #fd04d3;
+        position: absolute;
+    }
+    .video-luanching{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60% !important;
+    }
+    .video-registration{
+        right: 0px;
+        background: #fd04d3;
+    }
+    .video-playnext a, .video-registration a{
+        border: 0px;
+        padding-left: 25px;
+        cursor: pointer;
+        line-height: 40px;
+        color: #fff;
+        padding-right: 25px;
+        text-decoration:none;
+        color: #fff;
+    }
+    .video-registration-more a:hover{
+        text-decoration: none;
+    }
+    .video-playnext a:hover, .video-registration a:hover{
+        text-decoration: none;
+        color: #FFF;
+    }
+    .upwrdz-after-login-screen{
+            padding: 0px;
+    }
+    .video-registration-more .popover-content{
+        color: #000;
+    }
+    video::-internal-media-controls-download-button {
+        display:none;
+    }
+
+    video::-webkit-media-controls-enclosure {
+        overflow:hidden;
+    }
+
+    video::-webkit-media-controls-panel {
+        width: calc(100% + 30px); /* Adjust as needed */
+    }
+</style>
+<div class="modal fade upwardz-modal" id="video_modal" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default" style="border: 0px solid rgba(255, 255, 255, 0.29);">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right: -15px;" id="vd_cls">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                </div>
+                {% comment %}
+                <p style="color:#FFF" class="text-center">You have successfully signed up. <br/> This is a must watch video for all signed up users.
+                </p>
+                {% endcomment %}
+                <div class="panel-body pannel-popup-content modal-body upwrdz-after-login-screen">
+                    <div class="">
+                        <video class="video-size" id="myVideo" controls controlsList="nodownload">
+                          <source src="{% static 'video/intro_video.webm' %}" frameborder="0" type="video/webm" allowfullscreen>
+                        </video>
+                        {% comment %}
+                        <!-- commented for this relese -->
+                        <div class="video-registration"><a href="/signup/submit_eipv_doc/" id="end" class="">REGISTER</a></div>
+                        <div class="video-playnext"><a id="my_Video" >PLAY NEXT</a></div>
+                        {% endcomment %}
+                        <div class="video-registration-more">ABOTMI is bringing India's first organized Professional Investment Rated, Ranked Professional Advisory community for the Existing Advisors as well as the Future Advisors. ABOTMI is a deep tech platform in Fintech space.
+                        {% comment %}
+                            <a data-toggle="popover" data-placement="right" data-content="UPWRDZ is a deep tech platform in Fintech space."> <u>More</u></a>
+                        {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var video_no = 1;
+    var vedio_url2 = "{% static 'video/intro_video.webm' %}";
+    var videoPlayer = document.getElementById("myVideo");
+    var play_next = $("#my_Video");
+    $('#end').hide();
+    $('#my_Video').hide();
+    videoPlayer.addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        if(!e) {e= window.event;}
+        $('#end').show();
+        $('#my_Video').show();
+    }
+
+    play_next.on('click', function(e){
+        video_no ++;
+        if (video_no > 1) {
+            video_no = 1;
+        }
+        var nextVideo = "/static/video/video"+video_no+".webm";
+        videoPlayer.src = nextVideo;
+        videoPlayer.play();
+    });
+</script>
+<!-- pop over script -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+    $("#vd_cls").on('click', function(e){
+        videoPlayer.pause();
+    })
+</script>
+<!-- pop over script ends-->

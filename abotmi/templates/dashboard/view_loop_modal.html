@@ -1,0 +1,150 @@
+{% load staticfiles %}
+<style media="screen">
+    td.custome-border{
+        border-color: rgba(255, 255, 255, 0.29) !important;
+    }
+    .custome-table .custome-table-header{
+        border-bottom: none !important;
+    }
+    .custome-table .custome-table-header .custome-tr .custome-th{
+        background-color:  #5976fc !important;
+        text-align: center;
+        border-right: 1px solid #635c64;
+        font-weight: 600;
+        border-bottom: none;
+        color: #fff;
+    }
+    .status-button {
+        background-color: #fbfceb !important;
+        color: #2e3191#5976fc !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+    @media(max-width:991px){
+        .pannel-popup-content-miain{
+            
+            overflow: scroll;
+        }
+        .pannel-popup-content-miain .main-table{
+
+            width: 800px;
+        }
+    }
+</style>
+<link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+<link href="{% static 'V2_theme/lib/dataTables/datatables.min.css' %}" rel="stylesheet" 
+type="text/css" />
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="view-loop-modal" name="view-loop-modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color text-center pb-3">LIST REFER ADVISOR</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {% if loop_list %}
+                            <div class="bs-example pannel-popup-content-miain">
+                                <div class="table-responsive main-table">
+                                    <table id="table_id" name="table_id" class="table custome-table">
+                                        <span class="pull-right">
+                                            <a id="veiw-member-search-icon" onclick="enable_search()"><i class="fa fa-search-thin fa-lg"></i></a>
+                                        </span>
+                                        <thead class="custome-table-header">
+                                            <tr class="custome-tr">
+                                                <th class="custome-th">
+                                                    Name
+                                                </th>
+                                                <th class="custome-th">
+                                                    Email ID
+                                                </th>
+                                                <th class="custome-th">
+                                                    Mobile Number
+                                                </th>
+                                                <th class="custome-th">
+                                                    Location
+                                                </th>
+                                                <th>
+                                                    No. of Transactions
+                                                </th>
+                                                <th>
+                                                    Earning
+                                                </th>
+                                                <th>
+                                                    Status
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="custome-body">
+                                        {% for track_referrals in loop_list %}
+                                            <tr>
+                                                <td class="custome-border">
+                                                    {{ track_referrals.name }}
+                                                </td>
+                                                <td class="custome-border">
+                                                    {{ track_referrals.email }}
+                                                </td>
+                                                <td class="custome-border">
+                                                    {{ track_referrals.phone }}
+                                                </td>
+                                                <td class="custome-border">
+                                                    {{ track_referrals.location }}
+                                                </td>
+                                                <td>
+                                                    {{track_referrals.earnings_and_transaction.transaction_count}}
+                                                </td>
+                                                <td>
+                                                    {{track_referrals.earnings_and_transaction.earnings.transaction_value__sum}}
+                                                </td>
+                                                <td>
+                                                    {% if track_referrals.userprofile.is_wpb_user %}
+                                                        <span class="label status-button">Course Entrolled</span>
+                                                    {% elif track_referrals.userprofile.is_register_advisor %}
+                                                        <span class="label status-button">Registered</span>
+                                                    {% elif track_referrals.userprofile %}
+                                                        <span class="label status-button">signup</span>
+                                                    {% else %}
+                                                        <span class="label status-button">Unregistered</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p class="text-center">No Advisors Found</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if loop_list %}
+<script src='{% static "V2_theme/lib/dataTables/datatables.min.js" %}'></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#table_id').dataTable({
+            language: {
+                paginate: {
+                    previous: "< Previous",
+                    next: "Next >"
+                }
+            }
+        });
+        document.getElementById('table_id_filter').style.display = 'none';
+    });
+    function enable_search(){
+        document.getElementById('table_id_filter').style.display = 'block';
+        document.getElementById('veiw-member-search-icon').style.display = 'none';
+    }
+</script>
+{% endif %}

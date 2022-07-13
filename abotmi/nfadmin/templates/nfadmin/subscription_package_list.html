@@ -1,0 +1,268 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/nfadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_list/">
+        <i class="fa fa-user text-pink"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/crisil_advisor_list/">
+        <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+        <span>CRISIL Advisors</span>
+      </a>
+    </li>
+    <li>
+        <a href="/nfadmin/affiliated_companies/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companies</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/add_client_list/">
+        <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+        <span>Clients</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/company_spoc/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Company Spoc</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_request/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Request</span>
+      </a>
+    </li>
+    <li >
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+     <li class="active">
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/regulatory_registration_data_uploaded_url/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Regulatory Authentication</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/educational_authentication/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Educational Authentication</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+    <!-- Content Header (Page header) -->
+    {% block content-header %}
+    <section class="content-header">
+        <h1>Subscription Packages</h1>
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    {% endblock %}
+
+<!-- Main content -->
+{% block main-content %}
+<section class="content">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box adm-box">
+                    <div class="box-header">
+                        <h3 class="box-title">Subscription Package</h3>
+                    </div><!-- /.box-header -->
+                    <div class="col-md-12" style="margin:5px 0px;">
+                        <button type="button" class="btn btn-success cmp-btn" id='id_create_button' name="create_button" data-toggle="modal" data-target="#create_package_modal">Create Package</button>
+                    </div>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Package Code</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
+                                    <th>Features</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for pkg in pkg_list%}
+                                <form action="#" method="POST" name="member_details" id="member_details">
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{ pkg.package_code }}</td>
+                                        <td>{{ pkg.package_type }}</td>
+                                        <td>{{ pkg.subscription_category }}</td>
+                                        <td>{{ pkg.feature_data }}</td>
+                                    </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Package Code</th>
+                                    <th>Package Type</th>
+                                    <th>Category Name</th>
+                                    <th>Features</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</section><!-- /.content -->
+<!-- create package modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="create_package_modal" role="dialog" aria-labelledby="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Create Package</h4>
+            </div>
+            <form action="#" method="post" id="create_package_form" name="create_pacakge_form" enctype="multipart/form-data">
+                <div class="modal-body" id="id_body_create_package">
+                    <div class="col-md-12">
+                        <label for="category">Category Name with Package Type</label>
+                        <select class="form-control form-group" name="category" id="category"
+                            onchange="get_feature_list(name)">
+                            <option value="">-- select --</option>
+                            {% for pkg in pkg_list %}
+                                <option value="{{pkg.subscription_category_id}}---{{pkg.package_type}}">{{pkg.subscription_category}}---{{pkg.package_type}}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="feature_list_modal">Features</label>
+                        <div id="feature_list_modal"> 
+                        </div>
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control form-group" name="price" id="price" value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success cmp-btn" name="package_button" id="id_create_package_button" onclick="create_package();">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End create package modal -->
+
+<div class="modal fade" id="view_member_modal_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="ClientModal-title">Clients Details </h4>
+            </div>
+
+            <div class="modal-body custome-model-body" id="ClientModal-body">
+               <!--Ajax call load Edit student form -->
+            </div>
+
+            <div class="modal-footer" id="ClientModal-footer">
+                <button type="button" class="btn btn-primary" id="id_save_details" onClick="edit_clientsprofile_form();">Edit</button>
+                <button type="button" class="btn btn-danger" id="id_save_cancel" data-dismiss="modal" onClick="$('.input').val('');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+// Action -> get feature list
+function get_feature_list(category) {
+    var token = '{{csrf_token}}';
+    $.ajax({
+        type: 'POST',
+        url: '/nfadmin/get-feature-list/',
+        beforeSend: function(request){
+            request.setRequestHeader("X-CSRFToken", token);
+        },
+        data: {
+            'category': $('#'+category).val(),
+        },
+        success: function (res) {
+            var html = '<input type="hidden" name="all_value" id="all_value" value=\''+res+'\'">';
+            res = JSON.parse(res);
+            for(var i=0; i<res.length; i++){
+                html = html+'<input type="checkbox" name="'+res[i].short_name+'" value="'+res[i].short_name+'" onchange="document.getElementById(\'text_'+res[i].short_name+'\').disabled = !this.checked;">'+res[i].feature_name+'<br/><input type="text" name="text_'+res[i].short_name+'" id="text_'+res[i].short_name+'" disabled > <br/>';
+            }
+            document.getElementById('feature_list_modal').innerHTML = html;
+        },
+        error: function(data) {
+            alert("error");
+        }
+    });
+}
+
+// Action -> editing client profile details
+function create_package() {
+    var token = '{{csrf_token}}';
+    var dt = $('#all_value').val();
+    dt = JSON.parse(dt);
+    var feature_data = [];
+    for(var i=0; i<dt.length; i++){
+        var value = $("#text_"+dt[i].short_name).val();
+        if(value == ''){
+            value = "False";
+        }
+        feature_data.push('{"'+ dt[i].short_name +'" : "'+value+'"}');
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/nfadmin/subscription-package/',
+        beforeSend: function(request){
+            request.setRequestHeader("X-CSRFToken", token);
+        },
+        data: {
+            'category': $('#category').val(),
+            'package': $('#package').val(),
+            'feature_data': feature_data.toString(),
+            'price': $('#price').val(),
+        },
+        success: function (res) {
+            window.location.reload();
+        },
+        error: function(data) {
+            alert("error");
+        }
+    });
+}
+</script>
+{% endblock %}

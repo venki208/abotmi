@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<style>
+    .attach_class{
+        display: inline-block;
+    }
+</style>
+<div id="add_educational_qualification_modal" class="modal fade upwardz-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="education_title"></h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <form action="/signup/upload_file/" name="edu_qualification_form" id="edu_qualification_form" method="post" class="contact-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group col-xs-12 form-nline reg-step4">
+                            <div class="row registration-form-div" id="div_certificate">
+                                <div class="col-sm-4 col-xs-6 text-right pan-card">
+                                    <label>Certificate&nbsp;*</label>
+                                </div>
+                                <input type="hidden" name="documents_type" id="edu_documents_type" value="">
+                                {% if certificate %}
+                                    <label id="certificate_label"
+                                        class="col-sm-2 col-xs-4 fileinput fileinput-new hide"
+                                        data-provides="fileinput">
+                                        <span class="btn btn-default btn-file" id="pan_card">
+                                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                            <input type="hidden" name="reupload" value="true">
+                                            <input type="file" name="document"
+                                                class="hide"
+                                                accept="image/gif, image/jpeg,image/png,application/pdf"
+                                                onchange="UploadDocuments('edu_qualification_form','div_certificate', 'certificate_label');">
+                                        </span>
+                                    </label>
+                                    <p class="attach_class hiding{{certificate.id}} n-padding-r-5"
+                                        id="id_attached" name="attached">Attached</p>
+                                    <a
+                                        id="{{ certificate.id }}"
+                                        class="hiding{{certificate.id}} download_link_color n-padding-r-5"
+                                        href="{{ certificate.documents.url }}" target="_blank">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a
+                                        class="hiding{{ certificate.id }}"
+                                        onclick="removeDocument({{certificate.id}},'certificate_label');">
+                                        <i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i>
+                                    </a>
+                                {% else %}
+                                <label id="certificate_label" class="col-sm-2 fileinput fileinput-new " data-provides="fileinput">
+                                    <span class="btn btn-default">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                        <input type="hidden" name="reupload" value="true">
+                                        <input type="file" name="document" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf"
+                                            onchange="UploadDocuments('edu_qualification_form','div_certificate', 'certificate_label');">
+                                    </span>
+                                </label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/new_js/upload_document.js' %}"></script>

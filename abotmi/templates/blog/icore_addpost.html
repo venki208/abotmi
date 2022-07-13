@@ -1,0 +1,136 @@
+{{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+  <link href="{% static 'V2_theme/css/blog.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main_content %}
+    <section class="blog-section" id="about">
+        <!-- Page Content html starts -->
+        <div class="container">
+           <div class="row">
+               <div class="col-lg-12 col-md-12">
+                    <h2 class="blog-title">Write a BLOG</h2>
+               </div>
+                <div class="col-lg-12 col-md-12 blog-creation-form">
+                    <form
+                        action="/blog/icore/add-post/"
+                        method="post"
+                        accept-charset="utf-8"
+                        id="icore_add_post" role="form" name="icore_add_post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <fieldset class="form-group">
+                        <label>Blog Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter Your Blog Title">
+                      </fieldset>
+                      <fieldset class="form-group">
+                        <label for="content_raw">Blog Content textarea</label>
+                        <textarea type="text" autocomplete="off" name="content_raw" id="content_raw" class="form-control" placeholder="Enter your Text" tabindex="2" rows="5"></textarea>
+                      </fieldset>
+                      <fieldset class="form-group">
+                        <a id="media-modal" href="#" class="btn upwrdz-button" data-toggle="modal" data-target="#MediaModel" title="Login">Add Media</a>
+                      </fieldset>
+                      <fieldset class="form-group">
+                        <label>Tag your Blog</label>
+                        <div class="control">
+                          <input type="text" autocomplete="off" name="add_tag" id="add_tag" class="form-control" placeholder="Ex:Real Estate" onchange="triming(id)">
+                        </div>
+                      </fieldset>
+                      <fieldset class="form-group">
+                        <label class="control-label">Blog Categories </label>
+                        <div class="total-category" style="cursor:text;">
+                            <div id="id_total_category" style="display:inline;">
+                            </div>
+                            <input type="text"
+                                class="search form-control form-control no-spin"
+                                id="category"
+                                name="category"
+                                style="display:inline-block;width:100%;box-shadow:none !important;"/>
+                        </div>
+                        <span class="help-block" id="help_text_category"></span>
+                        <input type="hidden"
+                            id="id_total_category_selected"
+                            name="id_total_category_selected"
+                            value=""/>
+                        <div class="search-dropdown transition" style="display:none;">
+                            {% for list in category_list %}
+                            <div class="item"
+                                id="{{list.ID}}"
+                                name="{{list.name}}"
+                                data-value="{{list.name}}"
+                                onclick="add_category_to_input(id,'id_total_category');">
+                                <span id="id_item_name{{list.ID}}">{{ list.name }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                      </fieldset>
+                      <div style="visibility: hidden;">
+                        <input type="text" id="featured_image" name="featured_image"></input>
+                      </div>
+                      <button type="button" class="btn upwrdz-button" onclick="submitPost();" style="margin-right:10px;">
+                        Submit
+                      </button>
+                      <a href="/blog/icore/" class="btn gray-linear-btn" style="margin-right:10px;">
+                        Cancel
+                      </a>
+                    </form>
+               </div>
+            </div>
+        </div>
+        <!-- Page Content html ends -->
+    </section>
+    <!-- Upload Modal Starts -->
+    <div class="modal fade upwardz-modal" id="MediaModel" tabindex="-1" role="dialog" aria-labelledby="MediaModelLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content p-4">
+                <div class="modal-header">
+                    <h4 class="pt-3 pb-4 text-center">Upload Image File</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="MediaModel-body" class="modal-body">
+                    <form action="/blog/icore/add_media/"
+                        method="post"
+                        accept-charset="utf-8"
+                        id="add_media_form"
+                        role="form"
+                        name="add_media_form"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3 col-md-3">
+                              <div class="form-group control-group">
+                                <div class="control">
+                                  <label for="username">Upload Image</label>
+                                </div>
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group control-group">
+                                <div class="control">
+                                  <input type="file" name="up" id="up" class="form-control input" accept="image/gif, image/jpeg,image/png">
+                                </div>
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn upwrdz-button" tabindex="3" id="upload_image" onclick="upload_image_ajax()" disabled>Upload</button>
+                            <button type="button" class="btn gray-linear-btn" data-dismiss="modal">Cancel</button>
+                            <input type="hidden" id="binary_document" name="binary_document" value="">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Upload Modal Ends -->
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/plugins/tinymce/js/tinymce/tinymce.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/plugins/tinymce/js/tinymce/jquery.tinymce.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/new_js/blog_add_post.js' %}"></script>
+{% endblock %}

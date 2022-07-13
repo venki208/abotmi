@@ -1,0 +1,103 @@
+{% extends 'blockchain/bcadmin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/bcadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li class="active">
+      <a href="/bcadmin/accounts/">
+        <i class="fa fa-users text-pink"></i>
+        <span>Accounts</span>
+      </a>
+    </li>
+    <li>
+      <a href="/bcadmin/contracts/">
+        <i class="fa fa-files-o text-pink" aria-hidden="true"></i>
+        <span>Contracts</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+<!-- Content Header (Page header) -->
+{% block content-header %}
+<section class="content-header">
+    <h1>Clients list</h1>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+{% endblock %}
+
+<!-- Main content -->
+{% block main-content %}
+<section class="content">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box adm-box">
+                    <div class="box-header">
+                        <h3 class="box-title">Blockchain Accounts</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>EMAIL</th>
+                                    <th>ACCOUNTS</th>
+                                    <th>CONTRACT NAME</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for user_profile in user_basic_details%}
+                                <form action="#" method="POST" name="member_details" id="member_details">
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td> {{ act.user_profile.email }}</td>
+                                        <td> {{ act.accounts }}</td>
+                                        <td> {{ act.contract_address.name }}</td>
+                                        <td>    
+                                            <button type="button"
+                                                id="{{ act.user_profile.id }}"
+                                                class="btn btn-info"
+                                                onclick='view_member_modal(id);'
+                                                title="View Details & Edit">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>EMAIL</th>
+                                    <th>ACCOUNTS</th>
+                                    <th>CONTRACT NAME</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</section><!-- /.content -->

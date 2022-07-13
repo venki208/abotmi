@@ -1,0 +1,697 @@
+@media(min-width:768px) {
+
+    .abotmi-myidentity-page .abotmi-inner-banner,
+    .my-identity-tab-section,
+    .my-identity-education-section,
+    .my-hub-education-section {
+        width: 600px;
+        max-width: 600px;
+    }
+    
+}
+@media(min-width:799px) {
+    .dropdown-menu-right {
+        right: auto;
+        left: 0;
+    }
+}
+@media(min-width:480px) {
+    .abotmi-myidentity-page{
+        height: 640px;
+    }
+    .my-identity-tab-content-section{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px -9px 24px -4px;
+    }
+    .my-identity-tab-section{
+        margin-top: -75px !important;
+    }
+    .my-hub-tab-section{
+        margin-top: -110px !important;
+    }
+}
+@media(max-width:479px) {
+    .my-identity-tab-content-section{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px -9px 24px -4px;
+    }
+    .my-identity-tab-section{
+        margin-top: -30px !important;
+    }
+    .my-hub-tab-section{
+        margin-top: -70px !important;
+    }
+    .my-hub-profile-buttons a{
+        word-wrap: initial;
+    }
+}
+
+@media(max-width:767px) {
+    .abotmi-myidentity-page .abotmi-inner-banner {
+        width: 100%;
+    }
+
+    .start-client-rating,
+    .start-peer-rating {
+        width: 50%;
+    }
+
+    .profile-attachment-btn {
+        margin-bottom: 10px;
+    }
+}
+
+@media(max-width:400px) {
+    .abotmi-myidentity-page .card span {
+        font-size: 20px !important;
+        color: #7d7e7f;
+    }
+
+    .abotmi-myidentity-page .card h5 {
+        font-size: 16px !important;
+    }
+
+    .abotmi-myidentity-page .card-body {
+        padding: 1.2rem 0px 1.2rem 0px;
+    }
+
+    .testimonial-carousal {
+        margin: 10px auto !important;
+        padding: 0 10px !important;
+    }
+
+    .testimonial-carousal .carousel-control-prev {
+        left: -20px;
+    }
+
+    .testimonial-carousal .carousel-control-next {
+        right: -20px;
+    }
+
+    .testimonial-carousal .carousel-control {
+        width: 30px;
+        height: 30px;
+    }
+
+    .testimonial-carousal .carousel-control i {
+        font-size: 40px !important;
+    }
+   
+    .abotmi-small-btn{
+        width: 110px !important;
+    }
+}
+
+@media(max-width:575px){
+    .my-hub-education-section .my-hub-card-div .card-right, 
+    .my-hub-education-section .my-hub-card-div .card-left,
+    .my-hub-tab-section,
+    .my-hub-section-inviste{
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    .my-hub-tab-section h5{
+        font-size: 13px !important;
+    }
+    .my-hub-tab-section h5 a{
+        margin-top: 5px;
+    }
+}
+@media(max-width:380px){
+    .my-hub-tab-section h5{
+        font-size: 12px !important;
+    }
+}
+
+
+.abotmi-myidentity-page .abotmi-inner-banner{
+    margin:0px auto !important;
+}
+.abotmi-myidentity-page {
+    padding: 0;
+}
+
+.my-identity-tab-section {
+    position: relative;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -9px 24px -4px;
+    background: #fff;
+}
+
+.my-identity-education-section {
+    background: #fff;
+    position: relative;
+    min-height: 200px;
+    margin: auto;
+}
+
+.abotmi-myidentity-page {
+    position: relative;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    height: 530px;
+}
+
+.abotmi-myidentity-page .card {
+    border: 0px;
+}
+
+.abotmi-myidentity-page .card h4 {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.abotmi-myidentity-page .card p {
+    font-size: 14px;
+}
+
+.start-peer-rating {
+    border-right: 1px #7d7e7f solid;
+}
+
+.abotmi-myidentity-page .card h5 {
+    color: #05549e;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.abotmi-myidentity-page .card span {
+    font-size: 25px;
+    color: #7d7e7f;
+}
+
+.my-identity-tab-section #tabs {
+    background: #007b5e;
+    color: #eee;
+}
+
+.my-identity-tab-section #tabs h6.section-title {
+    color: #eee;
+}
+
+.my-identity-tab-section #tabs .nav-tabs .nav-item.show .nav-link,
+.my-identity-tab-section .nav-tabs .nav-link.active {
+    color: #000;
+    border-bottom: 3px #05549e solid !important;
+}
+
+.my-identity-tab-section .nav-tabs .nav-link {
+    border: 0px solid transparent !important;
+    font-weight: 600;
+    font-size: 18px;
+    color: #000;
+    border-bottom: 3px #d8d8d8 solid !important;
+    line-height: 50px;
+}
+
+.my-identity-tab-section #tabs .nav-tabs .nav-link:focus,
+.my-identity-tab-section .nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #000;
+}
+
+.my-identity-tab-section .nav-tabs {
+    border-bottom: 0px solid #dee2e6;
+}
+
+.background-gradiant-div {
+    background: #5976fc;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #5976fc 0%, #65dde4 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #5976fc 0%, #65dde4 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #5976fc 0%, #65dde4 100%);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -9px 24px -4px;
+}
+
+.my-identity-tab-overview {
+    background: #fff;
+}
+
+.my-identity-tab-overview h5 {
+    color: #006cc0;
+    font-weight: 600;
+}
+
+.my-identity-tab-overview p,
+.my-identity-education-section p {
+    font-size: 16px;
+}
+
+.my-identity-tab-overview h5 a,
+.my-identity-education-section a {
+    cursor: pointer;
+    color: #006cc0 !important;
+}
+
+.my-identity-education-section a i {
+    width: 30px;
+    height: 25px;
+    padding-left: 4px;
+    padding-top: 2px;
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.my-identity-education-section h5 {
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 18px;
+    border-bottom: 1px #d2d2d2 solid;
+}
+
+.testimonial-carousal {
+    margin: 50px auto;
+    padding: 0 70px;
+}
+
+.testimonial-carousal .item {
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.testimonial-carousal .item .img-box {
+    width: 135px;
+    height: 135px;
+    margin: 0 auto;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+}
+
+.testimonial-carousal .img-box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 50%;
+}
+
+.testimonial-carousal .testimonial {
+    padding: 30px 0 10px;
+}
+
+.testimonial-carousal .overview {
+    font-style: italic;
+}
+
+.testimonial-carousal .overview b {
+    text-transform: uppercase;
+    color: #7AA641;
+}
+
+.testimonial-carousal .carousel-control {
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    top: 50%;
+    background: none;
+}
+
+.testimonial-carousal .carousel-control i {
+    font-size: 68px;
+    line-height: 42px;
+    position: absolute;
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: 0 3px 3px #e6e6e6, 0 0 0 #000;
+}
+
+.testimonial-carousal .carousel-indicators {
+    bottom: -40px;
+}
+
+.testimonial-carousal .carousel-indicators li,
+.testimonial-carousal .carousel-indicators li.active {
+    width: 10px;
+    height: 10px;
+    margin: 1px 3px;
+    border-radius: 50%;
+}
+
+.testimonial-carousal .carousel-indicators li {
+    background: #999;
+    border-color: transparent;
+    box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-carousal .carousel-indicators li.active {
+    background: #555;
+    box-shadow: inset 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.abotmi-myidentity-page .btn, .my-identity-modal-btn{
+    background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    -webkit-background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    font-size: 14px;
+    padding: 10px 25px;
+    border-radius: 30px;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.my-identity-modal-btn-cancel{
+    background: linear-gradient(135deg, #2b2b2b 0%, #787878 100%) !important;
+    font-size: 14px;
+    padding: 10px 25px;
+    border-radius: 30px;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/* myidenttity css end here */
+
+
+.content-logo {
+    text-align: right;
+}
+
+.content-copy-profile {
+    margin-right: 10%;
+}
+
+.new_img_style {
+    width: 85px;
+    height: 85px;
+}
+
+.ui-div {
+    opacity: 0;
+    position: absolute;
+}
+
+
+/* profile pic hover image css */
+
+.advisor-identity-div-image,
+.advisor-identity-div-hub {
+    position: relative;
+    cursor: pointer;
+}
+
+.advisor-identity-div-image img,
+.advisor-identity-div-hub img {
+    border: none;
+    width: 100%;
+    padding: 0px;
+    height: 100%;
+}
+
+.advisor-identity-div-image:after,
+.advisor-identity-div-image:before {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+
+.advisor-identity-div-image:after {
+    content: '\A';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.advisor-identity-div-image:before {
+    content: attr(data-content);
+    width: 100%;
+    color: #fff;
+    z-index: 1;
+    bottom: 0;
+    padding: 4px 10px;
+    text-align: center;
+    background: #2f3291;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.advisor-identity-div-image:hover:after,
+.advisor-identity-div-image:hover:before {
+    opacity: 1;
+}
+
+.id-profile-pic {
+    height: 100%;
+}
+.image-body{
+    width: 120px;
+    margin: auto;
+    height: 120px;
+    border: 3px #3c74fc solid;
+    overflow: hidden;
+    padding: 0px;
+}
+.batch-previewimage {
+    margin-bottom: 20px;
+}
+.my-hub-profile-buttons a{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: underline !important;
+}
+.my-hub-profile-buttons a:hover{
+    text-decoration: none !important;
+}
+
+/* latest my-hub */
+.refer-an-advisor-btn{
+    margin: 25px 0px 0;
+  }
+  .refer-an-advisor-btn h3{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .refer-an-advisor-btn p{
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .refer-an-advisor-btn a{
+    color: #fff !important;
+  }
+  .color-linear-btn,
+  .color-linear-btn.btn:not(:disabled):not(.disabled):active {
+    background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    -webkit-background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+    font-size: 14px;
+    padding: 6px 15px;
+    border-radius: 30px;
+    color: #fff !important;
+    font-weight: 600;
+    border: 0px;
+  }
+  .gray-linear-btn,
+  .gray-linear-btn.btn:not(:disabled):not(.disabled):active {
+    background: linear-gradient(135deg, #2b2b2b 0%, #787878 100%) !important;
+    -webkit-background: linear-gradient(135deg, #2b2b2b 0%, #787878 100%) !important;
+    font-size: 14px;
+    padding: 6px 15px;
+    border-radius: 30px;
+    color: #fff !important;
+    font-weight: 600;
+    border: 0px;
+  }
+  .btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active {
+    background-image: auto !important;
+  }
+  .registered-right-line{
+    border-right: 1px #ccc solid;
+  }
+
+
+/* latest my-hub */
+  .my-hub-tab-section{
+      top: 0px !important;
+  }
+  .my-hub-education-section{
+    background: transparent;
+    position: relative;
+    top: 0px !important;
+    min-height: 200px;
+    margin: auto;
+    padding: 0px 15px !important;
+   
+  }
+  .my-hub-education-section .hub-box-one{
+    background: #fff;
+    padding: 15px;
+  }
+
+
+.refer-an-advisor-btn{
+  margin: 25px 0px 0;
+}
+.refer-an-advisor-btn h3{
+  font-size: 18px;
+  font-weight: 600;
+}
+.refer-an-advisor-btn p{
+  font-size: 16px;
+  font-weight: 600;
+}
+.refer-an-advisor-btn a{
+  color: #fff !important;
+}
+.color-linear-btn,
+.color-linear-btn.btn:not(:disabled):not(.disabled):active {
+  background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+  -webkit-background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+  font-size: 16px;
+  padding: 6px 15px;
+  border-radius: 30px;
+  color: #fff !important;
+  font-weight: 600;
+  border: 0px;
+}
+.gray-linear-btn,
+.gray-linear-btn.btn:not(:disabled):not(.disabled):active {
+  background: linear-gradient(135deg, #585858 0%, #f1f1f1 100%);
+  -webkit-background: linear-gradient(135deg, #585858 0%, #f1f1f1 100%);
+  font-size: 16px;
+  padding: 6px 15px;
+  border-radius: 30px;
+  color: #fff !important;
+  font-weight: 600;
+  border: 0px;
+}
+.btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active {
+  background-image: auto !important;
+}
+.registered-right-line{
+  border-right: 1px #ccc solid;
+}
+
+.my-hub-education-section .my-hub-card-div{
+  width: 100%;
+  margin: 0px;
+}
+.my-hub-education-section .my-hub-card-div .card-left{
+  margin-left: 0;
+  margin-right: 8px;
+  background:#ffffff;
+}
+.my-hub-education-section .my-hub-card-div .card-right{
+  margin-left: 8px;
+  margin-right: 0;
+  background:#ffffff;
+}
+.my-hub-education-section .my-hub-card-div .card-right h5, 
+.my-hub-education-section .my-hub-card-div .card-left h5{
+  margin: 0;
+  padding: 15px!important;
+  border-bottom: 1px #c7c7c7 solid;
+}
+.my-hub-education-section .my-hub-card-div p{
+  font-size: 16px;
+  padding-top: 10px;
+  margin: 0px;
+  font-weight: 600;
+}
+.my-hub-education-section .my-hub-card-div p a.blog-link, 
+.how-its-work-calendly a.blog-link{
+  text-decoration: underline !important;
+  color: #000 !important;
+}
+.my-hub-education-section .my-hub-card-div p a:hover, 
+.how-its-work-calendly a:hover{
+    text-decoration: none !important;
+}
+/* calendly model css */
+.abotmi-calendly-model {
+    position: relative;
+}
+
+.abotmi-calendly-model .calendly-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.abotmi-calendly-model h4{
+    font-size: 22px;
+    font-weight: 600;
+}
+.abotmi-calendly-model label{
+    font-size: 14px;
+    font-weight: 600;
+}
+.abotmi-calendly-model input[type="text"],
+.abotmi-calendly-model textarea{
+    border:#2b2b2b 1px solid;
+  
+}
+.abotmi-calendly-model p{
+      width:80%;
+      margin: auto
+}
+
+.abotmi-big-btn{
+    width:200px;
+}
+.abotmi-small-btn{
+    width: 150px !important;
+    padding: 8px 0px !important;
+}
+.download_link_color{
+    color: #337afd !important;
+}
+.profile-link-copy-code {
+    font-size: 13px;
+    margin-top: -34px;
+    font-weight: 600;
+    color: #4851ff !important;
+    text-decoration: underline !important;
+}
+/* my growth css */
+.my-growth-descripition{
+    color: #fff;
+}
+.my-hub-education-section h4{
+    background: #ecebeb;
+    padding: 10px;
+    font-size: 18px;
+    color: #05549e;
+}
+
+.pencil-btn{
+    background: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.share-email-btn{
+    cursor: pointer;
+    background: #fff;
+    border: none;
+    color: #006cc0;
+}
+.short_link a{
+    word-wrap: break-word;
+    color: #006cc0 !important;
+}
+.exp_btn{
+    background: #000;
+    color: #FFF;
+    padding: 3px 8px;
+    margin-left: 5px;
+}
+
+.educate_upload .btn.btn-default{
+    box-shadow: 0px 0px 2px 1px #ccc;
+    margin: 0px 20px;
+}
+.current-finanacial-section .exp-btn{
+    background: #fff;
+    color: #FFF;
+    padding: 3px 8px;
+    margin-left: 5px;
+}
+
+.coming-soon-section {
+    min-height: 110px;
+}

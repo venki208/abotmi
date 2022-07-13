@@ -1,0 +1,25 @@
+<ion-view>
+    <ion-content class="m-upwrdz-video-container" >
+        <form name="otp" novalidate >
+            <div class="pd-14">
+                 <p class="text-center bluefont">Verify OTP</p>
+                
+                 <div class="row" >
+                     <div class="col verify-otp-email">
+                         <input type="text"  name="eotp" ng-model="emailotpprocess.user_details.eotp"   placeholder="Email OTP" ng-required="true">
+                         <span class="validationerrors"  ng-show="otp.eotp.$error.required && otp.eotp.$touched">Please enter email otp </span>
+                     </div>
+                     <div class="col verify-otp-resend">
+                         <button class="btn otp-btn pull-right " ng-click="emailotpprocess.sendotp('email')">Resend</button>
+
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col text-center submiteipvprocess-continue">
+                         <button  class="button buttoninset sub-btn" ng-disabled="otp.$invalid" ng-click="emailotpprocess.verifyotpemail()">Submit</buttom>
+                         </div>
+                     </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

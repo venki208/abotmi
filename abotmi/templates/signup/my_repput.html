@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <link href="{% static 'css/new_css/my_identity.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+{% endblock %}
+{% block main_content %}
+    <div class="text-center">
+    <h1>COMING SOON</h1>
+    </div>
+{% endblock %}
+{% block bootstrap-modal %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#peer_rating").rateit('value', '{{final_peer_avg_rating|floatformat:1}}');
+            $("#consumer_ranking").rateit('value', '{{final_consumer_avg_ranking}}');
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,29 @@
+<ion-view>
+  <ion-nav-bar class="bar" align-title="center">
+    <ion-nav-back-button class="button-clear" side="left">
+        <i class="icon ion-arrow-left-a light"></i> Back
+    </ion-nav-back-button>
+    <ion-nav-title>
+       <h4 class="modaltitle whitefont">Forgot Password</h4>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content>
+       <div class="iconlogin" style="top:5%;position:absolute;">
+     	  <img src="../images/logoonly.png"/>
+        </div>
+        <div class="logincenterdiv" ng-init="login.user=''">
+        <form name="forms.forgotpwd" novalidate ng-submit="login.forgotpwd()">
+            <div class="list">
+              <label class="item item-input item item-input item-floating-label bottomborder">
+                <input type="email"  placeholder="User Email ID" ng-model="login.user" name="email" ng-required="true" ng-touched ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"/>
+              </label>
+            </div>
+            <h7 class="validationerrors" ng-show="forms.forgotpwd.email.$error.required && forms .forgotpwd.email.$touched">Email ID is required</h7>
+            <h7 class="validationerrors" ng-show="forms.forgotpwd.email.$error.email && forms.forgotpwd.email.$touched"> Email ID is not valid</h7>
+            <div>
+              <button class="button buttoninset whitefont pinkbutton" ng-disabled="forms.forgotpwd.$invalid">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+  </ion-content>
+</ion-view>

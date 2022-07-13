@@ -1,0 +1,30 @@
+1.To create a debug apk using the gradle wrapper ,run the below command from the UPWRDZ folder:
+-- ./gradlew assembleDebug
+
+2.To install apk to your device, run the below command with the device's developer mode :
+-- ./gradlew installDebug
+
+3. To create a release signed apk , update the build.gradle file in app :
+
+
+android {
+...
+defaultConfig { ... }
+signingConfigs {
+    release {
+        storeFile file("myreleasekey.keystore")
+        storePassword "password"
+        keyAlias "MyReleaseKey"
+        keyPassword "password"
+    }
+}
+buildTypes {
+    release {
+        ...
+        signingConfig signingConfigs.release
+    }
+}}
+
+
+
+and run ./gradlew assembleRun

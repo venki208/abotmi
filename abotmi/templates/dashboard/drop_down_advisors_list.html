@@ -1,0 +1,14 @@
+
+    {% if debates %}
+        <div class="search-dropdown transition">
+            {% for debate in debates %}
+            <li class="item" id="drop{{forloop.counter}}" data-value="{{debate.email}}" onclick="add_client_to_input(id,'id_total-advisors')">
+                <span class="item_data" id="id_item_name{{debate.email}}">{{ debate.email }}</span>
+            </li>
+            {% endfor %} 
+        </div>
+    {% else %}
+        <div class="search-dropdown transition">
+            No results found
+        </div>
+    {% endif %}

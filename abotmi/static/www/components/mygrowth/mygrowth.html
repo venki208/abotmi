@@ -1,0 +1,296 @@
+<ion-view>
+  <ion-side-menus>
+    <ion-side-menu-content>
+      <upwrdz-Tabs></upwrdz-Tabs>
+      <ion-content class="m-upwrdz-tab-content my_growth_mobile_class" delegate-handle="myPageDelegate" >
+          
+       
+            
+            <!-- <ion-tabs  class="subtabs">
+                
+                <ion-tab title="CERTIFICATIONS"  ng-click="mygrowth.certification();">
+                </ion-tab>
+                <ion-tab title="MICRO LEARNING" ng-class="{active:mygrowth.micro_learning()}" ng-click="mygrowth.micro_learning();" >
+                </ion-tab>
+               
+            </ion-tabs> -->
+
+            <div class="tab_div">
+                <button ng-class="mygrowth.class"  ng-click="mygrowth.certification();">CERTIFICATIONS</button>
+                <button  ng-class="mygrowth.class1" ng-click="mygrowth.micro_learning();">MICRO LEARNING</button>
+                
+             
+              </div>
+             
+             
+
+            
+       
+       
+        <div class="row2" ng-show="mygrowth.step==0">
+         
+          <div class="col">
+            <ul id="accordion" class="accordion-video-div">
+              <li>
+                <div>
+                  
+                  <div class="row accordion-toggle" id="intro_video" ng-click="mygrowth.expand1()" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+                    <div class="col col-100 micro_learning_video_frame_div">
+                      <iframe width="100%" height="250px;" src="https://www.youtube.com/embed/pF7cMp_rQlM?enablejsapi=1" frameborder=0 allowfullscreen>
+                      </iframe>
+                      <div class="micro_learning_play_btn_div">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row accordion-content default micro_learning_videos accordion-content-default-one">
+                    <div class="mygrowth-after-video-btn" >
+                      <div id="nxtmov_iframe1" class="iframe_class" link="https://www.youtube.com/embed/pF7cMp_rQlM"></div>
+                      <!-- Following code commented for future use
+                      <button class="button download-btn" ng-click="mygrowth.knowmore('REIA is building the India’s first Real Estate Economic Advisory Professional Organisation, to Guide the Real Estate Investors and non Real Estate Investors to Invest in the Most Preferred Real Estate Asset Class. REIA helps the Registered Advisors to explore this Market Potential and drive a place for them in Market with New Products, with New Clients, with New Geographical growth');">
+                      Play Next
+                    </button> -->
+                  </div>
+                  <div class="mygrowth-knowmore-btn mygrowth-knowmore-btn-knowmore">
+                    <button class="button m-upwrdz-btn pull-left" ng-click="mygrowth.toastmsg()">NXTMOV</button>
+                    <button class="button m-upwrdz-btn pull-right" ng-click="mygrowth.knowmore('White Polar Bear offers 9 types of specialized education programs to become a certified expert in Digital Assets. The programs cover multiple topics regarding Cryptocurrencies, Security Tokens and blockchain technology. The platform facilitates the capability for every individual to share and learn with their peers. The goal is to help provide every individual to expand their knowledge and achieve their personal objectives.');">
+                      KNOW MORE
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- <li>
+              <div>
+                <h2>Micro Learning</h2>
+                <div class="row accordion-toggle" ng-if="mygrowth.details.advisor_videos" ng-click="mygrowth.expand2()" id="micro_learning" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+                  <div class="col col-100 micro_learning_video_frame_div">
+                    <iframe  ng-if="mygrowth.details.current_advisor_videos" width="100%" height="250px" id="" ng-src="{{mygrowth.current_first_video}}" frameborder=0>
+                    </iframe>
+                    <iframe  ng-if="!mygrowth.details.current_advisor_videos" width="100%" height="250px" id="" ng-src="{{mygrowth.other_first_video}}" frameborder=0>
+                    </iframe>
+                    <div class="micro_learning_play_btn_div">
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-content default accordion-content-default-one">
+                  <div ng-if="mygrowth.details.is_current_advisor_videos_present"
+                  class="micro_learning_videos" >
+                  <p>My Videos</p>
+                  <div ng-repeat="crr_videos in mygrowth.details.current_advisor_videos " class="current-advisor-videos-mygrowth">
+                    <div id="myvideo_{{$index}}">
+                      <div class="mygrowth-after-video-btn">
+                        <div id="{{'advisors_videos_'+ crr_videos.id}}" class="iframe_class" link="{{crr_videos.video_link}}"></div>
+                      </div>
+                    </div>
+                    <div class="mygrowth-knowmore-btn">
+                      <button class="button m-upwrdz-btn display_none" ng-click="mygrowth.play_next_video($event,'play_next_'+crr_videos.id,'myvideo_'+$index);"  id="{{'play_next_current_'+ crr_videos.id}}">
+                      Play Next
+                      </button>
+                      <button class="button m-upwrdz-btn pull-right" ng-click="mygrowth.knowmore(crr_videos.video_description, 'advisors_videos_{{crr_videos.id}}')">
+                        KNOW MORE
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="mygrowth.details.is_other_advisors_videos_present"
+                class="micro_learning_videos" >
+                <p>Others Videos</p>
+                <div class="pd-b10" ng-repeat="other_videos in mygrowth.details.other_advisors_videos">
+                  <div id="othervideo_{{$index}}">
+                  <div class="mygrowth-after-video-btn">
+                    <div id="{{'advisors_videos_'+ other_videos.id}}" class="iframe_class" link="{{other_videos.video_link}}"></div>
+                    <br>
+                  </div>
+                  </div>
+                  <button class="button m-upwrdz-btn pull-right" ng-click="mygrowth.knowmore(other_videos.video_description, 'advisors_videos_{{other_videos.id}}');">
+                    KNOW MORE
+                  </button>
+                  <button class="button download-btn display_none" ng-click="mygrowth.play_next_video($event, 'play_next_'+other_videos.id,'othervideo_'+$index);"  id="{{'play_next_'+ other_videos.id}}">
+                    <a href="#">Play Next</a>
+                  </button>
+                  <br><br>
+                </div>
+             </div>
+            </div>
+            <div ng-if="!mygrowth.details.advisor_videos">
+              <p>Micro Learning Videos not available</p>
+            </div>
+          </div>
+        </li> -->
+        <!-- <li>
+          <div>
+            <h2>Financial Game</h2>
+            <div class="row accordion-toggle"  ng-click="mygrowth.expand3()" id="gaming" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+              <div class="col col-100 micro_learning_video_frame_div">
+                <iframe width="100%" height="250px;" src="https://www.youtube.com/embed/zB7muovv5Gc" frameborder=0 allowfullscreen>
+                </iframe>
+                <div class="micro_learning_play_btn_div">
+                </div>
+              </div>
+            </div>
+            <div class="row accordion-content default">
+              <p class="row">
+                <span class="col col-50"><b>Coming Soon....</b></span>
+              </p>
+            </div>
+          </div>
+        </li> -->
+        <!-- not required for version 1 so commented -->
+        <li>
+          <div>
+            <h2>BLOGS</h2>
+            <div class="row accordion-toggle" ng-click="mygrowth.expand4()" id="icore"  simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+              <div class="col col-100 micro_learning_video_frame_div">
+                <h5> Total Blogs</h5>
+                <div class="micro_learning_play_btn_div">
+                </div>
+              </div>
+            </div>
+            <div class="row accordion-content accordion-content-blog default" >
+              <p class="row" ng-repeat="post in mygrowth.details.total_icore_posts  track by $index">
+                <a ui-sref="app.myhub.post({id:post.id})" >{{post.title}}</a>
+              </p>
+              <!-- <p class="row">
+                <a  href="/blog/icore/" target="_blank">GO TO ICORE</a>
+              </p> -->
+            </div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h2>TOP TRENDING</h2>
+            <div class="row accordion-toggle" ng-click="mygrowth.expand5()" id="toptrending"  simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+              <div class="col col-100 micro_learning_video_frame_div">
+                <h5>Coming soon...</h5>
+                <div class="micro_learning_play_btn_div">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row accordion-content accordion-content-blog default" >
+              <p class="row">Advisor's Reputation video uploaded by Palani Damodar</p>
+              <p class="row">Need of Investors video by Mamatha</p>
+              <p class="row">How to acquire new clients video by Rajesh</p>
+              <p class="row">Insurance video by Nagasundrum</p>
+            </div> -->
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="row2" ng-show="mygrowth.step==1">
+         
+      <div class="col">
+        <ul id="accordion" class="accordion-video-div">
+          
+        <li>
+          <div>
+            <h2>Micro Learning</h2>
+            <div class="row accordion-toggle" ng-if="mygrowth.details.advisor_videos" ng-click="mygrowth.expand2()" id="micro_learning" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+              <div class="col col-100 micro_learning_video_frame_div">
+                <iframe  ng-if="mygrowth.details.current_advisor_videos" width="100%" height="250px" id="" ng-src="{{mygrowth.current_first_video}}" frameborder=0>
+                </iframe>
+                <iframe  ng-if="!mygrowth.details.current_advisor_videos" width="100%" height="250px" id="" ng-src="{{mygrowth.other_first_video}}" frameborder=0>
+                </iframe>
+                <div class="micro_learning_play_btn_div">
+                </div>
+              </div>
+            </div>
+            <div class="accordion-content default accordion-content-default-one">
+              <div ng-if="mygrowth.details.is_current_advisor_videos_present"
+              class="micro_learning_videos" >
+              <p>My Videos</p>
+              <div ng-repeat="crr_videos in mygrowth.details.current_advisor_videos " class="current-advisor-videos-mygrowth">
+                <div id="myvideo_{{$index}}">
+                  <div class="mygrowth-after-video-btn">
+                    <div id="{{'advisors_videos_'+ crr_videos.id}}" class="iframe_class" link="{{crr_videos.video_link}}"></div>
+                  </div>
+                </div>
+                <div class="mygrowth-knowmore-btn">
+                  <button class="button m-upwrdz-btn display_none" ng-click="mygrowth.play_next_video($event,'play_next_'+crr_videos.id,'myvideo_'+$index);"  id="{{'play_next_current_'+ crr_videos.id}}">
+                  Play Next
+                  </button>
+                  <button class="button m-upwrdz-btn pull-right" ng-click="mygrowth.knowmore(crr_videos.video_description, 'advisors_videos_{{crr_videos.id}}')">
+                    KNOW MORE
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div ng-if="mygrowth.details.is_other_advisors_videos_present"
+            class="micro_learning_videos" >
+            <p>Others Videos</p>
+            <div class="pd-b10" ng-repeat="other_videos in mygrowth.details.other_advisors_videos">
+              <div id="othervideo_{{$index}}">
+              <div class="mygrowth-after-video-btn">
+                <div id="{{'advisors_videos_'+ other_videos.id}}" class="iframe_class" link="{{other_videos.video_link}}"></div>
+                <br>
+              </div>
+              </div>
+              <button class="button m-upwrdz-btn pull-right" ng-click="mygrowth.knowmore(other_videos.video_description, 'advisors_videos_{{other_videos.id}}');">
+                KNOW MORE
+              </button>
+              <button class="button download-btn display_none" ng-click="mygrowth.play_next_video($event, 'play_next_'+other_videos.id,'othervideo_'+$index);"  id="{{'play_next_'+ other_videos.id}}">
+                <a href="#">Play Next</a>
+              </button>
+              <br><br>
+            </div>
+         </div>
+        </div>
+        <div ng-if="!mygrowth.details.advisor_videos">
+          <p>Micro Learning Videos not available</p>
+        </div>
+      </div>
+    </li>
+    
+    <li>
+      <div>
+        <h2>BLOGS</h2>
+        <div class="row accordion-toggle" ng-click="mygrowth.expand4()" id="icore"  simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+          <div class="col col-100 micro_learning_video_frame_div">
+            <h5> Total Blogs</h5>
+            <div class="micro_learning_play_btn_div">
+            </div>
+          </div>
+        </div>
+        <div class="row accordion-content accordion-content-blog default" >
+          <p class="row" ng-repeat="post in mygrowth.details.total_icore_posts  track by $index">
+            <a ui-sref="app.myhub.post({id:post.id})" >{{post.title}}</a>
+          </p>
+          <!-- <p class="row">
+            <a  href="/blog/icore/" target="_blank">GO TO ICORE</a>
+          </p> -->
+        </div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h2>TOP TRENDING</h2>
+        <div class="row accordion-toggle" ng-click="mygrowth.expand5()" id="toptrending"  simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+          <div class="col col-100 micro_learning_video_frame_div">
+             <h5>Trending news</h5>
+            <div class="micro_learning_play_btn_div">
+            </div>
+          </div>
+        </div>
+        
+        <div class="row accordion-content accordion-content-blog default" >
+            
+         
+            <p class="row" ng-repeat="trending in mygrowth.details.topTrending track by $index">{{trending.user_profile.full_name}} uploaded {{trending.video_title}}</p>
+          
+      
+          <p class="row" ng-if="mygrowth.details.topTrending.length==0">
+           No data
+          </p>
+         
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+</div>
+</ion-content>
+</ion-side-menu-content>
+</ion-side-menus>
+</ion-view>

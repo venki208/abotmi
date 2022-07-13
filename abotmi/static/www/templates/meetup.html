@@ -1,0 +1,162 @@
+        <ion-view>
+        
+            <ion-nav-bar class="bar">
+                <ion-nav-buttons side="left">
+                    <button class="button button-icon icon ion-navicon-round light" ng-click="toggleDrawer();"></button>
+                </ion-nav-buttons>
+                <ion-nav-title>
+                    <h4 class="modaltitle whitefont">Meetup</h4>
+                </ion-nav-title>
+            </ion-nav-bar>
+            <ion-content overflow-scroll="true" ng-init="meetup.details=''">
+                <form name="meetupform" class="list card formcard" novalidate ng-submit="meetup.submit()">
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+                            <input type="text" placeholder="Name of the event" maxlength="50" ng-model="meetup.details.name" ng-required="true" name="name" ng-touched />
+                        </label>
+                    </div>
+                    <h7 class="validationerrors" ng-show="meetupform.name.$error.required && meetupform.name.$touched"> Name of event is required</h7>
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+        
+                            <textarea cols="40" name="description" ng-model="meetup.details.description" placeholder="Description" rows="10" ng-required="true" ng-touched></textarea>
+        
+                        </label>
+                    </div>
+                    <h7 class="validationerrors" ng-show="meetupform.description.$error.required && meetupform.description.$touched"> Description  is required</h7>
+        
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+                        <textarea cols="40" name="address" ng-model="meetup.details.address" placeholder="Address" rows="10" ng-required="true" ng-touched></textarea>
+                        </label>
+                    </div>
+                    <h7 class="validationerrors" ng-show="meetupform.address.$error.required && meetupform.address.$touched"> Address  is required</h7>
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+        
+                            <input type="text" placeholder="Location" maxlength="50" ng-model="meetup.details.location" ng-required="true" name="location" ng-touched />
+        
+                        </label>
+                    </div>
+        
+                    <h7 class="validationerrors" ng-show="meetupform.location.$error.required && meetupform.location.$touched"> Location is required</h7>
+        
+        
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+                             Project:     <select id="project" name="project" ng-options="opt as opt.project_name+ ' - '  + opt.project_id for opt in meetup.details" ng-model="meetup.details.project" ng-required="true" ng-touched>
+                                <option value="" >Select</option>
+        
+                            </select>
+        
+                        </label>
+                    </div>
+                    <div ng-if="meetupform.project.$touched">
+                    </div>
+        
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+        
+                            <input type="text" placeholder="Schedule Date &amp; Time" ion-datetime-picker
+                                   maxlength="50" ng-model="meetup.details.datetimeValue" ng-required="true" value="{{meetup.details.datetimeValue| date: 'yyyy-MM-dd H:mm:ss'}}" name="datetimeValue" ng-touched />
+        
+                        </label>
+                    </div>
+        
+                    <h7 class="validationerrors" ng-show="meetupform.datetimeValue.$error.required && meetupform.datetimeValue.$touched"> Schedule time is required is required</h7>
+        
+                    <div class="list list-inset first-inset black-border">
+                        <label class="item item-input">
+        
+                           Duration:    <select id="hours" name="hours" ng-model="meetup.details.hours" ng-required="true" ng-touched>
+                                            
+        
+                                                <option value="0">0</option>
+        
+                                                <option value="1">1</option>
+        
+                                                <option value="2">2</option>
+        
+                                                <option value="3">3</option>
+        
+                                                <option value="4">4</option>
+        
+                                                <option value="5">5</option>
+        
+                                                <option value="6">6</option>
+        
+                                                <option value="7">7</option>
+        
+                                                <option value="8">8</option>
+        
+                                                <option value="9">9</option>
+        
+                                                <option value="10">10</option>
+        
+                                                <option value="11">11</option>
+        
+                                                <option value="12">12</option>
+        
+                                                <option value="13">13</option>
+        
+                                                <option value="14">14</option>
+        
+                                                <option value="15">15</option>
+        
+                                                <option value="16">16</option>
+        
+                                                <option value="17">17</option>
+        
+                                                <option value="18">18</option>
+        
+                                                <option value="19">19</option>
+        
+                                                <option value="20">20</option>
+        
+                                                <option value="21">21</option>
+        
+                                                <option value="22">22</option>
+        
+                                                <option value="23">23</option>
+        
+                                                <option value="24">24</option>           
+        
+                            </select>
+        
+                            <select  name="minutes" id="minutes" ng-model="meetup.details.minutes" ng-required="true" ng-touched>
+        
+                                <option value="5">5</option>
+        
+                                <option value="10">10</option>
+        
+                                <option value="15">15</option>
+        
+                                <option value="20">20</option>
+        
+                                <option value="25">25</option>
+        
+                                <option value="30">30</option>
+        
+                                <option value="35">35</option>
+        
+                                <option value="40">40</option>
+        
+                                <option value="45">45</option>
+        
+                                <option value="50">50</option>
+        
+                                <option value="55">55</option>
+        
+                                <option value="60">60</option>
+        
+                            </select>
+                            <div ng-if="meetupform.hours.$touched">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="list-inset">
+                        <button >Submit</button>    
+                    </div>
+                </form>
+            </ion-content>
+        </ion-view>

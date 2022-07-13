@@ -1,0 +1,377 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet">
+<style>
+    .add-shadow{
+        box-shadow: 1px 1px 9px 4px #0000007a;
+    }
+    .btn-minus{
+        margin-right: 3px; 
+    }
+</style>
+<!-- Regulatory Certification Registration modal popup Starts  -->
+<div class="modal fade upwardz-modal" id="id_regulatory_registration" tabindex="-1" role="dialog" aria-labelledby="id_new_member_list_modal_title" aria-hidden="true">
+    <div class="modal-dialog dialog-registration-certi modal-lg">
+        <div class="panel panel-default upwrdz-log-panel">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <h3 class="modal-title n-span-blue-color">REGULATORY CERTIFICATION REGISTRATION</h3>
+                <hr class="modal-heading-hr">
+            </div>
+            <div class="panel-body regulatory-registration-checkbox">
+                <form id="regulatory_registration_form" enctype='multipart/form-data' class="panel-body" name="regulatory_registration_form" method="POST" action="/my_identity/save_regulatory_registration/">
+                {% csrf_token %}
+                <span class="help-block" id="help_text_register_with"></span>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            {% if user_agent_country == REGION_IN %}
+                            <div class="checkbox checkbox-rcerrtification checkbox-img col-sm-2 regulatory-registration-checkbox">
+                                <label>
+                                    <input type="checkbox" class="count_checkbox" name="certification_SEBI" id="certification_sebi" value="ferrari" {% if user_status.sebi_status != 'verified' %}onclick="display_certification_details(id,'clicked');"{% else %}disabled{% endif %}
+                                    readonly="true"><img src="/static/images/sbi-logo.png" data-toggle="tooltip" data-placement="top" title="SEBI Registration" />
+                                </label>
+                            </div>
+                            <div id="sebi_details">
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form">
+                                    <input type="text" class="form-control" name="sebi_registration_no" id="sebi_registration_no" placeholder="Registration&nbsp;number" onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number'"  value="{{advisor.sebi_number|default:''}}" readonly="true">
+                                    <span class="help-block register_with" id="help_text_sebi_number"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form date-picker-view">
+                                    <div class='input-group date' id='datetimepicker_start_sebi'>
+                                        <input type="text" name="sebi_start_date" id="sebi_start_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid from"  value="{{advisor.sebi_start_date|date:'d-m-Y'}}" readonly="true">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help_text_sebi_start_date"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form date-picker-view">
+                                    <div class='input-group date' id='datetimepicker_expiry_sebi'>
+                                        <input type="text" name="sebi_expiry_date" id="sebi_expiry_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid up to"  value="{{advisor.sebi_expiry_date|date:'d-m-Y'}}" readonly="true">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help_text_sebi_expiry_date"></span>
+                                </div>
+                                <label id="id_sebi_document" class="fileinput" data-provides="fileinput">
+                                    <span class="btn additional_btn btn-file">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox checkbox-rcerrtification checkbox-img col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_AMFI" id="certification_amfi" value="yes" {% if user_status.amfi_status != 'verified' %}onclick="display_certification_details(id,'clicked');"{% else %}disabled{% endif %}><img src="/static/images/amfi-logo.png" data-toggle="tooltip" data-placement="top" title="AMFI Registration" /></label>
+                            </div>
+                            <div id="amfi_subdetails">
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form">
+                                    <input type="text" class="form-control" id="amfi_registration_no" name="amfi_registration_no" placeholder="Registration&nbsp;number" onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number'" value="{{advisor.amfi_number|default:''}}" readonly="true">
+                                    <span class="help-block register_with" id="help_text_amfi_number"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form date-picker-view">
+                                    <div class='input-group date' id='datetimepicker_start_amfi'>
+                                        <input type="text" name="amfi_start_date" id="amfi_start_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid from"  value="{{advisor.amfi_start_date|date:'d-m-Y'}}" readonly="true">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help_text_amfi_start_date"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form date-picker-view">
+                                    <div class='input-group date' id='datetimepicker_expiry_amfi'>
+                                        <input type="text" name="amfi_expiry_date" id="amfi_expiry_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid up to"  value="{{advisor.amfi_expiry_date|date:'d-m-Y'}}" readonly="true">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help_text_amfi_expiry_date"></span>
+                                </div>
+                                <label id="id_amfi_document" class="fileinput" data-provides="fileinput">
+                                    <span class="btn additional_btn btn-file">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox checkbox-rcerrtification checkbox-img col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_IRDA" id="certification_irda" value="yes"{% if user_status.irda_status != 'verified' %} onclick="display_certification_details(id,'clicked');" {% else %}disabled{% endif %}/><img src="/static/images/irda-logo.png" data-toggle="tooltip" data-placement="top" title="IRDA Registration" /></label>
+                            </div>
+                            <div id="irda_subdetails">
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form">
+                                    <input type="text" class="form-control" id="irda_registration_no" name="irda_registration_no" placeholder="Registration&nbsp;number" onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number'" value="{{advisor.irda_number|default:''}}" readonly="true">
+                                    <span class="help-block register_with" id="help_text_irda_number"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form date-picker-view">
+                                    <div class='input-group date' id='datetimepicker_start_irda'>
+                                        <input type="text" name="irda_start_date" id="irda_start_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid from" value="{{advisor.irda_start_date|date:'d-m-Y'}}" readonly="true" >
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help_text_irda_start_date"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 inside-form date-picker-view">
+                                    <div class='input-group date' id='datetimepicker_expiry_irda'>
+                                        <input type="text" name="irda_expiry_date" id="irda_expiry_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid up to" value="{{advisor.irda_expiry_date|date:'d-m-Y'}}" readonly="true">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help_text_irda_expiry_date"></span>
+                                </div>
+                                <label id="id_irda_document" class="fileinput" data-provides="fileinput">
+                                    <span class="btn additional_btn btn-file">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox checkbox-rcerrtification checkbox-img col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_RERA" id="certification_rera" value="yes" onclick="display_certification_details(id,'clicked');" /><img src="/static/images/rera.png" data-toggle="tooltip" data-placement="top" title="RERA Registration" /></label>
+                            </div>
+                            <div id="rera_subdetails" class="">
+                                {% if not advisor.rera_details and not advisor.is_rera %}
+                                    <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                        <input type="text" class="form-control " id="rera_registration_no1" name="rera_registration_no1" placeholder="Registration number" value="" readonly="true" onchange="check_rera_or_dsa_field(id, '', 'rera');">
+                                        <span class="help-block register_with" id="help_rera_registration_no1"></span>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                        <input type="text" class="form-control" id="rera_state1" name="rera_state1"
+                                        placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder ='State'" value="" readonly="true" onchange="check_rera_or_dsa_field(id, '', 'rera');">
+                                        <span class="help-block register_with" id="help_rera_state1"></span>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others inside-form date-picker-last-view">
+                                        <div class='input-group date rera_date_picker' id='datetimepicker_expiry_rera'>
+                                            <input type="text" name="rera_expire_date1" id="rera_expire_date1" class="form-control date" autocomplete="off" onchange="check_rera_or_dsa_field(id, '', 'rera');" placeholder="Valid up to"  value="" readonly="true">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"><i onClick="show_date('#rera_expire_date1','certification_rera');"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <span class="help-block register_with" id="help_text_rera_expire_date1"></span>
+                                    </div>
+                                    <input type="hidden" name="rera_certificate" id="rera_certificate1">
+                                    <input type="hidden" name="rera_renewal_certificate" id="rera_renewal_certificate1">
+                                    <input type="hidden" name="rera_certificate_status" id="rera_certificate_status1">
+                                    <label id="id_rera_document1" class="fileinput" data-provides="fileinput" style="display:none;" onclick="show_rera_documents(id);">
+                                        <span class="btn additional_btn btn-file">
+                                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                        </span>
+                                    </label>
+                                    <a class="btn additional_btn btn-add-respn" id="rera_field" onclick="add_rera_fields();">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                {% else %}
+                                    {% for rera_result_values in rera_result %}
+                                        <div id="div_id{{forloop.counter}}" class="{% if forloop.counter == 1 %}{% else %}rera_div_row no-padding{% endif %} {% if not forloop.counter == 1 %}col-xs-12{% endif %}">
+                                            <div class="{% if not forloop.counter == 1 %}row{% endif %}">
+                                                {% if not forloop.counter == 1 %}
+                                                    <div class="form-group col-md-2 col-sm-2 col-lg-2 checkbox-rcerrtification"></div>
+                                                {% endif %}
+                                                <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                                    <input type="text" class="form-control " id="rera_registration_no{{forloop.counter}}" name="rera_registration_no{{forloop.counter}}" placeholder="Registration number" value="{{rera_result_values.rera_registration_no|default:''}}" onchange="check_rera_or_dsa_field(id, '{{rera_result_values.rera_registration_no}}', 'rera');">
+                                                    <span class="help-block" id="help_rera_registration_no{{forloop.counter}}"></span>
+                                                </div>
+                                                <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                                    <input type="text" class="form-control" id="rera_state{{forloop.counter}}" name="rera_state{{forloop.counter}}"
+                                                    placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder ='State'" value="{{rera_result_values.rera_state}}" onchange="check_rera_or_dsa_field(id, '{{rera_result_values.rera_state}}', 'rera');">
+                                                    <span class="help-block" id="help_rera_state{{forloop.counter}}"></span>
+                                                </div>
+                                                <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others inside-form date-picker-last-view">
+                                                    <div class='input-group date rera_date_picker' id='datetimepicker_expiry_rera'>
+                                                    <input type="text" name="rera_expire_date{{forloop.counter}}" id="rera_expire_date{{forloop.counter}}" class="form-control datepicker" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="{{rera_result_values.rera_expire_date}}" onchange="check_rera_or_dsa_field(id, '{{rera_result_values.rera_expire_date}}', 'rera');">
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"><i onClick="show_date('#rera_expire_date{{forloop.counter}}','certification_rera');"></i>
+                                                        </span>
+                                                    </span>
+                                                    </div>
+                                                    <span class="help-block" id="help_rera_expire_date{{forloop.counter}}"></span>
+                                                </div>
+                                                <input type="hidden" name="rera_certificate" id="rera_certificate{{forloop.counter}}" value="{{rera_result_values.rera_certificate}}">
+                                                <input type="hidden" name="rera_renewal_certificate" id="rera_renewal_certificate{{forloop.counter}}" value="{{rera_result_values.rera_renewal_certificate}}">
+                                                <input type="hidden" name="rera_certificate_status" id="rera_certificate_status{{forloop.counter}}" value="{rera_result_values.rera_certificate_status}}">
+                                                <label id="id_rera_document{{forloop.counter}}" class="fileinput" data-provides="fileinput" onclick="show_rera_documents(id);">
+                                                    <span class="btn additional_btn btn-file">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                                {% if forloop.counter == 1%}
+                                                    <a class="btn additional_btn" id="rera_field" onclick="add_rera_fields();">
+                                                        <i class="fa fa-plus-circle"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <a class="btn additional_btn rera_remove btn-add-respn" id="remove_rera_row" onclick="check_and_remove_rera_dsa('div_id{{forloop.counter}}', 'rera');"><i class="fa fa-minus-circle"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div id="additional_rera_fields" class="col-sm-12">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let no-padding" style="padding-bottom:0px !important;">
+                            <div class="checkbox checkbox-rcerrtification checkbox-img col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_DSA" id="certification_dsa" value="yes" onclick="display_certification_details(id,'clicked');" />DSA
+                                </label>
+                            </div>
+                            <div id="dsa_subdetails">
+                                {% if not advisor.dsa_details %}
+                                    <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                        <input type="text" class="form-control " id="dsa_registration_no1" name="dsa_registration_no1" placeholder="Bank Name" value=""readonly="true" onchange="check_rera_or_dsa_field(id, '', 'dsa');">
+                                        <span class="help-block register_with" id="help_dsa_registration_no1"></span>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                        <input type="text" class="form-control" id="dsa_code_no1" name="dsa_code_no1"
+                                        placeholder="DSA Code" onfocus="this.placeholder = ''" onblur="this.placeholder ='DSA Code'" value="" readonly="true" onchange="check_rera_or_dsa_field(id, '', 'dsa');">
+                                        <span class="help-block register_with" id="help_dsa_code_no1"></span>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others inside-form date-picker-last-view">
+                                        <input type="text" name="dsa_How long associated with1" id="dsa_how_long_associated1" class="form-control" placeholder="How long associated with?" onfocus="this.placeholder = ''" onblur="this.placeholder ='How long associated with?'" value="" readonly="true" onchange="reraExperience(id,1);check_rera_or_dsa_field(id, '', 'dsa');" onClick="$('#dsa').focus();">
+                                        <span class="help-block register_with" id="help_dsa_how_long_associated1"></span>
+                                    </div>
+                                    <a class="btn additional_btn btn-add-respn" id="dsa_field" onclick="add_dsa_fields();">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                {% else %}
+                                    {% for dsa_result_values in dsa_result %}
+                                        <div id="div_dsa_id{{forloop.counter}}" class="{% if not forloop.counter == 1 %}dsa_div_row col-md-12 no-padding{% endif %}">
+                                            <div class="row">
+                                            {% if not forloop.counter == 1%}
+                                                <div class="form-group col-md-2 col-sm-2 col-lg-2 checkbox-rcerrtification"></div>
+                                            {% endif %}
+                                            <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                                <input type="text" class="form-control " id="dsa_registration_no{{forloop.counter}}" name="dsa_registration_no{{forloop.counter}}" placeholder="Bank Name" value="{{dsa_result_values.dsa_bank_name}}" onchange="check_rera_or_dsa_field(id, '{{dsa_result_values.dsa_bank_name}}', 'dsa');">
+                                                <span class="help-block register_with" id="help_dsa_registration_no{{forloop.counter}}"></span>
+                                            </div>
+                                            <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                                <input type="text" class="form-control" id="dsa_code_no{{forloop.counter}}" name="dsa_code_no{{forloop.counter}}"
+                                                placeholder="DSA Code" onfocus="this.placeholder = ''" onblur="this.placeholder ='DSA Code'" value="{{dsa_result_values.dsa_code}}" onchange="check_rera_or_dsa_field(id, '{{dsa_result_values.dsa_code}}', 'dsa');">
+                                                <span class="help-block register_with" id="help_dsa_code_no{{forloop.counter}}"></span>
+                                            </div>
+                                            <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others    inside-form date-picker-last-view">
+                                                <input type="text" name="dsa_How long associated with{{forloop.counter}}" id="dsa_how_long_associated{{forloop.counter}}" class="form-control" placeholder="How long associated with?" onfocus="this.placeholder = ''" onblur="this.placeholder ='How long associated with?'" value="{{dsa_result_values.dsa_how_long_associated}}" onchange="reraExperience(id,1);check_rera_or_dsa_field(id, '{{dsa_result_values.dsa_how_long_associated}}', 'dsa');" onClick="$('#dsa').focus();">
+                                                <span class="help-block register_with" id="help_dsa_how_long_associated{{forloop.counter}}"></span>
+                                            </div>
+                                            {% if forloop.counter == 1%}
+                                                <a class="btn additional_btn btn-add-respn" id="dsa_field" onclick="add_dsa_fields();">
+                                                <i class="fa fa-plus-circle"></i></a>
+                                            {% else %}
+                                                <a class="btn additional_btn dsa_remove btn-add-respn" id="remove_dsa_row" onclick="check_and_remove_rera_dsa('div_dsa_id{{forloop.counter}}', 'dsa');"><i class="fa fa-minus-circle" ></i></a>
+                                            {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div id="additional_dsa_fields" class="col-sm-12">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row n-margin-0">
+                    <div class="form-group form-inline registrator-form-let">
+                        <div class="checkbox checkbox-rcerrtification checkbox-img col-sm-2 col-md-2 col-lg-2">
+                            <label><input type="checkbox" class="count_checkbox" name="certification_OTHERS" id="certification_others" value="yes" {% if user_status.regulatory_other_status != 'verified' %}onclick="display_certification_details(id,'clicked');"{% else %}disabled{% endif %} />Others</label>
+                        </div>
+                        <div id="others_subdetails">
+                            <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                <input type="text" class="form-control " id="other_organisation" name="other_organisation" placeholder="Authority Organisation" value="{{advisor.other_registered_organisation|default:''}}" readonly="true">
+                                <span class="help-block register_with" id="help_text_other_organisation"></span>
+                            </div>
+                            <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others">
+                                <input type="text" class="form-control" id="other_registration_no" name="other_registration_no"
+                                placeholder="Registration&nbsp;number" onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number'" value="{{advisor.other_registered_number|default:''}}" readonly="true">
+                                <span class="help-block register_with" id="help_text_other_registration"></span>
+                            </div>
+                            <div class="form-group col-sm-3 col-md-3 col-lg-3 col-xs-12 others inside-form date-picker-last-view">
+                                <div class='input-group date' id='datetimepicker_other'>
+                                    <input type="text" name="other_expiry_date" id="other_expiry_date" class="form-control date" autocomplete="off" onchange="clear_error_msg(id,name);" placeholder="Valid up to"  value="" readonly="true" value="{{advisor.other_expiry_date|date:'d-m-Y'}}">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"><i onClick="show_date('#rera_expire_date1','certification_rera');"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <span class="help-block register_with" id="help_text_other_expiredate"></span>
+                            </div>
+                            <label id="id_others_document" class="fileinput" data-provides="fileinput">
+                                <span class="btn additional_btn btn-file">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                    <div>
+                        <input type="hidden" name="hidden_input" id="hidden_input" value="" />
+                        <input type="hidden" name="hidden_value" id="hidden_value" value="" style="width:100%;">
+                        <input type="hidden" name="dsa_hidden_input_field" id="dsa_hidden_input_field" value="">
+                    </div>
+                    <div class="col-md-offset-4 col-sm-4 text-center proceed-btn n-padding-t-15">
+                        <button type="button" id="id_submit_regulatory_form" class="btn upwrdz-button btn-block" onclick="submit_regulatory_regs('null');">
+                        submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Regulatory Certification Registration modal popup Ends  -->
+<script type="text/javascript">
+    var csrf_token = $("#id_csrf_token").val();
+    var crisil_certificate_valid = '{{crisil_certificate_valid}}';
+    var sebi_no = '{{advisor.sebi_number}}';
+    var sebi_start = '{{advisor.sebi_start_date}}';
+    var sebi_expired = '{{advisor.sebi_expiry_date}}';
+    var amfi_no = '{{advisor.amfi_number}}';
+    var amfi_start = '{{advisor.amfi_start_date}}';
+    var amfi_expired = '{{advisor.amfi_expiry_date}}';
+    var irda_no = '{{advisor.irda_number}}';
+    var irda_start = '{{advisor.irda_start_date}}';
+    var irda_exired = '{{advisor.irda_expiry_date}}';
+    var others  = '{{advisor.other_registered_organisation}}';
+    var other_registration_no = '{{advisor.other_registered_number}}';
+    var other_expiry_date = '{{advisor.other_expiry_date}}';
+    var is_rera = '{{advisor.is_rera}}';
+    var dsa_details = '{{advisor.dsa_details}}';
+    var id_value = '{{rera_result|length}}';
+    var dsa_id_value = '{{dsa_result|length}}';
+    var is_rera_status = '{{advisor.is_rera}}';
+    var amfi_status = "{{user_status.amfi_status}}";
+    var sebi_status = "{{user_status.sebi_status}}";
+    var irda_status = "{{user_status.irda_status}}";
+    var sebi_certificate_status = "{{sebi_certificate_status}}";
+    var sebi_renewal_certificate = "{{sebi_renewal_certificate}}";
+    var amfi_certificate_status = "{{amfi_certificate_status}}";
+    var amfi_renewal_certificate = "{{amfi_renewal_certificate}}";
+    var irda_certificate_status = "{{irda_certificate_status}}";
+    var irda_renewal_certificate = "{{irda_renewal_certificate}}";
+    var others_certificate_status = "{{others_certificate_status}}";
+    var others_renewal_certificate = "{{others_renewal_certificate}}";
+    var user_agent_country = '{{user_agent_country}}';
+    var default_country = '{{REGION_IN}}';
+    var id_rera;
+    if (id_value > 1) {
+        var id_rera = id_value;
+    } else {
+        var id_rera = 1;
+    }
+</script>
+<script src="{% static 'js/new_js/upload_document.js' %}"></script>
+<script src="{% static 'js/regulatory_reg.js' %}" charset="utf-8"></script>
+<script src="{% static 'js/new_js/rera_details.js' %}"></script>

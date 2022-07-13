@@ -1,0 +1,189 @@
+{% load staticfiles %}
+<script src="{% static 'js/new_js/photo_crop.js' %}" charset="utf-8"></script>
+<style media="screen">
+.imageBox {
+    position: relative;
+    height: 400px;
+    /*width: 400px;*/
+    border: 1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor: move;
+    margin-left: 30px;
+}
+.action {
+    width: 100%;
+    height: 30px;
+    margin: 20px 15px;
+}
+.imageBox .thumbBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+.user-profile-photo-crop .cropped{
+    padding-bottom: 15px;
+    margin-right: 15px;
+}
+.cropped img{
+    width: 100%;
+}
+.abotmi-testimonial-pic{
+    position:relative;
+}
+.abotmi-testimonial-pic .close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.abotmi-testimonial-pic .header h3{
+    margin: 0 0 20px;
+    font-size: 25px;
+}
+.cmp-btn{
+    color:#fff;
+}
+</style>
+<!-- Edit or view Picture Modal HTML Starts -->
+
+<div class="modal" tabindex="-1" role="dialog" id="imageModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body abotmi-testimonial-pic" style="padding-bottom:60px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row header">
+                    <div class="col-12">
+                        <h3 class="text-center"><span class="modal-title n-span-blue-color" id="send_modal-title">ENDORSER'S PICTURE</span><span class="pull-right"><i data-dismiss="modal" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="user-profile-photo-crop">
+                            <div class="row">
+                                <div class="col-sm-8 edit_image_box none">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="imageBox">
+                                                <div class="thumbBox none"></div>
+                                                <div class="spinner" style="display: none">Loading...</div>
+                                            </div>
+                                            <div class="action row">
+                                                <div class="col-12">
+                                                <label id="paper_clip1" class="col-sm-12 col-md-12 fileinput fileinput-new" data-provides="fileinput">
+                                                    <input type="file" name="file" id="file" accept="image/jpeg, image/png" style="float:left; width: 100%;" autocomplete="off">
+                                                    <span class="help-block" id="help_image"></span>
+                                                </label>
+                                                <div class="col-sm-12 col-md-12">
+                                                <input type="button" id="btnCrop" class="btn upwrdz-button hide cmp-btn" value="Crop">
+                                                <button type="button" id="btnZoomIn" class="btn upwrdz-button hide cmp-btn"><i class="fa fa-search-plus"></i></button>
+                                                <button type="button" id="btnZoomOut" class="btn upwrdz-button hide cmp-btn"><i class="fa fa-search-minus" aria-hidden="true"></i></button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="cropped">
+                                    </div>
+                                    <button type="button" name="upload_pic" id="upload_pic" class="btn upwrdz-button hide none cmp-btn" onclick="picture_upload()" autocomplete="off"> Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit or view Picture Modal Ends-->
+<script type="text/javascript">
+var final_crop_image = '';
+$(document).ready(function(){
+    var options = {
+        imageBox: '.imageBox',
+        thumbBox: '.thumbBox',
+        spinner: '.spinner',
+        imgSrc: 'avatar.png'
+    }
+    var cropper;
+    document.querySelector('#file').addEventListener('change', function(event){
+        try{
+            $("#help_image").html('');
+            var img_file_name = $(this).val();
+            var img_regex = /(\.jpg|\.jpeg|\.png|\.JPG|\.JPEG|\.PNG)$/;
+            if(img_regex.test(img_file_name)){
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    options.imgSrc = e.target.result;
+                    cropper = new cropbox(options);
+                }
+                reader.readAsDataURL(this.files[0]);
+                $("#btnCrop").removeClass('hide');
+                $('#btnZoomIn').removeClass('hide');
+                $('#btnZoomOut').removeClass('hide');
+            }else{
+                $("#btnCrop").addClass('hide');
+                $('#btnZoomIn').addClass('hide');
+                $('#btnZoomOut').addClass('hide');
+                $("#help_image").html('Please select only image');
+            }
+        }catch(err){
+            $("#help_image").html('Please select only image');
+        }
+    });
+    document.querySelector('#btnCrop').addEventListener('click', function(){
+        $("#upload_pic").removeClass('hide');
+        try {
+            final_crop_image = cropper.getDataURL()
+            document.querySelector('.cropped').innerHTML = '<img src="'+final_crop_image+'">';
+            $("#upload_pic")
+                .css("display", "inline-block")
+                .parent().addClass('text-center');
+        }catch(err){
+            $("#help_image").html('Please select only image');
+        }
+    });
+    document.querySelector('#btnZoomIn').addEventListener('click', function(){
+        cropper.zoomIn();
+    });
+    document.querySelector('#btnZoomOut').addEventListener('click', function(){
+        cropper.zoomOut();
+    });
+});
+</script>
+<script type="text/javascript">
+    var profile_picture_url = '';
+    var edit_profile_pic = $("#id_edit_profile_pic");
+</script>
+{% if user_profile.picture %}
+    <script type="text/javascript">
+        profile_picture_url = "{{user_profile.picture.url}}";
+    </script>
+{% endif %}
+<script type="text/javascript">
+    if (!profile_picture_url) {
+        $(".actual_image").addClass('none');
+        $(".edit_image_box").removeClass('none');
+        $(".thumbBox").removeClass('none');
+    }
+</script>
+<script type="text/javascript">
+    edit_profile_pic.on('click', function (e) {
+        $(".actual_image").addClass('none');
+        $(".edit_image_box").removeClass('none');
+        $(".thumbBox").removeClass('none');
+    });
+</script>

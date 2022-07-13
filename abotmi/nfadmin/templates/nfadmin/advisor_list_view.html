@@ -1,0 +1,540 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/nfadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li class="active">
+      <a href="/nfadmin/advisor_list/">
+        <i class="fa fa-user text-pink"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/crisil_advisor_list/">
+        <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+        <span>CRISIL Advisors</span>
+      </a>
+    </li>
+    <li>
+        <a href="/nfadmin/affiliated_companies/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companiessss</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/add_client_list/">
+            <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+            <span>Clients</span>
+        </a>
+    </li>
+    <li>
+         <a href="/nfadmin/company_spoc/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+            <span>Company Spoc</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/advisor_video_request/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+            <span>Video Request</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+    <!-- Content Header (Page header) -->
+    {% block content-header %}
+    <section class="content-header">
+        <h1> Advisor List</h1>
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    {% endblock %}
+
+<!-- Main content -->
+{% block main-content %}
+<section class="content">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box adm-box">
+                    <div class="box-header">
+                        <h3 class="box-title">Advisor Table</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>User Email</th>
+                                    <th>Mobile</th>
+                                    <th>City</th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <form action="#" method="POST" name="advisor_details" id="advisor_details">
+                                {% csrf_token %}
+                                {% for user in user_basic_details %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                                        {{user.profile.first_name}}
+                                        {{user.profile.last_name}}
+                                    </td>
+                                    <td>{{user.profile.email}}</td>
+                                    <td>{{user.profile.mobile}}</td>
+                                    <td>{{user.profile.city}}</td>
+                                    {% if user.is_active %}
+                                    <td align="center">
+                                        <small class='label pull-center bg-green'>Active
+                                        </small>
+                                        {% if user.profile.advisor.profile_confirmation_mail %}
+                                        <small class="label pull-center bg-green">Profile is Updated</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button type="button" id="{{ user.id }}" class="btn btn-info" onclick='view_advisor_modal(id);' data-toggle="tooltip" data-placement="top" title="View Details of User" data-target=".bs-example-modal-md">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                        <!-- UserPermissions -->
+                                        {% if user.profile.is_advisor %}
+                                        <!-- <button class="btn btn-warning" type="button" id="{{ user.profile.id }}" title="Revoke Advisor Permission"
+                                        onClick="remove_as_advisor(id)">
+                                        revoke advisor
+                                        </button> -->
+                                        {% else %}
+                                        <!-- <button class="btn btn-success" type="button" id="{{ user.profile.id }}" title="Revoke Advisor Permission"
+                                        onClick="make_as_advisor(id)">
+                                        grant advisor
+                                        </button> -->
+                                        {% endif %}
+                                        {% if user.profile.advisor.is_confirmed_advisor %}
+                                        <button type="button" class="btn btn-warning" id="{{ user.id }}" onClick="make_as_notconfirmed(id);" onClick="make_as_notconfirmed(id);" disabled>
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        <!-- making not confirmed -->
+                                        </button>
+                                        {% else %}
+                                        {% if user.profile.advisor.profile_confirmation_mail %}
+                                        <button class="btn btn-success" name="{{user.id}}" type="button" id="{{user.id}}" data-toggle="tooltip" data-placement="top" title="Click to Confirm" onClick="make_as_confirmed(id); this.disabled=true; this.value='Sending…';" >
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                        <!-- making Confirmed -->
+                                        </button>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if user.profile.advisor.is_register_advisor %}
+                                        <button class="btn btn-warning" type="button" id="{{ user.id }}" onClick="remove_as_registered(id)" disabled>
+                                        <i class="glyphicon glyphicon-minus-sign"></i>
+                                        <!-- making Un-Registered -->
+                                        </button>
+                                        {% else %}
+                                        {% if user.profile.advisor.is_document_submited %}
+                                        <button class="btn btn-success" name="{{ user.id }}" type="button" id="{{ user.id }}r" onClick="make_as_registered(id,name)" data-toggle="tooltip" data-placement="top" title="Click to Register">
+                                        <i class="glyphicon glyphicon-registration-mark"></i>
+                                        <!-- making Registered -->
+                                        </button>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if user.profile.advisor.is_certified_advisor %}
+                                        <button class="btn btn-warning" type="button" id="{{ user.id }}" onClick="remove_as_certified(id)" disabled>
+                                        <i class="glyphicon glyphicon-question-sign"></i>
+                                        <!--making Un-Certified -->
+                                        </button>
+                                        {% else %}
+                                        {% if user.profile.advisor.is_register_advisor %}
+                                        <button class="btn btn-success" type="button" id="{{ user.id }}" onClick="make_as_certified(id)" data-toggle="tooltip" data-placement="top" title="Click to Certify">
+                                        <i class="glyphicon glyphicon-education"></i>
+                                        <!--making Certified -->
+                                        </button>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if user.profile.advisor.is_honorable_advisor %}
+                                            <button class="btn btn-warning" type="button" id="{{user.id}}" disabled>
+                                                <i class="glyphicon glyphicon-remove-circle"></i>
+                                                <!-- making Un Aggrigated -->
+                                            </button>
+                                        {% else %}
+                                            {% if user.profile.advisor.is_register_advisor %}
+                                                <button type="button" class="btn btn-success" id='{{user.id}}' onclick="make_as_aggrigate(id);" data-toggle="tooltip" data-placement="top" title="Click to Aggrigate">
+                                                    <i class="glyphicon glyphicon-certificate"></i>
+                                                    <!-- Making Aggrigate -->
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+                                        <!-- UserPermissions -->
+                                        <button type='button' id="{{ user.id }}" value="{{ user.profile.is_advisor }}" class='btn btn-danger' onClick='de_activate_user(id);' data-toggle="tooltip" data-placement="top" title="Click to De-Activate">
+                                        <i class="glyphicon glyphicon-warning-sign"></i>
+                                        <!-- De-Activate -->
+                                        </button>
+                                    </td>
+                                    {% else %}
+                                    <td align="center">
+                                        <small class='label pull-center bg-red'>
+                                        In-Active
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <button type="button" id="{{ user.id }}" class="btn btn-info" onclick='view_advisor_modal(id);' data-toggle="tooltip" data-placement="top" title="View Details of User">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                        <button type='button' id="{{ user.id }}" value="{{ user.profile.is_advisor }}" class='btn btn-info' onClick='activate_user(id);' data-toggle="tooltip" data-placement="top" title="Click to Activate">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                            <!-- Activate -->
+                                        </button>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </form>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>User Email</th>
+                                    <th>Mobile</th>
+                                    <th>City</th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</section><!-- /.content -->
+
+<div class="modal fade" id="EditStudentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> Advisor Details</h4>
+            </div>
+
+            <div class="modal-body custome-model-body" id="body-edit_student">
+               <!--Ajax call load Edit student form -->
+            </div>
+
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-success" onClick="edit_student();">Save Changes</button> -->
+                <button type="button" class="btn btn-primary" onClick="edit_userprofile_form();">Edit</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="$('.input').val('');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit the user profile form -->
+<div class="modal fade bs-example-modal-md" id="edit_userprofile_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> Advisor Details</h4>
+            </div>
+
+            <div class="modal-body custome-model-body" id="edit_user_profile_body">
+                <!--Ajax call load Edit student form -->
+            </div>
+
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-success" onClick="edit_student();">Save Changes</button> -->
+                <button type="button" class="btn btn-primary" onClick="save_userprofile_form();">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="$('.input').val('');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================================================================= -->
+
+<script type="text/javascript">
+
+    // Action -> Ajax to view advisor details
+    function view_advisor_modal(user_id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/view_advisor_modal/",
+            data: {user_id: user_id},
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success: function (responce){
+                $("#EditStudentModal").modal('show');
+                $("#body-edit_student").html("");
+                $("#body-edit_student").html(responce);
+            }
+        });
+    }
+
+    // Action -> Ajax to De-activate Advisor
+    function de_activate_user(id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/de_activate_user/",
+            data: { id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+            return true;
+            }
+        });
+    }
+
+    // Action -> editing userprofile details
+    function edit_userprofile_form() {
+        var token = "{{ csrf_token }}";
+        var user_id=document.getElementById('user_id').value;
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/edit_user_profile_modal/",
+            data : {
+            user_id : user_id
+            },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(response){
+                $('#EditStudentModal').modal('hide');
+                $("#edit_userprofile_modal").modal('show');
+                $("#edit_user_profile_body").html("");
+                $("#edit_user_profile_body").html(response);
+            }
+        });
+    }
+
+    // Action -> Ajax to Activate Advisor
+    function activate_user(id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/activate_user/",
+            data: { id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+
+    // Action -> To Make him as Advisor
+    function make_as_advisor(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/mk_advisor/",
+            data: { user_id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        });
+
+     }
+
+    // Action -> To remove him from Advisor
+    function remove_as_advisor(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/rm_advisor/",
+            data: { user_id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        });
+     }
+
+    // Action -> To Make him as Confirmed Advisor
+    function make_as_confirmed(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/mk_confirmed/",
+            data:{ user_id:id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(response){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+
+    // Action ->To Make him as Not Confirmed Advisor
+    function make_as_notconfirmed(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/mk_not_confirmed/",
+            data:{user_id:id},
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(response){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+
+    // Action -> To Make him as registered
+    function make_as_registered(id, name){
+        var token = "{{ csrf_token }}";
+        var ids="";
+        document.getElementById(id).disabled=true;
+        document.getElementById(id).value='Sending…';
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/mk_registered/",
+            data: { user_id: name },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        });
+      }
+
+    // Action -> To Make him as un registered
+    function remove_as_registered(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/rm_registered/",
+            data: { user_id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        })
+    }
+
+
+    // Action -> To Make him as certified
+    function make_as_certified(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/mk_certified/",
+            data: { user_id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+
+    // Action -> To Make him as un certified
+    function remove_as_certified(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type: "POST",
+            url: "/nfadmin/rm_certified/",
+            data: { user_id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(responce){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+
+    // Action -> Ajax to certify advisor
+    function certified_advisor(id) {
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/certified_advisor/",
+            data:{ id: id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+
+    // Action -->To Make Register Advisor as Aggrigated or Honorable Advisor
+    function make_as_aggrigate(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/mk_aggrigate_advisor/",
+            data:{ user_id:id },
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success:function(){
+                window.location.reload();
+                return true;
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% load staticfiles %}
+<style>
+    .attach_class{
+        display: inline-block;
+    }
+</style>
+<div id="regulatory_registration_doc_modal" class="modal fade upwardz-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="regulatory_title"></h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <!-- regulatory  certificate upload Form starts-->
+                    <form name="upload_doc0" id="upload_doc0" method="post" class="contact-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group col-xs-12 form-nline reg-step4">
+                            <div class="row registration-form-div" id="proof_indian">
+                                <div class="col-xs-4 col-sm-4 col-xs-12 text-right pan-card">
+                                    <label>Certificate&nbsp;*
+                                    </label>
+                                </div>
+                                <input type="hidden" name="documents_type" id="certificate_type" value="">
+                                {% if certificate %}
+                                    <label id="paper_clip0"
+                                        class="col-sm-2 col-xs-4 fileinput fileinput-new hide"
+                                        data-provides="fileinput">
+                                        <span class="btn btn-default btn-file" id="pan_card">
+                                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                            <input type="hidden" name="reupload" value='true'>
+                                            <input type="file" name="document" class="hide"
+                                            accept="image/jpeg,image/png,application/pdf"
+                                            onchange="UploadDocuments('upload_doc0','proof_indian', 'paper_clip0');">
+                                        </span>
+                                    </label>
+                                    <p class="attach_class hiding{{certificate.id}} n-padding-r-5"
+                                        id="id_attached" name="attached">Attached</p>
+                                    <a
+                                        id="{{ certificate.id }}"
+                                        class="hiding{{certificate.id}} download_link_color n-padding-r-5"
+                                        href="{{ certificate.documents.url }}" target="_blank">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a
+                                        class="hiding{{ certificate.id }}"
+                                        onclick="removeDocument({{certificate.id}},'paper_clip0');">
+                                        <i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i>
+                                    </a>
+                                {% else %}
+                                <label id="paper_clip0" class="col-sm-2 fileinput fileinput-new" data-provides="fileinput">
+                                    <span class="btn btn-default">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                        <input type="hidden" name="reupload" value='true'>
+                                        <input type="file" name="document" class="hide" accept="image/jpeg,image/png,application/pdf"
+                                        onchange="UploadDocuments('upload_doc0','proof_indian', 'paper_clip0');">
+                                    </span>
+                                </label>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                    <!-- regulatory  certificate upload Form Ends-->
+                    <!-- renewal upload Form starts-->
+                    <form name="upload_doc1" id="upload_doc1" method="post" class="contact-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group col-xs-12 form-nline reg-step4">
+                            <div class="row registration-form-div">
+                                <div class="col-xs-6 col-sm-4 col-xs-12 text-right pan-card">
+                                    <label>Renewal&nbsp;Certificate</label>
+                                </div>
+                                <input type="hidden" name="documents_type" id="renewal_type" value="">
+                                <label id="paper_clip1" class="col-sm-2 fileinput fileinput-new" data-provides="fileinput">
+                                    <span class="btn btn-default">
+                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                        <input type="file" name="document" class="hide" accept="image/jpeg,image/png,application/pdf"
+                                        onchange="UploadDocuments('upload_doc1','renewal_document_div', 'paper_clip1');">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- renewal upload Form Ends-->
+                    <!-- listing all renewal uploaded documents HTML starts-->
+                    <div class="row">
+                        <div class="form-group col-xs-12 form-nline reg-step4 text-center">
+                            <div class="row registration-form-div" id="renewal_document_div">
+                                {% for ren_cert in renewal_certificate %}
+                                    <p class="attach_class hiding{{ren_cert.id}} n-padding-r-5" id="id_attached" name="attached">Attached</p>
+                                    <a id="{{ ren_cert.id }}" class="hiding{{ren_cert.id}} download_link_color n-padding-r-5" href="{{ ren_cert.documents.url }}" target="_blank">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="hiding{{ ren_cert.id }}" onclick="removeDocument({{ren_cert.id}},'paper_clip1');">
+                                        <i class='glyphicon glyphicon-trash download_link_color' aria-hidden='true'></i>
+                                    </a> <br />
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- listing all renewal uploaded documents HTML Ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="viewed_doc_id" value="">
+</div>

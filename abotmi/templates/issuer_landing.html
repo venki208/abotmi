@@ -1,0 +1,146 @@
+{% load staticfiles %}
+<section class="abotmi-advisor-banner" name="ad_sec1">
+    <div class="container-fiuld">
+        <div class="upwrdz-join-now-rise text-center">
+            <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img class="" src="{% static 'new_images/issuer-banner1.jpg' %}" alt="banner1">
+                    </div>
+                    <div class="item">
+                        <img class="" src="{% static 'new_images/issuer-banner2.jpg' %}" alt="banner2">
+                    </div>
+                </div>
+                <a class="left carousel-control custome-cursol-control" href="#carouselExampleIndicators3" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                </a>
+                <a class="right carousel-control custome-cursol-control" href="#carouselExampleIndicators3" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="abotmi-imege-text second discover-stop" id="learn-more1" name="ad_sec2">
+    <div class="container facilitating-advisors-header">
+      <div class="facilitating-advisors-header discover-sto">
+          <h2 class="text-center">How we help Issuers of STO?</h2>
+        <div class="row ">
+            <div class="col-sm-4 col-xs-4 flip_block_cards">
+              <div class="row">
+                <div class="flip-container">
+                  <a onclick="show_bootstrap_modal('#connect_advice');" data-toggle="modal" data-target="#myModal">
+                    <img src="{% static 'new_images/issuer-connect-advisor.png' %}" alt="" class="img-responsive img-center">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-4 flip_block_cards">
+              <div class="row">
+                <div class="flip-container">
+                  <a onclick="show_bootstrap_modal('#educate_advisor');" data-toggle="modal" data-target="#myModal">
+                    <img src="{% static 'new_images/issuer-educate-advisor.png' %}" alt="" class="img-responsive img-center">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-4 flip_block_cards">
+              <div class="row">
+                <div class="flip-container">
+                  <a onclick="show_bootstrap_modal('#share_offerings');" data-toggle="modal" data-target="#myModal">
+                    <img src="{% static 'new_images/issuer-share-advisor.png' %}" alt="" class="img-responsive img-center">
+                  </a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="second issuer-discover-more" id="learn-more2" name="ad_sec3">
+    <div class="container">
+        <div class="row abotmi-discovermore">
+            <div class="col-md-12 text-center">
+                <h3>IT'S FREE</h3>
+                <a href="/get_in_touch/" type="button" class="btn">Discover More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- issuer modals starts here -->
+<!-- Connect advisors modal start here-->
+<div class="modal fade upwardz-modal" id="connect_advice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog no-transprancy">
+        <div class="panel panel-default modal-header-border-bottom upwrdz-log-panel">
+            <div class="panel-heading dash-heading fix-modal-heading">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color"><b>CONNECT ADVISOR</b></h3>
+                </div>
+            </div>
+            <div class="col-md-12 issuer-modal-size">
+                <ul>
+                    <li>Connect with the Right Advisors,who can be your partners to distribute your STO around the Globe.</li>
+                    <li>Choose them by location,performance,their service offerings,rating and ranking of client satisfaction,their market and product knowledge.</li>
+                    <li>ABOTMI enables issues everything now in a single place.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Connect advisor modal ends here -->
+<!-- Educate advisor modal start here -->
+<div class="modal fade upwardz-modal" id="educate_advisor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog no-transprancy">
+        <div class="panel panel-default modal-header-border-bottom upwrdz-log-panel">
+            <div class="panel-heading dash-heading fix-modal-heading">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color"><b>EDUCATE ADVISORS</b></h3>
+                </div>
+            </div>
+            <div class="col-md-12 issuer-modal-size">
+                <ul>
+                    <li>Make the advisors specifically qualified in your STO, make them your product expertise by educating them on your product through webinars,online education,special materials through ABOTMI.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Educate advisor modal ends here -->
+<!-- Share your offerings modal start here -->
+<div class="modal fade upwardz-modal" id="share_offerings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog no-transprancy">
+        <div class="panel panel-default modal-header-border-bottom upwrdz-log-panel issuer-share-modal">
+            <div class="panel-heading dash-heading fix-modal-heading">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color"><b>SHARE YOUR OFFERINGS - DISTRIBUTE</b></h3>
+                </div>
+            </div>
+            <div class="col-md-12 issuer-modal-offering">
+                <ul>
+                    <li>Make the advisors specifically qualified in your STO, make them your product expertise by educating them on your product through webinars,online education,special materials through ABOTMI.</li>
+                    <li>ABOTMI,a Global Distribution platform for the STO issuers to Educate,Sell and Serve their clients.</li>
+                </ul>
+                <div class="row">
+                    <div class="col-md-12 issuer-offering-block text-center">
+                        <p><b>IT'S FREE</b></p>
+                        <a href="/get_in_touch/" type="button" class="btn">Discover More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Share your offerings modal end here -->

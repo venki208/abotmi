@@ -1,0 +1,315 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+{% endblock %}
+{% block main_content %}
+
+
+<header class="">
+    <div class="abotmi-investor-inner-banner d-flex h-100 p-0 position-relative">
+        <div class="container">
+            <div class="row h-100 align-items-center">
+                <div class="col-sm-7 abotmi-investor-div">
+                    <h1 class="mb-2">HOW IT WORKS FOR ADVISORS ?</h1>
+                    <p>Access a community of global advisors in a simple 5 steps</p>
+                    {% if not user.is_authenticated %}
+                        <a class="btn" name="signup_a" role_check='advisor'>REGISTER NOW</a>
+                    {% endif %}
+                </div>
+                <div class="col-sm-5 abotmi-investor-right-sec">
+                    <h4 class="mb-4"><b>STEP 1 &nbsp;&nbsp;</b> Register</h4>
+                    <h4 class="mb-4"><b>STEP 2 &nbsp;&nbsp;</b> Create a digital profile</h4>
+                    <h4 class="mb-4"><b>STEP 3 &nbsp;&nbsp;</b> Get your profile verified</h4>
+                    <h4 class="mb-4"><b>STEP 4 &nbsp;&nbsp;</b> Get certified</h4>
+                    <h4><b>STEP 5 &nbsp;&nbsp;</b> Share your digital profile</h4>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</header>
+    
+    <section class="abotmi-investor-image text-center pt-4 pb-4">
+        <div class="container">
+            <div class="abotmi-investor-headers mt-4 mb-5">
+                <h3 class="mb-5">Transforming Advisors to Digital Asset  Advisors</h3>
+                <h4>Digital Asset Education</h4>
+            </div>
+            <div class="row advisor-digital-assest-ul pt-3">
+                <div class="col-sm-4">
+                    <h4 class="position-relative text-left pl-5">
+                        <img src="{% static 'V2_theme/images/investor-icons/advisor_img03.png' %}" class="img-fluid"/>
+                        Online Education
+                    </h4>
+                    <ul class="text-left">
+                        <li> ABOTMI provides high quality online education for every advisor in the digital asset space.</li>
+                        <li>The programs are designed in business modules that are geared towards each individual’s personal goals..</li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="position-relative text-left pl-5">
+                        <img src="{% static 'V2_theme/images/investor-icons/advisor_img01.png' %}" class="img-fluid"/>
+                        Certification
+                    </h4>
+                    <ul class="text-left">
+                        <li>Global education program with flexible start dates, adjustable due dates, and easy to use interface.</li>
+                        <li>The programs will help you to master real world skills and highlight your expertise with certificates you’ll be proud to share.</li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="position-relative text-left pl-5">
+                        <img src="{% static 'V2_theme/images/investor-icons/advisor_img02.png' %}" class="img-fluid"/>
+                        Peer to Peer Education
+                    </h4>
+                    <ul class="text-left">
+                        <li> ABOTMI enables advisors to communicate with industry influencers, investors, media, and regulators.</li>
+                        <li>ABOTMI facilitates blogs, forums, events, and webinars.</li>
+                    </ul>
+                </div>
+                {% if not user.is_authenticated %}
+                    <a class="btn mb-4 mx-auto mt-3 mb-3" name="signup_a" role_check='advisor'>BECOME CERTIFIED</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section class="abotmi-investor-boxes mt-4 pt-5 pb-4">
+        <div class="container">
+            <div class="row row-flex">
+                <div class="col-sm-12 mb-5 pb-4 text-center abotmi-investor-headers">
+                    <h3>Reputation Management </h3>
+                </div>
+                <div class="col-sm-4 get-investor-column">
+                    <div class="get-investor-btn pt-5 pb-2 pl-4 pr-4 position-relative">
+                        <img src="{% static 'V2_theme/images/investor-icons/icon-one.png' %}" class="img-fluid"/>
+                        <div class="text-left mt-4 mb-3">
+                            <h4 class="alert-link">Build Reputation</h4>
+                        </div>
+                        <div class="about-content pb-3">
+                            <p>ABOTMI helps you to create your own professional identity with a profile of yourself. Build your name, your credibility and make a mark in the industry </p>
+                            <ul class="pl-4">
+                                <li>Expand your network</li>
+                                <li>Connect with like-minded people</li>
+                                <li>Enable P2P communication and evaluation </li>
+                                <li>Help others to build their reputation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 get-investor-column">
+                    <div class="get-investor-btn pt-5 pb-2 pl-4 pr-4 position-relative">
+                        <img src="{% static 'V2_theme/images/investor-icons/icon-two.png' %}" class="img-fluid"/>
+                        <div class="text-left mt-4 mb-3">
+                            <h4 class="alert-link">Manage Reputation</h4>
+                        </div>
+                        <div class="about-content">
+                            <p>It’s essential to establish and manage the advisor’s reputation by validating the credibility through a third-party  certification.</p>
+                            <ul class="pl-4">
+                                <li>Peer to peer rating/ranking system</li>
+                                <li> Confirm your expertise and trustworthiness</li>
+                                <li>Showcase your knowledge of digital assets </li>
+                                <li>Deliver a superior service to your clients</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 get-investor-column">
+                    <div class="get-investor-btn pt-5 pb-2 pl-4 pr-4 position-relative">
+                        <img src="{% static 'V2_theme/images/investor-icons/icon-three.png' %}" class="img-fluid"/>
+                        <div class="text-left mt-4 mb-3">
+                            <h4 class="alert-link">Share Reputation</h4>
+                        </div>
+                        <div class="about-content">
+                            <p>ABOTMI enables advisors to share their individual digital profiles with their existing clients, potential clients, peer networks  and regulators.</p>
+                            <ul class="pl-4">
+                                <li>Showcase your dedicated attitude towards investor  protection through social media.</li>
+                                <li>Publically exhibit your fiduciary duty and moral responsibility to your investors</li>
+                                <li>Provide relevant advice to convey complex concepts in a clear manner </li>
+                                <li>Share your reputation in an untapped industry</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% if not user.is_authenticated %}
+                    <a class="btn mx-auto mt-5 mb-5" name="signup_a" role_check='advisor'>BUILD CREDIBILITY</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section class="abotmi-investor-image text-center pt-4 pb-4">
+        <img src="{% static 'V2_theme/images/investor-icons/advisor_img04.png' %}" class="img-fluid pl-3 pr-3"/>
+    </section>
+
+    <section class="abotmi-investor-boxes mt-4 pt-5 pb-4">
+            <div class="container">
+                <div class="row row-flex">
+                    <div class="col-sm-12 mb-5 pb-4 text-center abotmi-investor-headers">
+                        <h3>Business Growth </h3>
+                    </div>
+                    <div class="col-sm-4 get-investor-column">
+                        <div class="get-investor-btn pt-5 pb-2 pl-4 pr-4 position-relative">
+                            <img src="{% static 'V2_theme/images/investor-icons/icon-one.png' %}" class="img-fluid"/>
+                            <div class="text-left mt-4 mb-3">
+                                <h4 class="alert-link">Connecting Issuers</h4>
+                            </div>
+                            <div class="about-content pb-3">
+                                <ul class="pl-4">
+                                    <li>ABOTMI enables advisors to connect with STO issuers around the world.</li>
+                                    <li>The issuers distribute, and educates their offerings to the Digital Asset investors</li>
+                                    <li>Issuers can advocate about their offerings to advisors through ABOTMI.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 get-investor-column">
+                        <div class="get-investor-btn pt-5 pb-2 pl-4 pr-4 position-relative">
+                            <img src="{% static 'V2_theme/images/investor-icons/icon-two.png' %}" class="img-fluid"/>
+                            <div class="text-left mt-4 mb-3">
+                                <h4 class="alert-link">Connecting Investors</h4>
+                            </div>
+                            <div class="about-content">
+                                <ul class="pl-4">
+                                    <li>ABOTMI empowers advisors to share their reputation with their existing clients as well as potential ones to promote their earnings.</li>
+                                    <li>Advisors can conduct new business opportunities by participating in webinars and meetup groups through investor and    advisor communities.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 get-investor-column">
+                        <div class="get-investor-btn pt-5 pb-2 pl-4 pr-4 position-relative">
+                            <img src="{% static 'V2_theme/images/investor-icons/icon-three.png' %}" class="img-fluid"/>
+                            <div class="text-left mt-4 mb-3">
+                                <h4 class="alert-link">Connecting Industries</h4>
+                            </div>
+                            <div class="about-content">
+                                <ul class="pl-4">
+                                    <li>ABOTMI creates opportunities for advisors to connect with investors, broker dealers, educators, and other professionals in this industry.</li>
+                                    <li>ABOTMI creates an organized framework to build a bridge between the traditional financial infrastructure and the digital asset space.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% if not user.is_authenticated %}
+                        <a class="btn mx-auto mt-5 mb-5" name="signup_a" role_check='advisor'>EARN MORE</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+    <!-- Header -->
+    <!-- <header class="abotmi-inner-page-banner">
+        <div class="container d-flex h-100">
+            <div class="row abotmi-inner-banner align-items-center mt-5 pt-5">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-4">
+                    <h3>How it Works ?</h3>
+                    <p>Access a community of global advisors in a simple 5 step process.</p>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12  text-center">
+                    <img src="{% static 'V2_theme/images/howitsworks/infographic-1.png' %}" class="img-fluid how-its-work-desktop"/>
+                    <img src="{% static 'V2_theme/images/howitsworks/advisors-mobile.png' %}" class="img-fluid how-its-work-mobile"/>
+                </div>
+            </div>
+        </div>
+    </header> -->
+    
+    <!-- Page Content -->
+    <!-- <section class="abotmi-advisor-section-div mt-5" style="background: #f3f8fc;">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="about-mockup-bg text-center mb-4">
+                            <img src="{% static 'V2_theme/images/howitsworks/inv-infographic-2' %}.png" alt="About Image">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-text-area pl-md-5 pl-sm-0 pl-xl-0 mt-sm-4 mt-xl-4">
+                        <div class="text-left">
+                            <h4 class="alert-link">Build Reputation</h4>
+                        </div>
+                        <div class="about-content">
+                            <p class="mb-2">Abotmi helps you to create your own unique identity and a profile of yourself. Build your name, your credibility and make a mark in the industry with ABOTMI. </p>
+                            <ul class="pl-4">
+                                <li>Expand your network</li>
+                                <li>Connect with counterparts</li>
+                                <li>Let peers contact and evaluate you</li>
+                                <li>Design your reputation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- <section class="abotmi-advisor-section-div">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section ">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-text-area pr-4">
+                        <div class="text-left">
+                            <h4 class="alert-link">Manage Reputation</h4>
+                        </div>
+                        <div class="about-content">
+                            <p class="mb-4">It’s essential to establish and manage the advisor’s reputation by validating the credibility through a third-party certification. </p>
+                            <ul class="pl-4">
+                                <li>Peer to peer rating/ranking system </li>
+                                <li>Confirm your expertise and trustworthiness</li>
+                                <li>Showcase your knowledge of digital assets</li>
+                                <li>Deliver a superior service to your clients</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 mt-3">
+                    <div class="about-mockup-bg text-center">
+                            <img src="{% static 'V2_theme/images/howitsworks/inv-infographic-3' %}.png" alt="About Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- <section class="abotmi-advisor-section-div mt-5" style="background: #f3f8fc;">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                    <div class="about-mockup-bg text-center">
+                            <img src="{% static 'V2_theme/images/howitsworks/inv-infographic-5' %}.png" alt="About Image">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-text-area pl-md-5 pl-sm-0 pl-xl-0 mt-sm-4 mt-xl-4">
+                        <div class="text-left">
+                            <h4 class="alert-link">Share Reputation</h4>
+                        </div>
+                        <div class="about-content">
+                            <p class="mb-2">ABOTMI enables the advisors to share their individual digital profile with their existing clients, potential clients, peer networks and regulators. </p>
+                            <ul class="pl-4">
+                                <li>Connect through Email, Meetup Groups, Telegram</li>
+                                <li>Showcase your fiduciary duty and moral responsibility to your investors</li>
+                                <li>Provide relevant advice to convey complex concepts in a clear manner</li>
+                                <li>Share your reputation in an untapped industry</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- {% if not user.is_authenticated %}
+    <section class="abotmi-advisor-section-div mt-2">
+        <div class="container advisor-section-cards-finacial abotmi-advisor-section">
+            <div class="row align-items-center advisor-section-div advisor-inner-section-div">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <a class="btn" name="signup_a">Register Now</a>
+                    <h3>Start Building Your Reputation</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %} -->
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}

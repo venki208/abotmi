@@ -1,0 +1,258 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% comment %} Css Files {% endcomment %}
+{% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/my_identity.css' %}">
+{% endblock custome_css %}
+
+{% block lib_css %}
+    {{block.super}}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+{% endblock lib_css %}
+
+{% comment %} Body content {% endcomment %}
+{% block main_content %}
+    <header class="abotmi-myidentity-page">
+        <div class="container d-flex h-100">
+            <div class="row abotmi-inner-banner mt-5 pt-5 m-auto">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-3">
+                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                            <div class="mainflip">
+                                <div class="frontside">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div class="image-body rounded-circle img-thumbnail">
+                                            <div data-content="Click to view/upload Profile Picture" class="img-fluid id-profile-pic advisor-identity-div-hub" id="{% if user.is_authenticated and user_selected_role == 'advisor' and is_advisor_own_profile %}id_profile_pic{% endif %}">
+                                                {% if profile_pic %}
+                                                    <img src="{{ profile_pic }}"  class="img-fluid img-thumbnail" id="id_image_tag"/>
+                                                {% else %}
+                                                    <img src="{% static 'images/contactimg.png' %}"  class="img-fluid img-thumbnail" id="id_image_tag"/>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                             <h4 class="card-title mb-0">{{user_profile.first_name}}&nbsp;{{user_profile.last_name}}</h4>
+                                            <p class="card-text">{{user_profile.city}}</p>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xl-6 col-xs-7  start-peer-rating">
+                                                    <h5>Peer Rating</h5>
+                                                    <div class="rateit" id="peer_rating" data-rateit-readonly='true'>
+                                                    </div>
+                                                    <div class="my-hub-profile-buttons text-center">
+                                                        <a onclick="invite_advisor_to_rate_modal('advisor')" title="Request to Rate" class="mr-2 ml-2 mt-3 request">Request</a><a onclick="advisor_to_rate_list();" title="Rate your Peers" class="mr-2 ml-2 mt-3">Rate&nbsp;Peers</a> 
+                                                        <a onclick="view_client_ranking('{{request.user}}','advisor');" title="View Details" class="mr-2 ml-2 mt-3">View</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-6 col-xl-6 col-xs-5  start-client-rating start-peer-rating-one">
+                                                    <h5>Client Ranking</h5>
+                                                    <div class="rateit n-rating-dashboard" id="consumer_ranking" data-rateit-readonly='true'></div>
+                                                    
+                                                    <div class="my-hub-profile-buttons text-center">
+                                                        <a onclick="invite_advisor_to_rate_modal('member');" title="Request to Rank" class="mr-2 ml-2 mt-3">Request</a> <a onclick="view_client_ranking('{{request.user}}','member');" title="View Details" class="mr-2 ml-2 mt-3">View</a>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+    
+    <!-- Page Content -->
+    <section class="background-gradiant-div pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 my-hub-tab-section my-identity-education-section my-identity-tab-content-section p-3 mb-3">
+                    <h5 class="mb-1 pb-1"><img src="{% static 'V2_theme/images/my_hub/refer.png' %}" class="pr-3" />REFER AN ADVISOR<a class="float-right pr-sm-5 pr-md-5 pr-xs-0 pt-sm-1 pt-1">TOTAL REFERRALS : {{ total_reffered_advisor_count | default:0 }}&nbsp;&nbsp;</a></h5>
+                    <div class="row refer-an-advisor-btn">
+                        <div class="col-md-6 col-6 p-0 text-center registered-right-line">
+                            <h3 class="m-0 mt-0 mb-1">{{ referred_register_advisor_count }}</h3>
+                            <p class="m-0 mb-4">Registered</p>
+                            <a class="mb-xl-2 btn upwrdz-button abotmi-small-btn" onclick="refer_advisor();" title=" Referrals">
+                                REFERRALS
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-6 p-0 text-center">
+                            <h3 class="m-0 mt-0 mb-1">{{ referred_unregister_advisor_count }}</h3>
+                            <p class="m-0 mb-4">Unregistered</p>
+                            <a class="mb-xl-2 btn gray-linear-btn abotmi-small-btn" onclick="view_loop('{{request.user}}');" title=" View the Status">
+                                VIEW
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 my-identity-education-section my-hub-section-inviste p-3 mb-3">
+                    <h5 class="mb-1 pb-1"><img src="{% static 'V2_theme/images/my_hub/invitefriends.png' %}" class="pr-3" />INVITE FRIENDS</h5>
+                    <div class="row refer-an-advisor-btn">
+                        <div class="col-md-12 col-12 p-0 text-center">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-6 text-sm-right text-md-right">
+                                    <p class="pt-4 pr-4">
+                                        <a onClick="fb_share();">
+                                            <img src="{% static 'V2_theme/images/my_hub/fb.png' %}" class="img-responsive" title="Invite Friends through Facebook">
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-6" style="border-right:1px #ccc solid;">
+                                    <p class="pt-4 pr-4">
+                                        <a onclick="LinkedInShare();">
+                                            <img src="{% static 'V2_theme/images/my_hub/linkedin.png' %}" class="img-responsive" title="Invite Friends through LinkedIn">
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-12 text-sm-center text-md-center my-hub-card-div">
+                                        <p class="">
+                                            <a onClick="onLinkedInLoad('dashboard');">
+                                                <img src="{% static 'V2_theme/images/my_hub/calendly.png' %}" class="img-responsive" title="Schedule an Appointment ">
+                                            </a>
+                                        </p>
+                                        {% if advisor.calendly_link %}
+                                            <p class="pt-1 mb-0 how-its-work-calendly short_link"><a href="{{advisor.calendly_link}}" target="_blank" id="cal_link">{{advisor.calendly_link}}</a></p>
+                                        {% else %}
+                                            <a class="mb-xl-2 btn upwrdz-button abotmi-small-btn" onclick="show_calendly_modal('#calendly-link-modal')" title="Schedule an Appointment">
+                                            ADD LINK
+                                            </a>
+                                        {% endif %}
+                                        <p class="pt-1 mb-0 how-its-work-calendly"><a onclick="calendly_modal();" style="color:#000 !important;" title="How it works">HOW IT WORKS</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 my-hub-education-section">
+                    <div class="row mb-sm-3 mb-md-3 mb-lg-3 mb-xl-3">
+                        <div class="card-deck my-hub-card-div">
+                            <div class="card card-left">
+                                <h5><img src="{% static 'V2_theme/images/my_hub/give-advice.png' %}" class="pr-3">GIVE ADVICE</h5>
+                                <div class="card-body text-center">
+                                    <a style="color:#fff !important;" class="mb-xl-2 btn upwrdz-button abotmi-small-btn" href="{% url 'member:get_questions_list' %}" title="Give your advice">
+                                        GIVE YOUR ADVICE
+                                    </a>
+                                    <p><a onclick="give_advice_how_it_works()" title="How it works">HOW IT WORKS</a></p>
+                                </div>
+                            </div>
+                            <div class="card card-right">
+                                <h5><img src="/static/V2_theme/images/my_hub/micro.png" class="pr-3">MICRO LEARNING</h5>
+                                <div class="card-body text-center">
+                                    <button style="color:#fff !important;" class="mb-xl-2 btn upwrdz-button abotmi-small-btn" title="Coming Soon.." onclick="upload_my_video();">
+                                        UPLOAD VIDEO
+                                    </button>
+                                    <p><a onclick="micro_modal();" title="How it works">HOW IT WORKS</a>&nbsp;&nbsp;&nbsp;<a onclick="get_microlearning_faq_modal()" title="FAQ">FAQ</a>
+                                    <!-- &nbsp;&nbsp;&nbsp;<a onclick="call_crisil_terms_conditions()">T&C</a> -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    
+                    <div class="row mb-sm-3 mb-md-3 mb-lg-3 mb-xl-3">
+                        <div class="card-deck my-hub-card-div">
+                            <div class="card card-left">
+                                <h5><img src="{% static 'V2_theme/images/my_hub/peer.png' %}" class="pr-3">PEER CHECK</h5>
+                                <div class="card-body text-center">
+                                    <p class="pb-2 pt-0">Check background of <br/>any finacial advisor</p>
+                                    <a style="color:#fff !important;" class="mb-xl-2 btn upwrdz-button abotmi-small-btn" href="/advisor_check/" title="Check More..">
+                                        CHECK MORE
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="card card-right">
+                                <h5><img src="{% static 'V2_theme/images/my_hub/connections.png' %}" class="pr-3">CONNECTIONS</h5>
+                                <div class="card-body text-center">
+                                    <p class="pb-3 pt-3"><a  class="mb-xl-2" onclick="view_do_not_follow();" title="Donot Follow Advisor" title="Do not Follow">DO NOT FOLLOW</a>
+                                    &nbsp;&nbsp;&nbsp;<a onclick="list_profile_viewed();" title="View">VIEW</a></p>
+                                    <a onclick="list_connect_profile();" title="Connect" class="mb-xl-2 btn upwrdz-button abotmi-small-btn">CONNECT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row mb-sm-3 mb-md-3 mb-lg-3 mb-xl-3">
+                        <div class="card-deck my-hub-card-div">
+                            <div class="card card-left">
+                                <h5 class="text-center">Coming Soon..</h5>
+                                <div class="card-body text-center">
+                                    <p class="pb-3 coming-soon-section"><img class="img-fluid" src="{% static 'V2_theme/images/my_hub/dandb.png' %}" /></p>
+                                    <p class="pt-0"><a onclick="db_street_works()" title="How it works">HOW IT WORKS</a>&nbsp;&nbsp;&nbsp;<a onclick="show_crisil_faq_modal()" title="D&B FAQ">FAQ</a></p>
+                                </div>
+                            </div>
+
+                            <div class="card card-right">
+                                <h5 class="text-center">Coming Soon..</h5>
+                                <div class="card-body text-center ">
+                                    <p class="pb-3 coming-soon-section"><img src="{% static 'V2_theme/images/my_hub/wpb.png' %}" class="img-fluid" style="width:100px";/></p>
+                                    <p class="pb-4 pt-0"><a onclick="wpb_works()" title="How it works">HOW IT WORKS</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main_content %}
+
+{% comment %} Bootstrap Modals {% endcomment %}
+{% block bootstrap_modal %}
+    {{block.super}}
+    <div id="dashboard_modal"></div>
+    <div class="modal fade upwrdz-modal" id="calendly-link-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered abotmi-calendly-model" role="document">
+        <div class="modal-content">
+            <h4 class="modal-title text-center pt-3 pb-3 m-0" id="modalLabel">ADD CALENDLY LINK</h4>
+            <button type="button" class="close calendly-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <p class="text-center mb-3">
+                    <label>Enter your Calendly link</label>
+                    <input type="text" placeholder="" class="form-control" id="id_calendly" name="" min-length="3" value="{{advisor.calendly_link|default:''}}" onkeyup="calendly_domian();">
+                    <span class="help-block" id="help-text-calendly"></span>
+                </p>
+                <p class="text-center"><button type="button" class="btn upwrdz-button" onclick="save_link()">SUBMIT</button>
+                <button type="button" class="btn gray-linear-btn" data-dismiss="modal">CANCEL</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock bootstrap_modal %}
+
+{% block lib_scripts %}
+  {{block.super}}
+      <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+{% endblock %}
+{% comment %} Scripts {% endcomment %}
+{% block scripts %}
+    {{block.super}}
+    <script type="text/javascript">
+        var username = '{{user.username}}';
+        var rating_value = "{{peer_rating}}";
+        var ranking_value = "{{member_rating}}";
+        var user_agent_country = '{{user_agent_country}}';
+    </script>
+    <script src="{% static 'js/reia_dashboard.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/new_js/calendly.js' %}" charset="utf-8"></script>
+    <script type="text/javascript">
+    var advisor_profile_url = '{{DEFAULT_DOMAIN_URL|default:"localhost"}}/profile/{{user_profile.batch_code}}/';
+        // facebook function
+        function fb_share() {
+            var page = advisor_profile_url;
+            var fbpopup = window.open("https://www.facebook.com/sharer/sharer.php?u=" + page, "pop", "width=600, height=400, scrollbars=no");
+        }
+        // LinkedIn function
+        function LinkedInShare() {
+            window.open("https://www.linkedin.com/shareArticle?mini=true&url="+advisor_profile_url+"&title=UPWRDZ&summary=My%20UPWRDZ%20Shared%20Profile&source=LinkedIn",'linkedin','height=400,width=600');
+        }
+    </script> 
+{% endblock scripts %}

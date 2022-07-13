@@ -1,0 +1,141 @@
+{% extends 'blog/icore_main.html' %}
+{% load staticfiles %}
+{% load utils_tags %}
+{% block custome_css %}
+    {{block.super}}
+    <style>
+        .btn{
+            min-width: 100px;
+        }
+    </style>
+{% endblock %}
+
+{% block blog_content %}
+<!-- Blog Entries Column -->
+    <div class="col-md-8">
+        <!-- Blog Post -->
+        <h2 class="page-header">{{icore.title}}</h2>
+        <div class="card mb-4 border-0 blog-card-main">
+            <div class="row">
+                <div class="col-12 blog-profile-details mb-3">
+                    <div class="card-img-top">
+                        {% if icore.featured_image.guid %}
+                            <a>
+                                <img class="img-responsive img-blog" src="{{icore.featured_image.guid}}" width="100%" alt="{{ data.slug }}"  width="100%" />
+                            </a>
+                        {% else %}
+                            <a href="/blog/icore/{{data.ID}}/post/">
+                                <img src="{% static 'images/blog2.png' %}" alt=""  width="100%" />
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="blog-profile-rating-name">
+                        <h2 class="mb-0"><a href="#">{{icore.author.name}} </a></h2>
+                        <p class="mb-0 float-left">{{ icore.date|format_date:'%Y-%m-%dT%H:%M:%S'|date:'M d, Y' }}</p>
+                    </div>
+                </div>
+            </div>
+            <img class="card-img-top" src="{% static 'V2_theme/images/blog/blog-image-detail.jpg' %}" alt="Card image cap">
+            <div class="card-body pl-0 pr-0">
+                <h2 class="card-2a75e0title">{{icore.title}}</h2>
+                <p class="card-text"> {{icore.content | safe}}
+            </div>
+            <div class="abotmi-blog-comment-box">
+                <div class="challenge-btns text-center">
+                    <hr class="mt-1 mb-1" style="border-top:1px #000 solid;"/>
+                    <p>Share : &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="fb_link_url"
+                            type="hidden"
+                            class ="fb_iframe_widget"
+                            value="{{icore.link}}" />
+                        <div id="fb-btn"
+                            class="fb-like"
+                            data-href="{{icore.link}}"
+                            data-layout="button_count"
+                            data-action="like"
+                            data-show-faces="true"
+                            data-share="true">
+                        </div>
+                        <a style="margin-top:5px" href="https://twitter.com/share"
+                            class="twitter-share-button fa fa-twitter"
+                            data-count="horizontal">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <script type="IN/Share"
+                            data-url="{{icore.link}}"
+                            data-counter="right">
+                        </script> 
+                    </p>
+                    <p><a class="btn color-linear-btn" onClick="back();">BACK</a></p>
+                    {% if request.user.profile.advisor.is_register_advisor %}
+                    <form class="abotmi-comment-form">
+                        <textarea class="form-control" id="comment" rows="5" placeholder="Comments"></textarea>
+                        <p class="mt-2">Rate here: <div class='rateit' id="rating" data-rateit-resetable="false"></div>
+                        </p>
+                        <p><a class="btn color-linear-btn" onClick="postComment();">SUBMIT</a></p>
+                    </form>{% else %}
+                     <div id="respond">
+                        <h1 class="respond-title" style="font-size:22px;">Only registered advisor can comment</h1>
+                        <br />
+                        <br />
+                        {% if not user.profile.is_advisor %}
+                            <a href="/signup/register_advisor/" class="btn btn-success"> click here to register </a>
+                            <br />
+                            <br />
+                        {% endif %}
+                    </div>
+                {% endif %}
+                </div>
+                {% if icore_comment %}
+                   {% for comment in icore_comment %}
+                   <div id="comment_box_clearfix"></div>
+                   <div class="blog-profile-details mt-3 mb-5">
+                        {% if comment.status == "approved" %}
+                        <div class="card-img-top"> 
+                            {% if comment.author.avatar %}
+                                <img src="{{ comment.author.avatar }}" class="img-fluid" alt="{{comment.author.name}}">
+                            {% else %}
+                                <img src="{% static 'V2_theme/images/blog/abotmi-logo-icon.png' %}" class="img-fluid" alt="{{comment.author.name}}"/>
+                            {% endif %}
+                        </div>
+                        <div class="blog-profile-rating-name">
+                            <h2 class="mb-0">{{ comment.author.name }}</h2>
+                            <p class="mb-0 float-left">{{ icore.date|format_date:'%Y-%m-%dT%H:%M:%S'|date:'M d, Y' }}<span class="badge p-0"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="p-0"></span></p>
+                            <p class="float-right"></p>
+                        </div>
+                        <div class="col-12">{{ comment.content | striptags }}</div> 
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% else %}
+                   <div id="comment_box_clearfix"></div>
+                    <h4 class="comment-box" id="no_comment">
+                        <p>No comments.</p>
+                    </h4>
+                {% endif %} 
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+    <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="//platform.linkedin.com/in.js" type="text/javascript">
+        lang: en_US
+    </script>
+    <script type ="text/javascript">
+        var token = "{{csrf_token}}";
+        var post_id = "{{ icore.ID }}";
+        var rating_val = '{{ rating.ratings}}';
+        var votes = '{{ rating.votes|default:0 }}';
+        var icore_id = '{{icore.ID}}';
+        var is_advisor = '{{user_profile.is_advisor}}';
+        var user_first_name = "{{ user.profile.first_name }}";
+        var profile_pic = "{{ profile_pic|default:'/static/new_images/avatar3.png'}}";
+    </script>
+    <script src="{% static 'js/new_js/blog_post_view.js' %}"></script>
+{% endblock %}
+

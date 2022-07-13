@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+{% load i18n admin_static %}
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta https-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <!-- Facebook/Linkedin share meta tags -->
+        <meta property="og:url" content="{{DEFAULT_DOMAIN_URL}}" />
+        <meta property="og:title" content="Abotmi" />
+        <meta property="og:description" content="Abotmi is a professional network that connects you with the most reliable and trustworthy digital asset advisors across the globe." />
+        <meta property="og:image" content="{{DEFAULT_DOMAIN_URL}}/static/V2_theme/images/logo_big.png" />
+        <!-- end Facebook share meta tags -->
+        {% spaceless %}
+        <title>
+            {% block title %}
+                {{title|default:'Home'}} | ABOTMI
+            {% endblock %}
+        </title>
+        <link rel="shortcut icon" href="{% static 'V2_theme/images/fav-icon.png' %}">
+        {% endspaceless %}
+        {% block base_css %}
+            <!-- bootstrap css -->
+            <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+            <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+            <!-- font css -->
+            <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900" rel="stylesheet">
+            {% endblock %}
+        {% block theme_css %}
+            <link href="{% static 'css/base_class.css' %}" rel="stylesheet">
+            <link rel="stylesheet" href="{% static 'css/new_css/loader.css' %}">
+        {% endblock %}
+        {% block custom_theme_css %}
+            <!-- Custom CSS -->
+            <link href="{% static 'css/new_css/homepage.css' %}" rel="stylesheet">
+            <link href="{% static 'css/new_css/youtube_loader.css' %}" rel="stylesheet">
+            <link href="{% static 'css/new_css/get_advice.css' %}" rel="stylesheet">
+            <link href="{% static 'css/login.css' %}" rel="stylesheet">
+        {% endblock %}
+            <link rel="stylesheet" href="{% static 'css/new_css/responsive.css' %}">
+        {% block base_scripts %}
+            <script src="{% static 'js/jquery.js' %}"></script>
+            <script src="{% static 'js/jquery-ui.min.js' %}" charset="utf-8"></script>
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+            <script>
+                var page_title = '{{title|default:"Home"}}'
+                var user_agent_country = '{{user_agent_country|lower}}';
+            </script>
+            <link href="{% static 'V2_theme/css/base.css' %}" rel="stylesheet">
+            <script src="{% static 'V2_theme/js/common.js' %}"></script>
+            {% comment %} <script src="{% static 'js/new_js/common.js' %}"></script> {% endcomment %}
+            <script>
+                var csrf_token = "{{csrf_token}}";
+            </script>
+            <script src="{% static 'js/websocketbridge.js' %}"></script>
+            <script src="{% static 'js/websocket.js' %}"></script>
+        {% endblock %}
+    </head>
+    <body id="page-top">
+        <div id="overlay-div" class="">
+            {% comment %} <div id='loader'>
+                <div class='diamond'></div>
+                <div class='diamond'></div>
+                <div class='diamond'></div>
+                <p>loading...</p>
+            </div> {% endcomment %}
+        </div>
+        {% block top_header %}
+            {% include 'header.html' with AADHAAR_INIT_URL=AADHAAR_INITIATION_URL %}
+        {% endblock %}
+        {% block main_content %}
+            <div class="advisor-content parent-section">
+                <section class="abotmi-advisor-banner" name="ad_sec1">
+                    <div class="container-fiuld">
+                        <div class="upwrdz-join-now-rise text-center">
+                            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img class="" src="{% static 'new_images/advisor-banner1.jpg' %}" alt="banner1">
+                                    </div>
+                                    <div class="item">
+                                        <img class="" src="{% static 'new_images/advisor-banner2.jpg' %}" alt="banner2">
+                                    </div>
+                                    <div class="item">
+                                        <img class="" src="{% static 'new_images/advisor-banner3.jpg' %}" alt="banner1">
+                                    </div>
+                                    <div class="item">
+                                        <img class="" src="{% static 'new_images/advisor-banner4.jpg' %}" alt="banner2">
+                                    </div>
+                                </div>
+                                <a class="left carousel-control custome-cursol-control" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                                <a class="right carousel-control custome-cursol-control" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="abotmi-imege-text second" id="learn-more1" name="ad_sec2">
+                    <div class="container facilitating-advisors-header">
+                        <h2 class="text-center">How we Transform Advisors?</h2>
+                        <div class="row ">
+                            <div class="col-xs-4 col-xs-12 flip_block_cards">
+                                <div class="flip-container">
+                                    <a data-toggle="modal" data-target="#transform-advisor-id"><img src="{% static 'new_images/advisor-sto-card.png' %}" alt="" class="img-responsive img-center"></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-xs-12 flip_block_cards">
+                                <div class="flip-container">
+                                    <a data-toggle="modal" data-target="#reput-manage-id"> <img src="{% static 'new_images/advisor-reputation-management.png' %}" alt="" class="img-responsive img-center"></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-xs-12 flip_block_cards">
+                                <div class="flip-container">
+                                    <a data-toggle="modal" data-target="#bussiness-manage-id"><img src="{% static 'new_images/advisor-business-growth.png' %}" alt="" class="img-responsive img-center"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="abotmi-imege-text second" id="learn-more1" name="ad_sec2">
+                    <div class="container facilitating-advisors-header">
+                        <div class="row abotmi-two-section">
+                            <div class="col-md-6 col-sm-6 col-xs-6 abotmi-testmonial-portion text-center">
+                                <h5>
+                                    <span>
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    </span>Abotmi connecting the
+                                    <br/> right and legitimate advisors
+                                    <br/> to every Investor.
+                                    <span>
+                                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                                    </span>
+                                </h5>
+                                <img src="{% static 'new_images/joe.png' %}" />
+                                <p>Joel Telpner - ​ Partner at Sullivan & Worcester</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 abotmi-testmonial-portion-two">
+                                <div class="youtube-player" data-id="pLhiikG2ISs"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="second" id="learn-more1" name="ad_sec2">
+                    <div class="container">
+                        <div class="row abotmi-discovermore">
+                            <div class="col-md-12 text-center">
+                                <h3>IT'S FREE</h3>
+                                <a class="btn btn-xl up-first-two mob-button" type="button" name="signup_a" id="discover_more">Discover More</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="investor-content">
+            {% include 'investor_landing.html' %}
+            </div>
+            <div class="issuer-content">
+            {% include 'issuer_landing.html' %}
+            </div>
+        {% endblock %}
+        {% block footer_base %}
+            {% include 'footer.html' %}
+        {% endblock %}
+        <div class="modal fade upwardz-modal" id="check_confirm_for_change" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="panel panel-default upwrdz-log-panel">
+                    <div class="panel-heading dash-heading fix-modal-heading">
+                        <div class="modal-header modal-header-border-bottom text-center">
+                            <h3 class="modal-title n-span-blue-color">ALERT</h3>
+                            <hr class="modal-heading-hr">
+                        </div>
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="email_modal-body">
+                        <p class="text-justify why-reia-content" style="padding: 4px 0;" id="id_warning_content"></p>
+                        <p>As per rules from CRISIL, if you try to change SEBI, IRDA, Address Proof document, Office Address your CRISIL Certificate will Expire immediately.</p>
+                        <b>Do you want to Change ?</b>
+                        <div class="col-md-12 text-center">
+                            <button type="button" name="button" class="btn upwrdz-button" id="id_cancel_change">cancel</button>
+                            <button type="button" class="btn upwrdz-button" id="id_confirm_change">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade upwardz-modal abotmi-getadvice-modal" id="get_advice_free" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog no-transprancy">
+                <div class="panel panel-default upwrdz-log-panel">
+                    <div class="panel-heading dash-heading fix-modal-heading">
+                        <div class="modal-header modal-header-border-bottom text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times-thin fa-2x"></i>
+                            </button>
+                            <h3 class="modal-title n-span-blue-color">IT'S FREE</h3>
+                            <hr class="modal-heading-hr">
+                        </div>
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="email_modal-body" style="color: #000;">
+                        <div class="col-md-12 text-center text-justify">
+                            Get Free Advice on Digital Asset(security token offering) from professionally qualified advisor.
+                            All you have to do is write your own questions/doubts and ask advice from multiple advisors.</br>
+                        </div>
+                        <div class="text-center col-md-12">
+                            <a class="login-btn btn mem_btn" btn_type='free_advice' name="signup_a" id="get_free_advice_btn">Get Free Advice</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade upwardz-modal" id="rate_advice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog no-transprancy">
+                <div class="panel panel-default upwrdz-log-panel">
+                    <div class="panel-heading dash-heading fix-modal-heading">
+                        <div class="modal-header modal-header-border-bottom text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times-thin fa-2x"></i>
+                            </button>
+                            <h3 class="modal-title n-span-blue-color">RATE YOUR ADVISOR</h3>
+                            <hr class="modal-heading-hr">
+                        </div>
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="email_modal-body" style="color: #000;">
+                        <div class="col-md-12 text-center text-justify">
+                            You can Rate your Advisor, the advice that you have received, this helps others to choose the
+                            Right advisor, Better Advice. Help others by Rating Advisors and the Advice.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade upwardz-modal" id="refer_advice_help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog no-transprancy">
+                <div class="panel panel-default upwrdz-log-panel">
+                    <div class="panel-heading dash-heading fix-modal-heading">
+                        <div class="modal-header modal-header-border-bottom text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times-thin fa-2x"></i>
+                            </button>
+                            <h3 class="modal-title n-span-blue-color">HELP OTHERS</h3>
+                            <hr class="modal-heading-hr">
+                        </div>
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="email_modal-body" style="color: #000;">
+                        <div class="col-md-12 text-center">
+                            Refer friends, family, peers seeking for Digital Asset Advice, it's Free.
+                            <br/>
+                            <br/>
+                        </div>
+                        <p class="text-center"><button data-toggle="modal" onclick="refer_frnd();" class="login-btn btn mem_btn">REFER FRIEND</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- STO modal starts here -->
+        <div class="modal fade upwardz-modal" role="dialog" id="transform-advisor-id" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="panel panel-default sto-education-model">
+                            <div class="modal-header modal-header-border-bottom text-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="vd_cls">
+                                    <i class="fa fa-times-thin fa-2x"></i>
+                                </button>
+                                <h3 class="modal-title n-span-blue-color identity-title">Be a Professional</h3>
+                            </div>
+                            <div class="panel-body pannel-popup-content">
+                                <div class="col-md-12">
+                                    <div class="row" style="color:black;">
+                                        <p class="modal-side-content sub-content">Transforming Advisors to Digital Asset Advisors</p>
+                                        <p><b>Online Education</b></p>
+                                        <ul>
+                                            <li>ABOTMI provides free and high quality education programs for every advisor. The courses cover
+                                            content regarding security tokens, cryptocurrency, advisory, trading, and investments. The
+                                            certifications from these programs qualify you as a professional digital asset advisor.</li>
+                                            <li>ABOTMI is partnered with White Polar Bear and Leading Digital Asset Educators (crypto
+                                            educators) to deliver the program online across the globe.</li>
+                                            <li>The programs are designed in business modules depending upon the advisors personal skills and
+                                            needs to achieve their goals.</li>
+                                        </ul>
+                                        <p><b>Certification</b></p>
+                                        <ul>
+                                            <li>Advisors have the capability to become certified on multiple programs with various institutions and
+                                            universities that associated with White Polar Bear.</li>
+                                            <li>Advisors can earn a credit rating on their profile depending upon their certification.</li>
+                                            <li>Certifications are available for advisors to share through social media, marketing communications
+                                            and in their digital profile.</li>
+                                        </ul>
+                                        <p><b>Peer to Peer Education</b></p>
+                                        <ul>
+                                            <li>ABOTMI enables advisors to receive education through industry influencers, investor
+                                            communities, media bodies and regulators.</li>
+                                            <li>ABOTMI facilitates blogs, forums, events, meetup groups, and webinars.</li>
+                                        </ul>
+                                        <div class="row">
+                                            <div class="col-md-12 abotmi-itstrue-bottom text-center">
+                                                <p>ITS FREE</p>
+                                                <a type="button" class="btn" name="signup_a">Register Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- STO modal ends here -->
+        <!-- Reputation management starts here-->
+        <div class="modal fade upwardz-modal" role="dialog" id="reput-manage-id" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="panel panel-default sto-education-model">
+                            <div class="modal-header modal-header-border-bottom text-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="vd_cls">
+                                    <i class="fa fa-times-thin fa-2x"></i>
+                                </button>
+                                <h3 class="modal-title n-span-blue-color identity-title">Build Credibility</h3>
+                            </div>
+                            <div class="panel-body pannel-popup-content">
+                                <div class="col-md-12">
+                                    <div class="row" style="color:black;">
+                                        <h5 class="modal-side-content sub-content">Build Reputation</h5>
+                                        <p>Abotmi helps you to create your own unique identity and a profile for yourself. Build your name, your
+                                        credibility and make a mark in the industry with ABOTMI.
+                                        <ul>
+                                            <li>Expand your network</li>
+                                            <li>Connect with counterparts</li>
+                                            <li>Let peers contact and evaluate you</li>
+                                            <li>Design your reputation</li>
+                                        </ul>
+                                        </p>
+                                        <h5>Manage Reputation</h5>
+                                        <p>
+                                            It’s essential to establish and manage the advisor’s reputation by validating the credibility through a third-party certification. This is achieved by using a rating and ranking system through your current network of peers and clients. It helps to prove
+                                            your overall expertise and trustworthiness. As a digital asset advisor it’s vital to satisfy your client’s needs by delivering a superior service.
+                                        </p>
+                                        <h5>Share Reputation</h5>
+                                       <p>
+                                            ABOTMI enables the advisors to share their individual digital profile with their
+                                            existing clients, potential clients, peer networks and regulators. This is formulated through multiple social media funnels such as Email, Meetup, Telegram and WhatsApp to build their reputation.
+                                       </p>
+                                       <h5>How it works ?</h5>
+                                       <p>Reputation management is a simple 5 step process</p>
+                                       <ol>
+                                           <li>Register</li>
+                                           <li>Create a digital profile</li>
+                                           <li>Get your profile verified by a third-party</li>
+                                           <li>Get certified for the STO programs</li>
+                                           <li>Share and publish your digital profile</li>
+                                       </ol>
+                                        <div class="row">
+                                            <div class="col-md-12 abotmi-itstrue-bottom text-center">
+                                                <p>ITS FREE</p>
+                                                <a type="button" class="btn" name="signup_a">Register now and start Building your Reputation</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Reputation management ends here -->
+            <!-- Business Growth starts here-->
+        <div class="modal fade upwardz-modal" role="dialog" id="bussiness-manage-id" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="panel panel-default sto-education-model">
+                            <div class="modal-header modal-header-border-bottom text-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="vd_cls">
+                                    <i class="fa fa-times-thin fa-2x"></i>
+                                </button>
+                                <h3 class="modal-title n-span-blue-color identity-title">Earn More</h3>
+                            </div>
+                            <div class="panel-body pannel-popup-content">
+                                <div class="col-md-12">
+                                    <div class="row" style="color:black;">
+                                        <h5 class="modal-side-content sub-content">
+                                            Issuers Connect</h5>
+                                        <ul>
+                                            <li>
+                                                ABOTMI enables advisors to connect with STO issuers across the globe. They provide
+                                                accessibility to distribute the tokens and educate their offerings to the digital asset investors.
+                                            </li>
+                                            <li>
+                                                Issuers can educate their offerings to advisors through ABOTMI.
+                                            </li>
+                                        </ul>
+                                        <h5>Investors Connect</h5>
+                                        <ul>
+                                            <li>
+                                                ABOTMI empowers the advisors to share their reputation with their existing clients and future
+                                                potential clients by promoting their advisory earnings.
+                                            </li>
+                                            <li>
+                                                Advisors can conduct webinars, meetup groups and participate in investor and advisor
+                                                communities to generate new business opportunities.
+                                            </li>
+                                        </ul>
+                                        <h5>Industry Connect</h5>
+                                        <ul>
+                                            <li>
+                                                ABOTMI creates opportunities for the advisors to connect with a fraternity of advisors,
+                                                regulators, educators and industry bodies to learn and share with one another.
+                                            </li>
+                                        </ul>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+
+                                                <p><img src="{% static 'new_images/infographic.png' %}"/></p>
+                                            </div>
+                                        <div class="col-md-12 abotmi-itstrue-bottom text-center">
+                                            <p>ITS FREE</p>
+                                                <p><a type="button" class="btn" name="signup_a">Discover More</a></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+            <!-- Business Growth ends here -->
+        {% if title == 'Log In' %}
+            <input type="hidden" name="get_advice_hidden" value="">
+        {% endif %}
+        {% include 'common/common_alert_modal.html' %}
+        {% block bootstrap-modal %}
+            <div id="common_base_modal"></div>
+        {% endblock %}
+        <input type="hidden" name="csrf_token" id="id_csrf_token" value="{{csrf_token}}">
+        {% comment %} <input type="hidden" name="user_type" value="{{request.session.user_selected_role}}"> {% endcomment %}
+        <script src="{% static 'js/logout.js' %}" ></script>
+        <script src="{% static 'js/rating_ranking.js' %}" charset="utf-8"></script>
+        <script>  var ip_region = "{{ ip_region}}";</script>
+        <script src="{% static 'js/new_js/base.js' %}"></script>
+        {% block theme_scripts %}
+            <script src="{% static 'js/new_js/home_page.js' %}"></script>
+            <script src="{% static 'js/new_js/youtube_loder.js' %}"></script>
+            {% if title = 'Login' %}
+            <script type="text/javascript">
+                //$("#id_user_question").modal({
+                //    show: true,
+                //   keyboard: false,
+                //    backdrop: 'static'
+                //});
+                var ip_region = "{{ ip_region}}";
+                $("#id_country_type").val(ip_region);
+            </script>
+            <script type="text/javascript">
+                function set_title(title) {
+                    if (title == 'discover') {
+                        $('#signup_title').html('It is mandatory to sign up to get the information');
+                    }else{
+                        $('#signup_title').html('It is mandatory to sign up to view advisor information');
+                    }
+                }
+            </script>
+            {% endif %}
+            {% if title = 'Login' or title = 'Home' %}
+            <script>
+                $('.carousel').carousel({
+                    interval: 4000
+                });
+            </script>
+            {% if user_profile.is_member %}
+                hide_advisor_content();
+            {% endif %}
+            {% endif %}
+            {% comment %}
+            <script type="text/javascript">
+                function get_reputation_index_data_by_api(){
+                    var csrf_token = $("#id_csrf_token").val();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/reputation-index/create_insurance_meta_if_not_existed/',
+                        data:{},
+                        beforeSend: function(request) {
+                            request.setRequestHeader("X-CSRFToken", csrf_token);
+                        },
+                        success: function (response) {
+                        },
+                        error: function (response) {
+                            alert('Unable to process your request now. Please try again after some time');
+                        }
+                    });
+                }
+            </script>
+            {% endcomment %}
+            {% comment %}
+            {% if user.is_authenticated and not user_profile.is_member %}
+                <script type="text/javascript">
+                    get_reputation_index_data_by_api();
+                </script>
+            {% endif %}
+            {% endcomment %}
+        {% endblock %}
+        {% if not title == 'Personal Information' and not title == 'Advisor Registration' and not title == 'Business Information' %}
+        <script type="text/javascript">
+            $( document ).ajaxStart(function() {
+                $(".overlay-div").addClass('block');
+            });
+            $( document ).ajaxStop(function() {
+                $(".overlay-div").removeClass('block');
+            });
+        </script>
+        {% endif %}
+        <script>
+            // applying blur when modal will trigger
+            $(window).on('shown.bs.modal', function () {
+                if ($(".upwardz-modal.in").length > 0) {
+                    $('.parent-section').addClass('blur');
+                    $('.navbar').addClass('blur');
+                }
+            });
+            // removing blur when modal will close
+            $(window).on('hidden.bs.modal', function () {
+                if($(".upwardz-modal.in").length == 0){
+                    $('.parent-section').removeClass('blur');
+                    $('nav').removeClass('blur');
+                }
+            });
+            $('.dropdown-menu').click(function(e) {
+                e.stopPropagation();
+            });
+            $(window).on('load', function () {
+                $(".overlay-div").addClass('none');
+            });
+        </script>
+        {% block scripts %}
+            <!-- <script src="{% static 'js/new_js/login.js' %}"></script> -->
+        {% endblock %}
+        {% if user.is_authenticated %}
+            <script src="{% static 'js/new_js/notification.js' %}"></script>
+        {% endif %}
+    </body>
+</html>

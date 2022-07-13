@@ -1,0 +1,43 @@
+{% extends 'index_base_bkp.html' %}
+{% load staticfiles %}
+
+    <!-- Deals with Scripts  -->
+    {% block base_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block theme_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block custom_theme_css %}
+       {{ block.super }}
+    {% endblock %}
+    {% block base_scripts %}
+       {{ block.super }}
+    {% endblock %}
+
+    <!-- HTML Content Starts -->
+    {% block top_header %}
+       {{ block.super }}
+    {% endblock %}
+    {% block main_content %}
+       {{ block.super }}
+    {% endblock %}
+    {% block footer_base %}
+        {{ block.super }}
+    {% endblock %}
+    {% block copy_rights %}
+       {{ block.super }}
+    {% endblock %}
+    {% block bootstrap-modal %}
+       {{ block.super }}
+    {% endblock %}
+    <!-- HTML Content Ended -->
+
+    <!-- Scripts Start -->
+    {% block theme_scripts %}
+       {{ block.super }}
+    {% endblock %}
+    {% block scripts %}
+       {{ block.super }}
+    {% endblock %}
+    <!-- Scripts Ended -->

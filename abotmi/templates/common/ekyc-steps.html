@@ -1,0 +1,90 @@
+{% load staticfiles %}
+{% block custom_theme_css %}
+    <style>
+     .stepwizard p{
+         font-size: 14px;
+         text-align: center;
+         font-weight: 500;
+     }
+    </style>
+{% endblock %}
+<div class="progress prograss-bar-side">
+    <!-- filled first step progress-->
+    <div class="progress-bar prograss-bar-main" id="progress_bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+    </div>
+    <!-- not filled first step progress-->
+</div>
+<div class="stepwizard">
+    <div class="stepwizard-row kyc-steps-row">
+        <div class="stepwizard-step1">
+            <div class="btn btn-default btn-circle">
+                <a href='/signup/face_capture/'>
+                {% if result.kyc_step1 == 'completed' %}
+                    <img src="{% static 'new_images/kyc_icons/tick-mark-reg.png' %}" class="img-responsive">
+                {% elif result.kyc_step1 == 'partial' %}
+                    <img src="{% static 'new_images/kyc_icons/gray-cirlce-one.png' %}" class="img-responsive">
+                {% else %}
+                    <img src="{% static 'new_images/kyc_icons/gray-cirlce-one.png' %}" class="img-responsive">
+                {% endif %}
+                </a>
+            </div>
+            <p>Profile Picture</p>
+        </div>
+        <div class="stepwizard-step2">
+            <div class="btn btn-default btn-circle">
+                <a href="/signup/verification_process/">
+                    {% if result.kyc_step2 == 'completed' %}
+                        <img src="{% static 'new_images/kyc_icons/tick-mark-reg.png' %}" class="img-responsive">
+                    {% elif result.kyc_step2 == 'partial' %}
+                        <img src="{% static 'new_images/kyc_icons/gray-cirlce-two.png' %}" class="img-responsive">
+                    {% else %}
+                        <img src="{% static 'new_images/kyc_icons/gray-cirlce-two.png' %}" class="img-responsive">
+                    {% endif %}
+                </a>
+            </div>
+            <p>Verification Process</p>
+        </div>
+        <div class="stepwizard-step3">
+            <div class="btn btn-default btn-circle active">
+                <a href="/signup/personal_information/">
+                    {% if result.kyc_step3 == 'completed' %}
+                        <img src="{% static 'new_images/kyc_icons/tick-mark-reg.png' %}" class="img-responsive">
+                    {% elif result.kyc_step3 == 'partial' %}
+                        <img src="{% static 'new_images/kyc_icons/gray-cirlce-three.png' %}" class="img-responsive">
+                    {% else %}
+                        <img src="{% static 'new_images/kyc_icons/gray-cirlce-three.png' %}" class="img-responsive">
+                    {% endif %}
+                </a>
+            </div>
+            <p>Personal Information</p>
+        </div>
+        <div class="stepwizard-step4">
+            <div class="btn btn-default btn-circle active">
+                <a href="/signup/business_information/">
+                    {% if result.kyc_step4 == 'completed' %}
+                        <img src="{% static 'new_images/kyc_icons/tick-mark-reg.png' %}" class="img-responsive">
+                    {% elif result.kyc_step4 == 'partial' %}
+                        <img src="{% static 'new_images/kyc_icons/gray-cirlce-four.png' %}" class="img-responsive">
+                    {% else %}
+                        <img src="{% static 'new_images/kyc_icons/gray-cirlce-four.png' %}" class="img-responsive">
+                    {% endif %}
+                </a>
+            </div>
+            <p>Business Information</p>
+        </div>
+        <div class="stepwizard-step5">
+            <div class="btn btn-default btn-circle active">
+                <a class="btn btn-default btn-circle" href='/signup/education/'>
+                {% if result.kyc_step5 == 'completed' %}
+                    <img src="{% static 'new_images/kyc_icons/tick-mark-reg.png' %}" class="img-responsive">
+                {% elif result.kyc_step5 == 'partial' %}
+                    <img src="{% static 'new_images/kyc_icons/gray-cirlce-five.png' %}" class="img-responsive">
+                {% else %}
+                    <img src="{% static 'new_images/kyc_icons/gray-cirlce-five.png' %}" class="img-responsive">
+                {% endif %}
+                </a>
+            </div>
+            <p>Education</p>
+        </div>
+    </div>
+</div>

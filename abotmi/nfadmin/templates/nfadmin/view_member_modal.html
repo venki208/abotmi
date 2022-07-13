@@ -1,0 +1,185 @@
+<form method="POST" name="view_member_modal_page" id="view_member_modal_page" role="form">
+    <!-- Panel Design Start -->
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title"><h4>View Clients Details</h4> </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <label>First Name:</label>
+                <span>{{ member_details.first_name }}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Middle Name:</label>
+                <span>{{ member_details.middle_name }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Last Name:</label>
+                <span>{{ member_details.last_name }}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Gender:</label>
+                {% if member_details.gender == 'M' %}
+                    <span>Male</span>
+                {% elif member_details.gender == 'F' %}
+                    <span>Female</span>
+                {% else %}
+                    <span>Others</span>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <label>Birth Date:</label>
+                <span>{{member_details.birthdate|date:'d-m-Y'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Primay Email ID:</label>
+                <span>{{member_details.email}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Secondary Email ID:</label>
+                <span>{{member_details.secondary_email}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Mobile No:</label>
+                <span>{{member_details.mobile}}</span>
+            </div>
+        </div>
+    <!-- <div class="col-md-12"> -->
+        <div class="row">
+            <div class="col-md-4">
+                <label>Father`s Name:</label>
+                <span>{{member_details.father_name}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Mother`s Name:</label>
+                <span>{{member_details.mother_name}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Marital Status:</label>
+                {% if member_details.marital_status == 'U'%}
+                    <span>Single</span>
+                {% else %}
+                    <span>Married</span>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <label>Residential Status:</label>
+                <span>{{member_details.resedential_status}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Nationality:</label>
+                <span>{{member_details.nationality}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>PAN Number:</label>
+                <span>{{member_details.pan_no}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Aadhaar Number:</label>
+                <span>{{member_details.adhaar_card}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Driving License Number:</label>
+                <span>{{member_details.driving_license}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Driving License Valid upto:</label>
+                <span>{{member_details.driving_license_expire_date}}</span>
+            </div>
+            <div class="col-md-4">
+                <label>Voter ID:</label>
+                <span>{{member_details.voter_id}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Primary Communication Address</label>
+                <!-- <span>{{member_details.primary_communication}}</span> -->
+            </div>
+            <div class="col-md-12">
+                <span>{{member_details.street_name}},</span>
+                <span>{{member_details.address}},</span>
+                <span>{{member_details.landmark}},</span>
+                <span>{{member_details.locality}},</span>
+                <span>{{member_details.city}},</span>
+                <span>{{member_details.state}},</span>
+                <span>{{member_details.pincode}},</span>
+                <span>{{member_details.country}}.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Languages known to speak:</label>
+                <span>{{member_details.language_known}}</span>
+            </div>
+            <div class="col-md-12">
+                <label>Languages known to Read & Write:</label>
+                <span>{{member_details.languages_known_read_write}}</span>
+            </div>
+            <div class="col-md-12">
+                <label>Mother Tongue:</label>
+                <span>{{member_details.mother_tongue}}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <label>Allow us to connect with you:</label>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label>Facebook ID:</label>
+                    <span>{{member_details.facebook_media}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Google ID:</label>
+                    <span>{{member_details.google_media}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Linkedin ID:</label>
+                    <span>{{member_details.linkedin_media}}</span>
+                </div>
+                <div class="col-md-6">
+                    <label>Twitter ID:</label>
+                    <span>{{member_details.twitter_media}}</span>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+            <label>Politically Exposed Person or Related to a PEP :</label>
+            <span>{{member_details.politically_status}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {% for doc in user_documents %}
+                <p id="{{doc.id}}" style="display:block">
+                    {{ doc.documents_type }} <a class="btn btn-default btn-xs" href="{{ doc.documents.url }}" target="_blank">Download</a>
+                    <a id="{{doc.id}}" class="btn btn-default btn-xs" onclick="deleteDocument(this.id);" >Remove</a><br/>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+    <input type="text" class="hidden" id="user_id" value="{{ advisor_details.user_id }}">
+</div>
+</form>
+<script type="text/javascript">
+function deleteDocument(id){
+    document.getElementById(id).style.display = "none";
+       $.ajax({
+            url: "/nfadmin/remove_upload_file/",
+            method: "POST",
+            data:{
+                id: id,
+            },
+            success:function(data){
+                var data = data;
+            }
+        });
+    }
+</script>

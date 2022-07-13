@@ -1,0 +1,483 @@
+{% load staticfiles %}
+<link href="{% static 'css/new-datatable.css' %}" rel="stylesheet">
+<link href="{% static 'V2_theme/lib/dataTables/datatables.min.css' %}" rel="stylesheet" 
+type="text/css" />
+<style>
+    /* .follow-now-button, .unfollow-now-button{
+        padding: 8px 15px;
+        color: #fff !important;
+        text-transform: uppercase;
+        border: 0;
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 1px;
+    } */
+    .follow-now-button, .unfollow-now-button{
+        background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+        -webkit-background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+        font-size: 16px;
+        padding: 10px 25px;
+        border-radius: 30px;
+        color: #fff !important;
+        font-weight: 600;
+    }
+    /* .unfollow-now-button{
+        background: #f12284 !important;
+    } */
+    /* .follow-now-button{
+        background:#2d3e99 !important;
+    } */
+    .upwrdz-log-panel-white{
+        margin-bottom: 0px;
+        border-radius: 0px;
+    }
+    .follow-header{
+        text-align: center;
+        font-size: 20px;
+        color: #000;
+        font-weight: 600;
+    }
+    tr{
+        text-align: center;
+        font-size: 16px;
+        color: #2e3380;
+    }
+    .no-client{
+        color: #000;
+        text-align: center;
+    }
+    .scrollabletextbox{
+        overflow:scroll;
+    }
+    .search-dropdown{
+        position: absolute;
+        z-index: 12;
+        background: #e6e6e6;
+        box-shadow: 0px 1px 10px #949090;
+        /* height: 100px; */
+        overflow-y: scroll;
+        color: #000000;
+        list-style: none;
+        top: 69px;
+        padding: 5px 10px;
+        width: 300px;
+    }
+@media(max-width:500px){
+
+    .search-dropdown-nxt{
+        position: absolute;
+        z-index: 12;
+        height: 18px;
+        color: #000000;
+        list-style: none;
+        left: 340px;
+        top: 80px;
+    }
+}
+.search-dropdown-nxt {
+    position: absolute;
+    z-index: 12;
+    /* box-shadow: 0px 1px 10px #949090; */
+    height: 18px;
+    color: #000000;
+    list-style: none;
+    left: 340px;
+    top: 37px;
+}
+    .follow-help{
+        color: red;
+    }
+    .upwrdz-log-panel-white .modal-header-border-bottom{
+        position: relative;
+    }
+    .modal-header-close-btn{
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        z-index: 1234;
+    }
+    .btn:hover{
+        color: #FFFFFF;
+    }
+    .accept-and-reject-btns{
+        margin-bottom: 5px;
+    }
+    .modal-content .close{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 123;
+    }
+</style>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="unfollow_advisors_list" name="unfollow_advisors_list">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row">
+                    {% if UNFOLLOW == 1 %}
+                        <div class="col-md-12 panel-body pannel-popup-content pannel-popup-content-viewpeers" id="ad_list">
+                            <div class="alert alert-success" role="alert" id="follow_success_text" style="display:none;">
+                                <strong>Success!</strong> Your Request has been sent.
+                            </div>
+                            <div class="alert follow-help" role="alert" id="follow_replay_text" style="display:none;">
+                                <strong>Alert!</strong> Your are already following this advisor.
+                            </div>
+                            <div class="alert follow-help" role="alert" id="follow_not_found_text" style="display:none;">
+                                <strong>Alert!</strong> Entered Email Id is not found in our system.
+                            </div>
+
+                            <h2 class="follow-header text-center">SEARCH FOR NEW
+                                ADVISORS</h2>
+                            <div class="total-advisors mt-2" style="cursor:text;">
+                                <div id="id_total-advisors" style="display:inline;">
+                                </div>
+                                <input type="text" class="search form-control" placeholder="Advisor's Email ID" id="advisors_data" name="advisors_data" is-email="true" required="true" value="" style="display:inline-block;border:1px #ccc solid; box-shadow:none !important;width:300px;"
+                                />
+                            </div>
+                            <span class="follow-help help-block" id="help_text_total-advisors"></span>
+                            <input type="hidden" id="id_total_advisors_selected" value="" />
+                            <div id="list_ad"></div>
+                            <div id="list_ad_next"></div>
+                            <div class="row mt-5">
+                                <div class="col-md-12 text-center">
+                                    <button type="button" class="follow-button center-block follow-now-button btn" id="send_button" onclick="follow_advisor();" disabled>SEND INVITE</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row {% if not follow_advisor and title != 'view_followees' %}hide{% endif %}" id="view-member-modal-body" style="margin-top:20px;">
+                    <div class="col-md-12">
+                        <h2 id="heading" class="follow-header"></h2>
+                        {% if follow_advisors or follow_advisor %}
+                        <div class="bs-example">
+                            <div class="table-responsive">
+                                <table id="table_id" name="table_id" class="table ">
+                                    <span class="pull-right">
+                                        <a id="veiw-member-search-icon" onclick="enable_search()">
+                                            <i class="fa fa-search-thin fa-lg"></i>
+                                        </a>
+                                    </span>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                NAME
+                                            </th>
+                                            <th>
+                                                EMAIL ID
+                                            </th>
+                                            <th>
+                                                STATUS
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="unfollow_tbody">
+                                        {% for user_profile_data in follow_advisor %}
+                                        <tr id="{{forloop.counter}}_unf">
+                                            <td>
+                                                {{ user_profile_data.followers.first_name }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.followers.email }}
+                                            </td>
+                                            {% if user_profile_data.following_status == 'in_progress' %}
+                                                <td>
+                                                    <p class="no-client">INVITE SENT</p>
+                                                </td>
+                                            {% elif user_profile_data.following_status == 'rejected' %}
+                                                <td>
+                                                    <p class="no-client">GOT REJECTED</p>
+                                                </td>
+                                            {% elif user_profile_data.following_status == 'following' %}
+                                                <td>
+                                                    <button type="button" class="unfollow-now-button" onclick="show_confirm('{{ user_profile_data.followers.email }}', 'unfollow', '{{forloop.counter}}_unf');">UNFOLLOW</button>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tbody>
+                                        {% for user_profile_data in follow_advisors %}
+                                        <tr>
+                                            <td>
+                                                {{ user_profile_data.user_profile.first_name }}
+                                            </td>
+                                            <td>
+                                                {{ user_profile_data.user_profile.email }}
+                                            </td>
+                                            {% if user_profile_data.following_status == 'following' %}
+                                                <td id="{{forloop.counter}}_dnf">
+                                                    <button type="button" class="follow-now-button" onclick="show_confirm('{{ user_profile_data.user_profile.email }}', 'dont_follow', '{{forloop.counter}}_dnf');">DO NOT FOLLOW</button>
+                                                </td>
+                                            {% elif user_profile_data.following_status == 'rejected' %}
+                                                <td>
+                                                    <p class="no-client">REJECTED</p>
+                                                </td>
+                                            {% elif user_profile_data.following_status == 'disconnected' %}
+                                                <td>
+                                                    <p class="no-client">DISCONNECTED</p>
+                                                </td>
+                                            {% else %}
+                                                {% if user_profile_data.activation_key %}
+                                                <td>
+                                                    <button type="button" class="btn upwrdz-button accept-and-reject-btns" data-dismiss="modal" onclick="accept_reject_request('True','{{user_profile_data.activation_key}}','{{ request.user.profile.referral_code }}');">ACCEPT</button>
+                                                    <button type="button" class="btn upwrdz-button accept-and-reject-btns" data-dismiss="modal" onclick="show_confirm_reject('False','{{user_profile_data.activation_key}}','{{ request.user.profile.referral_code }}');">REJECT</button>
+                                                </td>
+                                                {% endif %}
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% else %}
+                        <p class="no-client">No Advisors Found</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src='{% static "V2_theme/lib/dataTables/datatables.min.js" %}'></script>
+{% if follow_advisors or follow_advisor %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#table_id').dataTable({
+            language: {
+                paginate: {
+                    previous: "< Previous",
+                    next: "Next >"
+                }
+            }
+        });
+        document.getElementById('table_id_filter').style.display = 'none';
+    });
+    function enable_search(){
+        document.getElementById('table_id_filter').style.display = 'block';
+        document.getElementById('veiw-member-search-icon').style.display = 'none';
+    }
+</script>
+{% endif %}
+<script type="text/javascript">
+    $(document).mouseup(function (e) {
+    var container = $('.total-advisors');
+    var value = $('#advisors_data').val();
+    if (!container.is(e.target)
+        && container.has(e.target).length === 0)
+        {
+            $('.search-dropdown').css('display', 'none');
+            $('.search-dropdown-nxt').css('display', 'block');
+        }
+    });
+
+    function add_client_to_input(id, members_div) {
+        var mem_val = $("#"+id).attr('data-value');
+        $('#advisors_data').val(mem_val);
+        $('#search-dropdown').css('display', 'block');
+        if ($('#advisors_data').val().trim().length > 0) {
+            $('#list_ad_next').html('').load("{% url 'my_identity:attach_advisors_link' %}?search=" + mem_val);
+        }
+    }
+
+    $(".search").on("keyup keydown", function () {
+        $('.search-dropdown').css('display', 'block');
+        $('.item').each(function () {
+            ids = $(this).attr('data-value');
+            if (ids.indexOf($('#advisors_data').val()) > -1) {
+                ids = $(this).attr('id');
+            } else {
+                ids = $(this).attr('id');
+            }
+        });
+    });
+
+    function accept_reject_request(flag, act, ref){
+        var token = csrf_token;
+        $.ajax({
+            type: "GET",
+            url: "/dashboard/follower_advisor_mapping/",
+            data: {
+                accepted: flag,
+                code: ref,
+                ack: act
+            },
+            beforeSend: function (request) {
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success: function (response) {
+                if(flag=="True"){
+                    alert("You have accepted the request");
+                }
+            }
+        });
+    }
+
+    function donot_follow_advisor(advisor_email, row_id) {
+        var token = csrf_token;
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/donot_follow_advisors/",
+            data: {
+                advisor_email: advisor_email
+            },
+            beforeSend: function (request) {
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success: function (response) {
+                $("#"+row_id).html('DISCONNECTED');
+            }
+        });
+    }
+
+    function unfollow_advisor(advisor_email, row_id) {
+        var token = csrf_token;
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/unfollow_advisors/",
+            data: {
+                advisor_email: advisor_email
+            },
+            beforeSend: function (request) {
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            success: function (response) {
+                $("#"+row_id).remove();
+            }
+        });
+    }
+ </script>
+
+ <script type="text/javascript">
+    function show_confirm(email, type, row_id){
+        var answer = confirm("Do you want to proceed?");
+        if(answer == true){
+            if (type == 'unfollow'){
+                unfollow_advisor(email, row_id);
+            }else if(type == 'dont_follow') {
+                donot_follow_advisor(email, row_id);
+            }
+        }
+    }
+    function show_confirm_reject(status, act_key, code){
+        var answer = confirm("Do you want to proceed?");
+        if(answer == true){
+            accept_reject_request(status, act_key, code);
+        }
+    }
+ </script>
+
+<script type="text/javascript">
+    function follow_advisor() {
+        var token = csrf_token;
+        var email = $('#advisors_data').val().trim();
+        var advisor_email = '{{request.user}}';
+        if (validate_field_onkeypress('advisors_data', 'help_text_total-advisors', 'Email ID') == 0) {
+            if (advisor_email == email) {
+                $("#help_text_total-advisors")
+                    .html('')
+                    .html('You cannot invite Yourself');
+            }
+            else {
+                if(email.length>0){
+                    var check_email_result = check_email(email);
+                    check_email_result.complete(function (e, xhr, settings) {
+                        var status = e.status;
+                        if (status == 200) {
+                            $("#help_text_total-advisors").html('');
+                            $.ajax({
+                                type: "POST",
+                                url: "/dashboard/follow_advisors/",
+                                data: {
+                                    follower_email: email
+                                },
+                                beforeSend: function (request) {
+                                    request.setRequestHeader("X-CSRFToken", token);
+                                },
+                                success: function(response) {
+                                    try {
+                                        var success_unf_res = '<tr id="'+response.id+'_unf">'+
+                                            '<td>'+response.name+'</td>'+
+                                            '<td>'+response.email+'</td>'+
+                                            '<td>INVITE SENT</td>'+
+                                        '</tr>'
+                                        $('#unfollow_tbody').append(success_unf_res);
+                                    } catch (e) {}
+                                },
+                                complete: function (e, xhr, settings) {
+                                    var status = e.status;
+                                    if (status == 200) {
+                                        $("#follow_success_text")
+                                            .fadeIn()
+                                            .fadeOut(5000, 'swing');
+                                        $('#advisors_data').val('');
+                                    } else if (status == 204) {
+                                        alert("Advisor does not exist.");
+                                    } else if (status == 205) {
+                                        $("#follow_replay_text")
+                                            .fadeIn()
+                                            .fadeOut(5000, 'swing');
+                                        $('#advisors_data').val('');
+                                    }
+                                    else if (status == 409) {
+                                        alert("Your request can not be served now.");
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            $("#advisors_data").val('');
+                            $("#follow_not_found_text")
+                               .fadeIn()
+                               .fadeOut(5000, 'swing');}
+                    });
+                    check_email_result.error(function (response) {
+                        alert("unable to process your request");
+                    });
+            }
+            else
+            {
+                $("#help_text_total-advisors")
+                    .html('')
+                    .html('Please enter the data');
+            }
+        }
+    }}
+</script>
+
+<script type='text/javascript'>
+    var delay = (function () {
+        var timer = 2;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+
+    $(function () {
+        $("#advisors_data").on('keyup keydown', function () {
+            $('#list_ad_next').html('');
+            delay(function () {
+                var search = $('#advisors_data').val();
+                if ($('#advisors_data').val().trim().length > 2){
+                    $("#help_text_total-advisors").html('');
+                    $('#list_ad').html('').load("{% url 'my_identity:advisors_archive' %}?search=" + search);
+                }
+            }, 2000);
+            $('#send_button').prop('disabled', false);
+            $('#help_text_total-advisors').html('');
+        });
+    });
+
+</script>

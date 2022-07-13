@@ -1,0 +1,222 @@
+{% extends 'webinar/webinar_home.html' %}
+{% load staticfiles %}
+{% block important_css %}
+{% endblock %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block custom_theme_css %}
+<link href="/static/admin_theme/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+<link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+<style type="text/css">
+    .mrg-80{
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+    .input-sm{
+        color: #fff;
+    }
+    .webinar-table-div #table_id th{
+        max-width: 100px !important;
+    }
+    .webinar-table-div #table_id th{
+        max-width: 100px !important;
+    }
+    .webinar-table-div .table tbody > tr > td{
+        max-width: 100px;
+        word-wrap: break-word !important;
+    }
+    .webinar-table-div .table tbody > tr > td:last-child a{
+        margin: 5px;
+        font-size: 14px;
+    }
+    .delete-webinar-div{
+        border-top: 0px;
+    }
+</style>
+{% endblock %}
+
+{% block main_content %}
+<section class="subpage-reia-primary mrg-80 parent-section" id="about">
+    <div class="container">
+    {% if user.profile.advisor.is_register_advisor %}
+        <div clas="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="{% url 'webinar:create_webinar' %}" class="btn upwrdz-button">CREATE WEBINAR</a>
+                <!-- Note : this code will bring clickmeeting dashboard -->
+                <!-- <a href="{% url 'webinar:dashboard' %}" class="btn btn-success">Webinar Dashboard</a> -->
+            </div>
+        </div>
+        <br><br><br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="box-body webinar-table-div">
+                <div class="table-responsive">
+                    <table id="table_id" name="table_id" class="table table-bordered">
+                        <span class="pull-right">
+                            <a id="veiw-member-search-icon" onclick="enable_search()"><i class="fa fa-search-thin fa-lg"></i></a>
+                        </span>
+                        <thead>
+                            <tr>
+                                <th>SL.NO</th>
+                                <th>ROOM NAME</th>
+                                <th>PROJECT NAME</th>
+                                <th>START TIME</th>
+                                <th>MANAGE ROOM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for objects in list_of_webinars %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ objects.room_name }}</td>
+                                <td>{{ objects.uplyf_project }}</td>
+                                <td>{{ objects.starts_at}}</td>
+                                <td>
+                                    <a href="{{objects.room_url}}?l={{objects.auto_login_host_url}}" target="_blank" class="btn upwrdz-button" title="Go">Go</a>
+                                    <a onclick="is_confirm_delete('{{ objects.room_id }}');" class="btn upwrdz-button" title="Delete">X</a>
+                                    {% if not user_profile == objects.user_profile %}
+                                        <a href="{% url 'webinar:register_member' room_id=objects.room_id %}" class="btn upwrdz-button" title="REGISTER">Register</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /.box-body -->
+        </div>
+    </div><!-- /.row -->
+    {% else %}
+    <div clas="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3> You must be as registered advisor in ABOTMI </h3>
+            </div>
+    </div>
+    {% endif %}
+    </div>
+</section>
+{% endblock %}
+{% block bootstrap-modal %}
+    <div class="modal fade" id="refer-member-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+      <div class="modal-dialog">
+            <div class="panel panel-default popup-panel">
+                <div class="panel-heading dash-heading">
+                    <h4><label><img src="/static/images/dash-img01.png" /></label>
+                    <span>Refer a Member</span><span class="pull-right"><i class="fa fa-times-circle" data-dismiss="modal" aria-hidden="true"></i></span></h4>
+                </div>
+                <div class="panel-body pannel-popup-content" id="refer-member-modal-body">
+                    <div class="text-center">
+                        <span><input type="submit" class="btn btn-primary popup-btn" value="Additional info"></span>
+                        <span><input type="submit" class="btn btn-primary popup-btn" value="Submit"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade upwardz-modal" id="id_confirm_modal" name="id_confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3><span class="modal-title n-span-blue-color">CONFIRM</span></h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content text-center" id="id_confirm_modal_body">
+                    </div>
+                    <div class="modal-footer delete-webinar-div text-center" id="id_confirm_modal_footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden" id="confirm_delete_webinar_button">
+        <button type="button" name="cancel_delete" id="id_cancel_delete" class="btn upwrdz-button" data-dismiss="modal">Cancel</button>
+        <button type="button" name="delete_webinar" id="id_delete_webinar" class="btn upwrdz-button">Ok</button>
+    </div>
+    <!-- ###############  Thank you Modal pop up #################### -->
+    <div class="modal fade upwardz-modal" id="webinar_invitation_message" name="webinar_invitation_message" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md upwrdz-view-client-model upwrdz-view-peerclient-model">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color"> Thank You</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content">
+                        <p class="text-center">Webinar created successfully.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+<!-- Scripts Start Here -->
+<!-- DATA TABES SCRIPT -->
+<script src="/static/admin_theme/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/static/admin_theme/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#table_id').dataTable({
+            language: {
+                paginate: {
+                    previous: "< Previous",
+                    next: "Next >"
+                }
+            }
+        });
+        document.getElementById('table_id_filter').style.display = 'none';
+    });
+    function enable_search(){
+        document.getElementById('table_id_filter').style.display = 'block';
+        document.getElementById('veiw-member-search-icon').style.display = 'none';
+    }
+    function delete_webinar(room_id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            url: "{% url 'webinar:delete_webinar' %}",
+            type: 'POST',
+            beforeSend: function(request) {
+                request.setRequestHeader("X-CSRFToken",token);
+            },
+            data: { room_id: room_id },
+            success: function(response){
+                if(response == 'success'){
+                    window.location.reload();
+                } else {
+                    alert('your not authorized to delete this evevnt or event does not exists');
+                }
+            }
+        });
+    }
+    // Confirmation for deleting the webinar
+    function is_confirm_delete(id){
+        $("#id_confirm_modal_body").html('Do you want to delete this webinar ?');
+        $("#id_delete_webinar").attr('onclick', 'delete_webinar("'+id+'")');
+        $("#id_confirm_modal_footer").html(
+            $("#confirm_delete_webinar_button").html()
+        )
+        $("#id_confirm_modal").modal('show');
+    }
+</script>
+{% endblock %}
+{% block theme_scripts %}
+   {{block.super}}
+   {% if is_webinar_created %}
+   <script type="text/javascript">
+        $("#webinar_invitation_message").modal('show');
+   </script>
+   {% endif %}
+{% endblock %}

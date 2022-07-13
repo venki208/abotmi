@@ -1,0 +1,77 @@
+/*ekyc Modal css*/
+
+.upwrdz-ekyc {
+    margin: auto;
+    background-color: #969297 !important;
+}
+
+.upwrdz-ekyc-modal {
+    margin-bottom: 0px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0px;
+    color: #fff;
+}
+
+.upwrdz-ekyc-modal .e-heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: #211e72;
+    text-align: center;
+}
+
+.upwrdz-ekyc-modal hr {
+    margin-top: 0px;
+    width: 90%;
+    border-top: 1px solid rgba(238, 238, 238, 0.25);
+}
+
+.upwrdz-ekyc-modal .e-title {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.upwrdz-ekyc-modal .form-control {
+    margin: 10px 0 !important;
+}
+
+.upwrdz-ekyc-modal form {
+    width: 80%;
+    margin: auto;
+}
+
+.upwrdz-ekyc-modal .form-control {
+    background-color: rgba(173, 173, 173, 0.69) !important;
+    border-radius: 0;
+    color: #fff;
+    border: none;
+    margin: 25px 0;
+    width: 100%;
+    height: 38px;
+    padding: 6px 26px;
+}
+
+.upwrdz-ekyc-modal .form-control::placeholder {
+    color: #ddd;
+    letter-spacing: 3px;
+    font-size: 10px;
+}
+
+.upwrdz-ekyc-modal .get-otp-btn {
+    width: 100%;
+    color: #fff;
+    background: #211e72;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 0;
+    border: 0;
+    min-height: 38px;
+    margin-bottom: 15px;
+}
+
+@media(min-width:768px) {
+    .upwrdz-ekyc {
+        width: 500px;
+    }
+}

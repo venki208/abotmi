@@ -1,0 +1,13 @@
+{% if archives %}
+    <div class="search-dropdown transition" id="dropdown_hide">
+        {% for debate in archives %}
+        <li class="item" id="{{debate.question_title}}" data-value="{{debate.question_title}}" onclick="add_client_to_input(id,'id_total-advisors','{{debate.id}}')">
+            <span class="item_data pointer" id="id_item_name{{debate.question_title}}">{{ debate.question_title }}</span>
+        </li>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="search-dropdown transition" id="no_result_hide">
+        No results found
+    </div>
+{% endif %}

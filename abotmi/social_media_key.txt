@@ -1,0 +1,17 @@
+#facebook api key 
+www.upwrdz: 278200645922898 --> fb-id--reiaglobal@gmail.com
+prod.upwrdz: 278211959255100 --> fb-id--reiaglobal@gmail.com
+test.upwrdz: 278212525921710 --> fb-id--reiaglobal@gmail.com
+dev.upwrdz: 278212815921681 --> fb-id--reiaglobal@gmail.com
+
+#google api key 
+www.upwrdz: 694526678521-gi680vetg016n0g2bfpevkmecmo68il1.apps.googleusercontent.com
+prod.upwrdz: 694526678521-j1p26g9jsq1df0h24ieh64dq66to18sp.apps.googleusercontent.com
+test.upwrdz: 694526678521-lmmqf45n58jb29js9k8m92veaqqilrnm.apps.googleusercontent.com
+dev.upwrdz: 694526678521-ajjgeln3hbq7aefat5hu5iteega6d03s.apps.googleusercontent.com
+
+#linkedin api key
+www.upwrdz.com : 81w8pcansqqyzh
+prod.upwrdz.com : 81aje8ktskwhhk
+test.upwrdz.com : 8135y5el60r4mi
+dev.upwrdz.com : 81o2rhqmuyhm9t

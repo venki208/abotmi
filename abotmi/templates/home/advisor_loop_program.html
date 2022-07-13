@@ -1,0 +1,91 @@
+{% extends 'login.html' %}
+{% block slider %}
+{% endblock %}
+{% block main_content %}
+    <section class="subpage-reia-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="why-main-section-heading text-center">Advisor Loop Program</h2>
+                    <hr class="why-reia-light">
+                    <h3 class="text-left why-section-heading">Terms & Conditions</h3>
+                    <p class="text-justify why-reia-content">The REIA Advisor Loop Program allows registered REIA users
+                    (an “REIA User”) to earn referral points by referring people to REIA. </p>
+                    <p class="first-img-content why-reia-content">In order to participate first the REIA users must agree to
+                    these terms, which become part of the REIA T&C. Capitalized terms that are not defined here will have the
+                    same meaning given to them in the REIA Terms & Conditions.</p>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="why-section-heading">How to earn referral points </h3>
+                    <p class="text-justify why-reia-content">REIA users can earn referral points if :
+                    <ul>
+                    <li>A Referred  person clicks on their referral link to create a valid REIA account that complies with
+                    REIA T&amp;C </li>
+                    <li>The referred person shall further completely fill the Advisor Loop Program (ALP) form either as a guest or
+                    host. </li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="why-section-heading">Referral Points Earned </h3>
+                    <p class="text-justify why-reia-content">
+                    <ul>
+                    <li>Every time a REIA user refers a person , REIA user earns 10 points</li>
+                    <li>Every point is valued at Rs 25</li>
+                    <li>REIA user can redeem these points at the end of every year</li>
+                    <li>On successful registration of the person, REIA user gets 10 points</li>
+                    <li>On certification of the advisor, REIA user gets 10 points</li>
+                    <li>On first transaction of the advisor referred, the REIA user gets 10 points</li>
+                    <li>On Crisil or Signzy verification of the advisor who is referred REIA user gets additional 10 points</li>
+                    <li>Every time when that advisor referred refers in any other advisor, REIA user gets 2 points</li>
+                    <li>Every time when the other advisor referred does a transaction, REIA user gets 1 point</li>
+                    <li>When user gets 100 points, a bonus of 5 points is given </li>
+                    <li>On every 100 points reached by user, an additional bonus points are given</li>
+                    <li>When the advisor referred by user, achieves 100 points, additional bonus points are given
+                    and every time when they earn 100 points, user earns 1 point for that</li></ul></p>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="why-section-heading">Sharing Referral Links</h3>
+                    <p class="text-justify why-reia-content">Referrals should only be used for personal and non-commercial purposes
+                    and only shared with connections that will appreciate receiving these invitations. Referral links should not
+                    be published or distributed.</p>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="why-section-heading">Multiple Referrals</h3>
+                    <p class="text-justify why-reia-content">A referred person may use one referral link. If a referred friend
+                    receives referral links from multiple REIA Users, only the corresponding REIA user of the referral link used
+                    by the referred person receive referral points</p>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="why-section-heading">Severability</h3>
+                    <p class="text-justify why-reia-content">If any provisions in these terms are held to be invalid, void,
+                    or unenforceable , such provisions will be struck.</p>
+                </div>
+                <div class="col-lg-12">
+                    <h3 class="why-section-heading">Termination</h3>
+                    <p class="text-justify why-reia-content">REIA may suspend or terminate the Advisor Loop Program or a user’s
+                    ability to participate in the Advisor Loop Program at any time and for any reason. REIA reserves the right
+                    to suspend account or remove referral points due to activity which is considered as abusive or fraudulent.</p>
+                </div>
+                    <div class="col-lg-12">
+                    <h3 class="why-section-heading">Updated Terms</h3>
+                    <p class="text-justify why-reia-content">REIA reserves the right to update these terms without any prior notice.
+                    The updated terms will be posted on the website and will become effective upon posting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block theme_scripts %}
+    <script type="text/javascript">
+        function shrink_header(){
+            $('nav').addClass('shrink');
+            $("#about").addClass('n-margin-top-100');
+            $(".riea-logo-1").addClass('img_shrink');
+            $(".social-icons").addClass('width-93');
+        }
+        $(document).ready(function(){
+            shrink_header();
+        });
+    </script>
+{% endblock %}

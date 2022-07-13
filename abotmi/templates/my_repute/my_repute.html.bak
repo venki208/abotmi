@@ -1,0 +1,183 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_css/sequences.css' %}"/>
+    <link href="{% static 'css/new_css/my_repute.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row upwrdz-repute-div">
+            <div class="col-sm-3 col-md-3 col-lg-3 upwrdz-myhub-sidenav">
+                <div class="">
+                    <div class="uwd-block-repute">
+                        <h2>Recommendations</h2>
+                        <ul>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                        </ul>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="uwd-block-repute">
+                        <h2>Notifications</h2>
+                        <ul>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                            <li><a href="#">Lorem Ipsum is simply dummy text </a></li>
+                        </ul>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="uwd-block-repute-share">
+                        <h2>Share</h2>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-9 col-lg-9 upwrdz-myhub-content">
+                  <!-- Commented for UI developerment purpose -->
+                    <div class="row  upwrdz-myhub-content-one upwrdz-repute-img">
+                        <button id="show_breakup" class="btn breakup-reputation-index" onclick="open_breakup_model()"> My Points Breakup</button>
+                        <button id="show_repute_img" class="btn breakup-reputation-index" onclick="show_repute_image()"> Show Repute Image</button>
+                        <div class="row" id="repute_map_show"></div>
+                  			<!-- starting -->
+                  			<div class="col-xs-12" id="pie_chart_div">
+                    			<div id="main">
+                    			    <div id="sequence"></div>
+                    			    <div id="chart">
+                                <div id="default_msg" style="visibility: visible;">
+                                  <span id="default_msg_span">Repute Points</span>
+                                </div>
+                    			      <div id="explanation" style="visibility: hidden;">
+                				          <span id="percentage"></span><br/>
+                          			  <i id="segment_name"></i>
+                    				    </div>
+                    			    </div>
+                        	</div>
+                  			</div>
+                  			<!-- ending -->
+                        <div id="rpi_big_img">
+                          <div class="col-xs-12 upwrdz-repute-index-img">
+                            <input id="bg_image" type="hidden" value="{% static 'new_images/logo-big.png' %}"/>
+                            <input id="demo_profile_pic" type="hidden" value="{% static 'new_images/demo-profile-pic.jpg' %}"/>
+                            <div id="upwrdz_big_img_div">
+                            </div>
+                          </div>
+                          <div class="col-xs-12">
+                              <div class="row text-left upwrdz-points-comparsion">
+                                  <div class="col-md-6 ">
+                                      <p>Points Comparison</p>
+                                      <div class="profile-div">
+                                          <img id="current_adv_pic" src=""/>
+                                          <input type="hidden" id="current_adv_key" value=""/>
+                                          <span id="current_adv_text">TOP SCORER<br/> 25123</span>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <p>Points Comparison</p>
+                                      <div class="profile-div-two">
+                                        <input type="hidden" id="compare_adv_key" value=""/>
+                                          <img id="compare_adv_pic" src=""/>
+                                          <span id="compare_adv_text">TOP SCORER<br/> 25123</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+
+             </div>
+             <div class="col-xs-12 upwrdz-pepute-footer">
+                <h4>Repute Footer</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+             </div>
+             <input type="hidden" name="csrf_token" id="id_csrf_token" value="{{csrf_token}}">
+             <!-- <button id="compare_advisors" onclick="open_compare_model()"> compare_advisors</button>
+
+             <button type="button" class="btn btn-applynow" onclick="show_check_pincode_model();" title="Get pincode model">Get Pincode</button> -->
+        </div>
+    </div>
+    <!-- Add client aadhaar email verification model -->
+    <div class="modal my_repute_page_model"  id="display_adv_compare" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog model_display_adv_compare">
+          <div id="adv_compare_table"></div>
+        </div>
+    </div>
+
+
+    <!-- Pincode Confirmation Popup -->
+    <div id="pincode_confirmation_modal" class="modal fade upwardz-modal" role="dialog" name="pincode_confirmation_modal" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                         <h3 class="modal-title n-span-blue-color">Check your current Pincode</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="video-request-modal-body">
+                        <div class="row padding-tb8">
+                            <div class="form-group col-md-12" data-toggle="toggle">
+                                <input class="form-control" placeholder="Please enter 4 or 6 digit pincode" name="current_pincode" id="current_pincode" type="text" pattern="^[1-9]\d{3}$|^[1-9]\d{5}$" required='true'>
+                                <span class="help-block" ></span>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" onclick="transit_hyperlocal_api_call();"  class="btn upwrdz-button" >SUBMIT</button>
+                                <button type="button" class="btn upwrdz-button" onclick="cancel_pincode_confirmation_popup();">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="my_repute_modal"></div>
+
+    <script type="text/javascript">
+      var user_profile_email = '{{user_profile.email}}';
+      var user_pincode = '{{user_profile.pincode}}';
+      var http_host = '{{ request.scheme }}://{{ request.META.HTTP_HOST }}';
+    </script>
+    <script src="{% static 'js/new_js/underscore-min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'js/new_js/google_api.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new_js/geo_location_tracking.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new_js/my_repute.js' %}" ></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/new_js/sequences.js' %}"></script>
+    <script type="text/javascript">
+	d3.select(self.frameElement).style("height", "700px");
+    </script>
+{% endblock %}
+
+{% block bootstrap-modal %}
+{% endblock %}
+
+{% block theme_scripts %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

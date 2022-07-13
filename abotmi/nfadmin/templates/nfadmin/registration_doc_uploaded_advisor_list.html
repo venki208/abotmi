@@ -1,0 +1,900 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load utils_tags %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/nfadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_list/">
+        <i class="fa fa-user text-pink"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/crisil_advisor_list/">
+          <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+        <span>CRISIL Advisors</span>
+      </a>
+    </li>
+    <li>
+        <a href="/nfadmin/affiliated_companies/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companies</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/add_client_list/">
+            <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+            <span>Clients</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/company_spoc/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+            <span>Company Spoc</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_request/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Request</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+    <li class="active">
+      <a href="/nfadmin/regulatory_registration_data_uploaded_url/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Regulatory Authentication</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/educational_authentication/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Educational Authentication</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content-header %}
+<section class="content-header">
+    <h1>Regulatory Data</h1>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+    <div class="btn-group btn-group-lg" role="group">
+        <button type="button" class="btn btn-default sebi-btn" onclick="load_regulatory_data('sebi')"> SEBI List </button>
+        <button type="button" class="btn btn-default amfi-btn" onclick="load_regulatory_data('amfi')"> AMFI List </button>
+        <button type="button" class="btn btn-default irda-btn" onclick="load_regulatory_data('irda')"> IRDA List </button>
+        <button type="button" class="btn btn-default others-btn" onclick="load_regulatory_data('others')"> Others List </button>
+        <button type="button" class="btn btn-default rera-btn" onclick="load_regulatory_data('rera')"> RERA List </button>
+    </div>
+</section>
+{% endblock %}
+
+<!-- Main content -->
+{% block main-content %}
+<section class="content">
+    <div id="sebi_docs_list">
+        <div id="example1_wrapper sebi_doc_table_list" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box adm-box">
+                        <div class="box-header">
+                            <h3 class="box-title">SEBI Advisor Table</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user_profile in sebi_data %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>
+                                            {{ user_profile.first_name }}
+                                            {{ user_profile.last_name }}
+                                        </td>
+                                        <td>{{user_profile.email}}
+                                            <input type="hidden" value="{{user_profile.email}}" id="user_profile_email">
+                                        </td>
+                                        <td>{{user_profile.mobile}}</td>
+                                        <td>
+                                            {{user_profile.reg_no}}
+                                        </td>
+                                        <td>
+                                            <table>
+                                            {% if user_profile.doc_url.url %} 
+                                            <tr>
+                                                <td>
+                                                    {% with user_profile.doc_url.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="{{ user_profile.doc_url.url }}"    class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{ user_profile.advisor_regulatory_status|default:'NA' }}
+                                                    </small>&nbsp;
+                                                    {% if user_profile.advisor_regulatory_status != 'verified' and user_profile.advisor_regulatory_status != 'rejected' %}
+                                                        <button type="button" id="{{ user_profile.email }}" class="btn btn-success" title="Approved"
+                                                        onclick="verify_regulatory_document(id, 'sebi')">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                    {% else %}
+                                                        <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                    {% endif%}
+                                                    {% if user_profile.advisor_regulatory_status != 'verified' and user_profile.advisor_regulatory_status != 'rejected' %}
+                                                        <button type="button" id="{{ user_profile.email }}" class="btn btn-danger" title="Rejected"
+                                                        onclick="reject_regulatory_document(id, 'sebi')">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                    {% else %}
+                                                        <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                    {% endif%}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            </table>
+                                            <table>
+                                            {% if user_profile.renewal_doc %}
+                                            <p><b>Renewal Documets</b></p>
+                                            {% for doc in user_profile.renewal_doc %}
+                                            <tr>
+                                                <td>
+                                                    {% with  doc.documents.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                
+                                                <td>
+                                                    <button type="button" id="{{ doc.documents.url }}" class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{doc.status|default:'NA'}}
+                                                    </small>&nbsp;
+                                                    {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                        <button type="button" id="{{doc.documents}}" class="btn btn-success" title="Approved"
+                                                        onclick="verify_regulatory_renewal_document(id, 'sebi', 'verified')">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                        {% endif%}
+                                                        {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                        <button type="button" id="{{ doc.documents }}" class="btn btn-danger" title="Rejected"
+                                                        onclick="verify_regulatory_renewal_document(id, 'sebi', 'rejected')">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                    {% endif%}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+    <div id="amfi_docs_list" style="display: none">
+        <div id="example1_wrapper "  class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box adm-box">
+                        <div class="box-header">
+                            <h3 class="box-title">AMFI Advisor Table</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for amfi_profile in amfi_data %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>
+                                            {{ amfi_profile.first_name }}
+                                            {{ amfi_profile.last_name }}
+                                        </td>
+                                        <td>{{amfi_profile.email}}</td>
+                                        <td>{{amfi_profile.mobile}}</td>
+                                        <td>
+                                            {{amfi_profile.reg_no}}
+                                        </td>
+                                        <td>
+                                            <table>
+                                            {% if amfi_profile.doc_url.url %}
+                                            <tr>
+                                                <td>
+                                                    {% with amfi_profile.doc_url.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                           <span title="{{lt}}"> {{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="{{ amfi_profile.doc_url.url }}" class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{ amfi_profile.advisor_regulatory_status|default:'NA' }}
+                                                    </small> &nbsp;
+                                                    {% if amfi_profile.advisor_regulatory_status != 'verified' and amfi_profile.advisor_regulatory_status != 'rejected' %}
+                                                    <button type="button" id="{{ amfi_profile.email }}" class="btn btn-success" title="Approved"
+                                                    onclick="verify_regulatory_document(id, 'amfi')">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                    {% if amfi_profile.advisor_regulatory_status != 'verified' and amfi_profile.advisor_regulatory_status != 'rejected' %}
+                                                    <button type="button" id="{{ amfi_profile.email }}" class="btn btn-danger" title="Rejected"
+                                                    onclick="reject_regulatory_document(id, 'amfi')">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            </table>
+                                            <table>
+                                            {% if amfi_profile.renewal_doc %}
+                                            <p><b>Renewal Documets</b></p>
+                                            {% for doc in amfi_profile.renewal_doc %}
+                                            <tr>
+                                                <td>
+                                                    {% with doc.documents.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="{{ doc.documents.url }}"  class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{ doc.status|default:'NA' }}
+                                                    </small>&nbsp;
+                                                    {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                        <button type="button" id="{{doc.documents}}" class="btn btn-success" title="Approved"
+                                                        onclick="verify_regulatory_renewal_document(id, 'sebi', 'verified')">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                        {% endif%}
+                                                        {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                        <button type="button" id="{{ doc.documents }}" class="btn btn-danger" title="Rejected"
+                                                        onclick="verify_regulatory_renewal_document(id, 'sebi', 'rejected')">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                    {% endif%}
+
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+    <div id="irda_docs_list" style="display: none">
+        <div id="example1_wrapper "  class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box adm-box">
+                        <div class="box-header">
+                            <h3 class="box-title">IRDA Advisor Table</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for irda_profile in irda_data %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>
+                                            {{ irda_profile.first_name }}
+                                            {{ irda_profile.last_name }}
+                                        </td>
+                                        <td>{{irda_profile.email}}</td>
+                                        <td>{{irda_profile.mobile}}</td>
+                                        <td>
+                                            {{irda_profile.reg_no}}
+                                        </td>
+                                        <td>
+                                            <table>
+                                            {% if irda_profile.doc_url.url %}
+                                            <tr>
+                                                <td>
+                                                    {% with irda_profile.doc_url.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="{{ irda_profile.doc_url.url }}" class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{ irda_profile.advisor_regulatory_status|default:'NA' }}
+                                                    </small> &nbsp;
+                                                    {% if irda_profile.advisor_regulatory_status != 'verified' and irda_profile.advisor_regulatory_status != 'rejected' %}
+                                                    <button type="button" id="{{ irda_profile.email }}" class="btn btn-success" title="Approved"
+                                                    onclick="verify_regulatory_document(id, 'irda')">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                    {% if irda_profile.advisor_regulatory_status != 'verified' and irda_profile.advisor_regulatory_status != 'rejected' %}
+                                                    <button type="button" id="{{ irda_profile.email }}" class="btn btn-danger" title="Rejected"
+                                                    onclick="reject_regulatory_document(id, 'irda')">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            </table>
+                                            <table>
+                                                {% if irda_profile.renewal_doc %}
+                                                <p><b>Renewal Documets</b></p>
+                                                {% for doc in irda_profile.renewal_doc %}
+                                                <tr>
+                                                    <td>
+                                                    {% with doc.documents.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" id="{{ doc.documents.url }}"  class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                                        </button>
+                                                        <small class='label pull-center bg-green'>
+                                                            {{ doc.status|default:'NA' }}
+                                                        </small> &nbsp;
+                                                        {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                        <button type="button" id="{{doc.documents}}" class="btn btn-success" title="Approved"
+                                                        onclick="verify_regulatory_renewal_document(id, 'irda', 'verified')">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                        {% endif%}
+                                                        {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                        <button type="button" id="{{ doc.documents }}" class="btn btn-danger" title="Rejected"
+                                                        onclick="verify_regulatory_renewal_document(id, 'irda', 'rejected')">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </button>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+    <div id="others_docs_list" style="display: none">
+        <div id="example1_wrapper "  class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box adm-box">
+                        <div class="box-header">
+                            <h3 class="box-title"> OTHERS Regulatory Table</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <!--<th>Authority Organisation</th>-->
+                                        <th>Registration Data</th>
+                                        <th>Documents </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for reg_others_profile in regulatory_others_data %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>
+                                            {{ reg_others_profile.first_name }}
+                                            {{ reg_others_profile.last_name }}
+                                        </td>
+                                        <td>{{reg_others_profile.email}}</td>
+                                        <td>{{reg_others_profile.mobile}}</td>
+                                        <!--<td>
+                                            {{reg_others_profile.others_authorized_organisation}}
+                                        </td>-->
+                                        <td>
+                                            {{reg_others_profile.reg_no}}
+                                        </td>
+                                        <td>
+                                            <table>
+                                            {% if reg_others_profile.doc_url.url%}
+                                            <tr>
+                                                <td>
+                                                    {% with reg_others_profile.doc_url.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="{{ reg_others_profile.doc_url.url }}" class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{ reg_others_profile.advisor_regulatory_status|default:'NA' }}
+                                                    </small> &nbsp;
+                                                    {% if reg_others_profile.advisor_regulatory_status != 'verified' and reg_others_profile.advisor_regulatory_status != 'rejected' %}
+                                                    <button type="button" id="{{ reg_others_profile.email }}" class="btn btn-success" title="Approved"
+                                                    onclick="verify_regulatory_document(id, 'others')">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                    {% if reg_others_profile.advisor_regulatory_status != 'verified' and reg_others_profile.advisor_regulatory_status != 'rejected' %}
+                                                    <button type="button" id="{{ reg_others_profile.email }}" class="btn btn-danger" title="Rejected"
+                                                    onclick="reject_regulatory_document(id, 'others')">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            </table>
+                                            <table>
+                                            {% if reg_others_profile.renewal_doc %}
+                                            <p><b>Renewal Documets</b></p>
+                                            {% for doc in reg_others_profile.renewal_doc %}
+                                            <tr>
+                                                <td>
+                                                    {% with  doc.documents.url|split_path:'/' as dt %}
+                                                        {% with dt|last as lt %}
+                                                            <span title="{{lt}}">{{ lt|truncatechars:9 }}</span>
+                                                        {% endwith %}
+                                                    {% endwith %}
+                                                </td>
+                                                <td>
+                                                    <button type="button" id="{{ doc.documents.url }}"  class="btn btn-primary" title="Preview" onclick="uploaded_doc_preview(id)">
+                                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                                    </button>
+                                                    <small class='label pull-center bg-green'>
+                                                        {{ doc.status|default:'NA' }}
+                                                    </small> &nbsp;
+                                                    {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                    <button type="button" id="{{doc.documents}}" class="btn btn-success" title="Approved"
+                                                    onclick="verify_regulatory_renewal_document(id, 'others', 'verified')">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                                        <i class="glyphicon glyphicon-ok"></i>
+                                                    </button>
+                                                    {% endif%}
+                                                    {% if doc.status != 'verified' and doc.status != 'rejected' %}
+                                                    <button type="button" id="{{ doc.documents }}" class="btn btn-danger" title="Rejected"
+                                                    onclick="verify_regulatory_renewal_document(id, 'others', 'rejected')">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </button>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <!--<th>Authority Organisation</th>-->
+                                        <th>Registration Data</th>
+                                        <th>Document </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+    <div id="rera_docs_list" style="display: none">
+        <div id="example1_wrapper "  class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box adm-box">
+                        <div class="box-header">
+                            <h3 class="box-title">AMFI Advisor Table</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rear_profile in regulatory_rera_data %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>
+                                            {{ rear_profile.first_name }}
+                                            {{ rear_profile.last_name }}
+                                        </td>
+                                        <td>{{rear_profile.email}}
+                                            <input type="hidden" value="{{rear_profile.email}}" id="rera_user_profile_email">
+                                        </td>
+                                        <td>{{rear_profile.mobile}}</td>
+                                        <td>
+                                            {% if rear_profile.reg_no %}
+                                            <button type="button" id="{{ rear_profile.email }}" class="btn btn-primary" title="Preview" onclick="load_rera_regulatory_data(id)">
+                                                View Rera details
+                                            </button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>User Email</th>
+                                        <th>Mobile</th>
+                                        <th>Registration Data</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="doc_preview_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick="$('.input').val('');">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="ClientModal-title"> Document Preview </h4>
+            </div>
+            <div class="modal-body custome-model-body" id="ClientModal-body">
+                <object id='doc_preview' width="400" height="400" data="">
+                </object>
+            </div>
+            <div class="modal-footer" id="ClientModal-footer">
+                <button type="button" class="btn btn-danger" id="id_save_cancel" data-dismiss="modal" onClick="$('.input').val('');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rera_regulatory_data_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> RERA List</h4>
+            </div>
+            <div class="modal-body custome-model-body" id="body_rera_data">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="rera_preview_doc_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="close_preview_rera_preview_modal()">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"> RERA List</h4>
+            </div>
+            <div class="modal-body custome-model-body" id="body_rera_preview">
+                <object id='rera_doc_preview' width="400" height="400" data="">
+                </object>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" oncli>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var reg_tabs = ['sebi', 'amfi', 'irda', 'others', 'rera'];
+
+    function show_tab_list(regu_type){
+        for(i=0;i<reg_tabs.length;i++){
+            if(regu_type == reg_tabs[i]){
+                $('#'+reg_tabs[i]+'_docs_list').css('display', 'inline');
+            }else{
+                $('#'+reg_tabs[i]+'_docs_list').css('display', 'none');
+            }
+        }
+    }
+
+    function do_tab_active(regu_type){
+        for(i=0;i<reg_tabs.length;i++){
+            if(regu_type == reg_tabs[i]){
+                $('.'+reg_tabs[i]+'-btn').addClass('active');
+            }else{
+                $('.'+reg_tabs[i]+'-btn').removeClass('active');
+            }
+        }
+    }
+
+    function load_regulatory_data(regu_type){
+        show_tab_list(regu_type);
+        do_tab_active(regu_type);
+    }
+
+    function uploaded_doc_preview(id_doc){
+        $('#doc_preview').prop('data', id_doc);
+        $("#doc_preview_popup").modal("show");
+    }
+
+    function verify_regulatory_document(id, regulatory_reg_type){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/verify_uploaded_regulatory_doc/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                adv_email:id, 
+                doc_type:regulatory_reg_type
+            },
+            success:function(response){
+                window.location.reload();
+            }
+        });
+    }
+
+    function verify_regulatory_renewal_document(id, regu_renewal_type, renewal_doc_status){
+        var token = "{{ csrf_token }}";
+        var user_email = $('#user_profile_email').val();
+        if(regu_renewal_type == 'rera'){
+            user_email = $('#rera_user_profile_email').val();
+        }
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/verify_uploaded_regulatory_renewal_doc/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                regulatory_document:id,
+                renewal_doc_type:regu_renewal_type, 
+                renewal_doc_status:renewal_doc_status, 
+                email_id:user_email
+            },
+            success:function(response){
+                window.location.reload();
+            }
+        });
+    }
+
+    function reject_regulatory_document(id, regulatory_reg_type){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/reject_uploaded_regulatory_doc/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                adv_email:id,
+                doc_type:regulatory_reg_type
+            },
+            success:function(response){
+                window.location.reload();
+            }
+        });
+    }
+
+    function load_rera_regulatory_data(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/load_rera_regulatory_list/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                user_email:id, 
+            },
+            success:function(response){
+                $("#rera_regulatory_data_modal").modal('show');
+                $("#body_rera_data").html("");
+                $("#body_rera_data").html(response);
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<style media="screen">
+    .login-modal{
+        width: 85%;
+        margin: auto;
+    }
+    @media (min-width:960px) {
+        .upardz-get-adv-form{
+            padding: 10px 50px;
+        }
+        .upwardz-getadv-modal{
+            width:450px
+        }
+    }
+    .additional_btn {
+        color: #FFF !important;
+        background-color: #e40b7d;
+        padding: 4px 9px;
+    }
+    .help-block{
+        color: red;
+    }
+    .advice-file{
+        background: #2e3192 !important;
+        color: white !important;
+        border: 0;
+        border-radius: 0;
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+        letter-spacing: 1px;
+    }
+    .attach_class{
+        display: inline-block;
+        padding-left: 18px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width:300px;
+        overflow: hidden;
+    }
+    .get-advice-span {
+        font-weight: 600;
+    }
+    .alert-get {
+        text-align:center;
+    }
+    .upwrdz-button-green{
+        background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%);
+        -webkit-background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%);
+        font-size: 16px;
+        padding: 8px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        color: #FFF !important;
+        font-size: 15px;
+        box-shadow: none;
+        letter-spacing: 0px;
+        text-transform: uppercase;
+    }
+    .upwrdz-log-panel .close{
+       position:absolute;
+       top:15px;
+       right:15px;
+       font-weight:600;
+       background:transparent;
+   }
+   .upwrdz-log-panel h3{
+       font-size: 25px;
+       font-weight: 600;
+       color:#000 !important;
+       padding:20px 0px;
+   }
+   .upwrdz-log-panel input,
+   .upwrdz-log-panel textarea{
+       border-radius:5px !important;
+       background:#fff !important;
+       border:1px #ccc solid !important;
+       
+   }
+</style>
+<div class="modal fade upwardz-modal" id="get-advice-modal" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md upwardz-getadv-modal">
+            <div class="modal-content">
+                <div class="upwrdz-log-panel">
+        
+                        <button type="button" id="btn_close" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color text-center" id="send_modal-title">GET ADVICE</h3>
+                        <div class="alert alert-success" role="alert" id="invite_success_text" style="display:none;">
+                            <strong>Success!</strong> Your Request has been sent.
+                        </div>
+
+                <!-- Get advice form HTML Starts-->
+                <div class="modal-body" id="main_div">
+                        <div class="form-group">
+                            <input class="form-control" type="text" autocomplete="off" name="title" id="title" placeholder="Subject" tabindex="1" title="Title">
+                            <span class="help-block" id="error_title1"></span>
+                        </div>
+                        <div class="form-group addclient-numberdiv">
+                            <textarea class="form-control" type="text" autocomplete="off" name="message" id="message" tabindex="5"  title="message" placeholder="Please write a description regarding your current issues or concerns that you would like to receive advice on." cols="50" rows="4"></textarea>
+                            <span class="help-block" id="error_message1"></span>
+                        </div>
+                        <div class="row" id="parent_doc_id">
+                            <form action="#" method="post" id="advice_form" name="advice_form">
+                                <input type="hidden" name="advice_certificate" id="advice_certificate" value="">
+                                <div style="display:none;">
+                                        <input type="text" name="documents_type" id="documents_type" value="GET_ADVICE">
+                                    </div>
+                                    <label id="paper_clip0" class="col-sm-12 col-xs-12 text-center fileinput fileinput-new  pan_clip" data-provides="fileinput" title="upload relevant document if needed">
+                                        <span class="btn upwrdz-button-green">
+                                            Upload
+                                            <input type="file" name="document" id="document" class="hide" accept="image/gif, image/jpeg, image/png, application/pdf" onchange="upload_advice_doc('advice_form');">
+                                        </span>
+                                    </label>
+                                </form>
+                            </div>
+                            <p class="get-advice-span text-center">Please Upload only GIF, JPEG, PNG, PDF files.</p>
+                        <div class="row abotmi-get-adivce-upload" id="uploaded_files" style="padding-bottom:10px;">
+                        </div>
+                        <input type="hidden" name="advisor_id" id="advisor_id" value="{{advisor_id}}"/>
+                        <input type="hidden" name="advisor_name" id="advisor_name" value="{{advisor_name}}"/>
+                        <input type="hidden" name="advisor_email" id="advisor_email" value="{{advisor_email}}"/>
+                        <p class="n-h4">&nbsp;</p>
+                        <div class="text-center">
+                            <button type="button" onclick="add_advice();" class="btn upwrdz-button">SEND</button>
+                        </div>
+                 </div>
+                 <!-- Get advice form HTML Ends -->
+             </div>
+         </div>
+     </div>
+</div>
+<!-- Get Advice Query submit success modal html starts  -->
+<div class="modal fade upwardz-modal" id="success_advice_model" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md upwardz-getadv-modal">
+        <div class="panel upwrdz-log-panel panel-default">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <h3 class="modal-title n-span-blue-color">SUCCESS</h3>
+            </div>
+            <hr class="modal-heading-hr">
+            <div class="panel-body pannel-popup-content" id="email_modal-body">
+                <p class="alert-get">Your query has been submitted successfully.</p>
+                <div class="text-center">
+                    <button type="button" class="btn upwrdz-button" data-dismiss="modal" onclick="return window.location.href='/';">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Get Advice Query submit success modal html ends -->
+<script>
+    var ses_inv_chk_login = "{{inv_chk_login|default:''}}";
+    var social_auth_ses = "{{social_auth_ses|default:''}}";
+</script>
+<script src="{% static 'js/new_js/upload_document.js' %}"></script>
+<script src="{% static 'js/new_js/get_advice.js' %}"></script>
+<script>
+    if (social_auth_ses == "True" && ses_inv_chk_login) {
+        $('#get-advice-modal').find('.close').remove();
+    }
+</script>

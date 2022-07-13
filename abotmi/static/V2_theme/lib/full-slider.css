@@ -1,0 +1,570 @@
+/*!
+ * Start Bootstrap - Full Slider (https://startbootstrap.com/template-overviews/full-slider)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full-slider/blob/master/LICENSE)
+ */
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* custom css for abotmi */
+a {
+  text-decoration: none;
+}
+.btn:focus, .btn-primary.focus, .btn-primary:focus {
+  box-shadow: 0 0 0 0rem rgba(0, 123, 255, 0);
+  border-color: #007bff00;
+}
+/* custom css */
+.abotmi-banner-header {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 35rem;
+  background:url("/static/V2_theme/images/landingpage-lunada-banner.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+@media (min-width: 992px) {
+  .abotmi-banner-header {
+    height: 100vh;
+    padding: 0;
+    /* margin-top: 90px; */
+  }
+}
+@media (max-width: 992px) {
+  .abotmi-banner-header {
+    min-height: 600px !important;
+  }
+}
+
+/* banner css */
+.abotmi-banner .img-fluid{
+  width:100%;
+}
+.abotmi-banner {
+  width: 100%;
+  z-index: 1;
+  margin-top: 100px;
+}
+.abotmi-banner h2{
+  font-size: 30px;
+  color: #fff !important;
+  line-height: 60px;
+  text-transform: uppercase;
+}
+.abotmi-banner h2 b{
+  font-size: 40px !important;
+}
+.abotmi-banner .container {
+  margin-top: 140px;
+}
+.abotmi-advisor-cards{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
+.abotmi-banner-header .star {
+  position: absolute;
+  background: url(https://mtedwards.s3.amazonaws.com/sparkle.png) no-repeat;
+  background-size: contain;
+  overflow: hidden;
+}
+.abotmi-banner-header  .star-1 {
+  top: 78%;
+  width: 60px;
+  left: 46%;
+  height: 43px;
+}
+.abotmi-banner-header  .star-2 {
+  width: 83px;
+  height: 77px;
+  top: 8.5%;
+  left: 60%;
+    
+}
+.abotmi-banner-header  .star-3 {
+  width: 74px;
+  height: 70px;
+  top: 26%;
+  left: 36%;
+}
+.abotmi-banner-header  .star-4 {
+  top: 35.5%;
+  left: 67%;
+  width: 80px;
+  height: 80px;
+}
+
+.abotmi-banner-header  .star-5 {
+  top: 26.5%;
+  left: 44%;
+  width: 85px;
+  height: 85px;
+}
+.abotmi-banner-header  .star-6 {
+  top: 52%;
+  left: 36.5%;
+  width: 105px;
+  height: 90px;
+    
+}
+.abotmi-banner-header  .star-7 {
+  width: 74px;
+  height: 70px;
+  top: 15.5%;
+  left: 49%;
+}
+.abotmi-banner-header  .star-8 {
+  width: 68px;
+  height: 70px;
+  top: 26%;
+  left: 8%;
+}
+
+
+
+.abotmi-banner-header  canvas{ 
+  display: block; 
+  vertical-align: bottom; 
+} 
+/* ---- particles.js container ---- */ 
+.abotmi-banner-header  #particles-js{ 
+  position:absolute; 
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-image: url(""); 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: 50% 50%; 
+} 
+/* ---- stats.js ---- */ 
+.abotmi-banner-header  .count-particles{ 
+  position: absolute; 
+  top: 48px; 
+  left: 0; 
+  width: 80px; 
+  color: #13E8E9; 
+  font-size: .8em; 
+  text-align: left; 
+  text-indent: 4px; 
+  line-height: 14px; 
+  padding-bottom: 2px; 
+  font-family: Helvetica, Arial, sans-serif; 
+  font-weight: bold; 
+} 
+.abotmi-banner-header  .js-count-particles{ font-size: 1.1em; } 
+#stats, .count-particles{ -webkit-user-select: none; 
+  margin-top: 5px; 
+  margin-left: 5px; 
+} 
+.abotmi-banner-header  #stats{ 
+  border-radius: 3px 3px 0 0; 
+  overflow: hidden; 
+} 
+.abotmi-banner-header  .count-particles{ 
+  border-radius: 0 0 3px 3px; 
+}
+
+
+/* banner css end here */
+
+.advisor-below-content-div h3{
+  font-size: 40px !important;
+  color: #2b81df;
+  font-weight: 600;
+}
+
+.about-mockup-bg img{
+  width: 100%;
+}
+  
+
+.abotmi-advisor-section .btn, .abotmi-banner .btn,
+.abotmi-investor-div .btn,
+.abotmi-investor-boxes .btn,
+.abotmi-investor-div .btn:not(:disabled):not(.disabled):active,
+.abotmi-investor-boxes .btn:not(:disabled):not(.disabled):active,
+.abotmi-advisor-section .btn:not(:disabled):not(.disabled):active,
+.abotmi-banner .btn:not(:disabled):not(.disabled):active,
+.advisor-digital-assest-ul .btn,
+.advisor-digital-assest-ul .btn:not(:disabled):not(.disabled):active
+{
+  background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+  -webkit-background: linear-gradient(135deg, #d53d2b 0%, #db6a2e 100%);
+  font-size: 16px;
+  padding: 10px 30px;
+  border-radius: 30px;
+  color: #fff !important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.abotmi-advisor-section{
+  position: relative;
+}
+
+.abotmi-advisor-section-main .advisor-section-div h2{
+  position: relative;
+  text-transform: capitalize;
+  font-weight: 600;
+  line-height: 47px;
+  z-index: 1;
+  text-align: center;
+  margin: 70px 0px;
+  font-size: 36px;
+  color: #2b81df;
+  letter-spacing: 1px;
+}
+.abotmi-advisor-section .advisor-section-div h3{
+  font-size: 36px;
+  padding-top: 20px;
+}
+.abotmi-advisor-section .advisor-section-div p {
+  color:#313131;
+  font-size: 18px;
+}
+.abotmi-advisor-section .advisor-section-div .md-cards img {
+  /* background: #f7f5ff;
+  border-radius: 50%; */
+}
+
+.advisor-section-div .md-cards{
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 30px 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 30px 4px;
+}
+
+/* .abotmi-advisor-section .advisor-section-cards-main{
+  margin-top: -410px;
+} */
+
+
+.advisor-section-div .about-mockup-bg img{
+  width: 100%;
+}
+.abotmi-advisor-section-div{
+  padding: 80px 0 80px;
+}
+.advisor-section-div .right-text-area h4 {
+  color: #2b81df;
+  font-size: 25px;
+}
+.advisor-section-div .right-text-area p {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 25px;
+  color: #5d5a5a;
+}
+
+.abotmi-advisor-section-main .advisor-find-partner h4{
+  color: #d53d2b;
+  font-size: 30px;
+  font-weight: 600;
+}
+.abotmi-advisor-section-main .advisor-find-partner h3 {
+  font-weight: 600;
+  line-height: 40px;
+  margin: 70px 0px;
+  font-size: 36px;
+  color: #2b81df;
+}
+.abotmi-advisor-section-main .advisor-find-partner .connect-advisor h3{
+  color: #d53d2b;
+}
+.abotmi-advisor-section-main .advisor-find-partner .custom-select,
+.abotmi-advisor-section-main .advisor-find-partner .form-control{
+  border-radius: 0px !important;
+  width: 100%;
+  height: calc(2.8rem + 2px) !important;
+  border-color: #181819 !important;
+  background-color: #fff !important;
+}
+.abotmi-advisor-section-main .advisor-find-partner .form-control:focus,
+.abotmi-advisor-section-main .advisor-find-partner .custom-select:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #7d7e7f;
+  outline: 0;
+  box-shadow: 0 0 0 0rem rgba(0, 123, 255, 0);
+}
+/* courosole */
+
+.advisor-section-cards-finacial .carousel-indicators{
+  bottom: -60px;
+}
+.advisor-section-cards-finacial .carousel-indicators li{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(33, 33, 33, 0.64);
+}
+.advisor-section-cards-finacial .carousel-indicators .active{
+  background: rgba(103, 102, 102, 0.58);
+}
+.advisor-section-cards-finacial .carousel-control-prev i,
+.advisor-section-cards-finacial .carousel-control-next i {
+  font-size: 30px;
+  color: #495057;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border: 1px #495057 solid;
+}
+.advisor-section-cards-finacial .carousel-control-prev{
+  width: auto;
+  left: -60px;
+}
+.advisor-section-cards-finacial .carousel-control-next{
+  width: auto;
+  right: -60px;
+}
+
+.abotmi-partner-carousal .carousel-item h2{
+  color: rgb(43, 129, 223);
+  font-size: 22px;
+  font-weight: 600;
+}
+.abotmi-partner-carousal .carousel-item p{
+  color: rgb(43, 129, 223);
+}
+
+.abotmi-partner-carousal .carousel-control-prev{
+  left:0px !important;
+  background: #fff;
+  opacity: 1;
+}
+.abotmi-partner-carousal .carousel-control-next{
+  right: 0px !important;
+  background: #fff;
+  opacity: 1;
+}
+.abotmi-partner-carousal .carousel-item h2 {
+  padding: 0px 50px !important;
+}
+.abotmi-partner-carousal .carousel-img-slide{
+  min-height: 240px;
+}
+.carousel-media-screen-center{
+  position: relative;
+}
+
+.abotmi-advisor-section-div-card .benefits-section-div h2{
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0px;
+  font-size: 36px;
+  color: #2b81df;
+}
+.abotmi-advisor-section-div-card .card {
+  background: #fff;
+  min-height: 650px;
+  margin: 1rem;
+  position: relative;
+  border-width: 6px;
+  border-color: rgb(82, 151, 229);
+  border-style: solid;
+  top: 0px;
+  z-index: 5;
+}
+.abotmi-advisor-section-div-card .card h2{
+  padding-top: 20px;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 35px;
+  color: #2b81df;
+  letter-spacing: 1px;
+}
+/* .abotmi-advisor-section-div-card .card-content p{
+  font-size: 18px !important;
+} */
+
+.inforgrap-image img{
+  margin-top: 23px;
+  /* margin-left: 102px; */
+  width: 29%;
+}
+.abotmi-digital-asset-advisors-main .digital-asset-advisor h2{
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0px;
+  font-size: 30px;
+  color: #2b81df;
+}
+
+.abotmi-benefits-section .advisor-limitless h2{
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0px;
+  font-size: 30px;
+  color: #2b81df;
+}
+
+.abotmi-benefits-section .content-benefits p{
+  width: 100%;
+  clear: both;
+  padding-left: 75px;
+  position: relative;
+  padding-bottom: 25px;
+}
+.abotmi-benefits-section .content-benefits p img{
+  position: absolute;
+  top:0;
+  left: 0px;
+}
+/* slider css */
+
+.landing-carousel-div{
+  bottom: -45px;
+  margin-left: 0;
+  justify-content: left;
+  left: 55px;
+
+}
+.landing-carousel-div li{
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+}
+
+/* new landing page css */
+.sto-tabs-block{
+  padding: 60px 0px 40px;
+}
+.sto-tabs-block:hover{
+  background: #f3f8fc;
+  border-bottom:5px solid #d53d2b;
+  padding-bottom: 35px;
+}
+.sto-tabs-block h3{
+  font-size: 28px;
+  font-weight: 600;
+}
+.abotmi-advisor-section-main .advisor-section-div ul.nav li{
+  width: 33.3%;
+}
+.abotmi-advisor-section-main .advisor-section-div ul.nav li a,
+.abotmi-advisor-section-main .advisor-section-div a{
+  color: #000;
+  text-decoration: none;
+}
+.abotmi-advisor-section-main .advisor-section-div ul.nav li:hover a{
+  background: #f3f8fc;
+  border-bottom: 5px #d53d2b solid;
+  padding-bottom: 3px;
+}
+.abotmi-advisor-section-main .advisor-section-div ul.nav li h3,
+.abotmi-advisor-section-main .advisor-section-div h3,
+.advisor-below-content-facts h3{
+  font-size: 30px;
+  font-weight: 600;
+}
+.abotmi-benefits-section .advisor-below-content-div h3, 
+.abotmi-advisor-section-div h3,
+.advisor-below-content-facts h3 {
+  font-size: 36px !important;
+  color: #2b81df;
+}
+.abotmi-advisor-section-div {
+  padding: 30px 0px !important;
+}
+.abotmi-advisor-section-main .advisor-section-div .card-header{
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 0px solid rgba(0, 0, 0, 0);
+}
+@media (min-width:1440px){
+  .abotmi-tab-advisor{
+    max-width: 85%;
+    width: 85%;
+  }
+}
+@media (min-width: 1100px){
+  .advisor-section-cards-finacial {
+      width: 90% !important;
+      margin: auto;
+  }
+}
+
+.abotmi-tab-advisor-main h2{
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0px;
+  font-size: 30px;
+  color: #2b81df;
+} 
+.abotmi-advisor-section .transform-advisor h2{
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0px;
+  font-size: 30px;
+  color: #2b81df;
+}
+
+.protect-wealth h3{
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0px;
+  font-size: 30px;
+  color: #d53d2b;
+}
+.number-one-investor{
+  width:250px !important;
+}
+/* new css */
+
+.abt-hwtra-adv a{
+  color: #484646 !important;
+  text-decoration: underline !important;
+  font-size:18px; 
+}
+.abt-hwtra-sub{
+  border-left: 1px #000 dashed;
+}
+.build-relative img{
+  position: absolute;
+  top: -2px;
+  left: -55px;
+}
+.transf-advi{
+  position: relative;
+  top: -10px;
+}
+.abotmi-carousel-inner-bullets .carousel-item{
+  min-height: 320px !important;
+}
+@media (max-width: 850px){
+  .advisor-section-div .abt-hwtra-adv,
+  .advisor-section-div .abt-hwtra-advisors{
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin: auto;
+  }
+  .advisor-section-div .abt-hwtra-advisors{
+    text-align: center;
+  }
+}
+@media (max-width: 575px){
+  .abt-hwtra-sub, .howitwork-advisors-left{
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 767px){
+  .advisor-business-section .about-content, 
+  .advisor-business-section h4{
+    text-align: center !important;
+  }
+}
+
+#learnMore,
+#buildMore,
+#earnMore{
+  cursor: pointer;
+}

@@ -1,0 +1,165 @@
+{% extends 'index_base_bkp.html' %}
+{% load staticfiles %}
+{% block base_css %}
+	{{ block.super }}
+{% endblock %}
+{% block theme_css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+    <style type="text/css">
+        .intl-tel-input{
+            width: 100%;
+        }
+        .help-block{
+            color: red;
+        }
+    </style>
+{% endblock %}
+{% block custom_theme_css %}
+<!-- Custom CSS -->
+	<link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+	<link rel="stylesheet" href="{% static 'advisor_check/css/advisor_card.css' %}">
+	<link rel="stylesheet" href="{% static 'advisor_check/css/advisor_check.css' %}">
+	<link rel="stylesheet" href="{% static 'advisor_check/css/responsive.css' %}">
+{% endblock %}
+{% block base_scripts %}
+	{{ block.super }}
+{% endblock %}
+{% block top_header %}
+	{% include 'header2.html' %}
+		<section class="advi_search_bar parent-section">
+			<div class="container">
+				<div class="row filter-form filter-form-advisor-search">
+					<form action="/advisor_check/search/" method="POST" id="id_advisor_firm_form">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+							</div>
+							<div class="col-md-10">
+								<div class="row">
+									<div class="col-md-12">
+										<h4 class="search-caption text-center alert-link">Search Advisor</h4>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 col-sm-6 form-group">
+										<label class="search_label">Country *</label>
+										<select class="form-control" name="country" id="id_country">
+											<option value="">Select</option>
+											{% for ctr in country %}
+												<option value='{{ctr.code}}'>{{ctr.name}}</option>
+											{% endfor %}
+										</select>
+										<span class="help-block" id="help_id_country"></span>
+									</div>
+									<div class="col-md-6 col-sm-6 form-group">
+										<label class="search_label">City *</label>
+										<input type="text" placeholder="" class="form-control" id="id_location" name="city" min-length="3" value="{{city}}">
+										<span class="help-block" id="help_id_location"></span>
+									</div>
+									<div class="col-md-6 col-sm-6 form-group">
+										<label class="search_label">Advisor Name</label>
+										<input type="text" placeholder="" class="form-control" id="id_name" name="name" min-length='3' value="{{name}}">
+										<span class="help-block" id="help_id_name"></span>
+									</div>
+									<div class="col-md-6 col-sm-6 form-group filtterby-advisor">
+										<label class="search_label">Mobile Number</label>
+										<input type="text" placeholder="" class="form-control" id="id_mobile" name="mobile" is-mobile="true" value="{{mobile|default:''}}">
+										<span class="help-block" id="help_id_mobile"></span>
+									</div>
+									{% comment %} <div class="col-md-3 col-sm-6 pd-lr10 form-group">
+										<input type="email" placeholder="Email" class="form-control search_input" id="id_email" name="email" is-email='true' value="{{email}}">
+										<span class="help-block" id="help_id_email"></span>
+									</div> {% endcomment %}
+									
+									{% comment %} <div class="col-md-3 col-sm-6 pd-lr10 form-group firm_name_div">
+										<input type="text" placeholder="Firm Name" class="form-control search_input" name="firm_name" id="id_firm" min-length="3" value="{{firm_name}}">
+										<span class="help-block" id="help_id_firm"></span>
+									</div> {% endcomment %}
+									{% comment %} <div class="col-md-3 col-sm-6 pd-lr10 form-group">
+										<select class="form-control search_input" name="category" id="id_category">
+											<option value="">Select</option>
+											<option value="AMFI">AMFI</option>
+											<option value="BSE">BSE</option>
+											<option value="CA">CA</option>
+											<option value="IRDA">IRDA</option>
+											<option value="SEBI">SEBI</option>
+											<option value="US">USA</option>
+											<option value="SG">Singapore</option>
+											<option value="MY">Malaysia</option>
+											<option value="UPWRDZ">ABOTMI</option>
+										</select>
+										<span class="help-block" id="help_id_category"></span>
+									</div> {% endcomment %}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 text-center">
+								<span class="help-block" id="id_validation_msg" style="color:red;"></span>
+								<button type="button" name="search_button" class="btn upwrdz-button">Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+{% block main_content %}
+{% endblock %}
+{% block footer_base %}
+	{{ block.super }}
+{% endblock %}
+{% block copy_rights %}
+	{{ block.super }}
+{% endblock %}
+{% block bootstrap-modal %}
+	{{ block.super }}
+	<div id="advisor_check_modal_div"></div>
+{% endblock %}
+{% block theme_scripts %}
+	<script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+	<script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+	<script>
+		var mobile_number = "{{mobile}}";
+	</script>
+	<script src="{% static 'js/new_js/base.js' %}"></script>
+	<script src="{% static 'advisor_check/js/advisor_check.js' %}" charset="utf-8"></script>
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript">
+		$("#id_country").val('{{ad_chk_country|default:""}}');
+		function validate_form(form_name) {
+			if(form_name == 'id_advisor_individual_form'){
+				if ($.trim($("#id_individual").val()) == ''){
+					$("#id_help_individual").html('Please Enter Name or Email or Mobile Number');
+				}else if ($.trim($("#id_individual").val().length) < 3){
+					$("#id_help_individual").html('Please enter minimum 3 characters');
+				}else{
+					$("#id_help_individual").html('');
+					$("#"+form_name).submit();
+				}
+			}else{
+				if ($.trim($("#id_advisor_firm_name").val()) == ''){
+					$("#id_help_firm_name").html('Please Enter Name');
+				}else{
+					$("#id_help_firm_name").html('');
+					$("#"+form_name).submit();
+				}
+			}
+		}
+	</script>
+	{% if individual_tab %}
+		<script type="text/javascript">
+			$("#individual_active").click(function(){
+				document.getElementById("id_advisor_individual_form").reset();
+				document.getElementById("id_advisor_firm_form").reset();
+			});
+		</script>
+	{% else %}
+		<script type="text/javascript">
+			$("#firm_active").click();
+		</script>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li class="active">
+        <a href="{% static '/nfadmin/' %}">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/advisor_list/">
+            <i class="fa fa-user text-pink"></i>
+            <span>Users</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/crisil_advisor_list/">
+            <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+            <span>CRISIL Advisors</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/affiliated_companies/">
+           <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companies</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/add_client_list/">
+            <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+            <span>Clients</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/company_spoc/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Company Spoc</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_request/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Request</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/regulatory_registration_data_uploaded_url/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Regulatory Authentication</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/educational_authentication/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Educational Authentication</span>
+      </a>
+    </li>
+     <li>
+      <a href="/nfadmin/publish_newsletter/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Publish Newsletter</span>
+      </a>
+    </li>
+    </li>
+     <li>
+      <a href="/nfadmin/publish_testimonial/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Publish Testimonial</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+    <!-- Content Header (Page header) -->
+    {% block content-header %}
+    <section class="content-header">
+        <h1> Admin Dashboard <small>{{user.profile.first_name}}</small> </h1>
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>
+                <a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a>
+            </li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    {% endblock %}
+
+    <!-- Main content -->
+    {% block main-content %}
+    <section class="content" id="main-content">
+        <!-- Info boxes -->
+        <div class="row">
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-blue">
+                        <i class="fa fa-facebook"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Facebook Signup</span>
+                        <span class="info-box-number">{{facebook_signup}}</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red">
+                        <i class="fa fa-google-plus"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Google Signup</span>
+                        <span class="info-box-number">{{google_signup}}</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block">small block</div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua">
+                        <i class="fa fa-linkedin"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Linkedin Signup</span>
+                        <span class="info-box-number">
+                            {{linkedin_signup}}
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow">
+                        <i class="fa fa-users"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Registered Advisors</span>
+                        <span class="info-box-number">
+                            {{total_registered_advisors}}
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow">
+                        <i class="fa fa-users"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Certified Advisors</span>
+                        <span class="info-box-number">
+                            {{total_certified_advisors}}
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+        </div>
+    </section><!-- /.content -->
+{% endblock %}
+<!-- =================================================================== -->

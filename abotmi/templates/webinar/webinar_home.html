@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block custom_theme_css %}
+<link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+<link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+{% endblock %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block main_content %}
+<section class="subpage-reia-primary parent-section" id="about">
+    <div class="container">
+        <div clas="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="{% url 'webinar:list_all_webinar' %}" class="btn upwrdz-button">My Webinars </a>
+                <a href="{% url 'webinar:create_webinar' %}" class="btn upwrdz-button">Create Webinar</a>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="webinar-dashboard container">
+                    {% for objects in list_of_webinars %}
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label> Room ID: </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            {{objects.id}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label> Room name: </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            {{objects.name}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label> Room URL: </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            {{objects.room_url}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label> Room PIN: </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            {{objects.room_pin}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label> Room type: </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            {{objects.room_type}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label> Access type: </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            {% if objects.access_type == 1 %}
+                                Open to all.
+                            {% endif %}
+                            {% if objects.access_type == 2 %}
+                                Need Password : {{ objects.password }}
+                            {% endif %}
+                            {% if objects.access_type == 3 %}
+                                Valid for Access token only
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <br>
+                            <label> Click to launch </label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <script type="text/javascript"
+                            src="https://embed.clickmeeting.com/widgets_embed.html?r={{objects.widgets_hash}}&param_project=account_panel&template=standard">
+                            </script>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <br>
+                            <label>Click to launch</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <a href="{{objects.room_url}}?l={{objects.autologin_hashes.host}}" target="_blank" class="btn btn-success">Click to launch</a>
+                        </div>
+                    </div>
+                    <br><br><br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+{% block theme_scripts %}
+{% endblock %}

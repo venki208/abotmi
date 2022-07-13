@@ -1,0 +1,37 @@
+{% if advisor_chk_enrolled_count %}
+    {% for advisor_data in advisor_chk_enrolled_count reversed %}
+        <button class="btn btn-xl js-scroll-trigger up-first-one" id="1_btn">{{advisor_data}}</button>
+    {% endfor %}
+{% else %}
+    <button class="btn btn-xl js-scroll-trigger up-first-one" id="1_btn">00</button>
+{% endif %}
+<!-- Commented for the new design -->
+<!-- <select name="country_type" id="id_country_type">
+    <option value="IN">India</option>
+    <option value="US">USA</option>
+    <option value="SG">Singapore</option>
+    <option value="MY">Malaysia</option>
+</select> -->
+<script>
+    var ip_region = "{{ ip_region}}";
+    $("#id_country_type").val(ip_region);
+
+    $("[name='country_type']").on('change', function(e) {
+        var selected_country = $("[name='country_type']").val(); 
+        $.ajax({
+            method: 'POST',
+            url: '/login/get_enrolled_advisors/',
+            beforeSend: setHeader,
+            data: {
+                country_name: selected_country,
+            },
+            success: function (response) {
+                $("#id_enrolled_count_div").html(response);
+                $("[name='country_type']").val(selected_country);
+            },
+            error: function (response) {
+                alert('Unable to Process your request. \n Please try again after some time');
+            }
+        });
+    });
+</script>

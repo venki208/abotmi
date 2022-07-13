@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet prefetch" href="/static/css/new-creative.css">
+  </head>
+    <body onload="go_to_login();">
+        <center class="aadhaar-registration-success">
+            <h3>Please Wait ...\/\/\</h3>
+            <h4>Do not do any refresh or don't press back button</h4>
+            <h4>Aadhaar verification has successfully completed.</h4>
+        </center>
+    </body>
+</html>
+<script type="text/javascript">
+    function go_to_login(){
+        window.location.href = "{% url 'signup:register_advisor' %}";
+    }
+</script>

@@ -1,0 +1,61 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+              <upwrdz-Tabs></upwrdz-Tabs>
+            	<ion-content class="m-upwrdz-editpage-content">
+                  <div overflow-scroll="true">
+                    <div class="editpage-title-bar">
+                        <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ui-sref="app.myhub">
+                        Request to Shoot Video {{edit.userdetails.param}}
+          					</div>
+        						<form name="videorequestform" novalidate ng-submit="videorequestform.$valid && myhub.advisor_video_request();">
+        							<div class="list list-inset first-inset black-border">
+        								<label class="item item-input ">
+        									<input type="text" placeholder="Title" ng-model="myhub.video_title" name="video_title" ng-touched required/>
+        								</label>
+                        <span class="validationerrors" ng-if="videorequestform.video_title.$error.required && videorequestform.video_title.$touched"> Title is required</span>
+        							</div>
+
+        							<div class="list list-inset first-inset black-border">
+        								<label class="item item-input ">
+        									<input type="text" placeholder="Description" ng-model="myhub.video_description" name="video_description" ng-touched required/>
+        								</label>
+                        <span class="validationerrors" ng-if="videorequestform.video_description.$error.required && videorequestform.video_description.$touched"> Description is required</span>
+        							</div>
+
+        							<div class="list list-inset first-inset black-border">
+        								<label class="item item-input">
+        									<input type="text" placeholder="Location" ng-model="myhub.location" name="location" ng-pattern="/^[a-zA-Z ]*$/" ng-touched required/>
+        								</label>
+                        <span class="validationerrors" ng-if="videorequestform.location.$error.required && videorequestform.location.$touched"> Location is required</span>
+                        <span class="validationerrors" ng-if="videorequestform.location.$error.pattern">Enter valid location </span>
+        							</div>
+                      <div class="list list-inset first-inset black-border">
+                          <div class="item" ion-datetime-picker ng-model="myhub.preffered_date_of_shoot" only-valid="{'after': 'today', 'inclusive': true}">
+                            <input ng-disabled="true" ng-class="{removetag : myhub.preffered_date_of_shoot}" name="video_shoot_request"
+                              placeholder="Select date for video shoot" class="no-border" min="{{myhub.now.getTime()}}" ng-required="true"/>
+                              {{myhub.preffered_date_of_shoot | date: "yyyy-MM-dd HH:mm"}}
+                          </div>
+                          <span class="validationerrors" ng-if="videorequestform.video_shoot_request.$error.required && videorequestform.video_shoot_request.$touched"> Location is required</span>
+                          <div ng-required="true" name="time_more" ng-touched ng-if="myhub.preffered_date_of_shoot.getTime() <= myhub.now.getTime()">
+                              <span class="validationerrors"> Please enter the valid date/time </span>
+                          </div>
+                      </div>
+                      <ion-item>
+                        <ion-checkbox color="dark" checked="on" ng-model="myhub.animation_required" ng-checked="myhub.animation_required">Animation required</ion-checkbox>
+                      </ion-item>
+                      <br/>
+                      <div class="row end-button">
+                        <div class="col col-50">
+        								    <button class="full-button microlearning-subbtn" ng-disabled="!myhub.preffered_date_of_shoot || (myhub.preffered_date_of_shoot.getTime() < myhub.now.getTime()) || videorequestform.$invalid">Submit</button>
+                        </div>
+                        <div class="col col-50">
+        								    <button class="full-button" ui-sref="app.myhub">Cancel</button>
+                        </div>
+        							</div>
+        						</form>
+                 </div>
+              </ion-content>
+		    </ion-side-menu-content>
+	   </ion-side-menus>
+</ion-view>

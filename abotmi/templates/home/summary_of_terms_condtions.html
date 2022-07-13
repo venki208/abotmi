@@ -1,0 +1,78 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+{% endblock %}
+{% block main_content %}
+<header class="abotmi-abotu-whyus-section" style="min-height: 10rem;">
+    <div class="container">
+        <div class="row abotmi-inner-banner align-items-center mt-5 pt-5">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-3">
+                <h3>Summary of Changes to the Abotmi User Agreement</h3>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="subpage-reia-primary parent-section subpage-reia-primary-div" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        This summary is intended to help you better understand the User Agreement changes and how they may impact you.
+                    </p>
+                    <p>
+                        You will be bound by the User Agreement when you view, access, or otherwise use the products and services covered by the User Agreement.
+                    </p>
+                    <p>
+                        To fully understand the changes and terms that will govern your use of our “Services,” you will need to read the full User Agreement and carefully review any additional terms that are presented to you during your use of our Services, such as payment terms if you choose to purchase one of our premium services.
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <h4 class="n-h4"><b>Section 1 — Introduction</b></h4>
+                    <ul>
+                        <li>Change - We have clarified that when Abotmi makes changes to the Agreement, the changes will not be retroactive. We also repeat here that if you do not like changes we make, you can terminate the User Agreement and must stop using the Services.</li>
+                        <li>Digital Asset Advisors - We clarified that registered users of our Abotmi  branded services are also considered “Digital Asset Advisors, Investors,  or Issuers” under this Agreement.</li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <h4 class="n-h4"><b>Section 2 — Obligations</b></h4>
+                    <ul>
+                        <li> Section 2.1 - We have moved the statement that you should not create an account using any false information or on behalf of others, including persons under the age of 16, into this Section.</li>
+                        <li>Section 2.4 - We clarify that service messages (and not just notices) can be sent to you either in product or through a message sent to contact information that we have for you. Our settings provide you choices about how we can contact you.</li>
+                        <li>Section 2.5 - We clarify that content that is shared by you through our Services, may be found off our Services. For example, previews or excerpts of content can be found in search engines of others. You can control how your content (or an excerpt) is shared by us off of our Services.</li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <h4 class="n-h4"><b>Section 3 — Rights and Limits</b></h4>
+                    <ul>
+                        <li>Section 3.1 - Where we had previously referred to a license to “use and share” the content and information you share through our Services, we have added a reference to “process.”</li>
+                        <li>Section 3.1.2 - When you take a social action (e.g., like, share or follow) we associate you with the content, companies or people that you took that social action on. If your settings allow for it, we will associate you and your social action with ads for others.</li>
+                        <li>Section 3.1.3 - When you choose to make your post a “public” or “public +” post (e.g., “public + twitter”), other Digital Asset Advisors, Investors, and Issuers may use our “embed” feature to share that “public” post onto others’ services.</li>
+                        <li>Section 3.4 (and more) - Our Professional Community Guidelines have been renamed “Professional Community Policies” to make it clearer that it is a collection of rules that apply to the use of our Services and that we seek to enforce them.</li>
+                        <li>Section 3.6 - A new section has been added to the User Agreement to better clarify how we use information and data we have about you to make recommendations to you and others, including to suggest jobs for you and to suggest you to recruiters.</li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <h4 class="n-h4"><b>Section 6 — Governing Law and Dispute Resolution</b></h4>
+                    <ul>
+                        <li><b>Governing Law -</b> We have changed the law governing this contract for some of our Digital Asset Advisors and Digital Asset Investors. If you live in the US or a “Designated Country” (i.e., European Union (EU), European Economic Area (EEA) and Switzerland as of the date of publishing this summary), the governing law is not changing. For all others, the governing law will be California law.</li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <h4 class="n-h4"><b>Section 8 — “Dos and Don’ts”</b></h4>
+                    <ul>
+                        <li>We have shortened Section 8 by consolidating some existing “Don’ts” and moving others that used to be in this Section into our newly renamed “Professional Community Policies” (formerly Professional Community Guidelines). Both the terms of the “Dos and Don’ts” and the Professional Community Policies continue to be part of this contract.</li>
+                        <li>Our Professional Community Policies have also been updated to reflect the addition of some of the “Dos and Don’ts” that were removed from this Section 8 and to provide better clarity on what is okay or not okay in our professional community. So even though certain explicit references have been moved from the User Agreement into our Professional Community Policies, it is still not okay to do illegal, harmful, hateful or terrorist activity on our Services and it is still not acceptable to harass, shock, threaten or defame others, or to post or share content that is not truthful.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

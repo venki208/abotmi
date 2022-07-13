@@ -1,0 +1,18 @@
+{
+    "nfdb_ENGINE": "django.contrib.gis.db.backends.mysql",
+    "nfdb_NAME": "abotmi_db",
+    "nfdb_USER": "nfadmin",
+    "nfdb_PASSWORD": "nfadmin@123#",
+    "nfdb_HOST": "localhost",
+    "nfdb_PORT": "3306",
+    "advisor_chk_ENGINE": "django.contrib.gis.db.backends.mysql",
+    "advisor_chk_NAME": "advisor_db",
+    "advisor_chk_USER": "advisoradmin",
+    "advisor_chk_PASSWORD": "advisoradmin@123#",
+    "advisor_chk_HOST": "localhost",
+    "advisor_chk_PORT": "3306",
+    "mongo_db": "abotmi_db",
+    "mongo_username": "abotmiadmin",
+    "mongo_password": "abotmiadmin@123#",
+    "mongo_host": "localhost"
+}

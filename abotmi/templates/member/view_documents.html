@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<div class="modal" tabindex="-1" role="dialog" id="view_document_model" name="view_document_model">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">VIEW DOCUMENTS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-success" role="alert" id="download_text" style="display:none;">
+                            <strong>Success!</strong> Download completed.
+                        </div>
+                        <div class="col-12" id="view_document_model_body">
+                            {% if document_list %}
+                                {% for obj in document_list %}
+                                    <a style="color: #0056b3 !important; text-decoration: underline;" data-toggle="tooltip" title="Click to download" onclick="window.open('{{obj.documents.url}}')">{{obj.documents_type}}{{ forloop.counter }}</a>
+                                {% endfor %}
+                            {% else %}
+                                <p class="get-side-advice text-center">There are no documents attached.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function closes(adv_doc){
+        if(adv_doc){
+            $('#view_document_model').modal('hide');
+        }
+        else{
+            $('#view_document_model').modal('hide');
+            $('#view_advices_modal').modal('show');
+        }
+    }
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>

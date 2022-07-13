@@ -1,0 +1,115 @@
+{% load staticfiles %}
+<table class="table table-bordered table-striped dataTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Qualification</th>
+            <th>University </th>
+            <th>Year of passout</th>
+            <th>Certificate</th>
+            <th>Status</th>
+            <th>Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for edu in add_edu_qua_list %}
+        <tr>
+            <td> {{forloop.counter}} </td>
+            <td> {{edu.additional_qualification}} </td>
+            <td> {{edu.university}} </td>
+            <td> {{edu.year_passout}}  </td>
+            <td> 
+                <button type="button" id="{{ edu.edu_qua_certificate }}" class="btn btn-primary" title="Preview" onclick="view_additional_edu_qua_doc(id)">
+                    View
+                </button>
+            </td>
+            <td align="center">
+                <small class='label pull-center bg-green'>
+                    {{ edu.doc_status|default:'NA' }}
+                </small>
+            </td>
+            <td>
+                {% if not edu.doc_status %}
+                <button type="button" id="{{ edu.edu_qua_certificate }}" class="btn btn-success" title="Approved" onclick="verify_additional_qualification_doc(id, 'verified')">
+                    <i class="glyphicon glyphicon-ok"></i>
+                </button>
+                {% else %}
+                <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                    <i class="glyphicon glyphicon-ok"></i>
+                </button>
+                {% endif %}
+                {% if not edu.doc_status %}
+                <button type="button" id="{{ edu.edu_qua_certificate }}" class="btn btn-danger" title="Rejected"
+                onclick="verify_additional_qualification_doc(id, 'rejected')">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+                {% else %}
+                    <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+                {% endif%}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Qualification</th>
+            <th>University </th>
+            <th>Year of passout</th>
+            <th>Certificate</th>
+            <th>Status</th>
+            <th>Manage</th>
+        </tr>
+    </tfoot>
+</table>
+<input type="hidden" value="{{email_user}}" id="hidden_user_email"> 
+
+<script>
+    function view_additional_edu_qua_doc(doc_name ){
+        var token_val = "{{csrf_token}}";
+        var edu_qua_user_email = $('#hidden_user_email').val()
+        $.ajax({
+            method:"POST",
+            url:"/nfadmin/get_additional_qual_doc_url/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                doc_name:doc_name, 
+                edu_qua_user_email: edu_qua_user_email
+            },
+            success:function(response){
+                $("#additional_educational_modal").modal('hide');
+                $("#additional_qualification_preview_modal").modal('show');
+                if(response){
+                    $('#addi_doc_preview').prop('data', response);
+                }
+            }
+        });        
+    }
+
+    function verify_additional_qualification_doc(id, doc_status){
+        var token_val = "{{csrf_token}}";
+        var email_user = "{{email_user}}";
+        $.ajax({
+            method:"POST",
+            url:"/nfadmin/verify_additional_qua_document/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                add_doc_name:id, 
+                doc_status :doc_status,
+                email_id: email_user
+            },
+            success:function(response){
+                if(response=='false'){
+                    alert("Please approve the highest educational qualification first. ")
+                }
+                window.location.reload();
+            }
+        });
+    }
+</script>  

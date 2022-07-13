@@ -1,0 +1,147 @@
+{% extends 'blog/icore_main.html' %}
+{% load staticfiles %}
+{% block icore_enteries_all %}
+    {% if icore %}
+    	{% for data in icore %}
+    		<div class="row">
+                <div class="blog-over-img">
+                    {% if data.featured_image.guid %}
+                        <a href="/blog/icore/{{data.ID}}/post/">
+            				<img src="{{data.featured_image.guid}}" alt="{{ data.slug }}" class="img-responsive">
+                        </a>
+        			{% else %}
+        				<a href="/blog/icore/{{data.ID}}/post/">
+        					<img src="{% static 'images/blog2.png' %}" class="img-responsive" alt="">
+        				</a>
+            		{% endif %}
+                </div>
+                <h3>
+                    <a href="/blog/icore/{{data.ID}}/post/">{{data.title}}</a>
+                </h3>
+                <p><i class="fa fa-clock-o"></i> Posted on:{{ data.date }}</p>
+                <p>{{ data.content | striptags |truncatechars:200}}</p>
+                <div class="blogs-links">
+                    <ul>
+                        <li>
+                            <a href="/blog/icore/author_posts/?author={{ data.author.ID }}">
+                                <small>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </small>
+                                <span>Author: {{data.author.name}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <small>
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                            </small>
+                            {% if icore_comment %}
+                                <span>{{icore_comment.count}}</span>
+                            {% else %}
+                                No Comments
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span>Category : {% for cat  in data.terms.category %}
+                                <a href="/blog/icore/category_posts/?cat={{ cat.name }}">{{ cat.name }}</a>,
+                                {% endfor %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <a href="/blog/icore/{{data.ID}}/post/" class="btn blog-btn" style="padding: 6px 10px;">
+                    Read More <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                </a>
+                <hr>
+            </div>
+    	{% endfor %}
+    {% else %}
+        <p>No posts.</p>
+    {% endif %}
+{% endblock %}
+{% block icore_recent_posts %}
+    {% if icore_all %}
+        {% for data in icore_all|slice:":4" %}
+            <div class="col-sm-12">
+                <div class="media">
+                    {% if data.featured_image.guid %}
+                        <a class="pull-left" href="/blog/icore/{{data.ID}}/post/">
+                            <img class="media-object" src="{{data.featured_image.guid}}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% else %}
+                        <a class="pull-left" href="/blog/icore/{{data.ID}}/post/">
+                            <img class="media-object" src="{% static 'images/blog2.png' %}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading mhT"><a href="/blog/icore/{{data.ID}}/post/">{{data.title}}</a><br>
+                            <small>{{data.date}}</small>
+                        </h4>
+                        <p><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{data.author.name}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No recent post are found.</p>
+    {% endif %}
+{% endblock %}
+{% block top_posts %}
+    {% if count %}
+        {% for post in count reversed %}
+            <div class="col-sm-12">
+                <div class="media">
+                    {% if post.author.avatar %}
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{{post.author.avatar}}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% else %}
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{% static 'images/blog2.png' %}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading mhT"><a href="/blog/icore/{{post.ID}}/post/">{{post.title}}</a><br>
+                            <small>{{post.date}}</small>
+                        </h4>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{post.author.name}}
+                        <p style="margin-bottom:10px;"><i class="fa fa-facebook-square" aria-hidden="true"> {{ post.facebook_count }}</i>
+                            <i class="fa fa-google-plus-square" aria-hidden="true"> {{ post.google_count }}</i>
+                            <i class="fa fa-linkedin-square" aria-hidden="true"> {{ post.linkedin_count }}</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12">
+            <p>No top ranked blog are found.</p>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block top_authors %}
+    {% if count %}
+        {% for post in count %}
+            <div class="col-sm-12">
+                <div class="media">
+                    {% if post.author.avatar %}
+                        <a class="pull-left" href="/blog/icore/author_posts/?author={{ post.author.ID }}">
+                            <img class="media-object" src="{{post.author.avatar}}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% else %}
+                        <a class="pull-left" href="/blog/icore/author_posts/?author={{ post.author.ID }}">
+                            <img class="media-object" src="{% static 'images/blog2.png' %}" alt="" style="width:64px; height:64px;" />
+                        </a>
+                    {% endif %}
+                    <div class="media-body">
+                        <h4 class="media-heading mhT"><a href="/blog/icore/author_posts/?author={{ post.author.ID }}">{{ post.author.name }}</a><br>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12">
+            <p>No top ranked Authors are found.</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,74 @@
+<ion-view>
+  <ion-side-menus>
+    <ion-side-menu-content>
+        <upwrdz-Tabs></upwrdz-Tabs>
+        <ion-content class="m-upwrdz-editpage-content">
+          <div class="editpage-title-bar" ui-sref="app.myhub">
+            <img src="../www/img/back_arrow_25px.png" class="back-btn" >
+            WEBINAR
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="full-button" ui-sref="app.myhub.webinar">CREATE WEBINAR</button>
+            </div>
+          </div>
+          <div class="row">
+                <div class="col">
+                  <div ng-if="webinarview.details_data == false || webinarview.details.length == 0">
+                    <h4 style="text-align:center;">No data available</h4>
+                  </div>
+                  <div ng-if="webinarview.details_data == true && webinarview.details.length">
+                  <h2 style="font-size: 18px;">List Of Upcoming Events</h2>
+                  <ul id="accordion" class="accordion accordion-video-div">
+                    <li>
+                      <div ng-repeat="data in webinarview.details">
+                        <div class="row accordion-toggle micro_learning_video_frame_div" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear">
+                          <h5>{{data.room_name}} <i class="fa fa-chevron-down pull-right"></i></h5>
+                        </div>
+                        <div class="row accordion-content default accordion-content-blog">
+                          <p class="row">
+                            <span class="col col-25">Room Id</span>
+                            <span class="col col-75">{{data.room_id}}</span>
+                          </p>
+                          <p class="row">
+                            <span class="col col-25">Room Name</span>
+                            <span class="col col-75">{{data.room_name}}</span>
+                          </p>
+                          <!-- <p class="row">
+                            <span class="col col-25">Room Url</span>
+                            <span class="col col-75">{{data.room_url}}</span>
+                          </p> -->
+                          <!-- commented for future purpose
+                             <p class="row">
+                            <span class="col col-25">Room Pin</span>
+                            <span class="col col-75">{{data.room_pin}}</span>
+                          </p> -->
+                          <!-- <p class="row">
+                            <span class="col col-25">Password</span>
+                            <span class="col col-75">{{data.password}}</span>
+                          </p> -->
+                          <p class="row">
+                            <span class="col col-25">Date and Time</span>
+                            <span class="col col-75">{{data.starts_at}}</span>
+                          </p>
+                          <!-- <p class="row">
+                            <span class="col col-25">Uplyf Project</span>
+                            <span class="col col-75">{{data.uplyf_project}}</span>
+                          </p> -->
+                          <p class="row">
+                            <button class="full-button btn pink-btn-primary pink-btn-primary-view"><a href=""   ng-click="webinarview.toast_message();" >Go</a></button>
+                            &nbsp; &nbsp; <button class="full-button btn pink-btn-primary pink-btn-primary-view"><a ng-click="webinarview.delete_webinar_event('{{data.room_id}}');" >Delete</a></button> &nbsp; &nbsp;
+                            <button class="full-button btn pink-btn-primary pink-btn-primary-view"><a  ui-sref="app.myhub.list_register_webinar({room_id: data.room_id})" >Register</a></button>
+                          </p>
+                        </div>
+                      </div>
+                      <h4 ng-if="!(webinarview.details.length)">No data available</h4>                  
+                    </li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+          </ion-content>
+      </ion-side-menu-content>
+    </ion-side-menus>
+  </ion-view>

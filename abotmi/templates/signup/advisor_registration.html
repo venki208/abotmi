@@ -1,0 +1,260 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block lib_css %}
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+{% endblock %}
+{% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/new_css/radio_button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/responsive.css' %}">
+    <style>
+        .ui-datepicker{
+            z-index: 12 !important;
+        }
+        .minus-additional-btn{
+            background-color: #e40b7d00 !important;
+            border: 0px !important;
+            box-shadow: 0px 0px 0px;
+            padding-top: 0px !important;
+        }
+        .btn-minus{
+            margin-right: 3px;
+        }
+    </style>
+{% endblock %}
+{% block main_content %}
+    <section class="advisor-form parent-section-one">
+            <div class="container">
+                <div class="row">
+                    <h2 class="title-block w-100">Advisor Registration Form</h2>
+                </div>
+                <div class="col-md-12 upwrdz-steps-advisor">
+                    {% include 'common/ekyc-steps.html' with result=result %}
+                </div>
+                <div class="col-md-12 upwrdz-steps-advisor-content">
+                    <fieldset class="the-fieldset">
+                            <h3 class="text-center">
+                                Personal Information
+                            </h3>
+                        <div class="row advisor-form-padding">
+                        
+                            <form id="signup_form" name="signup_form" method="POST" action="/signup/register/" enctype='multipart/form-data' autocomplete="off">
+                            {% csrf_token %}
+                            <div class="col-sm-12">
+                                <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-sm-2 col-md-2 col-lg-2">
+                                        <label for="ex1"><b>Title</b></label>
+                                        <select name="suffix" id="suffix" class="form-control" onchange="save_onchange('suffix',id,'help_text_suffix');">
+                                            <option value="0" selected>Select</option>
+                                            <option value="Mr">Mr</option>
+                                            <option value="Ms">Ms</option>
+                                            <option value="Dr">Dr</option>
+                                            <option value="Prof">Prof</option>
+                                        </select>
+                                        <!-- <span class="help-block" id="help_text_suffix"></span> -->
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4">
+                                        <label for="ex2"><b>First Name <span >*</b></span></label>
+                                        <input class="form-control" onfocus="this.placeholder = ''" name="first_name" id="first_name" type="text" onchange="validateAlpha('first_name','help_text_first_name'); save_onchange('first_name',id,'help_text_first_name');" value="{{ user_profile.first_name }}" ><span class="help-block" id="help_text_first_name"></span>
+                                    </div>
+                                    <div class="col-sm-2 col-lg-2 col-md-2">
+                                        <label for="ex3"><b>Middle&nbsp;Name</b></label>
+                                        <input class="form-control" onfocus="this.placeholder = ''" id="middle_name" name="middle_name"  onchange="validateAlpha('middle_name','help_text_middle_name'); save_onchange('middle_name',id,'help_text_middle_name');" type="text" value="{{ user_profile.middle_name }}"><span class="help-block" id="help_text_middle_name"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <label for="ex3"><b>Last Name <span >*</b></span></label>
+                                        <input class="form-control" onfocus="this.placeholder = ''" id="last_name" name="last_name" onchange="validateAlpha('last_name','help_text_last_name');save_onchange('last_name',id,'help_text_last_name');" value="{{ user_profile.last_name }}" type="text">
+                                        <span class="help-block" id="help_text_last_name"></span>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 radio-registration">
+                                        <p class="question-label" for="ex2"><b>Gender
+                                        <span>*</b></span></p>
+                                        <input type="radio" id="gender_male" name="gender" value="Male" onchange = "save_onchange('gender',id,'help-text-gender'); "><label class="lbl padding-8" id="validate-gender-male"> &nbsp;Male</label>
+                                        <input type="radio" id="gender_female" name="gender" value="Female" onchange = "save_onchange('gender',id,'help-text-gender'); "><label class="lbl padding-8" id="validate-gender-female"> &nbsp;Female</label>
+                                        <input type="radio" id="gender_others" name="gender" value="Others" onchange = "save_onchange('gender',id,'help-text-gender'); "><label class="lbl padding-8" id="validate-gender-others"> &nbsp;Other</label>
+                                        <span class="help-block" id="help-text-gender"></span>
+                                    </div>
+                                    <div class="col-sm-3 col-lg-3 col-md-3 date-picker-view date-picker-view-one">
+                                        <label for="ex3"><b>Birth Date <span>*</b></span></label>
+                                        <input type="text" name="birthdate" id="birthdate" class="form-control input birthdate" autocomplete="off" onfocus="this.placeholder = ''" onchange = "save_onchange('birthdate',id,'help_text_birthdate');" value="{{user_profile.birthdate|date:'m-d-Y'}}" onClick="$('#birthdate').focus();">
+                                        <span class="help-block" id="help_text_birthdate"></span>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                        <label for="ex3"><b>Mobile Number <span>*</b></span></label>
+                                        <input class="form-control" id="mobile_no" name="mobile_no" type="tel" onchange="validateMobile('mobile','help_text_mobile');" value="{{ mobile_number}}">
+                                        <span class="help-block" id="help_text_mobile"></span>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3 col-lg-3">
+                                        <label for="ex2" class=""><b>Nationality
+                                        <span>*</b></span><span class="help-text" id="help-text-nationality1"></label>
+                                        <select name="nationality" class="form-control" id="nationality" onchange="save_onchange('nationality',id,'help-text-nationality');">
+                                            <option value="" selected>Select</option>
+                                            {% for country in country_list %}
+                                                <option value="{{country.name}}">{{country.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="help-block" id="help-text-nationality"></span>
+                                    </div>
+                                </div>
+                                 <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-sm-12" style="padding-left: 10px;">
+                                        <i><b>Please choose the best email to reach you</b></i>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-6 col-md-6">
+                                        <input type="radio" class="count_checkbox" name="communication_email_primary" id="communication_email_primary" value="primary" onclick="check_communication_email(id,'communication_email_secondary','help-text-primary_email');"><label class="lbl padding-8" id="communication_primary_chk"> <b>&nbsp;Email <span>*</b></span></label>
+                                        <input class="form-control" id="username" name="username" onfocus="this.placeholder = ''" value="{{user.username}}" type="text" readonly>
+                                        <span id="help-text-primary_email"></span>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-6 col-md-6">
+                                        <input type="radio" name="communication_email_secondary" id="communication_email_secondary" value="secondary" onclick="check_communication_email(id,'communication_email_primary');"><label class="lbl padding-8" id="communication_sec_chk"> <b>&nbsp;Secondary Email</b></label>
+                                        <input class="form-control" id="secondary_email" name="secondary_email" onfocus="this.placeholder = ''" value="{{user_profile.secondary_email}}" type="text" onchange="check_and_save_secondary_email('secondary_email',id)">
+                                        <span class="help-block" id="help-text-secondary_email"></span>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-xs-12 col-md-12 col-sm-12 registration-form-div">
+                                        <div class="">
+                                            <div class="panel-heading">
+                                                <h4><b>Home address</b></h4>
+                                            </div>
+                                           
+                                            <div class="row form-group registration-form-div pull-left">
+                                                <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                                    <label for="ex3"><b>Address Line 1 <span>*</b></span></label>
+                                                    <textarea type="text" name="address" id="address"  onfocus="this.placeholder = ''" onchange="save_onchange('address',id,'help-text-address');">{{user_profile.address}}</textarea>
+                                                    <span class="help-block" id="help-text-address"></span>
+                                                </div>
+                                                <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                                    <label for="ex3"><b>Address Line 2 </b></label>
+                                                    <textarea name="street_name" id="street_name" onfocus="this.placeholder=''" onchange="save_onchange('street_name',id, 'help-text-street');">{{user_profile.street_name}}</textarea>
+                                                    <span class="help-block" id="help-text-street"></span>
+                                                </div>
+                                                <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                                    <label for="ex3"><b>Town / City <span>*</b></span></label>
+                                                    <input type="text" name="city" id="city" class="form-control input" value="{{user_profile.city}}" onfocus="this.placeholder = ''" onchange="validateCity('city','help-text-city'); save_onchange('city',id,'help-text-city');">
+                                                    <span class="help-block" id="help-text-city"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group registration-form-div pull-left">
+                                                <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                                    {% if user_agent_country == REGION_IN %}
+                                                        <label for="ex3"><b>Pincode <span>*</b></span></label>
+                                                    {% else %}
+                                                        <label for="ex3"><b>Zip Code <span>*</b></span></label>
+                                                    {% endif %}
+                                                    <input type="text" name="pincode" id="pincode" class="form-control input"  value="{{user_profile.pincode}}" onchange="validate_pincode('pincode');" onfocus="this.placeholder = ''" required="required">
+                                                    <span class="help-block" id="help-text-pincode"></span>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-lg-4 mob-address-col">
+                                                    <label for="ex3"><b>State <span>*</b></span></label>
+                                                    <input type="text" onfocus="this.placeholder = ''" name="state" id="state" class="form-control" value="{{user_profile.state}}" onchange="save_onchange('state',id,'help-text-state'); validateAlpha('state','help-text-state');">
+                                                    <span class="help-block" id="help-text-state"></span>
+                                                </div>
+                                                <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                                    <label for="ex3"><b>Country<span>*</b></span><span class="help-text" id="help-text-country1"></span></label>
+                                                    <select name="country" class="form-control" id="country" onchange="save_onchange('country',id,'help-text-country');">
+                                                        <option value="" selected>Select</option>
+                                                        {% for country in country_list %}
+                                                        <option value="{{country.name}}">{{country.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <span class="help-block" id="help-text-country"></span>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div">
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                        <label for="ex1"><b>My Promise to the Client <span>*</b></span></label>
+                                        <textarea cols="50" rows="4" onfocus="this.placeholder = ''" name="my_promise" id="my_promise" onclick="save_onchange('my_promise',id,'help_text_my_promise');" required>{{advisor.my_promise}}</textarea>
+                                        <span class="help-block" id="help_text_my_promise"></span>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                        <label for="ex1"><b>MY BELIEF <span>*</b></span></label>
+                                        <textarea id="my_belief" cols="50" rows="4" onfocus="this.placeholder = ''" name="my_belief"  onclick="save_onchange('my_belief',id,'help_text_my_belief');" required>{{ user_profile.my_belief|default:"" }}</textarea>
+                                        <span class="help-block" id="help_text_my_belief"></span>
+                                    </div>
+                                    <div class="col-sm-12 pull-left">
+                                        <p class="pull-left loop" style="font-size:14px;margin-bottom:0px"><span>*</span><i> Mandatory Fields</i></p>
+                                    </div>
+                                    <div class="col-sm-12 pull-left registration-form-div">
+                                            <p class="pull-left" style="font-size:14px;margin-bottom:0px;">Thank you for your valuable time to fill the Credibility Self Declaration. Now you can proceed to fill the other information.</p>
+                                    </div>
+                              
+                                    <div class="col-sm-12 form-group registration-form-div pull-left" id="assurance_content">
+                                        <a role="button" data-toggle="collapse" data-parent="#assurance_content" href="#assurance" aria-expanded="true" aria-controls="collapseOne">
+                                            Know About Confidentiality Assurance
+                                        </a>
+                                        <div id="assurance" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <p>ABOTMI will keep your personal information confidential.</p>
+                                                <p>ABOTMI will not share any confidential information of the advisor to anyone else.</p>
+                                                <p>ABOTMI will treat the advisor’s confidential information with the same degree of respect
+                                                as its own confidential information.</p>
+                                                <p>ABOTMI will disclose all confidential information to its group companies (including
+                                                        iv class="row ">     subsidiaries and affiliates), directors, officers, employees or other representatives on an only on a need to know basis.</p>
+                                                <p>ABOTMI will not disclose confidential information unless required to do so by law. The
+                                                background verification process will only be shared with a third party company.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-xs-12">
+                                    <input type="hidden" name="hidden_input" id="hidden_input" value="" />
+                                    <input type="hidden" name="hidden_value" id="hidden_value" value="" style="width:100%;">
+                                    <input type="hidden" name="dsa_hidden_input_field" id="dsa_hidden_input_field" value="">
+                                </div>
+                                <div class="form-group registration-form-div">
+                                    <div class="col-xs-12 text-center proceed-btn">
+                                        <a href="/signup/verification_process/" class="btn back-btn-gray kyc-btn-primary ">Back</a>
+                                        <a  id="id_submit_form" class="btn kyc-btn-primary" onclick="submit_creditbility_form('null');">
+                                        Next
+                                        </a>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="filled_form_status" value="">
+                            </div>
+                      
+                        </form>
+                       
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+    {{ block.super }}
+    <div id="advisor_registration_modal_div"></div>
+{% endblock %}
+{% block lib_scripts %}
+    <script src="{% static 'js/jquery-ui.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    {{scripts.super}}
+    <script type="text/javascript">
+        $("input, textarea, select").attr('autocomplete', 'off');
+        var suffix = '{{user_profile.suffix}}';
+        var country = '{{user_profile.country|default:""}}';
+        var user_agent_country = '{{user_agent_country}}';
+        var default_country = '{{REGION_IN}}';
+        var gender = "{{user_profile.gender}}";
+        var communication_email = '{{user_profile.communication_email_id}}';
+        var username = '{{user.username}}';
+        var nationality_value = '{{user_profile.nationality|default:""}}';
+    </script>
+    <script src="{% static 'js/kyc_validate.js' %}"></script>
+    <script src="{% static 'js/new_js/ekyc/register_advisor.js' %}" charset="utf-8"></script>
+{% endblock %}
+<!-- Scripts Ended -->

@@ -1,0 +1,105 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<style>
+    .file-name{
+        background: rgba(55, 55, 72, 0.42);
+        border-radius: 12px;
+        padding: 3px;
+        font-size: 10px;
+        line-height: 26px;
+    }
+@media (min-width:960px) and (max-width:1160px){
+    .upwrdz-manage-clients{
+        width: 85%;
+    }
+    .upwrdz-manage-clients .table>tbody>tr>td{
+        padding:8px 6px;
+    }
+    }
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="manage_transaction_modal" name="manage_transaction_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg upwrdz-manage-clients">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">MANAGE TRANSCATIONS</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="manage_transaction_modal_body">
+                    <div class="col-md-12">
+                        {% if advisor_transactions %}
+                        <div class="bs-example">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Project Name</th>
+                                        <th>Reingo ID</th>
+                                        <th>Status</th>
+                                        <th>Upload document</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for transcations in advisor_transactions %}
+                                        <tr>
+                                            <td>
+
+                                                {{transcations.user_profile.first_name}}&nbsp;{{transcations.user_profile.last_name}}
+                                            </td>
+                                            <td>
+                                                {{transcations.user_profile.email}}
+                                            </td>
+                                            <td>
+                                                {{transcations.project_name}}
+                                            </td>
+                                            <td>
+                                                {{transcations.reingo_name}}
+                                            </td>
+                                            <td>
+                                                {% if transcations.transaction_status  == 'BLOCKED' %}
+                                                    <span class="label label-warning">Waiting for Approval</span>
+                                                {% elif transcations.transaction_status  == 'USER_ACCEPT' or transcations.transaction_status == 'ADVISOR_ACCEPT' %}
+                                                    <span class="label pink-btn-primary">Accepted</span>
+                                                {% elif transcations.transaction_status  == 'USER_REJECT' or transcations.transaction_status == 'ADVISOR_REJECT' %}
+                                                    <span class="label n-bg-grey">Rejected</span>
+                                                {% endif %}
+                                            </td>
+                                            <td id="document_data">
+                                                {% if transcations.transaction_status  == 'USER_ACCEPT' or transcations.transaction_status == 'ADVISOR_ACCEPT' %}
+                                                <form name="upload_trans_doc" id="upload_trans_doc" method="post" class="" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                    <input type="hidden" value="{{transcations.id}}" name="r_id" id="r_id{{forloop.counter}}">
+                                                    <div class="col-md-8 col-sm-8">
+                                                        <input type="file" name="document_t" id="document_t{{forloop.counter}}" accept="image/gif, image/jpeg,image/png application/pdf" multiple="multiple">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <input type="button" value="upload" class="add-client-btn" onclick="upload_transaction_documents({{forloop.counter}});" style="width:100%;">
+                                                    </div>
+                                                </form>
+                                                {% endif %}
+                                                <div id="trans_uploaded_div">
+                                                {% if transcations.booking_transaction_documents %}
+                                                    {% for doc in transcations.booking_transaction_documents %}
+                                                    <span class="file-name">{{doc.document}} ,</span>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% else %}
+                        <p class="text-center">No Transactions Found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

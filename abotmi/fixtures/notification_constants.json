@@ -1,0 +1,75 @@
+{
+    "table_name": "notification_template",
+    "data": [
+        {
+            "template": "Dear {}, Greetings from ABOTMI. It's our pleasure to welcome you to our Digital Asset Advisor community!",
+            "template_type": "signup",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "Registration Completed Successfully",
+            "template_type": "registration",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "Please Complete your Registration.",
+            "template_type": "reg_req",
+            "catogery":"invitation_and_message"
+        },
+        {
+            "template": "{} viewed your profile",
+            "template_type": "viewed_profile",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "Your friend {} has joined in Abotmi",
+            "template_type": "refer_signup",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "Your friend {} has completed registration",
+            "template_type": "refer_registration",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "{} is trying to connect you.",
+            "template_type": "adv_chk_connect",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "{}  rated your performance",
+            "template_type": "rate_response",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "{}  ranked your performance",
+            "template_type": "rank_response",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "Your video uploaded successfully",
+            "template_type": "video_upload_success",
+            "catogery": "invitation_and_message"
+        },
+        {
+            "template": "Rate {} based on your experience",
+            "template_type": "rate_request",
+            "catogery": "activity_involve"
+        },
+        {
+            "template": "Rank {} based on your experience",
+            "template_type": "rank_request",
+            "catogery": "activity_involve"
+        },
+        {
+            "template": "Provide advice to {}",
+            "template_type": "advice_request",
+            "catogery": "activity_involve"
+        },
+        {
+            "template": "{} started following your activities",
+            "template_type": "follow_request",
+            "catogery": "activity_by_network"
+        }
+    ]
+}

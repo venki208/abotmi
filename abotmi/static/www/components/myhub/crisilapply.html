@@ -1,0 +1,74 @@
+<ion-view>
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <upwrdz-Tabs></upwrdz-Tabs>
+  			<ion-content class="m-upwrdz-editpage-content">
+            <div class="editpage-title-bar">
+              <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+              CVA APPLICATION PROCESS
+            </div>
+                  <div class="panel-body pannel-popup-content" id="crisil_modal_body">
+                      <div id="crisil_modal_body_content">
+                          <!-- content has to be filled inside the  p tag-->
+                          <div class="row">
+                            <div class="col">
+                                <p><b>Pay 2 Get 3!!</b></p>
+                                <p>ABOTMI offers an exclusive deal to you on your 1st CVA application! Now, select and pay for a 2 year term and get the 3rd year verification absolutely free of cost!</p>
+                                <p>That’s a cost saving of &nbsp;<span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>11,000/- for you! So hurry, pay for 2 years & get CRISIL verified for 3 years!</p>
+                                <p>Click <b><a class="bluefont" data-toggle="toggle" ng-click="show_offer = true">here</a></b> to avail the offer.</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col cva-table" ng-show="show_offer">
+                                <table border="1">
+                                  <tr>
+                                    <td class="upwrdz-button">Term</td>
+                                    <td>
+                                      <select class="customize-select" ng-model="crisil.apply.selectedcrisilyear" ng-init="crisil.apply.selectedcrisilyear = 2" name="crisil_year_range" ng-change="crisil.crisil_apply_calculate_gross_total();"
+                                      ng-options="obj.value as obj.id for obj in crisil.apply.crisilyearoptions">
+                                    </select>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="upwrdz-button">Offer</td>
+                                  <td class="text-center" id="id_offer_label">Pay 2, Get 3</td>
+                                </tr>
+                                <tr>
+                                  <th class="text-center">Particulars</th>
+                                  <th class="text-center">Amount</th>
+                                </tr>
+                                <tr>
+                                  <td class="upwrdz-button">Gross Total</td>
+                                  <td class="text-center" id="id_gross_total">
+                                    <div>
+                                      <span ng-if="crisil.apply.selectedcrisilyear == 2"><strike id="id_actual_cross_amount"> <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>{{crisil.apply.crisilgrosstotal}}</strike></span>
+                                    </div>
+                                    <div>
+                                      <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>{{crisil.apply.crisildiscountedgross}}
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="upwrdz-button">Add:Service Tax</td>
+                                  <td class="text-center" id="id_tax"> <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>{{crisil.apply.crisilservicetax}}</td>
+                                </tr>
+                                <tr>
+                                  <td class="upwrdz-button">Net Total Payable</td>
+                                  <td class="text-center" id="id_total_amount"> <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>{{crisil.apply.crisilpayable}}</td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+            <div class="row" id="main_crisil_button" ng-show="show_offer">
+              <div class="col col-80 apply-crisil-btn">
+                <button  id="id_crisil" class="m-upwrdz-btn" ng-click="crisil.confirm_advisor_to_apply_crisil()">Ok</button>
+                <button  id="id_crisil_cancel" class=" m-upwrdz-btn" ui-sref="app.myhub">Cancel</button>
+              </div>
+            </div>
+
+				 </ion-content>
+      </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <style media="screen">
+            .hide{
+                display: none;
+            }
+            .center{
+                text-align: center;
+            }
+        </style>
+        <center>
+        {% if error_code %}
+            <div class="center">
+                <h1>Your transactin got failed. <br /> Please Try again after some time.</h1>
+                <p>Click below button for go back to Dashboard</p>
+                <p><a href="/dashboard/" type="button">Back</a></p>
+            </div>
+        {% else %}
+            <div class="success_payment hide center">
+                <h1 id="id_success_status">Thank You! You have successfully paid for CRISIL Certificate.</h1>
+                <p id="sub_text">Please Wait we are redirecting to My Hub Page. Please Dont click refresh or reload.</p>
+            </div>
+            <div class="insufficient_payment_div hide center">
+                <h1>Your Transaction got Failed Because of insufficient funds <br /> Please Try again with another payment</h1>
+                <p>Click back button to proceed or go to dsahboard &nbsp; <a href="/dashboard/" type=button>Back</a></p>
+            </div>
+            <div class="other_payment_failed_div hide">
+                <h1 class="center">Your Transaction got Failed Due to below Reasons</h1>
+                    <ul style="text-align: left;width: 319px;">
+                        <b><u>If card Payment:</u></b><br />
+                        -->Invalid Card Details<br />
+                        --> Card has expired<br />
+                        --> Insufficient funds<br />
+                        --> VBV/3D Secure Authentication Unsuccessful<br />
+                        --> Denied By Risk<br />
+                    </ul>
+                    <ul style="text-align: left;width: 319px;">
+                        <b><u>If other payment:</u></b>
+                        --> Insufficient funds<br />
+                        --> Incorrect Transaction password<br />
+                    </ul>
+                <p>Click back button to proceed or go to dsahboard &nbsp; <a href="/dashboard/" type=button>Back</a></p>
+            </div>
+            <script type="text/javascript">
+                var payment_status = '{{payment_status}}';
+                if (payment_status == 'Transaction Failed - Not sufficient funds'){
+                    document.getElementsByClassName('insufficient_payment_div')[0].classList.remove('hide');
+                }else if(payment_status == 'Transaction Successful'){
+                    document.getElementsByClassName('success_payment')[0].classList.remove('hide');
+                    window.location.href = '/dashboard/';
+                }
+                else{
+                    document.getElementsByClassName('other_payment_failed_div')[0].classList.remove('hide');
+                }
+            </script>
+        {% endif %}
+        </center>
+    </body>
+</html>

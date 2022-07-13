@@ -1,0 +1,149 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    {% if not user.is_authenticated %}
+        <style>
+            /* body{
+                padding-top: 123px;
+            } */
+            .start-up{
+                text-align: center;
+                font-size: 18px;
+                font-weight: 700 !important;
+            }
+            .abotmi-how-it-works-main{
+                margin-top: 20%;
+            }
+            
+            .howits-works-main-div{
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 30px;
+            }
+            .howits-works-main-one{
+                display: flex;
+            }
+            .howits-works-main-one .abotmi-reputation-card{
+                width: 100%;
+            }
+            @media (max-width:768px){
+                .howits-works-main-one .abotmi-reputation-card{
+                    margin-top: 15px !important;
+                }
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/advisor-banner.png' %}">
+        <div class="container">
+            <h2>HOW IT WORKS?</h2>
+        </div>
+    </section>
+    <section class="reputation-static abotmi-reputation-main">
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-md-12 abotmi-how-it-works-main">
+                    <h3>How it works ?</h3>
+                    <p>Reputation management is a simple 5 step process</p>
+                    <ul class="how-it-works text-center">
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-one.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-two.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-three.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-four.png' %}">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="">
+                                <img src="{% static 'new_images/infographic/info-five.png' %}">
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            
+            <div class="row">
+                <p class="text-center" style="font-size:18px;"><b>ABOTMI enables advisors to build and manage their credibility by sharing their strong digital reputation across the globe.</b></p>
+            </div>
+            <div class="row howits-works-main-div">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 howits-works-main-one">
+                        <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                            <img src="{% static 'new_images/infographic/get-advice.png' %}"> 
+                            <h3 class="n-h4"><b>Get Advice</b></h3>
+                            <ul class="text-left">
+                                <li><b>Receive free advice on digital assets (security token offerings) from qualified advisors. All you have to do is to ask a question or for advice from multiple advisors.</b></li>
+                            </ul>
+                            <p class="register register-its-work"><a type="button" class="btn" name="signup_a">GET ADVICE</a></p>
+                    </div>
+                    </div>  
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 howits-works-main-one">
+                        <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                            <img src="{% static 'new_images/infographic/refer-advice.png' %}"> 
+                            <h3 class="n-h4"><b>Refer Advice</b></h3>
+                            <ul class="text-left">
+                                <li><b>Refer friends, family, and peers that are seeking digital asset advice.</b></li>
+                                <li>It’s Free</li>
+                            </ul>
+                            <p class="register register-its-work"><a type="button" class="btn" name="signup_a">GET ADVICE</a></p>
+                        </div>
+                    </div>        
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 howits-works-main-one">
+                        <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                            <img src="{% static 'new_images/infographic/rate-advice.png' %}">
+                            <h3 class="n-h4"><b>Rate Advice</b></h3>
+                            <ul class="text-left">
+                                <li>Rate your advisor</li>
+                                <li>Review your advisor</li>
+                                <li>Track advisors performance</li>
+                                <li>Receive feedback from peers/investors</li>
+                                <li>Identify local influencers</li>
+                                <li>Analyze results</li>
+                                <li>Help others to make the right choice</li>
+                            </ul>
+                            
+                        </div>
+                    </div>                     
+                </div>
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn" name="signup_a">Register Now</a>
+                </div>
+            </div>
+            <p class="start-up">Start Building Your Reputation!</p>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

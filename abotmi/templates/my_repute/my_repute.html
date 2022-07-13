@@ -1,0 +1,347 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block custom_theme_css %}
+    <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_css/sequences.css' %}"/>
+    <link href="{% static 'css/new_css/my_repute.css' %}" rel="stylesheet">
+    <link href="{% static 'css/new_css/psd3.css' %}" rel="stylesheet">
+{% endblock %}
+{% block top_header %}
+    {% include 'header2.html' %}
+{% endblock %}
+{% block main_content %}
+<div class="container">
+    <div class="row upwrdz-repute-div">
+        <div class="col-sm-3 col-md-3 col-lg-3 upwrdz-myhub-sidenav">
+            <div class="">
+                <div class="ruputation-index-social">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#menu1">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#menu2">
+                                <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#menu3">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-addon success arrow-right">
+                                        <button type="button" class="btn">
+                                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                    <span class="input-group-addon success exclamation">
+                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+                            <div class="form-group">
+                                <div class="input-group input-group-margin-b">
+                                    <span class="input-group-addon primary">
+                                        SCORE
+                                    </span>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-margin-b date" id='datetimepicker2'>
+                                    <span class="input-group-addon primary">
+                                        DATE
+                                    </span>
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="input-group input-group-margin-b date" id='datetimepicker2'>
+                                    <span class="input-group-addon input-group-extrime">
+                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    </span>
+                                    <button type="button" class="btn pull-right">Primary</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu2" class="tab-pane tab-pane-clock-fan tab-pane-clock-fan-color fade">
+                            <p>You can set your privacy mode to private which will be viewed only by the people you share with</p>
+                            <div class="input-group input-group-margin-b date" id='datetimepicker2'>
+                                <span class="input-group-addon input-group-extrime">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </span>
+                                <i class="fa fa-exclamation-circle pull-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div id="menu3" class="tab-pane fade myrepite-collapse-main">
+                            <div class="input-group input-group-margin-b date" id='datetimepicker2'>
+                                <span class="pull-left input-group-addon input-group-extrime">
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="panel-group myrepite-collapse" id="accordion">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="colpsible-panel" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                Heading for collapsible
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            The panel content comes here where you may use text, images and even videos. You may also place HTML tables, list etc here.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel  panel-danger">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="colpsible-panel" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                Heading for collapsible
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            The panel content comes here where you may use text, images and even videos. You may also place HTML tables, list etc here.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel  panel-danger">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="colpsible-panel" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                Heading 3 for collapsible
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            The panel content comes here where you may use text, images and even videos. You may also place HTML tables, list etc here.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uwd-block-repute">
+                    <h2>Recommendations</h2>
+                    <ul>
+                        <li><a href="#">To increase your repute score send invitation to your peers.</a></li>
+                        <li><a href="#">Your follower done Crisil verification.To complete yours "Apply Now"</a></li>
+                        <li><a href="#">Someone in your location got high score by uploading micro learning videos. Upload your's.</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="divider"></div>
+                <div class="uwd-block-repute">
+                    <h2>Notifications</h2>
+                    <ul>
+                        <li>
+                            <a href="#">Your Identity has been viewed just now.</a>
+                        </li>
+                        <li>
+                            <a href="#">Your repute has been viewed just now.</a>
+                        </li>
+                        <li>
+                            <a href="#">Deepika has rated you on your skills and expertise.</a>
+                        </li>
+                        <li>
+                            <a href="#">Abdul has a request for you.</a>
+                        </li>
+                        <li>
+                            <a href="#">Your CRISIL Verification is successful.</a>
+                        </li>
+                        <li>
+                            <a href="#">The client you added has registered with GREATX.</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="divider"></div>
+                {% if user.is_authenticated and user_profile.is_advisor %}
+                <div class="uwd-block-repute share">
+                    <h2>Share with</h2>
+                    <ul class="id-ul-list">
+                        <li>
+                            <a onclick="fb_share();" title="Facebook">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="LinkedInShare();" title="LinkedIn">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="googleplusbtn();" title="Google plus">
+                                <i class="fa fa-google-plus" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="twitter_share()">
+                                <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <i class="fa fa-envelope" aria-hidden="true" data-toggle="modal" onclick="load_share_profile_by_email_modal();"
+                                    title="Share through Email"></i>
+                            </a>
+                        </li>
+                        <li id="whatsappsharediv">
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-9 " style="position: static;">
+            <div class="row">
+                <div class="col-xs-12 breakup-reputation-maindiv">
+                    <button id="show_breakup" class="btn breakup-reputation-index" onclick="open_breakup_model()"> My Points Breakup</button>
+                    <button id="show_repute_img" class="btn breakup-reputation-index" onclick="show_repute_image()"> Show Repute Image</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 breakup_model">
+                    <div class="row">
+                        <div class="col-xs-12 reputetion-pie-chat-breadgrams" id="show_breadcrumbs">
+                        </div>
+                        <div  class="col-xs-12 col-sm-7 col-md-7 col-lg-7 reputetion-pie-chat">
+                            <div style="position: static;" class="col-xs-12 well" id="chartContainer">
+                                <p id="go_back_breakup_btn" class="btn breakup-reputation-back-btn" onclick="go_back()"> Back</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 mn_cats_color_meta_div">
+                            <ul id="mn_cats_color_meta" class="col-sm-3 col-md-3 col-lg-3"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 upwrdz-myhub-content">
+                    <div class="row  upwrdz-myhub-content-one upwrdz-repute-img">
+                        <div id="rpi_big_img">
+                            <div class="col-xs-12 upwrdz-repute-index-img">
+                                <input id="bg_image" type="hidden" value="{% static 'new_images/logo-big.png' %}" />
+                                <input id="demo_profile_pic" type="hidden" value="{% static 'new_images/demo-profile-pic.jpg' %}" />
+                                <div id="upwrdz_big_img_div">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="row text-left upwrdz-points-comparsion">
+                                    <div class="col-md-6 ">
+                                        <p>Points Comparison</p>
+                                        <div class="profile-div">
+                                            <img id="current_adv_pic" src="" />
+                                            <input type="hidden" id="current_adv_key" value="" />
+                                            <span id="current_adv_text">TOP SCORER
+                                                <br/> 25123</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Points Comparison</p>
+                                        <div class="profile-div-two">
+                                            <input type="hidden" id="compare_adv_key" value="" />
+                                            <img id="compare_adv_pic" src="" />
+                                            <span id="compare_adv_text">TOP SCORER
+                                                <br/> 25123</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-xs-12 upwrdz-pepute-footer">
+            <p>Reputation index (RI) is a measure of the reputation that an individual commands basis his achievements and accomplishments.In Abotmi the RI of a Financial Advisor is based on a number of attributes/ factors. These may be subjective and dynamic,and may change in the course of time based on how the Advisor is perceived by his clients and public.</p>
+         </div>
+         <input type="hidden" name="csrf_token" id="id_csrf_token" value="{{csrf_token}}">
+    </div>
+</div>
+<!-- Add client aadhaar email verification model -->
+<div class="modal my_repute_page_model"  id="display_adv_compare" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog model_display_adv_compare">
+      <div id="adv_compare_table"></div>
+    </div>
+</div>
+<!-- Pincode Confirmation Popup HTML Starts-->
+<div id="pincode_confirmation_modal" class="modal fade upwardz-modal" role="dialog" name="pincode_confirmation_modal" aria-hidden="true" style="display:none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                     <h3 class="modal-title n-span-blue-color">Check your current Pincode</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="video-request-modal-body">
+                    <div class="row padding-tb8">
+                        <div class="form-group col-md-12" data-toggle="toggle">
+                            <input class="form-control" placeholder="Please enter 4 or 6 digit pincode" name="current_pincode" id="current_pincode" type="text" pattern="^[1-9]\d{3}$|^[1-9]\d{5}$" required='true'>
+                            <span class="help-block" ></span>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" onclick="transit_hyperlocal_api_call();"  class="btn upwrdz-button" >SUBMIT</button>
+                            <button type="button" class="btn upwrdz-button" onclick="cancel_pincode_confirmation_popup();">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pincode Confirmation Popup Ends -->
+<div id="my_repute_modal"></div>
+<!--Scripting starts from here  -->
+<script type="text/javascript">
+  var user_profile_email = '{{ri_meta.user_profile.email}}';
+  var user_pincode = '{{ri_meta.user_profile.pincode}}';
+  var http_host = '{{ request.scheme }}://{{ request.META.HTTP_HOST }}';
+</script>
+<script src="{% static 'js/new_js/underscore-min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_js/google_api.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_js/geo_location_tracking.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_js/my_growth_json.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plugins/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_js/psd3.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new_js/my_repute.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker2').datetimepicker({
+            locale: 'ru'
+        });
+    });
+</script>
+{% endblock %}
+{% block bootstrap-modal %}
+{% endblock %}
+{% block theme_scripts %}
+<script type="text/javascript">
+    var advisor_profile_url = '{{DEFAULT_DOMAIN_URL|default:"localhost"}}/my_repute/{{request.user.profile.id}}';
+</script>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

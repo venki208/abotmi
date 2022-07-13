@@ -1,0 +1,14 @@
+[Unit]
+Description=python runworker server for abotmi
+After=network.target
+
+[Service]
+User=abotmi
+Group=abotmi
+WorkingDirectory=/home/abotmi/abotmi
+Environment="ABOTMI_SETTINGS=/home/abotmi/abotmi/config/dev_config.json"
+ExecStart=/home/abotmi/env/bin/python /home/abotmi/abotmi/manage.py runworker --settings=reia.settings.dev -v 2 
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

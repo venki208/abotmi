@@ -1,0 +1,97 @@
+<style media="screen">
+    td.custome-border{
+        border-color: rgba(255, 255, 255, 0.29) !important;
+    }
+    .custome-table .custome-table-header{
+        border-bottom: none !important;
+    }
+    .custome-table .custome-table-header .custome-tr .custome-th{
+        background-color: #5976fc !important;
+        text-align: center;
+        border-right: 1px solid #fdfdfd;
+        font-weight: 600;
+        border-bottom: none;
+        color: #fff;
+    }
+    .add-client-rate-btn{
+        padding: 0px 20px;
+        width: auto;
+    }
+    .upwrdz-log-panel .close{
+        position:absolute;
+        top:15px;
+        right:15px;
+        font-weight:600;
+        background:transparent;
+    }
+    .upwrdz-log-panel h3{
+        font-size: 25px;
+        font-weight: 600;
+        width:100%;
+    }
+</style>
+<div class="modal fade upwardz-modal" id="rate-modal" name="rate-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                    </button>
+                    <h3 class="text-center pt-2 pb-2 n-span-blue-color">RATE ADVISOR</h3>
+                </div>
+                <div class="modal-body" id="rate_modal_body">
+                    <form class="form-horizontal rated-form-advisor" role="form" id="invite_advisor_to_rate_form">
+                        <div class="table-responsive">
+                            <table class="table custome-table">
+                                <thead class="custome-table-header">
+                                    <tr class="custome-tr">
+                                        <th class="custome-th">
+                                            Name
+                                        </th>
+                                        <th class="custome-th">
+                                            Email ID
+                                        </th>
+                                        <th class="custome-th">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for advisorrating in advisor_to_rate_list %}
+                                    <tr>
+                                        <td>
+                                            {{advisorrating.advisor.user_profile.first_name}}
+                                        </td>
+                                        <td>{{advisorrating.advisor.user_profile.email}}</td>
+                                        {% if not advisorrating.activation_key %}
+                                        <td>
+                                            <span><input type="button" class="btn upwrdz-button" value="Rated" disabled></span></td>
+                                        {% else %}
+                                        <td>
+                                            <button type="button" class="btn upwrdz-button" onclick="advisor_rate_modal('{{advisorrating.activation_key}}');">
+                                                Rate
+                                            </button>
+                                            <!-- <input type="button" onclick="advisor_rate_modal('{{advisorrating.activation_key}}');" class="btn btn-default add-client-btn" value="Rate"></span></td> -->
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+// applying blur when modal will trigger
+$('.modal').on('shown.bs.modal', function () {
+    $('.body-section').addClass('blur');
+})
+// removing blur when modal will close
+$('.modal').on('hide.bs.modal', function () {
+    $('.body-section').removeClass('blur');
+})
+</script>

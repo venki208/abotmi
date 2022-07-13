@@ -1,0 +1,194 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block main_content %}
+<section class="bg-form mt-5 pt-5 mb-5" id="about">
+    <div class="container parent-section pt-5">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 start-rating-view" id="formshow" style="">
+                <div class="form-group">
+                    {% if answer_true %} <h4> Rating details </h4>{% else %}<h4> Remark details </h4>{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 star-rating-heading">
+            <div class="panel n-panel-g main-heading-star">
+                {% if answer_true %}
+                <div class="panel-heading n-bg-gredient">
+                    <h2>Please rate the advice:</h2>
+                </div>
+                <div class="panel-body">
+                    <form id="advisor_rating_form">
+                        <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                            <div class='rateit pull-right' id='member_rating_level' data-rateit-resetable="false"></div>
+                            <p>My rating</p>
+                            <input type='hidden' id='input_member_rating_level' name='input_member_rating_level' value="" />
+                            <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                            {% if advisor_status and batch_code_obj %}
+                            <p><span class="item_data" id="id_url_item">
+                                    <a href="{{url}}" target="_blank">Advisor's profile : {{ batch_code_obj.first_name }}</a>
+                                </span></p>
+                            {% else %}
+                            <p><span class="item_data" id="id_url_item">
+                                <a href="{% url 'my_identity:follower_profile' %}" target="_blank">Advisor's profile : {{ batch_code_obj.first_name }}</a></span>
+                            </p>{% endif %}
+                        </div>
+                        <div class="ratings">
+                            <p><em>* One star being the lowest and five the highest</em></p>
+                        </div>
+                    </form>
+                    <div class="form-group registration-form-div col-lg-12 col-xs-12 col-md-12">
+                        <div class="col-sm-12 col-md-1 col-xs-12 col-lg-12 text-center proceed-btn rate-btn1">
+                            <a><button class="btn upwrdz-button" onclick="rate_advisor();">SUBMIT</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="panel-heading n-bg-gredient">
+                    <h2>Please enter the remarks:</h2>
+                </div>
+                <div class="panel-body text-center">
+                    <form id="advisor_remarks_form">
+                        <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                            <input type='hidden' id='input_member_remark_level' name='input_member_remark_level' value="" />
+                            <div>
+                                <textarea class="advice-text" id="members_remarks" cols="50" rows="4" placeholder=""></textarea>
+                            </div>
+                            <div class="col-lg-12 pull-right error-star-msg no-padding">
+                                <span class="error-message pull-right"></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group registration-form-div col-lg-12 col-xs-12 col-md-12">
+                        <div class="col-sm-12 col-md-1 col-xs-12 col-lg-12 text-center proceed-btn rate-btn1">
+                            <a><button class="btn upwrdz-button" onclick="remark_advisor();">SUBMIT</button></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <input type="hidden" id="activation_key" value="{{activation_key}}" />
+        </div>
+    </div>
+    <div class="modal fade upwardz-modal" id="rate-modal" name="rate-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="upwrdz-log-panel">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <h3 class="modal-title n-span-blue-color">THANK YOU !</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="rate-modal-body">
+                        <p class="text-center">Thank you for your Response.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+{{block.super}}
+  <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+  <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+  <script type="text/javascript">
+    $('#member_rating_level').bind('rated', function(){
+      $('#input_member_rating_level').val($(this).rateit('value'))
+    });
+
+    function rate_advisor(){
+        var token = '{{ csrf_token }}';
+        var ack = $('#activation_key').attr('value');
+        var members_remarks = $('#members_remarks').attr('value');
+        if ($("#member_rating_level").rateit('value') !="") {
+            $.ajax({
+                type: 'POST',
+                url: '/member/get_member_rating/',
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data: {
+                    'member_rating_level': $("#member_rating_level").rateit('value'),
+                    'question_id': '{{question_id}}',
+                    'member_code':'{{member_code}}',
+                    'ack': $('#activation_key').attr('value')
+                },
+                complete: function (e, xhr, settings) {
+                    var status = e.status;
+                    if (status == 200) {
+                        show_alert(
+                            'success',
+                            '',
+                            '<p>Thank you for your Response.</p>',
+                            'href:/'
+                        )
+                    }
+                    else if (status == 204) {
+                        if (confirm("Link has expired.")) {
+                            window.location = '/';
+                        }
+                    }
+                    else {
+                        alert("Try after some time.");
+                    }
+                }
+            });
+            }
+        else{
+            alert("Please give your rating to continue");
+        }
+    }
+
+    function remark_advisor(){
+        var token = '{{ csrf_token }}';
+        var ack = $('#activation_key').attr('value');
+        var members_remarks = $('#members_remarks').val();
+        if ( $('#members_remarks').val().trim() != "") {
+            $.ajax({
+                type: 'POST',
+                url: '/member/get_member_rating/',
+                beforeSend: function (request) {
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data: {
+                    'member_remarks' : $('#members_remarks').val(),
+                    'question_id': '{{question_id}}',
+                    'member_code': '{{member_code}}',
+                    'ack': $('#activation_key').attr('value')
+                },
+                complete: function (e, xhr, settings) {
+                    var status = e.status;
+                    if (status == 200) {
+                        add_rating_content();
+                    }
+                    else if (status == 204) {
+                        if(confirm("Link has expired.")){
+                            window.location = '/';
+                        }
+                    }
+                    else {
+                        alert("Try after some time.");
+                    }
+                }
+            });
+        }else{
+             alert("Please give your remarks to continue");
+        }
+    }
+</script>
+<script type="text/javascript">
+    function cancel_navigate(id) {
+        $("#"+id).modal('hide');
+        window.location = '/';
+    }
+
+    function add_rating_content(){
+        $("#rate-modal-body").append('<button type="button" class="btn upwrdz-button pull-right" onclick="cancel_navigate('+"'"+'rate-modal'+"'"+');">Ok</button>');
+        $('#rate-modal').modal({
+            show: true,
+            backdrop: 'static',
+            keyboard: false,
+        });
+    }
+</script>
+{% endblock %}

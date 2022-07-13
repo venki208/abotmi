@@ -1,0 +1,70 @@
+<div class="modal fade upwardz-modal" role="dialog" id="send-group-email-modal" name="send-group-email-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">BULK EMAIL</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="send-group-email-modal-body">
+                    <div class="col-sm-3 col-md-2 col-lg-2 right-border">
+                        <div class="panel-body">
+                            <table>
+                                <th>Group name</th>
+                                <tr><td> <input type="checkbox" > Group 1 </td></tr>
+                                <tr><td> <input type="checkbox" > Group 2 </td></tr>
+                                <tr><td> <input type="checkbox" > Group 3 </td></tr>
+                                <tr><td> <input type="checkbox" > Group 4 </td></tr>
+                                <tr><td> <input type="checkbox" > Group 5 </td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-md-3 col-lg-3 right-border">
+                        <div class="panel-body">
+                            <table>
+                                <th>Group users</th>
+                                <tr><td> <input type="checkbox" > User email1 </td></tr>
+                                <tr><td> <input type="checkbox" > User email2 </td></tr>
+                                <tr><td> <input type="checkbox" > User email3 </td></tr>
+                                <tr><td> <input type="checkbox" > User email4 </td></tr>
+                                <tr><td> <input type="checkbox" > User email5 </td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-md-7 col-lg-7">
+                        <form id="send_group_email_form" name="send_group_email_form" method="POST" autocomplete="off">
+                            <div class="panel-body">
+                                <div>
+                                    <div class="form-group" data-toggle="toggle">
+                                        <label for="comment">Email:</label>
+                                        <input class="form-control" placeholder="Emails" name="first_name" required='true'>
+                                        <span class="help-block" id=""></span>
+                                    </div>
+                                    <div class="form-group" data-toggle="toggle">
+                                        <label for="comment">Subject:</label>
+                                        <input class="form-control" placeholder="subject" name="" id="first_name" type="text">
+                                        <span class="help-block" id=""></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comment">Message:</label>
+                                        <textarea class="form-control" rows="2" id="message-text"></textarea>
+                                        <span class="help-block" id="help-text-mobile"></span>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button type="button" name="" id="" class="btn btn-default add-client-btn" autocomplete="off" data-dismiss="modal">CANCEL
+                                        </button>
+                                        <button type="submit" name="send_email_submit_button" id="" onclick="no_auth_button('add_member_form')" class="btn btn-default add-client-btn" autocomplete="off">SUBMIT
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

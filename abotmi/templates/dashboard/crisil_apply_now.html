@@ -1,0 +1,104 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+<div class="modal fade upwardz-modal" id="crisil_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display:none;">
+    <div class="modal-dialog modal-lg upwrdz-view-client-model">
+        <div class="panel upwrdz-log-panel panel-default">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <h3 class="modal-title n-span-blue-color">CVA APPLICATION PROCESS</h3>
+                <hr class="modal-heading-hr">
+            </div>
+            <div class="panel-body pannel-popup-content" id="crisil_modal_body">
+                <div class="col-md-12" id="crisil_modal_body_content">
+                    <input type="text" id="id_total_amount_hidden" class="hidden">
+                    <!-- content has to be filled inside the  p tag-->
+                    <h4>Pay 2 Get 3!!</h4>
+                    <p class="n-padding-t-30">ABOTMI offers an exclusive deal to you on your 1st CVA application! Now, select and pay for a 2 year term and get the 3rd year verification absolutely free of cost!</p>
+                    <p>That’s a cost saving of &nbsp;<span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>11,000/- for you! So hurry, pay for 2 years & get CRISIL verified for 3 years!</p>
+                    <h4 class="n-padding-t-30">Click<a data-toggle="toggle" onclick="show_offer();">&nbsp;<u>here</u>&nbsp;</a>to avail the offer.</h4>
+                    <div class="row" id="to_get_offers" style="display:none;">
+                        <div class="col-sm-4">
+                            <table class="table table-bordered" id="table_id">
+                                <tr>
+                                    <td>Term</td>
+                                    <td style="padding: 7px 15px;">
+                                        <select class="form-control custome-select" name="crisil_year_range" id="id_crisil_year_range" onchange="calculate_gross_total(id);">
+                                            <option value="1">1</option>
+                                            <option value="2" selected>2</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Offer</td>
+                                    <td class="text-center" id="id_offer_label">Pay 2, Get 3</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-4" style="margin-top:-50px;">
+                            <div class="row">
+                                <div class="col-sm-6 n-padding-15 text-center">
+                                    <td class="text-center">Particulars</td>
+                                </div>
+                                <div class="col-sm-6 n-padding-15 text-center">
+                                    <td class="text-center">Amount</td>
+                                </div>
+                            </div>
+                            <table class="table table-bordered" id="table_id">
+                                <tbody>
+                                    <tr>
+                                        <td>Gross Total</td>
+                                        <td class="text-center">
+                                            <div id="id_gross_total">
+                                                <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>22,000
+                                            </div>
+                                            <strike id="id_actual_cross_amount"><span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>33,000</strike>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Add GST-18%</td>
+                                        <td class="text-center" id="id_tax"> <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>3960</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Net Total Payable</td>
+                                        <td class="text-center" id="id_total_amount"> <span><i class="fa fa-inr" aria-hidden="true" style="opacity:0.8;"></i></span>25,960</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-default btn-block upwrdz-button" id="id_crisil" onclick="confirm_advisor_to_apply_crisil();" autocomplete="off">SUBMIT</button>
+                            <button type="button" class="btn btn-default btn-block upwrdz-button" id="id_crisil_cancel" data-dismiss="modal" autocomplete="off">CANCEL</button>
+                        </div>
+                    </div>
+                    {% if promocode %}
+                        <!-- In future we will you this promo code -->
+                        <!-- <p>Please copy the promocode provided below in the box and click <b>Apply</b> to avail an early bird discount of 50% on the CRISIL verification fee!</p>
+                        <p>Promocode: <b>{{ promocode }}</b></p> -->
+                    {% endif %}
+                    <div class="col-md-12 hidden">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="id_promocode" name="promocode" autocomplete="off">
+                                <span class="help-block" id="help-text-promocode"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-2" id="button_promocode">
+                            <button type="button" class="btn popup-btn" id="id_apply_promocode" name="apply_promocode" onclick="check_promocode('id_promocode');" autocomplete="off">Apply</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="promocode_status" id="id_promocode_status" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="crisil_thanks_information" style="display:none;">
+    <p class="text-center">
+        Thank you! We have received your application. Please make payment and provide details for further processing.
+    </p>
+    <div class="text-center">
+        <button type="button" id="id_crisil_button" class="btn btn-default upwrdz-button" onclick="window.location.reload();">Ok</button>
+    </div>
+</div>

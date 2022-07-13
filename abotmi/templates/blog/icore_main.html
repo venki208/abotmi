@@ -1,0 +1,123 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% load utils_tags %}
+{% block custome_css %}
+    <link href="{% static 'V2_theme/css/blog.css' %}?10" rel="stylesheet">
+{% endblock %}
+{% block main_content %}
+<div class="container abotmi-blog-page">
+    <div class="row">
+        <div class="col-12 contribute-title mb-3">
+            <p>
+                <a href="/blog/icore/add-post/"><strong>CONTRIBUTE TO THE ABOTMI BLOG?</font></strong></a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        {% block blog_content %}
+        {% endblock %}
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <div class="card mt-4 mb-1 border-0 abotmi-blog-searchbox">
+                <div class="card-body p-0">
+                    <form role="form" name="search_form" id="search_form" method="POST" action="/blog/icore/search_posts/">
+                        {% csrf_token %}
+                            <input type="text" name="search_name" id="search_name" class="form-control icon-magnifier blog-search" autocomplete="off" placeholder="Search Here">
+                    </form>
+                    <hr style="border-top: 1px solid rgb(0, 0, 0);"/>
+                </div>
+            </div>
+
+            <!-- Categories Widget -->
+            <!-- Recent post block -->
+            {% if icore_all %}
+            <div class="card mt-0 border-0 abotmi-blog-sidecontent">
+                <div class="card-body p-0">
+                    {% for data in icore_all|slice:":4" %}
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="card-img-top">
+                                <a class="pull-left" href="/blog/icore/{{data.ID}}/post/">
+                                {% if data.featured_image.guid %}
+                                    <img src="{{data.featured_image.guid}}" class="img-fluid"/>
+                                {% else %}
+                                    <img src="{% static 'V2_theme/images/blog/top-trending.jpg' %}">
+                                {% endif %}
+                                </a>
+                            </div>
+                            <div class="blog-profile-content">
+                                <p class="mb-0" style="color:#2a75e0;">
+                                    <a href="/blog/icore/{{data.ID}}/post/">{{data.title}}</a>
+                                </p>
+                                <p class="mb-0">{{data.date|format_date:'%Y-%m-%dT%H:%M:%S'|date:'M d, Y'}}</p>
+                                <p class="mb-0" style="color:#2a75e0;">{{data.author.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <!-- top authors -->
+            {% if count %}
+            <div class="card mt-0 border-0 abotmi-blog-sidecontent">
+                <div class="card-body p-0 header-sizes">
+                    <h4 class="mb-0">Top Authors</h4>
+                    <hr style="border-top: 1px solid rgb(0, 0, 0);"/>
+                    <div class="row">
+                        {% for post in count %}
+                        <div class="col-md-12 mb-4 align-items-center">
+                            <div class="card-img-top card-img-top-author">
+                                <a href="/blog/icore/author_posts/?author={{ post.author.ID }}">
+                                    {% if post.author.avatar %}
+                                    <img src="{{post.author.avatar}}" class="img-fluid"/>
+                                    {% else %}
+                                    <i class="fa fa-user"></i>
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="blog-profile-content">
+                                <h3 class="pt-3"><a href="/blog/icore/author_posts/?author={{ post.author.ID }}">{{ post.author.name }}</a></h3>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if count %}
+            <div class="card mt-0 border-0 abotmi-blog-sidecontent">
+                <div class="card-body p-0 header-sizes">
+                    <h4 class="mb-0">Top Ranked Articles</h4>
+                    <hr style="border-top: 1px solid rgb(0, 0, 0);"/>
+                    <div class="row">
+                        {% for post in count reversed %}
+                            <div class="col-md-12 mb-4">
+                                <div class="card-img-top">
+                                    {% if post.featured_image.guid %}
+                                    <img src="{{post.featured_image.guid}}" class="img-fluid"/>
+                                    {% else %}
+                                    <img src="{% static 'V2_theme/images/blog/top-trending.jpg' %}" class="img-fluid"/>
+                                    {% endif %}
+                                </div>
+                                <div class="blog-profile-content">
+                                    <p class="mb-0" style="color:#2a75e0;">{{post.title}}</p>
+                                    <p class="mb-0">{{post.date|format_date:'%Y-%m-%dT%H:%M:%S'|date:'M d, Y'}}</p>
+                                    <p class="mb-0" style="color:#2a75e0;">{{post.author.name}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+    </div>
+</div>
+{% endblock %}
+{% block bootstrap_modal %}
+    {{block.super}}
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}

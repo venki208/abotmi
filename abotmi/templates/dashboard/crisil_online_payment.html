@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body onload="document.getElementById('payment').submit();">
+        <center>Please Wait ....<br /> We are Navigating payment Page.<br />Don't Click Refresh or Reload While Navigating Page.</center>
+        <form action="https://secure.ebs.in/pg/ma/payment/request" name="payment" id="payment" method="POST" class="hide">
+            <input type="hidden" value="{{account_id}}" name="account_id"/>
+            <input type="hidden" value="{{address}}" name="address"/>
+            <input type="hidden" value="{{amount}}" name="amount"/>
+            <input type="hidden" value="" name="bank_code"/>
+            <input type="hidden" value="" name="card_brand"/>
+            <input type="hidden" value="{{channel}}" name="channel"/>
+            <input type="hidden" value="{{city}}" name="city"/>
+            <input type="hidden" value="{{country}}" name="country"/>
+            <input type="hidden" value="{{currency}}" name="currency"/>
+            <input type="hidden" value="{{payment_description}}" name="description"/>
+            <input type="hidden" value="" name="display_currency"/>
+            <input type="hidden" value="" name="display_currency_rates"/>
+            <input type="hidden" value="{{email}}" name="email"/>
+            <input type="hidden" value="" name="emi"/>
+            <input type="hidden" value="{{mode}}" name="mode"/>
+            <input type="hidden" value="{{name}}" name="name"/>
+            <input type="hidden" value="" name="page_id"/>
+            <input type="hidden" value="" name="payment_mode"/>
+            <input type="hidden" value="" name="payment_option"/>
+            <input type="hidden" value="{{phone}}" name="phone"/>
+            <input type="hidden" value="{{postal_code}}" name="postal_code"/>
+            <input type="hidden" value="{{reference_no}}" name="reference_no"/>
+            <input type="hidden" value="{{return_url}}" name="return_url"/>
+            <input type="hidden" value="" name="ship_address"/>
+            <input type="hidden" value="" name="ship_city"/>
+            <input type="hidden" value="" name="ship_country"/>
+            <input type="hidden" value="" name="ship_name"/>
+            <input type="hidden" value="" name="ship_phone"/>
+            <input type="hidden" value="" name="ship_postal_code"/>
+            <input type="hidden" value="" name="ship_state"/>
+            <input type="hidden" value="" name="state"/>
+            <input type="hidden" value="{{secure_hash_key}}" name="secure_hash"/>
+        </form>
+    </body>
+</html>

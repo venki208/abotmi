@@ -1,0 +1,379 @@
+{% extends 'home/main.html' %}
+{% load staticfiles %}
+{% block nav_bar_menu %}
+	<div class="navbar-collapse collapse">
+		<!-- Start Navigation List -->
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="/">
+					Home
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'home:eligibility_criteria' %}">
+				Eligibility
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'home:support_benifit' %}">
+					Benefits
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'home:faq_html' %}">
+					FAQ
+				</a>
+			</li>
+			{% if user.is_authenticated %}
+				{% if user.profile.is_advisor %}
+					<li>
+						<a class="active" href="/signup/user_profile/">
+							User Profile
+						</a>
+						<ul class="dropdown">
+							<li>
+								<a style="cursor: default;">
+									Welcome <b>{{ user.profile.first_name }}</b>
+								</a>
+							</li>
+							{% if user.advisor.is_register_advisor %}
+								<li>
+									<a href="{% url 'home:change_password' %}">
+										Change Password
+									</a>
+								</li>
+							{% endif %}
+							<li>
+							   <a href="{% url 'signup:invite_advisor' %}">Invite Advisor</a>
+							</li>
+							<li>
+								<a href="{% url 'signup:rate_advisor' %}">Rate Advisor</a>
+							</li>
+							<li>
+	                            <a href="{% url 'signup:invite_to_rate' %}">Invite to Rate</a>
+	                        </li>
+							{% if user.is_authenticated %}
+								{% if user.profile.advisor.is_register_advisor %}
+									{% if not user.profile.advisor.is_certified_advisor %}
+										<li>
+											<a href="/stream/">
+												Get Certified
+											</a>
+										</li>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+							<li>
+								<a href="/logout/">
+									Logout
+								</a>
+							</li>
+						</ul>
+					</li>
+				{% else %}
+					<li>
+						<a onClick="nav_bar(this);" href="/signup/register_advisor/">
+							Register
+						</a>
+					</li>
+					<ul class="dropdown">
+						<li>
+							<a style="cursor: default;">
+								Welcome <b>{{ user.profile.first_name }}</b>
+							</a>
+						</li>
+						<li>
+							<a href="/logout/">
+								Logout
+							</a>
+						</li>
+					</ul>
+				{% endif %}
+			{% else %}
+				<li><a onClick="nav_bar(this);" href="/signup/register_advisor/">Register</a></li>
+			{% endif %}
+		</ul>
+		<!-- End Navigation List -->
+		</div>
+	</div>
+	<!--end container -->
+	<!-- Mobile Menu Start -->
+	<ul class="wpb-mobile-menu">
+		<li>
+			<a href="/">
+				Home
+			</a>
+		</li>
+		<li>
+			<a href="{% url 'home:eligibility_criteria' %}">
+				Eligibility
+			</a>
+		</li>
+		<li>
+			<a href="{% url 'home:support_benifit' %}">
+				Benefits
+			</a>
+		</li>
+		<li>
+			<a href="{% url 'home:faq_html' %}">
+				FAQ
+			</a>
+		</li>
+		{% if user.is_authenticated %}
+			{%if user.profile.is_advisor %}
+				<li>
+					<a class="active" href="/signup/user_profile/">
+						User Profile
+					</a>
+					 <ul class="dropdown">
+						<li>
+							<a href="#">
+								Welcome <b>{{ user.profile.first_name }}</b>
+							</a>
+						</li>
+						{% if user.profile.advisor.is_register_advisor %}
+							<li>
+								<a href="{% url 'home:change_password' %}">
+									Change Password
+								</a>
+							</li>
+						{% endif %}
+						<li>
+						   <a href="{% url 'signup:invite_advisor' %}">Invite Advisor</a>
+						</li>
+						<li>
+							<a href="{% url 'signup:rate_advisor' %}">Rate Advisor</a>
+						</li>
+						<li>
+                            <a href="{% url 'signup:invite_to_rate' %}">Invite to Rate</a>
+                        </li>
+						{% if user.is_authenticated %}
+							{% if user.profile.advisor.is_register_advisor %}
+								{% if not user.profile.advisor.is_certified_advisor %}
+									<li>
+										<a href="/stream/">
+											Get Certified
+										</a>
+									</li>
+								{% endif %}
+							{% endif %}
+						{% endif %}
+						<li>
+							<a href="/logout/">
+								Logout
+							</a>
+						</li>
+					</ul>
+				</li>
+			{% else %}
+				<li>
+					<a onClick="nav_bar(this);" href="/signup/register_advisor/">
+						Register
+					</a>
+					<ul class="dropdown">
+						<li>
+							<a href="#">
+								Welcome <b>{{ user.profile.first_name }}</b>
+							</a>
+						</li>
+						<li>
+							<a href="/logout/">
+								Logout
+							</a>
+						</li>
+					</ul>
+				</li>
+			{% endif %}
+
+		{% else %}
+			<li><a onClick="nav_bar(this);" href="/signup/register_advisor/">Register</a></li>
+		{% endif %}
+	</ul>
+	<!-- Mobile Menu End -->
+{% endblock %}
+{% block select_rate_css %}
+<style type="text/css">
+	li.child:hover {
+	    color: #fff;
+	    background-color: #227FB8;
+	    cursor: pointer;
+	}
+	li.child {
+	    border-bottom: 1px solid rgba(138, 148, 155, 0.38);;
+	    color: #000000;
+	    font-size: 18px;
+	    padding: 5px;
+	}
+
+	ul.main_class {
+	    border: 1px solid rgba(96, 105, 110, 0.41);;
+	    box-shadow: 3px 4px 10px #615A5A;
+	}
+	.search_scroll{
+		height: 129px;
+	    overflow-y: scroll;
+	    margin-top: -14px;
+	    box-shadow: 3px 4px 10px #615A5A;
+	}
+</style>
+{% endblock %}
+{% block invite_to_rate %}
+	<div class="section services">
+		<div class="container">
+			<div class="row">
+				<div class="section-title">
+					Invite to Rate
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-2">
+					</div>
+					<div class="col-md-8">
+						<form class="contact-form" name="invite_to_rate_form" id="invite_to_rate_form" method="POST" action="">
+							<div class="row">
+								<div class="col-md-3">
+									<p>Name: </p>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group control-group">
+										<div class="control">
+											<input type="text" class="form-control" id="id_name" name="name" placeholder="Name"></input>
+										</div>
+										<span class="help-block"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<p>Phone No: </p>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group control-group">
+										<div class="control">
+											<input type="text" class="form-control" id="id_phone" name="phone" placeholder="Phone No"></input>
+										</div>
+										<span class="help-block"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<p>Email ID: </p>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group control-group">
+										<div class="control">
+											<input type="text" class="form-control" id="id_email" name="email" placeholder="Email ID" autocomplete="off" onkeyup="search_user();"></input>
+											<div id="search_block">
+												<!-- search result adding dynamically on keyup function from email field -->
+										 	</div>
+										</div>
+										<span class="help-block"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-9">
+									<button type="button" class="btn btn-effect pull-right" id="invite_to_rate" name="invite_to_rate" onclick="invite_rate()">Invite</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-2">
+					</div>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+		</div>
+	</div>
+	<div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<h4 class="modal-title">Success</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<p>You have sent a Mail with your referral link successfully</p>
+	        	</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-success" data-dismiss="modal" onclick="clear_data();">Close</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+{% endblock %}
+{% block invite_rate_script %}
+	<script type="text/javascript">
+		function invite_rate(){
+			if($("#invite_to_rate_form").valid()){
+				$.ajax({
+					type:'POST',
+					url:'/signup/invite_advisor_to_rate/',
+					data:{
+						name:$('#id_name').val(),
+						phone_no:$('#id_phone').val(),
+						email:$('#id_email').val(),
+					},
+					success:function(response){
+						$("#myModal").modal();
+					},
+					error:function(response){
+					},
+				});
+			}
+		}
+		function search_user(){
+			$('#search_result').remove();
+			$("#search_block").removeClass("search_scroll");
+			if($('#id_email').val() != ''){
+				$.ajax({
+					type:'POST',
+					url:'/signup/search_advisor_to_rate/',
+					data:{
+						username:$('#id_email').val(),
+					},
+					success:function(response){
+						if (response){
+							var response =response;
+							var div_id = document.getElementById('search_block');
+							div_id.setAttribute('class', 'search_scroll');
+							var ul = document.createElement('ul');
+							ul.id="search_result";
+							ul.name="search_result";
+							ul.setAttribute('class','main_class');
+							div_id.appendChild(ul);
+							$('#search_result').append(response);
+							if($("#search_result li").length <4){
+								document.getElementById('search_block').style.overflowY ='hidden';
+								document.getElementById('search_block').style.boxShadow= 'none';
+							}else{
+								document.getElementById('search_block').style.overflowY ='scroll';
+								document.getElementById('search_block').style.boxShadow= '3px 4px 10px #615A5A';
+							}
+						}
+					},
+					error:function(response){
+					},
+				});
+			}
+		}
+		function fetching_selected_user(id){
+			var selected_user = $('#'+id).text();
+			document.getElementById('id_email').value = selected_user;
+			$('#search_result').remove();
+			$("#search_block").removeClass("search_scroll");
+		}
+		function clear_data(){
+			document.getElementById('id_name').value = '';
+			document.getElementById('id_phone').value = '';
+			document.getElementById('id_email').value = '';
+		}
+	</script>
+{% endblock %}
+{% block validate_script %}
+    <script src="{% static 'js/validate.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/additional-methods.min.js' %}"></script>
+{% endblock %}

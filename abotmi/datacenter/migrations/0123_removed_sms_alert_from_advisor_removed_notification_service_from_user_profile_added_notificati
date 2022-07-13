@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('datacenter', '0122_removed_notification_table_from_mysql'),
+    ]
+
+    operations = [
+        migrations.RemoveField(
+            model_name='advisor',
+            name='sms_alert',
+        ),
+        migrations.RemoveField(
+            model_name='historicaladvisor',
+            name='sms_alert',
+        ),
+        migrations.RemoveField(
+            model_name='historicaluserprofile',
+            name='notification_service',
+        ),
+        migrations.RemoveField(
+            model_name='userprofile',
+            name='notification_service',
+        ),
+        migrations.AddField(
+            model_name='userstatus',
+            name='notification_service',
+            field=models.TextField(default=b'{"microlerning": true, "sms_alert": true, "newsletter_alert": true, "invitation_and_message": true, "blog": true, "activity_by_network": true, "activity_involve": true}', blank=True),
+        ),
+    ]

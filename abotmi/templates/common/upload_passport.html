@@ -1,0 +1,52 @@
+<style>
+.password-verification-card{
+    position: relative;
+    top: -8px;
+}
+</style>
+{% load staticfiles %}
+{% load widget_tweaks %}
+    <div class="row">
+        <div class="form-group col-md-12 form-nline text-left">
+            <h5><strong>Please upload the required documents for verification</strong><span>*</span></h5>
+        </div>
+        <form action="/signup/upload_file/" name="upload_doc0" id="upload_doc0" method="post" class="contact-form" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-group col-xs-12 form-nline reg-step4">
+                <div class="row registration-form-div" id="proof_nonindian">
+                    <div class="col-sm-4 col-xs-12 text-right pan-card">
+                        <label>Passport <span>*</span></label>
+                    </div>
+                    <div style="display:none;">
+                        <input type="text" name="documents_type" id="documents_type" value="passport">
+                        <input type="hidden" name="reupload" value="true">
+                    </div>
+                    <div class="form-group col-sm-3 col-xs-7">
+                        <input type="text" class="form-control" name="passport_no" id="passport_no" placeholder = "Passport" value="{{user.profile.passport_no}}" style = "margin-top:-6px;">
+                    </div>
+                    {% if user_documents_proof %}
+                        {% for doc in user_documents_proof %}
+                        <div class="download_link_color_pan">
+                            <label id="paper_clip0" class="col-sm-2 col-xs-4 fileinput fileinput-new hide password-verification-card" data-provides="fileinput">
+                                <span class="btn btn-default btn-file" id="passport_num">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i><input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                                </span>
+                            </label>
+                            <span class="attach_class hiding{{doc.id}} n-padding-r-5" id="id_attached" name="attached">Attached</span>
+                            <a id="{{ doc.id }}" class="hiding{{doc.id}} download_link_color n-padding-r-5" href="{{ doc.documents.url }}" onclick="window.open('{{ doc.documents.url }}', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=250,left=500,width=550, height=550'); return false;"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                            <a class="hiding{{ doc.id }}" onclick="removeDocument({{doc.id}},'paper_clip0');"><i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i></a>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <label id="paper_clip0" class="col-sm-2 fileinput fileinput-new password-verification-card" data-provides="fileinput">
+                            <span class="btn btn-default">
+                                <i class="fa fa-paperclip" aria-hidden="true"></i><input type="file" name="document" id="`document_pan`" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_nonindian', 'paper_clip0');">
+                            </span>
+                        </label>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="{% static 'js/new_js/upload_document.js' %}" charset="utf-8"></script>
+    <!-- end -->

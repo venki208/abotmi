@@ -1,0 +1,1248 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+    <style type="text/css">
+        .col-sm-4.col-md-4.col-lg-4.selection-btn.left-no-padding{
+            padding-left: 0px;
+        }
+        .row_financial{
+            margin:0px 0;
+        }
+        .prograss-bar-side{
+            width: 80%;
+            position: absolute;
+            left: 10%;
+            background: none !important;
+            top: 30px;
+        }
+        .prograss-bar-main{
+            height: 5px;
+            background: #0f8665;
+        }
+        .fix-modal-heading{
+            padding: 10px 15px 15px !important;
+        }
+        .fix-modal-heading-icon {
+            margin-right: 1%;
+        }
+        .div#ui-datepicker-div{
+            z-index: 999;
+        }
+        .inside-form input[type="text"]{
+            /*width: 58%;*/
+            margin-left: -20px;
+        }
+        .others input[type="text"]{
+            width: 100%;
+            margin-left: -20px;
+        }
+        .date-picker-last-view .help-block {
+            position: relative;
+            border: none;
+            padding: 0px;
+        }
+        .date-picker-view .help-block {
+            position: relative;
+            border: none;
+            top: 0px;
+            padding: 0px;
+        }
+        .help-block{
+            color: #961f1f;
+        }
+        .advisor-form-padding .form-group{
+            margin-bottom: 10px;
+        }
+        .register_with{
+            width: 100%;
+            margin-top: 0px;
+            margin-left: -20px;
+        }
+        .intl-tel-input.allow-dropdown{
+            width: 100%;
+        }
+        .form-group.col-sm-3.col-md-3.col-lg-3.others{
+            margin-right: 2px;
+        }
+        @media(max-width:767px){
+         .additional_btn {
+                margin-bottom: 20px !important;
+            }
+        }
+        .download_link_color{
+            color:#23527c;
+        }
+        .attach_class{
+            display: inline;
+            padding-right: 5px;
+            padding-left: 10px;
+            font-size: 14px;
+            color: #e40b7d;
+        }
+        .action{
+            width: 400px;
+            height: 30px;
+            margin: 10px 0;
+        }
+        .cropped>img{
+            margin-right: 10px;
+        }
+        .imageBox{
+            position: relative;
+            height: 400px;
+            width: 400px;
+            border:1px solid #aaa;
+            background: #fff;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            cursor:move;
+        }
+        .imageBox .thumbBox{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            box-sizing: border-box;
+            border: 1px solid rgb(102, 102, 102);
+            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+            background: none repeat scroll 0% 0% transparent;
+        }
+        .imageBox .spinner{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+            line-height: 400px;
+            background: rgba(0,0,0,0.7);
+        }
+    </style>
+    <div class="form-group registration-form-div pull-left">
+        <div class="form-group col-md-12 col-sm-12" id="download_profile">
+            <label class="col-sm-2">
+                Profile Picture<span>*</span>
+            </label>
+            {% if doc_profile_picture %}
+               <label id="paper_clip1" class="col-sm-2 fileinput fileinput-new" data-provides="fileinput" style="display:none;" onclick="call_profile_picture_modal('upload-profile-picture-modal','edit-profile-modal');">
+                    <span class="btn btn-default btn-file">
+                        <i class="fa fa-paperclip"></i>
+                    </span>
+               </label>
+               <p class="attach_class hiding{{doc_profile_picture.id}}" id="id_attached" name="attached">Attached</p>
+               <a id="{{ doc_profile_picture.id }}" class="hiding{{doc_profile_picture.id}} download_link_color" href="{{ doc_profile_picture.documents.url }}" onclick="window.open('{{ doc_profile_picture.documents.url }}', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=250,left=500,width=550, height=550'); return false;"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+               <a class="hiding{{ doc_profile_picture.id }}" onclick="removeDocument({{doc_profile_picture.id}},'paper_clip1');"><i class="fa fa-trash download_link_color" aria-hidden="true"></i></a>
+            {% else %}
+                <label id="paper_clip1" class="col-sm-2 fileinput fileinput-new " data-provides="fileinput" onclick="call_profile_picture_modal('upload-profile-picture-modal','edit-profile-modal');">
+                    <span class="btn btn-default btn-file">
+                        <i class="fa fa-paperclip text-left"></i>
+                    </span>
+                </label>
+            {% endif %}
+        </div>
+        <div class="col-sm-4 col-md-4 col-xs-12 col-lg-4">
+            <label for="ex2">First Name <span >*</span></label>
+            <input class="form-control" placeholder="First name" onfocus="this.placeholder = ''" onblur="this.placeholder ='First name'" name="f_name" id="f_name" type="text" onchange="validateAlpha('f_name');" value="{{ user.profile.first_name }}" ><span class="help-block" id="help_text_f_name"></span>
+        </div>
+        <div class="col-sm-2 col-md-4 col-xs-12 col-lg-4">
+            <label for="ex3">Middle Name</label>
+            <input class="form-control" placeholder="Middle name" onfocus="this.placeholder = ''" onblur="this.placeholder ='Middle name'" id="m_name" name="m_name"  onchange="validateAlpha('m_name');" type="text" value="{{ user.profile.middle_name }}"><span class="help-block" id="help_text_m_name"></span>
+        </div>
+        <div class="col-sm-4 col-md-4 col-xs-12 col-lg-4">
+            <label for="ex3">Last Name <span >*</span></label>
+            <input class="form-control" placeholder="Last name" onfocus="this.placeholder = ''" onblur="this.placeholder ='Last name'" id="l_name" name="l_name" onchange="validateAlpha('l_name');" value="{{ user.profile.last_name }}" type="text">
+            <span class="help-block" id="help_text_l_name"></span>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+            <label for="ex3">Mobile Number<span>*</span></label>
+            <input class="form-control" id="mobilenumber" placeholder="9999999999" onfocus="this.placeholder = ''" onblur="this.placeholder ='9999999999'" name="mobilenumber" value="{{ mobile_number}}" type="text" onkeyup="validateMobile(2,'mobilenumber');" onkeydown="validateMobile(2,'mobilenumber');" onchange="validateMobile(2,'mobilenumber');">
+            <span class="help-block" id="help_text_mobilenumber"></span>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-xs-12">
+            <label for="ex3">Locality / Area <span>*</span></label>
+            <input type="text" name="locality" id="locality" class="form-control input" value="{{user.profile.locality}}" placeholder="7th Phase,J P Nagar" onfocus="this.placeholder = ''" onblur="this.placeholder = '7th Phase,J P Nagar'"></span>
+            <span class="help-block" id="help-text-locality"></span>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-xs-12">
+            <label for="ex3">Town / City <span>*</span></label>
+            <input type="text" name="city" id="city" class="form-control input" value="{{user.profile.city}}" placeholder="Bengaluru" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Bengaluru'"></span>
+            <span class="help-block" id="help-text-city"></span>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left" id="id_main_register_with_div" style="display:none;">
+        <div class="col-md-12 col-lg-12 col-sm-12" id="id_register_with">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Registered with <span>*</span></h4>
+                    <h6 style="color:#FFF"><b><u>Note:</u></b> Please select one or more Certification Registration.</h6>
+                </div>
+                <span class="help-block" id="help_text_register_with"></span>
+                <div class="panel-body">
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox col-sm-2">
+                                <label>
+                                    <input type="checkbox" class="count_checkbox" name="certification_SEBI" id="certification_sebi" value="ferrari" onclick="display_certification_details(id,'clicked');"><img src="/static/images/sbi-logo.png" data-toggle="tooltip" data-placement="top" title="SEBI Registration"/> sebi
+                                </label>
+                            </div>
+                            <div id="sebi_details">
+                                <div class="form-group col-sm-5 col-md-5 col-lg-5 inside-form">
+                                    <input type="text" class="form-control" name="sebi_registration_no" id="sebi_registration_no" placeholder="Registration&nbsp;number." onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number.'"  value="{{user.profile.advisor.sebi_number}}" readonly="true" onkeyup="check_advisor_is_crisil('sebi_number',id,'help_text_sebi_number','{{user.profile.advisor.sebi_number}}');">
+                                    <span class="help-block register_with" id="help_text_sebi_number"></span>
+                                </div>
+                                <div class="form-group col-sm-5 col-md-5 col-lg-5 inside-form date-picker-view">
+                                    <input type="text" class="form-control " id="sebi_expiry_date" name="sebi_expiry_date" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="{{user.profile.advisor.sebi_expiry_date|date:'d-m-Y'}}" readonly="true"onClick="$('#sebi_expiry_date').focus();" onchange="check_advisor_is_crisil('sebi_expiry_date',id,'help_text_sebi_expire_date','{{user.profile.advisor.sebi_expiry_date|date:'d-m-Y'}}');">
+                                    <span style="top: auto;">
+                                        <i class="fa fa-calendar" onClick="show_date('#sebi_expiry_date','certification_sebi');" aria-hidden="true"></i>
+                                    </span>
+                                    </input>
+                                    <span class="help-block register_with" id="help_text_sebi_expire_date"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_AMFI" id="certification_amfi" value="yes" onclick="display_certification_details(id,'clicked');"><img src="/static/images/amfi-logo.png" data-toggle="tooltip" data-placement="top" title="AMFI Registration"/></label>
+                            </div>
+                            <div id="amfi_subdetails">
+                                <div class="form-group col-sm-5 col-md-5 col-lg-5 inside-form">
+                                    <input type="text" class="form-control" id="amfi_registration_no" name="amfi_registration_no" placeholder="Registration&nbsp;number." onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number.'" value="{{user.profile.advisor.amfi_number}}" readonly="true" onkeyup="check_advisor_is_crisil('amfi_number',id,'help_text_amfi_number','{{user.profile.advisor.amfi_number}}');">
+                                    <span class="help-block register_with" id="help_text_amfi_number"></span>
+                                </div>
+                                <div class="form-group col-sm-5 col-md-5 col-lg-5 inside-form date-picker-view">
+                                    <input type="text" class="form-control" name="amfi_expiry_date" id="amfi_expiry_date" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="{{user.profile.advisor.amfi_expiry_date|date:'d-m-Y'}}" readonly="true" onClick="$('#amfi_expiry_date').focus();" onchange="check_advisor_is_crisil('amfi_expiry_date',id,'help_text_amfi_expire_date','{{user.profile.advisor.amfi_expiry_date|date:'d-m-Y'}}');" onClick="$('#amfi_expiry_date').focus();">
+                                    <span style="top: auto;"><i class="fa fa-calendar" onClick="show_date('#amfi_expiry_date','certification_amfi');" aria-hidden="true"></i></span>
+                                    <span class="help-block register_with" id="help_text_amfi_expire_date"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_IRDA" id="certification_irda" value="yes" onclick="display_certification_details(id,'clicked');"/><img src="/static/images/irda-logo.png" data-toggle="tooltip" data-placement="top" title="IRDA Registration"/></label>
+                            </div>
+                            <div id="irda_subdetails">
+                                <div class="form-group col-sm-5 col-md-5 col-lg-5 inside-form">
+                                    <input type="text" class="form-control" id="irda_registration_no" name="irda_registration_no" placeholder="Registration&nbsp;number." onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number.'" value="{{user.profile.advisor.irda_number}}" readonly="true" onkeyup="check_advisor_is_crisil('irda_number',id,'help_text_irda_number','{{user.profile.advisor.irda_number}}');">
+                                    <span class="help-block register_with" id="help_text_irda_number"></span>
+                                </div>
+                                <div class="form-group col-sm-5 col-md-5 col-lg-5 inside-form date-picker-view">
+                                    <input type="text" class="form-control " id="irda_expiry_date" name="irda_expiry_date" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="{{user.profile.advisor.irda_expiry_date|date:'d-m-Y'}}" readonly="true" onClick="$('#irda_expiry_date').focus();" onchange="check_advisor_is_crisil('irda_expiry_date',id,'help_text_irda_expire_date','{{user.profile.advisor.irda_expiry_date|date:'d-m-Y'}}');">
+                                    <span style="top: auto;"><i class="fa fa-calendar" onClick="show_date('#irda_expiry_date','certification_irda');" aria-hidden="true"></i></span>
+                                    <span class="help-block register_with" id="help_text_irda_expire_date"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-0">
+                        <div class="form-group form-inline registrator-form-let">
+                            <div class="checkbox col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_RERA" id="certification_rera" value="yes" onclick="display_certification_details(id,'clicked');"/><img src="/static/images/rera.png" data-toggle="tooltip" data-placement="top" title="RERA Registration" style="width: 30px;height: 28px;"/></label>
+                            </div>
+                            <div id="rera_subdetails">
+                                {% if not user.profile.advisor.rera_details and not user.profile.advisor.is_rera %}
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                    <input type="text" class="form-control " id="rera_registration_no1" name="rera_registration_no1" placeholder="Registration number." value="" readonly="true" onchange="check_rera_or_dsa_field(id, '', 'rera');">
+                                    <span class="help-block register_with" id="help_rera_registration_no1"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                    <input type="text" class="form-control" id="rera_state1" name="rera_state1"
+                                    placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder ='State'" value="" readonly="true" onkeyup="check_rera_or_dsa_field(id, '', 'rera');">
+                                    <span class="help-block register_with" id="help_rera_state1"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 others inside-form date-picker-last-view">
+                                    <input type="text" name="rera_expire_date1" id="rera_expire_date1" class="form-control" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="" readonly="true" onchange="check_rera_or_dsa_field(id, '', 'rera');" onClick="$('#rera_expire_date1').focus();">
+                                    <span style="top: auto;"><i class="fa fa-calendar" onClick="show_date('#rera_expire_date1','certification_rera');" aria-hidden="true"></i></span>
+                                    <span class="help-block register_with" id="help_rera_expire_date1"></span>
+                                </div>
+                                <a class="btn additional_btn btn-add-respn" id="rera_field" onclick="add_rera_fields();">
+                                    <i class="fa fa-plus-circle"></i>
+                                </a>
+                                {% else %}
+                                    {% for rera_result_values in rera_result %}
+                                        {% if forloop.counter == 1 %}
+                                        <div id="div_id{{forloop.counter}}">
+                                        {% else %}
+                                        <div id="div_id{{forloop.counter}}" class="rera_div_row col-md-12 no-padding">
+                                        {% endif %}
+                                        {% if not forloop.counter == 1%}
+                                            <div class="form-group col-md-2 col-sm-2 col-lg-2"></div>
+                                        {% endif %}
+                                            <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                                <input type="text" class="form-control " id="rera_registration_no{{forloop.counter}}" name="rera_registration_no{{forloop.counter}}" placeholder="Registration number." value="{{rera_result_values.rera_registration_no}}" onkeyup="check_rera_or_dsa_field(id, '{{rera_result_values.rera_registration_no}}', 'rera');">
+                                                <span class="help-block" id="help_rera_registration_no{{forloop.counter}}"></span>
+                                            </div>
+                                            <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                                <input type="text" class="form-control" id="rera_state{{forloop.counter}}" name="rera_state{{forloop.counter}}"
+                                                placeholder="State" onfocus="this.placeholder = ''" onblur="this.placeholder ='State'" value="{{rera_result_values.rera_state}}" onkeyup="check_rera_or_dsa_field(id, '{{rera_result_values.rera_state}}', 'rera');">
+                                                <span class="help-block" id="help_rera_state{{forloop.counter}}"></span>
+                                            </div>
+                                            <div class="form-group col-sm-3 col-md-3 col-lg-3 others inside-form date-picker-last-view">
+                                                <input type="text" name="rera_expire_date{{forloop.counter}}" id="rera_expire_date{{forloop.counter}}" class="form-control datepicker" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="{{rera_result_values.rera_expire_date}}" onchange="check_rera_or_dsa_field(id, '{{rera_result_values.rera_expire_date}}', 'rera');">
+                                                <span style="top: auto;"><i class="fa fa-calendar" onClick="show_date('#rera_expire_date{{forloop.counter}}','certification_rera');" aria-hidden="true"></i></span>
+                                                <span class="help-block" id="help_rera_expire_date{{forloop.counter}}"></span>
+                                            </div>
+                                            {% if forloop.counter == 1 %}
+                                                <a class="btn additional_btn" id="rera_field" onclick="add_rera_fields();">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </a>
+                                            {% else %}
+                                                <a class="btn additional_btn rera_remove btn-add-respn" id="remove_rera_row" onclick="check_and_remove_rera_dsa('div_id{{forloop.counter}}', 'rera');"><i class="fa fa-minus-circle" ></i></a>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div id="additional_rera_fields">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row n-margin-lr-0">
+                        <div class="form-group form-inline registrator-form-let no-padding" style="padding-bottom:0px !important;">
+                            <div class="checkbox col-sm-2 col-md-2 col-lg-2">
+                                <label><input type="checkbox" class="count_checkbox" name="certification_DSA" id="certification_dsa" value="yes" onclick="display_certification_details(id,'clicked');"/>DSA
+                                </label>
+                            </div>
+                            <div id="dsa_subdetails">
+                                {% if not user.profile.advisor.dsa_details %}
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                    <input type="text" class="form-control " id="dsa_registration_no1" name="dsa_registration_no1" placeholder="Bank Name." value=""readonly="true" onchange="check_rera_or_dsa_field(id, '', 'dsa');">
+                                    <span class="help-block register_with" id="help_dsa_registration_no1"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                    <input type="text" class="form-control" id="dsa_code_no1" name="dsa_code_no1"
+                                    placeholder="DSA Code" onfocus="this.placeholder = ''" onblur="this.placeholder ='DSA Code'" value="" readonly="true" onkeyup="check_rera_or_dsa_field(id, '', 'dsa');">
+                                    <span class="help-block register_with" id="help_dsa_code_no1"></span>
+                                </div>
+                                <div class="form-group col-sm-3 col-md-3 col-lg-3 others        inside-form date-picker-last-view">
+                                    <input type="text" name="dsa_How long associated with1" id="dsa_how_long_associated1" class="form-control" placeholder="How long associated with?" onfocus="this.placeholder = ''" onblur="this.placeholder ='How long associated with?'" value="" readonly="true" onkeyup="reraExperience(id,1);check_rera_or_dsa_field(id, '', 'dsa');" onClick="$('#dsa').focus();">
+                                    <span class="help-block register_with" id="help_dsa_how_long_associated1"></span>
+                                </div>
+                                <a class="btn additional_btn btn-add-respn" id="dsa_field" onclick="add_dsa_fields();">
+                                    <i class="fa fa-plus-circle"></i>
+                                </a>
+                                {% else %}
+                                    {% for dsa_result_values in dsa_result %}
+                                        {% if forloop.counter == 1 %}
+                                        <div id="div_id{{forloop.counter}}">
+                                        {% else %}
+                                            <div id="div_id{{forloop.counter}}" class="dsa_div_row col-md-12 no-padding">
+                                        {% endif %}
+                                        {% if not forloop.counter == 1%}
+                                            <div class="form-group col-md-2 col-sm-2 col-lg-2"></div>
+                                        {% endif %}
+                                        <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                            <input type="text" class="form-control " id="dsa_registration_no{{forloop.counter}}" name="dsa_registration_no{{forloop.counter}}" placeholder="Bank Name." value="{{dsa_result_values.dsa_bank_name}}" onkeyup="check_rera_or_dsa_field(id, '{{dsa_result_values.dsa_bank_name}}', 'dsa');">
+                                            <span class="help-block register_with" id="help_dsa_registration_no{{forloop.counter}}"></span>
+                                        </div>
+                                        <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                            <input type="text" class="form-control" id="dsa_code_no{{forloop.counter}}" name="dsa_code_no{{forloop.counter}}"
+                                            placeholder="DSA Code" onfocus="this.placeholder = ''" onblur="this.placeholder ='DSA Code'" value="{{dsa_result_values.dsa_code}}" onkeyup="check_rera_or_dsa_field(id, '{{dsa_result_values.dsa_code}}', 'dsa');">
+                                            <span class="help-block register_with" id="help_dsa_code_no{{forloop.counter}}"></span>
+                                        </div>
+                                        <div class="form-group col-sm-3 col-md-3 col-lg-3 others    inside-form date-picker-last-view">
+                                            <input type="text" name="dsa_How long associated with{{forloop.counter}}" id="dsa_how_long_associated{{forloop.counter}}" class="form-control" placeholder="How long associated with?" onfocus="this.placeholder = ''" onblur="this.placeholder ='How long associated with?'" value="{{dsa_result_values.dsa_how_long_associated}}" onkeyup="reraExperience(id,1);check_rera_or_dsa_field(id, '{{dsa_result_values.dsa_how_long_associated}}', 'dsa');" onClick="$('#dsa').focus();">
+                                            <span class="help-block register_with" id="help_dsa_how_long_associated{{forloop.counter}}"></span>
+                                        </div>
+                                        {% if forloop.counter == 1%}
+                                            <a class="btn additional_btn btn-add-respn" id="dsa_field" onclick="add_dsa_fields();">
+                                            <i class="fa fa-plus-circle"></i></a>
+                                        {% else %}
+                                            <a class="btn additional_btn dsa_remove btn-add-respn" id="remove_dsa_row" onclick="check_and_remove_rera_dsa('div_id{{forloop.counter}}', 'dsa');"><i class="fa fa-minus-circle" ></i></a>
+                                        {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div id="additional_dsa_fields">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-inline registrator-form-let">
+                        <div class="checkbox col-sm-2 col-md-2 col-lg-2">
+                            <label><input type="checkbox" class="count_checkbox" name="certification_OTHERS" id="certification_others" value="yes" onclick="display_certification_details(id,'clicked');"/>Others</label>
+                        </div>
+                        <div id="others_subdetails">
+                            <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                <input type="text" class="form-control " id="other_organisation" name="other_organisation" placeholder="Authority Organisation" value="{{user.profile.advisor.other_registered_organisation}}" readonly="true" onkeyup="check_advisor_is_crisil('other_registered_organisation',id,'help_text_other_organisation','{{user.profile.advisor.other_registered_organisation}}');">
+                                <span class="help-block register_with" id="help_text_other_organisation"></span>
+                            </div>
+                            <div class="form-group col-sm-3 col-md-3 col-lg-3 others">
+                                <input type="text" class="form-control" id="other_registration_no" name="other_registration_no"
+                                placeholder="Registration&nbsp;number." onfocus="this.placeholder = ''" onblur="this.placeholder ='Registration&nbsp;number.'" value="{{user.profile.advisor.other_registered_number}}" readonly="true" onkeyup="check_advisor_is_crisil('other_registered_number',id,'help_text_other_registration','{{user.profile.advisor.other_registered_number}}');">
+                                <span class="help-block register_with" id="help_text_other_registration"></span>
+                            </div>
+                            <div class="form-group col-sm-3 col-md-3 col-lg-3 others inside-form date-picker-last-view">
+                                <input type="text" name="other_expiry_date" id="other_expiry_date" class="form-control" placeholder="Valid up to" onfocus="this.placeholder = ''" onblur="this.placeholder ='Valid up to'" value="{{user.profile.advisor.other_expiry_date|date:'d-m-Y'}}" readonly="true" onClick="$('#other_expiry_date').focus();" onchange="check_advisor_is_crisil('other_expiry_date',id,'help_text_other_expiredate','{{user.profile.advisor.other_expiry_date|date:'d-m-Y'}}');">
+                                <span style="top: auto;"><i class="fa fa-calendar" onClick="show_date('#other_expiry_date','certification_others');" aria-hidden="true"></i></span>
+                                <span class="help-block register_with" id="help_text_other_expiredate"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <label for="ex3">Highest Qualification</label>
+            <input type="text" class="form-control" name="highest_qualification" id="highest_qualification" placeholder="CFA" onfocus="this.placeholder = ''" onblur="this.placeholder = 'CFA'"  value="{{user.profile.qualification}}">
+            <span class="help-block" id="help-text-qualification"></span>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <label for="ex3">Year of Passing</label>
+            <select name="highest_qualification_year_passout" placeholder="2000" onfocus="this.placeholder = ''" onblur="this.placeholder = '2000'" class="form-control" id="year_passout" value="{{user.profile.year_passout}}">
+                <option value="select">--Select--</option>
+            </select>
+            <span class="help-block" id="help-text-year-passout"></span>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <label for="ex3">University / Board</label>
+            <input type="text" class="form-control" name="college_name"
+               id="college_name" value="{{ user.profile.college_name}}"
+               placeholder="University / Board" onfocus="this.placeholder = ''" onblur="this.placeholder = 'University / Board'">
+            <span class="help-block" id="help-text-college-name"></span>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="col-sm-4 col-lg-4 col-md-4 label-padding">
+            <label for="ex3">Languages known to speak <span>*</span></label>
+            <input type="text" class="form-control" placeholder="English,Hindi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'English,Hindi'" name="language_known" id="language_known" value="{{ user.profile.language_known }}">
+            <span class="help-block" id="help-text-language_known"></span>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <label for="ex3">Languages known to Read & Write <span>*</span></label>
+            <input type="text" class="form-control" placeholder="English,Hindi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'English,Hindi'" name="languages_known_read_write" id="languages_known_read_write" value="{{ user.profile.languages_known_read_write }}">
+            <span class="help-block" id="help-text-languages_known_read_write"></span>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label for="ex1">Total Clients Served </label>
+            <input class="form-control" id="total_client_served" name="total_client_served" type="text" placeholder="Total Advisors connected" onfocus="this.placeholder = ''" onblur="this.placeholder ='Total Advisors connected'"  onChange="validate_total_client_served();" value="{{ user.profile.advisor.total_clients_served }}" />
+            <span class="help-block" id="help_text_total_client_served"></span>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label for="ex1">Total Advisors Connected </label>
+            <input class="form-control" id="advisor_is_connected_with" name="advisor_is_connected_with" type="text" placeholder="Total Advisors connected" onfocus="this.placeholder = ''" onblur="this.placeholder ='Total Advisors connected'"  onChange="validate_advisor_is_connected_with();" value="{{ user.profile.advisor.total_advisors_connected }}" />
+            <span class="help-block" id="help_text_advisor_is_connected_with"></span>
+        </div>
+        <select name="financial_ins" class="form-control" style="display:none;" id="financial_ins" onChange="validate_financial_instruments(id,1);">
+            <option value="Select" >Select</option>
+            {% for instruments in all_financial_instrument %}
+                    <option value="{{instruments}}">{{instruments}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="col-sm-12">
+          <div class="col-md-12 n-padding-b-15">
+             <label for="ex2">
+                   Current Financial Instruments Sold / Advised by me
+             </label>
+             <a class = "add_field btn additional_btn" id = "add_field">
+                <i class="fa fa-plus-circle"></i>
+            </a>
+         </div>
+            <input type="hidden" name="financial_count" id="financial_count" value="{{ financial_instruments_json|length }}"; />
+            <div class="col-md-12 no-padding">
+                {% if financial_instruments_json == "None" %}
+                    <div class="col-sm-4 col-md-4 col-lg-4 selection-btn left-no-padding form-group">
+                        <select name="financial_instruments1" onchange="filter_financial_instruments();" class="form-control" id="financial_instruments1" onChange="validate_financial_instruments(id,1);">
+                            <option value="Select" >Select</option>
+                            {% for instruments in all_financial_instrument %}
+                                <option value="{{instruments}}">{{instruments}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="help-block" id="help-text-financial_instruments1"></span>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 selection-btn form-group">
+                        <input type="text" class="form-control" name="financial_experience1" id="financial_experience1" placeholder="5 in years" onfocus="this.placeholder = ''" onblur="this.placeholder ='5 in years'" value="{{ i.experience }}"; onChange="validateExperience('financial_experience1',1);">
+                        <span class="help-block" id="help-text-financial_experience1">
+                    </div>
+                    <a class="add_field btn additional_btn" id="add_field">
+                        <i class="fa fa-plus-circle"></i>
+                    </a>
+                {% else %}
+                    <div class="col-md-12 no-padding">
+                        <div class = "input_fields_wrap">
+                            {% for i  in financial_instruments_json %}
+                                <div class="row row_financial" id="financial{{ forloop.counter }}">
+                                    <div  class="col-sm-4 col-md-4 col-lg-4 selection-btn left-no-padding form-group">
+                                        <select name="financial_instruments{{ forloop.counter }}" onchange="filter_financial_instruments();" class="form-control" id="financial_instruments{{ forloop.counter }}" onChange="validate_financial_instruments(id,1);">
+                                            <option value="Select" >Select</option>
+                                            {% for instruments in all_financial_instrument %}
+                                                {% if i.instruments == instruments  %}
+                                                    <option value="{{instruments}}" selected>{{instruments}}</option>
+                                                {% else %}
+                                                    <option value="{{instruments}}">{{instruments}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <span class="help-block" id="help-text-financial_instruments{{ forloop.counter }}"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4 selection-btn form-group"><input type="text" class="form-control" name="financial_experience{{ forloop.counter }}" id="financial_experience{{ forloop.counter }}" placeholder="5 in years" onfocus="this.placeholder = ''" onblur="this.placeholder ='5 in years'"onChange="validateExperience(id,'{{ forloop.counter }}');" value="{{ i.experience }}" >
+                                            <span class="help-block" id="help-text-financial_experience{{ forloop.counter }}"></span>
+                                    </div>
+                                    <a class = "remove_field btn additional_btn" id = "remove_field" onClick="remove_data({{ forloop.counter }});"><i class="fa fa-minus-circle" ></i></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <span class="help-block" id="help-text-financial_instruments_main"></span>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="pull-left col-sm-12 col-xs-12 col-md-4" data-toggle="toggle">
+            <label for="ex3">My Belief <span>*</span></label>
+            <div name="change_mybelief" id="change_mybelief" class="input-group">
+                <input type="text" class="form-control" name="e_mybelief" id="e_mybelief" placeholder="Service is my Motto" value="{{ user.profile.my_belief }}" aria-describedby="basic-addon2" onchange="">
+                <span class="input-group-addon no-padding addon-icon" id="basic-addon2" style="border:0px;padding:0px !important;">
+                    <select class="form-control " id="e_btn-mybelief-select" name="e_btn-mybelief-select" onchange="set_my_belief();">
+                        <option value="{{ user.profile.my_belief }}" selected>{{ user.profile.my_belief }}</option>
+                        {% if user.profile.my_belief != 'Work is worship' %}
+                        <option value="Work is worship">Work is worship</option>
+                        {% endif %}
+                        {% if user.profile.my_belief != 'Customer first'  %}
+                        <option value="Customer first">Customer first</option>
+                        {% endif %}
+                        {% if user.profile.my_belief != 'Service is my motto' %}
+                        <option value="Service is my motto">Service is my motto</option>
+                        {% endif %}
+                    </select>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="row n-margin-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <label for="ex1">My Promise to the Client <span>*</span></label>
+                <textarea cols="50" rows="4" placeholder="My promise to the client is on time service and quick resolution of queries" onfocus="this.placeholder = ''" onblur="this.placeholder ='My promise to the client is on time service and quick resolution of queries'" name="my_promise" id="my_promise">{{user.profile.advisor.my_promise}}</textarea>
+                <span class="help-block" id="help_text_my_promise"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group registration-form-div pull-left">
+        <div class="row n-margin-0">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <label for="ex1">My Sales Accomplishment</label>
+                <textarea cols="50" rows="4" placeholder="My Sales Accomplishment" onfocus="this.placeholder = ''" onblur="this.placeholder ='My Sales Accomplishment'" name="my_accomplishment"  id="my_accomplishment">{{accomplishments}}</textarea>
+                <span class="help-block" id="help_text_my_accomplishment"></span>
+            </div>
+        </div>
+        <input type="hidden" name="hidden_input" id="hidden_input" value="" />
+        <input type="hidden" name="hidden_value" id="hidden_value" value="" style="width:100%;" >
+        <input type="hidden" name="dsa_hidden_input_field" id="dsa_hidden_input_field" value="">
+    </div>
+    <div class="form-group col-lg-12 col-md-12 col-xs-12">
+        <button type="button" name="edit_profile" id="edit_profile" class="btn pink-btn-primary" onClick="update_profile();" title="Update the profile">Update</button>
+        <!-- update_profile(); -->
+        <button type="button" name="edit_profile" id="edit_profile" class="btn n-bg-grey" onClick="$('#edit-profile-modal').modal('hide'); window.location.reload();" >Cancel</button>
+    </div>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/datetimepicker.js' %}"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var options =
+        {
+            imageBox: '.imageBox',
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: 'avatar.png'
+        }
+        var cropper;
+        document.querySelector('#file').addEventListener('change', function(){
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                options.imgSrc = e.target.result;
+                cropper = new cropbox(options);
+            }
+            reader.readAsDataURL(this.files[0]);
+        })
+        document.querySelector('#btnCrop').addEventListener('click', function(){
+            img = cropper.getDataURL()
+            document.querySelector('.cropped').innerHTML = '<img src="'+img+'">';
+            $("#upload_pic").css("display", "inline-block");
+        })
+        document.querySelector('#btnZoomIn').addEventListener('click', function(){
+            cropper.zoomIn();
+        })
+        document.querySelector('#btnZoomOut').addEventListener('click', function(){
+            cropper.zoomOut();
+        })
+    });
+
+  var cropbox = function(options){
+      var el = document.querySelector(options.imageBox),
+      obj =
+      {
+          state : {},
+          ratio : 1,
+          options : options,
+          imageBox : el,
+          thumbBox : el.querySelector(options.thumbBox),
+          spinner : el.querySelector(options.spinner),
+          image : new Image(),
+          getDataURL: function ()
+          {
+              var width = this.thumbBox.clientWidth,
+                  height = this.thumbBox.clientHeight,
+                  canvas = document.createElement("canvas"),
+                  dim = el.style.backgroundPosition.split(' '),
+                  size = el.style.backgroundSize.split(' '),
+                  dx = parseInt(dim[0]) - el.clientWidth/2 + width/2,
+                  dy = parseInt(dim[1]) - el.clientHeight/2 + height/2,
+                  dw = parseInt(size[0]),
+                  dh = parseInt(size[1]),
+                  sh = parseInt(this.image.height),
+                  sw = parseInt(this.image.width);
+
+              canvas.width = width;
+              canvas.height = height;
+              var context = canvas.getContext("2d");
+              context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
+              var imageData = canvas.toDataURL('image/png');
+              return imageData;
+          },
+          getBlob: function()
+          {
+              var imageData = this.getDataURL();
+              var b64 = imageData.replace('data:image/png;base64,','');
+              var binary = atob(b64);
+              var array = [];
+              for (var i = 0; i < binary.length; i++) {
+                  array.push(binary.charCodeAt(i));
+              }
+              return  new Blob([new Uint8Array(array)], {type: 'image/png'});
+          },
+          zoomIn: function ()
+          {
+              this.ratio*=1.1;
+              setBackground();
+          },
+          zoomOut: function ()
+          {
+              this.ratio*=0.9;
+              setBackground();
+          }
+      },
+      attachEvent = function(node, event, cb)
+      {
+          if (node.attachEvent)
+              node.attachEvent('on'+event, cb);
+          else if (node.addEventListener)
+              node.addEventListener(event, cb);
+      },
+      detachEvent = function(node, event, cb)
+      {
+          if(node.detachEvent) {
+              node.detachEvent('on'+event, cb);
+          }
+          else if(node.removeEventListener) {
+              node.removeEventListener(event, render);
+          }
+      },
+      stopEvent = function (e) {
+          if(window.event) e.cancelBubble = true;
+          else e.stopImmediatePropagation();
+      },
+      setBackground = function()
+      {
+          var w =  parseInt(obj.image.width)*obj.ratio;
+          var h =  parseInt(obj.image.height)*obj.ratio;
+          if(w>70){
+            var pw = (el.clientWidth - w) / 2;
+            var ph = (el.clientHeight - h) / 2;
+            el.setAttribute('style',
+                    'background-image: url(' + obj.image.src + '); ' +
+                    'background-size: ' + w +'px ' + h + 'px; ' +
+                    'background-position: ' + pw + 'px ' + ph + 'px; ' +
+                    'background-repeat: no-repeat');
+          }
+      },
+      imgMouseDown = function(e)
+      {
+          stopEvent(e);
+
+          obj.state.dragable = true;
+          obj.state.mouseX = e.clientX;
+          obj.state.mouseY = e.clientY;
+      },
+      imgMouseMove = function(e)
+      {
+          stopEvent(e);
+
+          if (obj.state.dragable)
+          {
+              var x = e.clientX - obj.state.mouseX;
+              var y = e.clientY - obj.state.mouseY;
+
+              var bg = el.style.backgroundPosition.split(' ');
+
+              var bgX = x + parseInt(bg[0]);
+              var bgY = y + parseInt(bg[1]);
+
+              el.style.backgroundPosition = bgX +'px ' + bgY + 'px';
+
+              obj.state.mouseX = e.clientX;
+              obj.state.mouseY = e.clientY;
+          }
+      },
+      imgMouseUp = function(e)
+      {
+          stopEvent(e);
+          obj.state.dragable = false;
+      },
+      zoomImage = function(e)
+      {
+          var evt=window.event || e;
+          var delta=evt.detail? evt.detail*(-120) : evt.wheelDelta;
+          delta > -120 ? obj.ratio*=1.1 : obj.ratio*=0.9;
+          setBackground();
+      }
+
+      obj.spinner.style.display = 'block';
+      obj.image.onload = function() {
+          obj.spinner.style.display = 'none';
+          setBackground();
+
+          attachEvent(el, 'mousedown', imgMouseDown);
+          attachEvent(el, 'mousemove', imgMouseMove);
+          attachEvent(document.body, 'mouseup', imgMouseUp);
+          var mousewheel = (/Firefox/i.test(navigator.userAgent))? 'DOMMouseScroll' : 'mousewheel';
+          attachEvent(el, mousewheel, zoomImage);
+      };
+      obj.image.src = options.imgSrc;
+      attachEvent(el, 'DOMNodeRemoved', function(){detachEvent(document.body, 'DOMNodeRemoved', imgMouseUp)});
+      return obj;
+  };
+  function UploadDocuments(str, div_name, paper) {
+      var token = "{{csrf_token}}";
+      var form_data = new FormData($('#'+str)[0]);
+      form_data.append("profile_pic", img);
+      $.ajax({
+          type: 'POST',
+          url: '/signup/upload_file/',
+          beforeSend: function (request) {
+              request.setRequestHeader("X-CSRFToken", token );
+          },
+          data: form_data,
+          contentType: false,
+          cache: false,
+          processData: false,
+          async: false,
+          success: function(data) {
+              var popup = data.required_documents;
+              document.getElementById('edit_profile').disabled = false;
+              document.getElementById(paper).style.display="none";
+              var download = document.getElementById(div_name);
+              var remove_file = document.createElement('a');
+              remove_file.innerHTML = "&nbsp;&nbsp<i class='fa fa-trash download_link_color'></i>";
+              remove_file.setAttribute('id',data.id);
+              remove_file.setAttribute('class','hiding'+data.id);
+              remove_file.setAttribute("onclick","removeDocument('"+data.id+"','"+paper+"');");
+              var attach_text = document.createElement('p');
+              attach_text.setAttribute('class','hiding'+data.id+ ' attach_class');
+              attach_text.innerHTML = 'Attached'
+              var download_file = document.createElement('a');
+              download_file.setAttribute('id',data.id);
+              download_file.setAttribute('href',data.url);
+              download_file.setAttribute('class','hiding'+data.id+ ' download_link_color');
+              download_file.setAttribute('onClick', "window.open('"+data.url+"', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=250,left=500,width=550, height=550'); return false;");
+              download_file.innerHTML = "<i class='fa fa-eye' aria-hidden='true'></i>";
+              download.appendChild(attach_text);
+              download.appendChild(download_file);
+              download.appendChild(remove_file);
+              if(str=="upload_doc1"){
+                close_modal('upload-profile-picture-modal','edit-profile-modal');
+              }
+
+          },
+      });
+  }
+
+  // ==========================
+  // remove documents
+  // ==========================
+  function removeDocument(id,paper){
+      var token = "{{csrf_token}}";
+      var crisil_certificate_valid = '{{crisil_certificate_valid}}';
+      var documents_type = document.getElementById("documents_type").value;
+      if(confirm("Do you want to remove the documents?")){
+          $('.hiding'+id).remove();
+          var document_file_id = ['paper_clip1']
+          for (i=0; i<=document_file_id.length; i++){
+              if(paper == document_file_id[i]){
+                  $('#edit_profile').prop('disabled', true);
+              }
+          }
+         $.ajax({
+              url: "/signup/delete_upload_file/",
+              method: "POST",
+              beforeSend: function (request) {
+                  request.setRequestHeader("X-CSRFToken", token );
+              },
+              data:{
+                  id: id
+              },
+              success:function(data){
+                  var data = data;
+                  document.getElementById(paper).style.display="block";
+                  if(crisil_certificate_valid == "True"){
+                      window.location.reload();
+                  }
+              }
+          });
+      }
+  }
+</script>
+<script type="text/javascript">
+    var allids = [];
+    var x=0;
+    //loading mobile country code
+    $(document).ready(function() {
+        $("#mobilenumber").intlTelInput({
+           geoIpLookup: function(callback) {
+             $.getJSON('http://ipinfo.io', function(resp){
+               var countryCode = (resp && resp.country) ? resp.country : "";
+               callback(countryCode);
+             });
+           },
+          nationalMode: false,
+          initialCountry: "in",
+          separateDialCode: true
+        });
+    });
+
+    function loadimage(input){
+        var x = document.getElementById("document_profile_picture");
+        if(Validate()==false) {
+            document.getElementsByName('document').value="";
+            return false;
+        }
+        if (input.files && input.files[0]) {
+            var arrInputs = document.getElementById("document_profile_picture");
+            var sFileName = arrInputs.value;
+            $('input[type=file]').change(function () {
+                 var filePath=$('#fileUpload').val();
+             });
+               $('#vanilla-demo').html('');
+                var el = document.getElementById('vanilla-demo');
+                var vanilla = new Croppie(el, {
+                    viewport: { width: 130, height: 130 },
+                    boundary: { width: 300, height: 300 },
+                    showZoomer: false,
+                    enableOrientation: false,
+                    mouseWheelZoom:true
+                });
+                vanilla.bind({
+                    url: sFileName,
+                    orientation: 4
+                });
+                //on button click
+                vanilla.result('canvas').then(function(base64Image) {
+                    // do something with cropped base64 image here
+
+                });
+        }
+    }
+
+    // checking image or not
+    function readURL() {
+        var input = document.getElementById("file");
+        if(Validate()==false) {
+            document.getElementsByName('file').value="";
+            return false;
+        }
+        if (input.files && input.files[0]) {
+            var arrInputs = document.getElementById("file");
+            var sFileName = arrInputs.value;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              UploadDocuments('upload_doc1','download_profile', 'paper_clip1');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    //Validate file format in profile picture
+    var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+    function Validate() {
+        var arrInputs = document.getElementById("file");
+        if (arrInputs.type == "file") {
+            arrInputs.style.display = 'none';
+            var sFileName = arrInputs.value;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensions.length; j++) {
+                    var sCurExtension = _validFileExtensions[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                    }
+                }
+                if (!blnValid) {
+                    alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", ")+"It will valid only .jpg .jpeg .bmp .gif .png formats");
+                    arrInputs.style.display = 'block';
+                    document.getElementById('file').value = '';
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    $(document).ready(function (){
+        x=document.getElementById('financial_count').value;
+        for(i=1; i<=x; i++){
+            allids.push(i);
+        }
+        filter_financial_instruments();
+        customCheckbox("certification_AMFI");
+        customCheckbox("certification_IRDA");
+        customCheckbox("certification_SEBI");
+        customCheckbox("certification_OTHERS");
+        customCheckbox("certification_RERA");
+        customCheckbox("certification_DSA");
+        customCheckbox("sport");
+        //loading years
+        select = document.getElementById('year_passout');
+        var date = new Date(), dateArray = new Array(), i;
+        curYear = date.getFullYear();
+        for(i = 0; i<65; i++) {
+            dateArray[i] = (curYear-65)+i;
+            var opt = document.createElement('option');
+            opt.value = dateArray[i];
+            opt.innerHTML = dateArray[i];
+            select.appendChild(opt);
+        }
+        $("#year_passout").val('{{user.profile.year_passout}}');
+        year_passout = '{{user.profile.year_passout}}';
+        if(year_passout == 'sele' || year_passout == ''){
+            $("#year_passout").val('select');
+        }
+    });
+
+    $(document).ready(function() {
+        var sebi_number_value = '{{user.profile.advisor.sebi_number}}';
+        var amfi_number_value = '{{user.profile.advisor.amfi_number}}';
+        var irda_number_value = '{{user.profile.advisor.irda_number}}';
+        var others_value  = '{{user.profile.advisor.other_registered_organisation}}';
+        var other_registration_no_value = '{{user.profile.advisor.other_registered_number}}';
+        var practice_city = '{{user.profile.advisor.practice_city}}';
+        var practice_location = '{{user.profile.advisor.practice_location}}';
+        var education_qualification ='{{user.profile.advisor.credibility_declaration_qualification}}';
+        var total_clients_served = '{{user.profile.advisor.total_clients_served}}';
+        var total_advisors_connected = '{{user.profile.advisor.total_advisors_connected}}';
+        var financial_instruments = '{{advisor.financial_instruments}}';
+        var languages_known_read_write = $("#languages_known_read_write").val();
+        var language_known = $("#language_known").val();
+        if(sebi_number_value == 'None'){
+            $("#sebi_registration_no").val('');
+        }
+        if(amfi_number_value == 'None'){
+            $("#amfi_registration_no").val('');
+        }
+        if(irda_number_value == 'None'){
+            $("#irda_registration_no").val('');
+        }
+        if(others_value == 'None'){
+            $("#other_organisation").val('');
+        }
+        if(other_registration_no_value == 'None'){
+            $("#other_registration_no").val('');
+        }
+        if(practice_city == 'None'){
+            $("#practice_city").val('');
+        }
+        if(practice_location == 'None'){
+            $("#practice_location").val('');
+        }
+        if(education_qualification == 'None'){
+            $("#education_qualification").val('');
+        }
+        if(total_clients_served == 'None'){
+            $("#total_client_served").val('');
+        }
+        if(total_advisors_connected == 'None'){
+            $("#advisor_is_connected_with").val('');
+        }
+        if(financial_instruments == '' || financial_instruments =='None'){
+            remove_data(1);
+        }
+        if (languages_known_read_write == 'None'){
+            $("#languages_known_read_write").val('');
+        }
+        if (language_known == 'None'){
+            $("#language_known").val('');
+        }
+
+        $("#first_name").keypress(function(e){
+        var inputValue = event.charCode;
+        if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)){
+        $("#help_text_first_name").html("Name can have only characters and spaces").show().fadeOut(2000);
+        event.preventDefault();
+            }
+        });
+        $("#last_name").keypress(function(e){
+        var inputValue = event.charCode;
+        if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)){
+        $("#help_text_last_name").html("Name can have only characters and spaces").show().fadeOut(2000);
+        event.preventDefault();
+            }
+        });
+        $("#middle_name").keypress(function(e){
+        var inputValue = event.charCode;
+        if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)){
+        $("#help_text_middle_name").html("Name can have only characters and spaces").show().fadeOut(2000);
+        event.preventDefault();
+            }
+        });
+    });
+
+
+
+    function filter_financial_instruments(){
+        for(var p=1; p<=allids.length; p++) {
+            var i=allids[p-1];
+            var e = document.getElementById("financial_instruments"+i);
+            var strUser = e.options[e.selectedIndex].value;
+            for(var q=1; q<=allids.length; q++) {
+                var j=allids[q-1];
+                if(j!=i){
+                    var f = document.getElementById("financial_instruments"+j);
+                    for (var k=0; k<f.length; k++){
+                        if (f.options[k].value == strUser && f.options[k].value!='Select' ){
+                            f.remove(k);
+                        }
+                    }
+                }
+            }
+            if(allids.length != 1){
+               document.getElementById("financial_instruments"+i).disabled = true;
+            }
+        }
+    }
+
+    function customCheckbox(checkboxName){
+        var checkBox = $('input[name="'+ checkboxName +'"]');
+        $(checkBox).each(function(){
+            $(this).wrap( "<span class='custom-checkbox'></span>" );
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(checkBox).click(function(){
+            $(this).parent().toggleClass("selected");
+        });
+    }
+
+    function check_select(){
+        var e = document.getElementById("financial_instruments1");
+        var strUser = e.options[e.selectedIndex].value;
+        if (strUser == "select"){
+            document.getElementById('financial_instruments1').style.border='1px solid #C32F2F';
+            document.getElementById('help-text-financial_instruments1').innerHTML='Please Select Financial Instruments Sold';
+            $("#financial_instruments1").focus();
+            return false;
+        }else{
+            document.getElementById('financial_instruments1').style.border='';
+            document.getElementById('help-text-financial_instruments1').innerHTML='';
+        }
+    }
+
+    function set_my_belief(){
+        document.getElementById('e_mybelief').value = $("#e_btn-mybelief-select").val();
+    }
+    var id_value = '{{rera_result|length}}';
+    var id_rera;
+    if(id_value >1 ){
+        var id_rera = id_value;
+    }else{
+        var id_rera=1;
+    }
+    var max_fields= 6;
+    var wrapper=$(".input_fields_wrap");
+    var add_button = $(".add_field");
+    $(add_button).click(function(e){
+        document.getElementById('help-text-financial_instruments_main').innerHTML='';
+        missed_field_add=0;
+            for(var j=0; j<allids.length; j++) {
+                var i=allids[j];
+                var re = /^[1-9][0-9]?$|^99$/;
+                var validexperience = document.getElementById('financial_experience'+i);
+                if(!validexperience.value.match(re) || validexperience == null ) {
+                    var a=document.getElementById('financial_experience'+i).value = "";
+                    document.getElementById('financial_experience'+i).style.border='1px solid #C32F2F';
+                    document.getElementById('help-text-financial_experience'+i).innerHTML='Enter Valid Experience';
+                    $("#financial_experience"+i).focus();
+                    missed_field_add = 1;
+                }else{
+                    document.getElementById('financial_experience'+i).style.border='';
+                    document.getElementById('help-text-financial_experience'+i).innerHTML='';
+                }
+            }
+            for(var j=0; j<allids.length; j++) {
+                var i=allids[j];
+                validinstruments="";
+                var validinstruments = document.getElementById('financial_instruments'+i).value;
+                if(validinstruments == 'Select'|| validinstruments == 'select'){
+                    document.getElementById('financial_instruments'+i).style.border='1px solid #C32F2F';
+                    document.getElementById('help-text-financial_instruments'+i).innerHTML='Please Select Financial Instruments Sold';
+                    $("#financial_instruments"+i).focus();
+                        missed_field_add = 1;
+                }else{
+                    document.getElementById('financial_instruments'+i).style.border='';
+                    document.getElementById('help-text-financial_instruments'+i).innerHTML='';
+                }
+            }
+        e.preventDefault();
+        if(missed_field_add==0){
+            if(allids.length < max_fields){ //max input box allowed
+            x++; //text box increment
+            allids.push(x);
+            $(wrapper).append('<div class="row row_financial" id="financial'+x+'"><div  class="col-sm-4 col-md-4 col-lg-4 selection-btn left-no-padding form-group"><select class="form-control" name="financial_instruments'+x+'" onchange="filter_financial_instruments(); validate_financial_instruments(id,'+x+');" id = "financial_instruments'+x+'" ></select><span class="help-block" id="help-text-financial_instruments'+x+'"></div><div class="col-sm-4 col-md-4 col-lg-4 selection-btn form-group"><input type="text" class="form-control" name="financial_experience'+x+'" id="financial_experience'+x+'" placeholder="Financial Experience" onChange="validateExperience(id,'+x+');" ><span class="help-block" id="help-text-financial_experience'+x+'"></div> <a class = "remove_field btn additional_btn" id = "remove_field" onClick="remove_data('+x+');"><i class="fa fa-minus-circle" ></i></a></div>');
+                $('#financial_instruments'+x).html(''); //Clear
+                y = x-1;
+                $('#financial_ins option').clone().appendTo('#financial_instruments'+x);
+            }
+        }
+        onclick_add_filter_financial_instruments();
+
+    });
+
+    function onclick_add_filter_financial_instruments(){
+        for(var p=1; p<=allids.length; p++) {
+            var i=allids[p-1];
+            var e = document.getElementById("financial_instruments"+i);
+            var strUser = e.options[e.selectedIndex].value;
+            for(var q=1; q<=allids.length; q++) {
+                var j=allids[q-1];
+                if(j!=i){
+                    var f = document.getElementById("financial_instruments"+j);
+                    for (var k=0; k<f.length; k++){
+                        if (f.options[k].value == strUser && f.options[k].value!='Select' ){
+                            f.remove(k);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function validate_alpha(str){
+        var name = document.getElementById(str);
+        var alpha = /^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$/.test(name.value);
+        if(alpha)
+            return true;
+        else {
+            if(str=="language_known"){
+            document.getElementById(str).value = "";
+            document.getElementById('language_known').style.border='1px solid #C32F2F';
+            document.getElementById('help-text-language_known').innerHTML='Please Enter Only Characters';
+            }else if(str == "languages_known_read_write"){
+                document.getElementById(str).value = "";
+                document.getElementById('languages_known_read_write').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-languages_known_read_write').innerHTML='Please Enter Only Characters';
+            }else if(str == "highest_qualification"){
+                document.getElementById(str).value = "";
+                document.getElementById('highest_qualification').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-qualification').innerHTML='Please Enter Only Characters';
+            }
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+        var sebi_no = '{{user.profile.advisor.sebi_number}}';
+        var sebi_expired = '{{user.profile.advisor.sebi_expiry_date}}';
+        var amfi_no = '{{user.profile.advisor.amfi_number}}';
+        var amfi_expired = '{{user.profile.advisor.amfi_expiry_date}}';
+        var irda_no = '{{user.profile.advisor.irda_number}}';
+        var irda_exired = '{{user.profile.advisor.irda_expiry_date}}';
+        var others  = '{{user.profile.advisor.other_registered_organisation}}';
+        var other_registration_no = '{{user.profile.advisor.other_registered_number}}';
+        var other_expiry_date = '{{user.profile.advisor.other_expiry_date}}';
+        var is_rera = '{{user.profile.advisor.is_rera}}';
+        var dsa_details = '{{dsa_result}}'
+        $(document).ready(function(){
+            if((sebi_no != '') || (sebi_expired != '')){
+                if((sebi_no != 'None' && sebi_no != '')||(sebi_expired != 'None' && sebi_expired != '')){
+                    document.getElementById('certification_sebi').checked = true;
+                    $("#certification_sebi").parent().addClass("selected");
+                    display_certification_details('certification_sebi',"unclicked");
+                }
+            }
+            if((amfi_no !='') || (amfi_expired != '')){
+                if((amfi_no != 'None' && amfi_no !='') || (amfi_expired != '' &&amfi_expired != 'None')){
+                    document.getElementById('certification_amfi').checked =true;
+                    $("#certification_amfi").parent().addClass("selected");
+                    display_certification_details('certification_amfi',"unclicked");
+                }
+            }
+            if ((irda_no !='') || (irda_exired != '')){
+                if((irda_no !='None' && irda_no !='') || (irda_exired != 'None' && irda_exired != '')){
+                    document.getElementById('certification_irda').checked=true;
+                    $("#certification_irda").parent().addClass("selected");
+                    display_certification_details('certification_irda',"unclicked");
+                }
+            }
+            if((others !='') || (other_registration_no!= '') || (other_expiry_date!= '')){
+                if((others !='None' && others !='')||(other_expiry_date !='None' && other_expiry_date!= '') || (other_registration_no!= 'None' && other_registration_no!= '')){
+                    document.getElementById('certification_others').checked=true;
+                    $("#certification_others").parent().addClass("selected");
+                    display_certification_details('certification_others',"unclicked");
+                }
+            }
+            if(is_rera == 'True'){
+                document.getElementById('certification_rera').checked=true;
+                $("#certification_rera").parent().addClass("selected");
+                $(".datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd-mm-yy",
+                    yearRange: "Date():+5Y",
+                    minDate:'Date()'
+                });
+            }
+            if(dsa_details != ''){
+                document.getElementById('certification_dsa').checked=true;
+                $("#certification_dsa").parent().addClass("selected");
+            }
+       });
+       function reraExperience(str,id) {
+           var re = /^[1-9][0-9]?$|^99$/;
+           var validexperience = document.getElementById(str);
+           var validexperience = document.getElementById('dsa_how_long_associated'+id);
+               if(!validexperience.value.match(re) || validexperience == null ) {
+                   var a=document.getElementById('dsa_how_long_associated'+id).value = "";
+                   document.getElementById('dsa_how_long_associated'+id).style.border='1px solid #C32F2F';
+                   document.getElementById('help_dsa_how_long_associated'+id).innerHTML='Enter Valid Experience';
+                   $("#dsa_how_long_associated"+id).focus();
+               }else{
+                   document.getElementById('dsa_how_long_associated'+id).style.border='';
+                   document.getElementById('help_dsa_how_long_associated'+id).innerHTML='';
+               }
+       }
+   </script>
+   {% if user.profile.advisor.is_registered_advisor %}
+        <script type="text/javascript">
+            $('#id_main_register_with_div').css('display', 'block');
+        </script>
+      {% endif %}

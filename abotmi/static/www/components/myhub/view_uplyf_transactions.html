@@ -1,0 +1,51 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-view>
+                <upwrdz-Tabs></upwrdz-Tabs>
+                <ion-content>
+                    <div overflow-scroll="true" class="m-upwrdz-tab-content">
+                        <table class="table table-bordered">
+                            <div ng-repeat = "transactions in client.transaction_details" >
+                                <div class="row accordion-toggle" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+                                    <div class="col col-80">{{transactions.user_profile.first_name}}&nbsp;{{transactions.user_profile.last_name}}</div>
+                                    <div class="col col-20"><i class="fa fa-chevron-down pull-right"></i></div>
+                                </div>
+                                <div class="row accordion-content default">
+                                    <p class="row">
+                                        <span class="col col-25">Name</span>
+                                        <span class="col">{{transactions.user_profile.first_name}}&nbsp;{{transactions.user_profile.last_name}}</span>
+                                    </p>
+                                    <p class="row">
+                                        <span class="col col-25">Email</span>
+                                        <span class="col">{{transactions.user_profile.email}}</span>
+                                    </p>
+                                    <p class="row">
+                                        <span class="col col-25">Project Name</span>
+                                        <span class="col">{{transactions.project_name}}</span>
+                                    </p>
+                                    <p class="row">
+                                        <span class="col col-25">Reingo Name</span>
+                                        <span class="col">{{transactions.reingo_name}}</span>
+                                    </p>
+                                    <p class="row">
+                                        <span class="col col-25">Status</span>
+                                        <div ng-if="transactions.transaction_status == 'BLOCKED'">
+                                            <span class="col label-warning">Waiting for Approval</span>
+                                        </div>
+                                        <div ng-if="transactions.transaction_status  == 'USER_ACCEPT' || transactions.transaction_status == 'ADVISOR_ACCEPT'">
+                                            <span class="col pink-btn-primary">Accepted</span>
+                                        </div>
+                                        <div ng-if="transactions.transaction_status  == 'USER_REJECT' || transactions.transaction_status == 'ADVISOR_REJECT'">
+                                            <span class="col n-bg-grey">Rejected</span>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

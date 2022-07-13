@@ -1,0 +1,114 @@
+<style>
+    .upwrdz-button-otpr{
+        padding: 4px 12px;
+    }
+    @media(max-width:767px){
+        .eipv-verify-otp .upwrdz-button{
+
+        }
+    }
+     .eipv-verify-otp .input-group-addon{
+        color: #000 !important;
+        padding: 0px;
+        border: none; 
+        background-color:transparent;
+    }
+    .eipv-verify-otp .verify-otp{
+        width:auto;
+    }
+    .upwrdz-button-verify{
+        background-color:#767474 !important;
+    }
+    .input-group-addon .upwrdz-button{
+        margin: 0px 0px 0px 5px !important;
+        padding: 4px 12px;
+        box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0) !important;
+    }
+    @media(min-width:768px){
+        .eipv-verify-otp{
+            padding: 0px 50px;
+        }
+        .eipv-verify-otp label{
+            width:100%;
+            text-align:left;
+        }
+    }
+    
+    .eipv-verify-otp .input-group{
+        margin: auto;
+        padding: 5px 0px 0px;
+    }
+    .verify-otp img{
+        width: 160px;
+        padding-left: 15px;
+    }
+</style>
+<!-- model for otp alert -->
+<div class="modal fade upwardz-modal" id="otp_verified_message_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="panel upwrdz-log-panel panel-default">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <h3 class="modal-title n-span-blue-color"><b>One Time Password(OTP)</b></h3>
+                <hr class="modal-heading-hr">
+            </div>
+            <div class="panel-body pannel-popup-content text-center">
+                <div id="otp_verified_message_body">
+                    {% if user_agent_country == REGION_IN %}
+                    <div class="row" id="mobile_otp_block">
+                        <div class="col-md-12">
+                            <div class="eipv-verify-otp" id="otp_block">
+                                <label class="control-label">Verify Mobile Number<span>*</span></label>
+                                <div class="input-group">
+                                    <input type="text" name="otp" placeholder="Enter Mobile OTP " id="id_mobile_otp" class="form-control" value="" autocomplete="off" required="true" onkeyup="validate_field_onkeypress(id, 'help_text_id_otp', 'Mobile OTP');" onkeypress="validate_investor_mobile_otp();">
+                                    <div class="input-group-addon" id="mobile-otp-verify-btn-div">
+                                        <button type="button" name="verify_mobile_otp" class="btn upwrdz-button upwrdz-button-otpr upwrdz-button-verify" id="id_submit_otp_mobile" disabled>Verify OTP</button>
+                                        &nbsp;&nbsp;
+                                        <button type="button" name="resend_mobile_otp" class="btn upwrdz-button upwrdz-button-otpr" id="id_mobile_otp_resend">Resend OTP</button>
+                                    </div>
+                                    <div id="mobile_otp_verified" class="hide verify-otp input-group-addon">
+                                        <img src="/static/new_images/otp_verified.png" class="img-responsive">
+                                    </div>
+                                </div>
+                                <span class="help-block" id="help_text_id_otp"></span>
+                            </div>
+                            <div class="alert alert-success" role="alert" id="mobile_otp_success_text" style="display:none;">
+                                <strong>Success!</strong> An OTP has been sent.
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {# % if not advisors % #}
+                    <div class="row" id="email_otp_block" style="margin-bottom:30px;">
+                        <div class="eipv-verify-otp" id="otp_block">
+                            <div class="col-md-12">
+                                <div class="" id="email_otp-div">
+                                    <label class="control-label">Verify Email ID<span>*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Enter Email OTP" name="otp" id="id_email_otp" class="form-control" value="" autocomplete="off" required="true" onkeyup="validate_field_onkeypress(id, 'help_text_id_email_otp', 'Email OTP');" onkeypress="validate_investor_email_otp();">
+                                        <div class="input-group-addon" id="email-otp-verify-btn-div">
+                                            <button type="button" name="verify_email_otp" class="btn upwrdz-button upwrdz-button-otpr upwrdz-button-verify" id="id_submit_otp_email" disabled>Verify OTP</button>
+                                            <button type="button" name="resend_email_otp" class="btn upwrdz-button upwrdz-button-otpr" id="id_email_otp_resend">Resend OTP</button>
+                                        </div>
+                                        <div id="email_otp_verified" class="hide verify-otp input-group-addon">
+                                            <img src="/static/new_images/otp_verified.png" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <span class="help-block" id="help_text_id_email_otp"></span>
+                                </div>
+                                <div class="alert alert-success" role="alert" id="email_otp_success_text" style="display:none;">
+                                    <strong>Success!</strong> An OTP has been sent.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# % endif % #}
+                    <div class="row">
+                        <button type="button" id="back_btn" class="btn upwrdz-button" data-dismiss="modal">Back</button>
+                        <button type="button" class="btn upwrdz-button upwrdz-button-verify" id="id_submit_investor_otp" disabled>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

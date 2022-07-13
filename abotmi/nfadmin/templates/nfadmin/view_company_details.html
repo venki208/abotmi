@@ -1,0 +1,94 @@
+{% if company_obj %}
+    <div class="row n-margin-0">
+        <div class="col-md-4">
+            <p><label for="Company_name">Company Name: </label>
+            <span>{{company_obj.company_name}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="company_tagline">Company Tagline: </label>
+            <span>{{company_obj.tagline}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="company_url">Company URL: </label>
+            <span>{{company_obj.website_url}}</span></p>
+        </div>
+    </div>
+    <div class="row n-margin-0">
+        <div class="col-md-12">
+            <p><label for="company_description">Company Descrption:</label>
+            <span>{{company_obj.description}}</span></p>
+        </div>
+    </div>
+    <div class="row n-margin-0">
+        <div class="col-md-4">
+            <p><label for="objective">Company Objective: </label>
+            <span>{{company_obj.objective}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="company_address">Company Address: </label>
+            <span>{{user_profile.street_name}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="company_address">Address Line2: </label>
+            <span>{{user_profile.address}}</span></p>
+        </div>
+    </div>
+    <div class="row n-margin-0">
+        <div class="col-md-4">
+            <p><label for="location">Location: </label>
+            <span>{{user_profile.locality}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="city">City: </label>
+            <span>{{user_profile.city}}</span></p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="state">State: </label>
+            <span>{{user_profile.state}}</span></p>
+        </div>
+    </div>
+    <div class="row n-margin-0">
+        <div class="col-md-12">
+            <h4>Point of Contact</h4>
+        </div>
+        <div class="col-md-4">
+            <p><label for="contact_name">Contact Name: </label>
+            <span>{{user_profile.first_name}}</span></p>
+        </div>
+        <div class="col-md-12">
+            <p>
+                <label for="company_email">Contact Email</label>
+                <span>{{user_profile.email}}</span>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p><label for="mobile_number">Mobile Number: </label>
+            <span>{{user_profile.mobile}}</span></p>
+        </div>
+    </div>
+    <div class="row n-margin-0">
+        <div class="col-md-8">
+            <h4>Social Media Links</h4>
+            <p><label for="facebook_link">Facebook Link: </label>
+            <span>{{user_profile.facebook_media}}</span></p>
+            <p><label for="google_link">Google Link: </label>
+            <span>{{user_profile.google_media}}</span></p>
+            <p><label for="linkedin">Linkedin Link: </label>
+            <span>{{user_profile.linkedin_media}}</span></p>
+            <p><label for="twitter_link">Twitter Link: </label>
+            <span>{{user_profile.twitter_media}}</span></p>
+        </div>
+    </div>
+    <div class="row n-margin-0">
+        <div class="col-md-12">
+            <p><label for="awards_and_rewards">Awards and Rewards: </label>
+            <ul>
+                {% for awards in awards_or_rewards %}
+                    <li>awards</li>
+                {% endfor %}
+            </ul></p>
+        </div>
+    </div>
+{% else %}
+    <p>No Data Found.</p>
+{% endif %}

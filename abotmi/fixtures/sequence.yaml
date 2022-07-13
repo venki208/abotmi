@@ -1,0 +1,12 @@
+[
+  {
+    "fields": {"last_sequence": "25", "sequence_type": "Revenue", "prefix": "RVN", "digit_len": "5"},
+    "model": "datacenter.sequence",
+    "pk": 1
+  },
+  {
+    "fields": {"last_sequence": "3", "sequence_type": "Platform", "prefix": "PLT", "digit_len": "5"},
+    "model": "datacenter.sequence",
+    "pk": 2
+  }
+]

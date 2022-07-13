@@ -1,0 +1,108 @@
+.topnav {
+    font-size: 14px;
+}
+
+.lead {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.intro-header {
+    padding-top: 50px;
+    /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(/static/images/intro-bg.jpg) no-repeat center center;
+    background-size: cover;
+    min-height: 417px;
+}
+
+.intro-message {
+    position: relative;
+}
+
+/*custom css*/
+
+.intro-header-one .intro-message ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.intro-header-one .intro-message ul li {
+    display: block;
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.intro-header-one .intro-message ul li .fa {
+    padding-right: 10px;
+    color: #e40b7d;
+}
+
+.intro-header-one .container {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.intro-header-one .intro-banner-half {
+    background: #FFF;
+    padding: 30px;
+    color: #000;
+}
+
+.intro-header-one .intro-banner-one {
+    margin-right: 0px;
+    text-align: left;
+}
+
+.intro-header-one .intro-banner-half h2 {
+    line-height: 1.5;
+    font-size: 26px;
+    font-weight: 400;
+    color: #38008b;
+}
+
+.intro-header-one .intro-banner-half p {
+    margin-bottom: 30px;
+    min-height: 60px;
+    padding: 25px 0 20px 0;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.bottomnbar-div {
+    width: 100%;
+    padding: 30px 0;
+    background: linear-gradient(to bottom left, darkblue, deeppink);
+    background-image: linear-gradient(to left bottom, darkblue, deeppink);
+}
+
+.bottomnbar-div .row {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.bottomnbar-div .bottomnbar-div-content {
+    text-align: center;
+}
+
+.bottomnbar-div .bottomnbar-div-content p {
+    font-size: 12px;
+    text-align: center;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.bottomnbar-div .bottomnbar-div-content h2 {
+    font-weight: 700;
+    font-size: 36px;
+    color: #FFF;
+    margin-top: 0px;
+}
+
+.fa.fa-caret-right.fa-success-color {
+    position: static;
+}

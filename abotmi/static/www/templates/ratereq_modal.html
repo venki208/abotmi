@@ -1,0 +1,28 @@
+<ion-modal-view>
+<ion-header-bar class="bar">
+          <i class="icon ion-arrow-left-a light">Cancel</i>
+          <h1 class="title">{{track.user_details.invitereqtitle}}</h1>
+    </ion-header-bar>
+    <ion-content>
+    <div class="row">
+ <div class="col">
+  <label> Name :
+    <input type="text" placeholder="Name" ng-model="track.peerrate.name">
+  </label>
+</div>
+<div class="col">
+  <label> Email :
+    <input type="email" placeholder="EmailId" ng-model="track.peerrate.email">
+  </label>
+</div>
+</div>
+<div class="row">
+<div class="col">
+  <label> Mobile :
+    <input type="text" placeholder="Phone" ng-model="track.peerrate.mobile">
+  </label>
+</div>
+<button ng-click="track.inviterateSubmit(track.invitetype);">Submit</button>
+</div>
+</ion-content>
+</ion-modal-view>

@@ -1,0 +1,2293 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+    {% block important_css %}
+    	<link rel="stylesheet" href="/static/css/style-dash.css" type="text/css">
+    	<link rel="canonical" href="http://dev.reiaglobal.com" />
+    {{ block.super }}
+    <style type="text/css">
+    .opacity-problem a, .login-help a{
+    	opacity: 1 !important;
+    	color: #f05f40;
+    }
+    .pop-up-social-login .btn-success{
+    	    border-radius: 3px;
+    }
+    .fix-modal-heading{
+    	padding: 10px 15px 15px !important;
+    }
+    .fix-modal-heading-icon {
+    	margin-right: 1%;
+    }
+    .help-text{
+        color:#8C0606;
+    }
+    .extra-div{
+    	padding-top:5px;
+    	border-top:1px solid #000000;
+    }
+    .list-group.invite-frnds.pull-left.invite-frnds-media p {
+    	text-align: center;
+	}
+	a.remove-button {
+    	color: #FFF !important;
+	}
+	.product-content{
+        overflow-y: auto;
+        max-height: 130px;
+        padding-left: 0px;
+	}
+    </style>
+    {% endblock%}
+
+    {% block important_scripts %}
+    {% endblock%}
+
+    {% block slider %}
+    {% endblock %}
+
+    {% block main_content %}
+    {% if user_data %}
+  		<section class="body-section" id="about">
+			<div class="container body-container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="col-lg-8">
+							<!-- <h3 class="n-span-blue-color n-padding-b-15">
+								My Track
+								{% if user_data.profile.referral_code %}
+								<!-- <small>
+								<a href="{{DEFAULT_DOMAIN_URL | default:'http://localhost:8000'}}/profile/{{user_data.profile.referral_code}}/">
+									{{DEFAULT_DOMAIN_URL | default:'http://localhost:8000'}}/profile/{{user_data.profile.referral_code}}/
+								</a>
+								</small> -->
+								<!-- {% endif %}
+							</h3>  -->
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-8 col-xs-12 dashboard-class">
+                        <div class="row n-margin-0">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="panel panel-default profile-detailes-view">
+                                    <div class="pull-right last-updated">Last Updated : {{user_data.profile.modified_date}}</div>
+                                    <div class="panel-heading dash-heading">
+                                        <h4><label><img src="/static/images/Registered.png" /></label>
+                                        <span>My Track</span></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="row n-margin-0">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                                <div class="panel panel-default profile-detailes-view dashboard-class .panel-default">
+    								<div class="panel-body pannel-profile panel-height">
+    									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 no-padding profile-picture">
+    										<div class="picture">
+    											{% if user_data.profile.picture %}
+    												<img src="{{ user_data.profile.picture.url }}"  class="img-responsive img-thumbnail"/>
+    											{% else %}
+    												<img src="/static/images/contactimg.png"  class="img-responsive img-thumbnail"/>
+    											{% endif %}
+    										</div>
+    									</div>
+    	                            	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 n-padding-lr-30">
+    	                                	<div class="col-sm-12 col-xs-12">
+    		                                    <h4 class="n-span-pink-color" style="margin-top:0px;"><b>{{user_data.profile.first_name}} {{user_data.profile.middle_name}} {{user_data.profile.last_name}}</b></h4>
+    	                                        	<!-- <span style="color:#555;font-size: 14px;">{{user_data.profile.qualification}}</span> -->
+    		                                </div>
+    										<div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 n-padding-t-15 n-padding-b-15 logo-prograss">
+                                                {% if user_data.profile.advisor.is_crisil_verified %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/crisil_icon.png" alt="CRISIL" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if user_data.profile.advisor.is_certified_advisor %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/Stream_logos.png" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if advisor_level == "connected" %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_01.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if advisor_level == "well_connected" or level_advisor == "well_connected" and advisor_level == "highly_conneted" %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_02.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if advisor_level == "highly_conneted" %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_03.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if advisor_level == "trusted" %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_05.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if clients_level == 'large_client_based' %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_04.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if clients_level == 'most_trusted' and not advisor_level == 'trusted_economic_advisor' %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_06.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+                                                {% if advisor_level == 'trusted_economic_advisor' %}
+                                                    <div class="col-xs-3 col-sm-2 no-padding certfication-logos">
+                                                        <img src="/static/images/My_Tea_08.png" alt="SMART" class="img-responsive">
+                                                    </div>
+                                                {% endif %}
+    		                                </div>
+    	                                </div>
+                                       	<div class="col-sm-12 col-xs-12 col-md-12 my-belief-view" data-toggle="toggle">
+        									<p class="n-span-blue-color my-belief" >My Belief </p></br>
+        									<label name="mybelief_label" id="mybelief_label" value="{{ user.profile.my_belief }}"><a onclick="show_mybelief();" class="n-span-black-color">{{ user.profile.my_belief|escapejs }}</a></label>
+        									<div style="display:none; width:50%;" name="change_mybelief" id="change_mybelief">
+        										<input type="text" class="form-control" name="mybelief" id="mybelief" placeholder="Service is my Motto" value="{{ user.profile.my_belief|escapejs }}" onchange="onchange_mybelief('mybelief');show_mybelief();" style="border:none;">
+        										<select class="form-control " id="btn-mybelief-select" onclick="item_select(id)" style="border:none;" onchange="show_mybelief();">
+        										     <option value="Work is worship">Work is worship</option>
+        										     <option value="Customer first">Customer first</option>
+        										     <option value="Service is my motto">Service is my motto</option>
+        									    </select>
+        									</div>
+                                            <div class="list-group invite-frnds my-belief">
+                								<p class="n-span-blue-color">My Promise</p>
+                								<p class="text-justify">
+                								{{ user_data.profile.advisor.my_promise }}
+                								</p>
+                							</div>
+        								</div>
+    	                            </div>
+    							</div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                    <div class="col-xs-12 connection-count n-padding-l-0 bg-white gray-border-bottom">
+                                        <p class="text-center">
+                                            <span class="peer-stats n-span-gray-color">
+                                                {% if user.profile.advisor.total_advisors_connected %}
+                                                    <span>{{ user.profile.advisor.total_advisors_connected }}</span>
+                                                {% else %}
+                                                <span class="n-span-gray-color">000</span>
+                                                {% endif %}
+                                            </span>
+                                        Peer Connections
+                                        </p>
+                                    </div>
+                                    <div class="ratings col-md-12 col-sm-12 col-lg-12 col-xs-12 text-center bg-white gray-border-bottom">
+                                            <div class="rateit n-rating-dashboard" id="peer_rating" data-rateit-readonly='true'>
+                                            </div>
+                                            <p class="">Peer Rating<br />
+                                    </div>
+                                    <div class="col-xs-12 connection-count n-padding-l-0 bg-white gray-border-bottom">
+                                        <p class="text-center">
+                                            <span class="peer-stats n-span-gray-color">
+                                                {% if user.profile.advisor.total_clients_served %}
+                                                    <span>{{user.profile.advisor.total_clients_served }}</span>
+                                                {% else %}
+                                                    <span class="n-span-gray-color">000</span>
+                                                {% endif %}
+                                            </span>
+                                            Clients Connected
+                                        </p>
+                                    </div>
+                                    <div class="ratings col-md-12 col-sm-12 col-lg-12 col-xs-12 text-center bg-white">
+                                        <div class="col-xs-12">
+                                            <div class="rateit n-rating-dashboard" id="consumer_ranking" data-rateit-readonly='true'></div>
+                                        </div>
+                                        <div class="col-xs-12 peer_rating mob-rating n-padding-b-15">
+                                            <p class="n-margin-0">Client Ranking<br />
+                                            <!-- <span>{{total_member_ranks}} out of {{total_ranked_invites}} have ranked</span></p> -->
+                                        </div>
+                                    </div>
+                            </div>
+
+						</div>
+						{% if user_data.profile.advisor.is_registered_advisor %}
+						<div class="col-md-6">
+							<div class="panel panel-default profile-detailes-view reg-panel">
+								<h4 class="track-reg"><span>Registered</span></h4>
+								<div class="panel-body pannel-content register-logos oppertunity registerd">
+									{% if user_data.profile.advisor.sebi_number %}
+									<div class="col-xs-3 col-md-3 col-lg-3 col-sm-3 text-center no-padding register-logos-names">
+										<h4><img src="/static/images/sbi-logo.png" class="img-responsive"/></h4>
+										<p>Reg.No.<br/><span>{{user_data.profile.advisor.sebi_number}}<span></p>
+									</div>
+									{% endif %}
+									{% if user_data.profile.advisor.amfi_number %}
+									<div class="col-xs-3 col-md-3 col-lg-3 col-sm-3 text-center no-padding register-logos-names">
+										<h4><img src="/static/images/amfi-logo.png" class="img-responsive"/></h4>
+										<p>Reg.No.<br/><span>{{user_data.profile.advisor.amfi_number}}<span></p>
+									</div>
+									{% endif %}
+									{% if user_data.profile.advisor.irda_number %}
+									<div class="col-xs-3 col-md-3 col-lg-3 col-sm-3 text-center no-padding register-logos-names">
+										<h4><img src="/static/images/irda-logo.png" class="img-responsive"/></h4>
+										<p>Licence.No.<br/><span>{{user_data.profile.advisor.irda_number}}<span></p>
+									</div>
+									{% endif %}
+									{% if user_data.profile.advisor.is_rera and rera_values %}
+									<div class="col-xs-3 col-md-3 col-lg-3 col-sm-3 text-center no-padding register-logos-names">
+										<h4><img src="/static/images/rera.png" class="img-responsive"/ style="width:40px;height:50px;"></h4>
+										{% if rera_values|length == 1 %}
+											<p>Licence.No.<br/><span>{{rera_values.0.rera_registration_no}}<span></p>
+										{% endif %}
+									</div>
+									{% endif %}
+									{% if not user_data.profile.advisor.sebi_number and not user_data.profile.advisor.amfi_number and not user_data.profile.advisor.irda_number and not user_data.profile.advisor.is_rera and not rera_values %}
+										<p class="n-span-pink-color n-margin-0">None.</p>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+                        {% endif %}
+                        <div class="col-md-6">
+							<div class="panel panel-default profile-detailes-view icore-div-box advisor-bottom">
+								<h4 class="track-reg"><span>ICORE</span></h4>
+								<div class="panel-body pannel-content oppertunity">
+									<div class="col-xs-12 text-left no-padding pad-btn-bottom">
+										<div class="col-md-10 core-para">
+                                			<p>
+                                				{% if recent_post %}
+                                					<strong>Your Posts:</strong><br/>
+                                    				{% for post in recent_post|slice:":3" reversed %}
+                                    					<a href="/blog/icore/{{ post.ID }}/post/" onclick="signup_user_modal('#login-modal');"  class="pink-color">
+                                    						{{ post.post_title }}<br/>
+                                    					</a>
+                                					{% endfor %}
+                                				{% endif %}
+
+                                				{% if recent_post|length < 3 %}
+                                    				{% if recent_comments %}
+                                    					<strong>Your comments on other Posts: </strong><br/>
+
+	                                    					{% for comment in recent_comments reversed %}
+	                                    						{% if forloop.counter <= comment_count %}
+		                                    					<a href="/blog/icore/{{ comment.comment_post_ID }}/post/" onclick="signup_user_modal('#login-modal');" class="pink-color">
+		                                    						{{ comment.comment_content }}<br/>
+																</a>
+																{% endif %}
+	                                    					{% endfor %}
+                                    				{% endif %}
+                                    			{% endif %}
+                                    			{% if not recent_post and not recent_comments%}
+                                    				<span class="n-margin-0 n-span-pink-color">No posts and comments.</span>
+                                    			{% endif %}
+                                			</p>
+                                		</div>
+									</div>
+									<div class="col-xs-12 no-padding rghas-helped total-number-view">
+										<span class="peer-stats n-span-gray-color">{{ total_count}}</span></br>
+										<span>
+										Total Blogs
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+                        {% if aprroved_companies %}
+                            <div class="col-md-12">
+                                <div class="panel panel-default profile-detailes-view">
+                                    <h4 class="track-reg"><span>Affiliated Companies</span></h4>
+                                    <div class="panel-body pannel-content register-logos oppertunity registerd">
+                                        {% for company in aprroved_companies %}
+                                            <div class="col-xs-3 col-md-3 col-lg-3 col-sm-3 text-center no-padding register-logos-names">
+                                                <h4><a href="{{company.website_url}}" target="_blank"><img src="{{company.logo.url}}" class="img-responsive"/></a></h4>
+                                                <p>Company Name <br/><span>{{company.company_name}}<span></p>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+						<div class="col-md-6">
+							<div class="panel panel-default profile-detailes-view icore-div-box">
+								<h4 class="track-reg"><span>Skills & Experience</span></h4>
+								<div class="panel-body pannel-content register-logos oppertunity">
+									<div class="col-xs-12 text-left product-registered product-content">
+										{% if financial_instruments or user.profile.language_known or user.profile.languages_known_read_write %}
+											{% if user.profile.language_known or user.profile.languages_known_read_write %}
+												<p><b>Languages Known: </b></p>
+												{% if user.profile.language_known %}
+													<p><label>Speak</label>: {{ user.profile.language_known }}</p>
+												{% endif %}
+												{% if user.profile.languages_known_read_write %}
+													<p><label>Read & Write</label>: {{ user.profile.languages_known_read_write }}</p>
+												{% endif %}
+											{% endif %}
+											{% if financial_instruments %}
+												<p><b>Product Experience:</b></p>
+												<p>{% for products in financial_instruments %}
+													{{ products.instruments|cut:"_"|capfirst }} - {{ products.experience }} years {% if not forloop.last %}{% ifequal forloop.revcounter 2 %}, {% else %}, {% endifequal %}{% else %}{% endif %}{% if forloop.last %}.{% endif %}
+												{% endfor %}</p>
+											{% endif %}
+										{% else %}
+											<p class="n-span-pink-color n-margin-0">Information not Available.</p>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+
+		                <div class="col-md-6">
+							<div class="panel panel-default client-panel">
+								<h4 class="track-reg"><span>Client Feedback</span></h4>
+								<div class="panel-body pannel-content">
+									<div class="col-xs-12 text-left no-padding">
+									{% if feedbacks %}
+										{% for feedback in feedbacks %}
+											{% if forloop.counter < 3 %}
+												{% if feedback.existing_user_profile == None %}
+													<div class="col-md-12 n-margin-0 n-padding-lr-0" style="">
+														<p style="margin-bottom:5px">
+															<label class="n-span-d-brown-color">{{ feedback.external_user.name }} </label>: {{ feedback.feedback }}
+														</p>
+													</div>
+												{% else %}
+													<div class="col-md-12 n-margin-0 n-padding-lr-0" style="">
+														<p style="margin-bottom:5px">
+															<label class="n-span-d-brown-color">{{ feedback.existing_user_profile.first_name }} </label>: {{ feedback.feedback }}
+														</p>
+													</div>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
+                                		<div class="col-md-12 n-margin-0 n-padding-lr-0" style="">
+											<p style="margin-bottom:5px">
+												<span class="n-margin-0 n-span-pink-color">No feedbacks...</span>
+											</p>
+										</div>
+		                            {% endif %}
+									</div>
+									<p class="col-xs-12 no-padding rghas-helped total-number-view" style="margin-bottom: 0px;">
+                                        <span class="peer-stats n-span-blue-color">{{feedbacks|length}}</span></br>Total
+                                    </p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-12 col-xs-12 dashboard-class">
+						<div class="col-md-12 no-padding right-menu">
+							<!-- <div class="list-group invite-frnds pull-left">
+								<h4 class="headding"><span><img src="/static/images/my-promissis.png"></span>&nbsp;&nbsp;My Promise</h4>
+								<p class="text-justify">
+								{{ user_data.profile.advisor.my_promise }}
+								</p>
+							</div> -->
+			                <div class="list-group invite-frnds invite-frnds-opportunity header pull-left">
+								<h4 class="headding-gray">&nbsp;&nbsp;My Sale Accomplishments<button type="button" class="n-btn-green btn-xs pull-right" id="id_add_sale" data-toggle="modal" data-target="#id_mysale_accomplishments" style="border:none;margin-top:-5px;padding: 3px 15px;">
+									Add
+								</button></h4>
+                            </div>
+                            <div class="list-group invite-frnds invite-frnds-opportunity pull-left">
+                                <p id="id_main_my_sales_content">
+                                    {{ user_data.profile.advisor.my_sales }}
+                                </p>
+			                </div>
+			                <div class="list-group invite-frnds invite-frnds-contact header pull-left">
+								<h4 class="headding-gray">&nbsp;&nbsp;Contact Details</h4>
+                            </div>
+                            <div class="list-group invite-frnds invite-frnds-contact pull-left">
+			                    <div class="col-xs-12 n-contact-icon">
+			                    	<div class="col-md-12 right-side-bar-column">
+			                    		<p class="content">{{user_data.profile.email|safe|escapejs}}</p>
+			                    	</div>
+			                    </div>
+			                    <div class="col-xs-12 n-contact-icon">
+			                    	<div class="col-sm-12 right-side-bar-column">
+			                    		<p class="content">{{user_data.profile.mobile}}</p>
+			                    	</div>
+			                    </div>
+			                    <!-- <div class="col-xs-12 n-contact-icon">
+			                    	<div class="col-sm-12 right-side-bar-column">
+			                    		<i class="fa fa-map-marker n-padding-r-5" aria-hidden="true"></i>
+			                    		<p class="content">{{user_data.profile.locality}}</p>
+			                    	</div>
+			                    </div> -->
+			                    <div class="col-xs-12 n-contact-icon">
+                                    <p>
+                                        <a class="n-social-right font-10 n-padding-lr-10" href="#"><i class="fa fa-lg fa-facebook" aria-hidden="true" onclick="fb_share();"></i> </a>
+                                        <a class="n-social-right font-10 n-padding-lr-10" href="#"><i class="fa fa-lg fa-google-plus " aria-hidden="true" onclick="return googleplusbtn('{{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/')"></i> </a>
+                                        <a class="n-social-right font-10 n-padding-lr-10" href="#"><i class="fa fa-lg fa-linkedin" aria-hidden="true" onclick="LinkedInShare();"></i> </a>
+                                        <a class="n-social-right font-10 n-padding-lr-10" href="" data-text="Check out My Profile in REIA" onclick="twitter_share();"><i class="fa fa-lg fa-twitter" aria-hidden="true" ></i></a>
+                                    </p>
+			                    </div>
+							</div>
+							<!-- {% if user.is_authenticated %}
+			                <div class="list-group invite-frnds pull-left invite-frnds-media">
+								<h4 class="headding">My Social Media Connects</h4>
+								<!-- <p>
+									<a class="n-social-right" href="#"><i class="fa fa-facebook-square" aria-hidden="true" onclick="fb_share();"></i> </a>
+									<a class="n-social-right" href="#"><i class="fa fa-google-plus-square" aria-hidden="true" onclick="return googleplusbtn('{{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/')"></i> </a>
+									<a class="n-social-right" href="#"><i class="fa fa-linkedin-square" aria-hidden="true" onclick="LinkedInShare();"></i> </a>
+									<a class="n-social-right" href="" data-text="Check out My Profile in REIA" onclick="twitter_share();"><i class="fa fa-twitter-square" aria-hidden="true" ></i></a>
+								</p> -->
+							<!-- </div>
+							{% endif %} -->
+							<!-- <div class="col-md-12 col-xs-12 col-xs-12 laste-updated"><p>Last Updated : {{user_data.profile.modified_date}}</p></div> -->
+						</div>
+	   				</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 n-margin-0">
+                        {% if user.is_authenticated %}
+						<div class=" col-md-12 col-sm-12 col-xs-12 text-right tooltip-share">
+							<span><a><button class="btn btn-xs btn-pink" onclick="edit_profile('{{request.user}}');"><i class="fa fa-edit n-padding-r-5"></i>Edit</button></a></span>
+							<span><a href="#"><button class="btn btn-xs btn-pink" data-loading-text="Downloading....." onClick="preview_submit();"><i class="fa fa-download n-padding-r-5"></i>Download</button></a></span>
+							<span><a><button class="btn btn-xs btn-pink" data-toggle="modal" data-target="#email_modal"><i class="fa fa-envelope n-padding-r-5"></i>Email</button></a></span>
+							<span><a><button class="btn btn-xs btn-pink" id="social_share"><i class="fa fa-share-alt n-padding-r-5" aria-hidden="true"></i>Share</button></a></span>
+						</div>
+						{% else %}
+						<div class="col-xs-12 text-left footer-btns">
+							<p>
+								<a href="#" onclick="signup_user_modal('#login-modal');">
+									* Signup with UPWRDZ to become an advisor
+								</a>
+							</p>
+							<p>
+								<a href="{{ IREIN_URL | default:'https://test.northfacing.in/' }}">
+									* Signup with NF to become a Member
+								</a>
+							</p>
+						</div>
+						{% endif %}
+                    </div>
+				</div>
+			</div>
+		</section>
+		{% else %}
+		<section class="body-section">
+			<div class="container">
+				<div class="col-md-12 col-sm-12">
+					User Profile Does not Exists
+				</div>
+			</div>
+		</section>
+		{% endif %}
+    {% endblock %}
+    {% block footer %}
+       {{ block.super }}
+    {% endblock %}
+    {% block copy_rights %}
+       {{ block.super }}
+    {% endblock %}
+    {% block bootstrap-modal %}
+       {{ block.super }}
+       	<div class="modal fade" id="email_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+       		<div class="modal-dialog">
+       			<div class="panel panel-default popup-panel">
+       				<div class="panel-heading dash-heading fix-modal-heading">
+	       				<h4>
+	       					<!-- <label><img src="/static/images/dash-img01.png" /></label> -->
+	       					<span class="pull-left fix-modal-heading-icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+	       					<span id="email_modal-title">Send Profile</span><span class="pull-right"><i class="fa fa-times-circle" data-dismiss="modal" aria-hidden="true" id="id_send_mail_cancel" onclick="send_profile_mail_id(id);"></i></span>
+	       				</h4>
+       				</div>
+       				<div class="panel-body pannel-popup-content modal-body" id="email_modal-body">
+   						<form id="id_mail" name="email" method="POST" action="">
+			        	{% csrf_token %}
+				          	<div class="form-group" id="add_fields">
+				          		<div class="col-md-3">
+				          			<label class="control-label">Title</label>
+				          			<select class="form-control" id="id_title1" name='title1'>
+				          				<option value="Select">Select</option>
+				          				<option value="Mr">Mr</option>
+				          				<option value="Ms">Ms</option>
+				          				<option value="Dr">Dr</option>
+				          				<option value="Prof">Prof</option>
+				          			</select>
+				          		</div>
+				          		<div class="col-md-4">
+				          			<label class="control-label">Name</label>
+				          			<input type="text" class="form-control" name="name1" id="id_name1" placeholder="Name">
+				          		</div>
+				          		<div class="col-md-5">
+				          			<label class="control-label">Email Id</label>
+				          			<input type="text" class="form-control" name="email1" id="id_email1" placeholder="Email Id">
+				          		</div>
+				          		<div class="col-md-12">
+				          			<label class="control-label">Subject</label>
+				          			<input type="text" class="form-control" name="subject1" id="id_subject1" placeholder="Subject">
+				          		</div>
+				          		<div class="col-md-12">
+				          			<label class="control-label">Message</label>
+									<textarea class="form-control" rows="4" cols="50" id='id_mail_body_content1' name="mail_body_content1" placeholder="{{user.profile.first_name |title}} has shared profile for your reference."></textarea>
+								</div>
+				          	</div>
+			        	</form>
+       				</div>
+       				<div class="modal-footer">
+       					<div class="pull-right">
+					        <button type="button" id="id_send_mail_cancel" class="btn n-bg-grey" data-dismiss="modal" onclick="send_profile_mail_id(id);">Cancel</button>
+					        <button type="button" class="btn blue-btn-primary" onclick="add_mail_fields();">Add</button>
+					        <button type="button" class="btn btn-primary" id="id_send_button" onclick="send_profile_mail_id(id);" style="background-color:#f61493;">Send</button>
+					    </div>
+					</div>
+       			</div>
+       		</div>
+       	</div>
+       	<!-- my sale accomplishments modal -->
+       	<div class="modal fade" id="id_mysale_accomplishments" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+       		<div class="modal-dialog">
+       			<div class="panel panel-default popup-panel">
+       				<div class="panel-heading dash-heading fix-modal-heading">
+	       				<h4>
+	       					<!-- <label><img src="/static/images/dash-img01.png" /></label> -->
+	       					<span class="pull-left fix-modal-heading-icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+	       					<span id="email_modal-title">My Sale Accomplishments</span><span class="pull-right"><i class="fa fa-times-circle" data-dismiss="modal" aria-hidden="true" id="id_send_mail_cancel"></i></span>
+	       				</h4>
+       				</div>
+       				<div class="panel-body pannel-popup-content modal-body" id="email_modal-body">
+   						<form id="id_sale_accomplishments" name="sale_accompplishment" method="POST" action="">
+			        	{% csrf_token %}
+			          		<div class="col-md-12">
+			          			<label class="control-label">My Sale Accomplishments</label>
+								<textarea class="form-control" rows="4" cols="50" id='id_sale_accomplishment_content' name="sale_accomplishment_content" placeholder="My Sale Accomplishments"></textarea>
+                                <span class="help-text" id="help_sale_accomplishment"></span>
+							</div>
+			        	</form>
+       				</div>
+       				<div class="modal-footer">
+       					<div class="pull-right">
+					        <button type="button" id="id_send_mail_cancel" class="btn n-bg-grey" data-dismiss="modal">Cancel</button>
+					        <button type="button" class="btn btn-primary" id="id_add_button" onclick="add_sales_acomplishment('id_sale_accomplishment_content','help_sale_accomplishment');" style="background-color: #29038c;">Add</button>
+					    </div>
+					</div>
+       			</div>
+       		</div>
+       	</div>
+       	<!-- end for my sale accomplishments -->
+       	<!-- social media icons block -->
+		<div id="social_media_block" class="hidden">
+			<div>
+				<a class="fa fa-facebook-square" aria-hidden="true" id="shareBtn" title="share on Facebook" onclick="fb_share();" style="color:#0f028c;font-size:22px;"></a></br>
+				<a class="fa fa-google-plus-square" aria-hidden="true" type="button" title="share on google+" href="#" onclick="return googleplusbtn('{{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/')" style="color: #0f028c;font-size:22px;"></a></br>
+				<a class="fa fa-linkedin-square" aria-hidden="true" type="button" onclick="LinkedInShare();" style="color:#0f028c;font-size:22px;" title="share on Linkedin"></a></br>
+				<a class="fa fa-twitter-square" aria-hidden="true" class="twitter popup" onclick="twitter_share();" type="button" style="color:#0f028c;font-size:22px;" title="share on Twitter"></a></br>
+				<div id="whatsappsharediv">
+				</div>
+			</div>
+		</div>
+		 <div id="edit-profile-modal-section">
+	        <!-- Modal - Started -->
+	        <div class="modal fade" id="edit-profile-modal" name="edit-profile-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+	            <div class="modal-dialog advisor-model-popup">
+	                <div class="panel panel-default popup-panel">
+	                    <div class="panel-heading dash-heading">
+	                        <h4><label><img src="/static/images/dash-img01.png" /></label>
+	                            <span>Edit Profile</span><span class="pull-right"><i class="fa fa-times-circle" data-dismiss="modal" onclick="clearmodal();"></i></span></h4>
+	                    </div>
+	                    <div class="panel-body pannel-popup-content advisor-form-padding" id="edit-profile-modal-body" data-focus-on="input:first">
+	                        <!-- This Body can be reused  -->
+	                    </div>
+
+	                    <div class="form-group col-lg-12 col-md-12 col-xs-12" id="edit-profile-modal-footer">
+	                        <!-- This Body footer can be reused -->
+
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        <div id="upload-profile-picture-modal-section">
+            <!-- Modal - Started -->
+            <div id="upload-profile-picture-modal" name="upload-profile-picture-modal" class="modal" id="login-modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+                <div class="modal-dialog popup-modal-dialog">
+                    <div class="panel panel-default popup-panel">
+                        <div class="panel-heading dash-heading">
+                         <h4><label><img src="/static/images/dash-img01.png" /></label>
+                            <span>Upload Photo</span><span class="pull-right" onclick="close_modal('upload-profile-picture-modal','edit-profile-modal');"><i class="fa fa-times-circle"  aria-hidden="true"></i></span></h4>
+                        </div>
+                        <div class="panel-body pannel-popup-content" id="upload-profile-picture-modal-body">
+                            <!-- This Body can be reused  -->
+                        <div class="col-md-12">
+                         <form action="/signup/upload_file/" name="upload_doc1" id="upload_doc1" method="post" class="contact-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-md-8">
+                                <div class="imageBox">
+                                    <div class="thumbBox"></div>
+                                    <div class="spinner" style="display: none">Loading...</div>
+                                </div>
+                                <div style="display:none;">
+                                       <input type="text" name="documents_type" id="documents_type" value="Profile Picture" >
+                                </div>
+                                <div class="action">
+                                    <label id="paper_clip1" class="col-sm-2 fileinput fileinput-new " data-provides="fileinput">
+                                            <input type="file" name="file" id="file" accept="image" style="float:left; width: 250px" autocomplete="off">
+                                    </label>
+                                    <input type="button" id="btnCrop" value="Crop" style="float: right">
+                                    <input type="button" id="btnZoomIn" value="+" style="float: right">
+                                    <input type="button" id="btnZoomOut" value="-" style="float: right">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="cropped">
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+
+                        </div>
+                        <div class="modal-footer" id="upload-profile-picture-modal-footer">
+                            <!-- This Body footer can be reused -->
+                        <button type="button" name="upload_pic" id="upload_pic" class="btn btn-primary popup-btn" onClick="readURL();" style="display: none" autocomplete="off"> Upload</button>
+                        <button type="button" class="btn btn-primary popup-btn" onclick="close_modal('upload-profile-picture-modal','edit-profile-modal');">
+                            Close
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <!-- HTML Content Ended -->
+
+    <!-- Scripts Start -->
+    {% block theme_scripts %}
+       	<link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+    	<script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+        <script type="text/javascript">
+            function shrink_header(){
+                $('nav').addClass('shrink');
+                $("#about").addClass('n-margin-top-100');
+                $(".riea-logo-1").addClass('img_shrink');
+                $(".social-icons").addClass('width-93');
+            }
+            $(document).ready(function(){
+                shrink_header();
+            });
+        </script>
+    {% endblock %}
+    {% block slider_script %}
+        {{ block.super }}
+    {% endblock %}
+    {% block scripts %}
+    	<script type="text/javascript">
+    		var isMobile;
+    		$(document).ready(function() {
+               	isMobile = {
+	    			Android: function() {
+						return navigator.userAgent.match(/Android/i);
+					},
+					BlackBerry: function() {
+						return navigator.userAgent.match(/BlackBerry/i);
+					},
+					iOS: function() {
+					    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+					},
+					Opera: function() {
+					        return navigator.userAgent.match(/Opera Mini/i);
+					},
+					Windows: function() {
+					        return navigator.userAgent.match(/IEMobile/i);
+					},
+					any: function() {
+					    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+					}
+				};
+				if( isMobile.any() ) {
+					$("#whatsappsharediv").append("<a class='fa fa-whatsapp' aria-hidden='true' type='button' id='whatsappshare' name='whatsappshare' onclick='whatsappshare();' style='color:#eac43b;font-size:22px;'></a>");
+				}
+
+            });
+			function whatsappshare() {
+				if( isMobile.any() ) {
+					var text = $(this).attr("data-text");
+					var url = $(this).attr("data-link");
+					var message = encodeURIComponent(text) + " - " + encodeURIComponent(url);
+					var whatsapp_url = "whatsapp://send?text={{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/";
+					window.location.href = whatsapp_url;
+				} else {
+	            	alert("Please share in mobile device");
+				}
+	 		}
+    		function item_select(id){
+    			var value=$('#'+id).val();
+    			$('#mybelief').val(value);
+    			onchange_mybelief("mybelief");
+
+    		}
+    	</script>
+
+    	<script type="text/javascript">
+			function onchange_mybelief(mybelief){
+            var token = "{{ csrf_token }}";
+            var value = $("#mybelief").val();
+
+            if (value != ''){
+	            $.ajax({
+	                url:"/signup/my_belief/",
+	                method: "POST",
+	                beforeSend: function(request) {
+	                    request.setRequestHeader("X-CSRFToken",token);
+	                },
+	                data :{
+	                	my_belief : value
+	                },
+	                success:function(response){
+	                	document.getElementById('mybelief_label').innerHTML = "<label name='mybelief_label' id='mybelief_label' value='"+value+"'><a onclick='show_mybelief();' class='n-span-black-color'>"+value+"</a></label>";
+	                },
+	                error:function(response){
+	                },
+	            });
+            }else{
+            	alert('Please fill My belief ');
+            }
+        }
+		</script>
+    	<script type="text/javascript">
+    		$(document).ready(function(){
+	            $("#peer_rating").rateit('value', '{{final_peer_avg_rating|floatformat:1}}');
+	            $("#consumer_ranking").rateit('value', '{{final_consumer_avg_ranking}}');
+	        })
+			function preview_submit() {
+		        var w=window.open("/signup/download_advisor_profile/", '_blank');
+		        w.focus();
+		    }
+    	</script>
+    	<script type="text/javascript">
+    	 function show_mybelief() {
+            $('#change_mybelief').toggle();
+        }
+        </script>
+        {% if user_data.profile.advisor.my_sales %}
+            <script type="text/javascript">
+                $("#id_add_sale").css('display','none');
+            </script>
+        {% endif %}
+    	<script type="text/javascript">
+    		var id_modal = 1;
+    		function add_mail_fields(){
+    			var result_add_fields = json_output_result();
+    			if(result_add_fields[1]<=0){
+	    			id_modal++;
+	    			$('<div class=border_title id="additional_div'+id_modal+'"><div class="col-md-12" id="id_border_line" style="padding-top:10px;"><hr style="border-color: #070147;border-width: 3px;max-width: 100%;"><a type="button" class="btn btn-blue-berry pull-right remove-button" id="additional_div'+id_modal+'" name="additional_div'+id_modal+'" onclick=remove_row(id);><i class="glyphicon glyphicon-remove"></i></a></div><div class="col-md-3"><label class="control-label">Title</label><select class="form-control" id="id_title'+id_modal+'" name="title'+id_modal+'"><option value="Select">Select</option><option value="Mr">Mr</option><option value="Ms">Ms</option><option value="Dr">Dr</option><option value="Prof">Prof</option></select></div><div class="col-md-4"><label class="control-label">Name</label><input type="text" class="form-control" name="name'+id_modal+'" id="id_name'+id_modal+'" placeholder="Name"></div><div class="col-md-5"><label class="control-label">Email Id</label><input type="text" class="form-control" name="email'+id_modal+'" id="id_email'+id_modal+'" placeholder="Email Id"></div><div class="col-md-12"><label class="control-label">Subject</label><input type="text" class="form-control" name="subject'+id_modal+'" id="id_subject'+id_modal+'" placeholder="Subject"></div><div class="col-md-12"><label class="control-label">Message</label><textarea class="form-control" rows="4" cols="50" id="id_mail_body_content'+id_modal+'" name="mail_body_content'+id_modal+'">{{user.profile.first_name |title}} has shared profile for your reference.</textarea></div></div>').appendTo(add_fields);
+	    		}
+    		}
+    		function remove_row(id){
+    			$("#"+id).remove();
+    		}
+    		function json_output_result(){
+				var link='</br>To view the profile click <a href='+"'"+'{{DEFAULT_DOMAIN_URL | default:'"http://localhost:8000"'}}/profile/{{user_data.profile.referral_code}}/'+"'"+'>here</a>'
+    			var input_ids,values;
+    			var input_values = [];
+    			var i=0;
+    			var validation_id = 0;
+    			var $inputs = $('#add_fields :input');
+    			$inputs.each(function (index){
+    				input_ids = $(this).attr('id');
+    				values = $("#"+input_ids).val();
+    				values = values.trim();
+    				input_values[i] = $(this).attr('name')+":"+values+",";
+    				if(i == 0 || (i%5 == 0) ){
+                        if (values == '' || values == 'Select'){
+                            validation_id =+1;
+                            alert('Please select Title');
+                            $("#"+input_ids).focus();
+                            return false;
+                        }else{
+                            input_values[i] = '"title"'+":"+'"'+values+'"'+",";
+                        }
+                    }
+                    if(i == 1 || (i%5 == 1)){
+                        if (values == ''){
+                            validation_id =+1;
+                            alert('Please enter Name');
+                            $("#"+input_ids).focus();
+                            return false;
+                        }else{
+                        	var alpha = /^[a-zA-Z()\s]+$/.test(values);
+                            if(!alpha){
+                            	alert('Please enter valid Name');
+                            	$("#"+input_ids).focus();
+                            	validation_id =+1;
+                            	return false;
+                            }
+                            input_values[i] = '"name"'+":"+'"'+values+'"'+",";
+                        }
+                    }
+                    if(i == 2 || (i%5 == 2)){
+                        if (values == ''){
+                            validation_id =+1;
+                            alert('Please enter Email Id');
+                            $("#"+input_ids).focus();
+                            return false;
+                        }else{
+                        	var email_valid = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                        	if(!email_valid.test(values)){
+                            	alert('Please enter valid Email Id');
+                            	$("#"+input_ids).focus();
+                            	validation_id =+1;
+                            	return false;
+                            }
+                            input_values[i] = '"email"'+":"+'"'+values+'"'+",";
+                        }
+                    }
+                    if(i == 3 || (i%5 == 3)){
+                        if (values == ''){
+                            validation_id =+1;
+                            alert('Please enter Subject');
+                            $("#"+input_ids).focus();
+                            return false;
+                        }else{
+                            input_values[i] = '"subject"'+":"+'"'+values+'"'+",";
+                        }
+                    }
+                    if(i == 4 || (i%5 == 4)){
+                        if (values == ''){
+                            validation_id =+1;
+                            alert('Please Enter Message');
+                            $("#"+input_ids).focus();
+                            return false;
+                        }else{
+                            main_mail_body_content = values.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                            input_values[i] = '"mail_body"'+":"+'"'+main_mail_body_content+link+'"';
+                        }
+                    }
+                    i++;
+    			});
+
+    			var json_index = 0;
+                var json_output = [];
+                var output = '{';
+                for (var i = 0; i < input_values.length; i++) {
+                	var output = output +input_values[i];
+                	if((i+1)%5 == 0 && i != 0){
+                        var output = output+'}';
+                        json_output[json_index] = output;
+                        json_index ++;
+                        var output = '{';
+                    }
+                }
+                json_final_output = [json_output,validation_id]
+                return json_final_output;
+    		}
+    		function send_profile_mail_id(id){
+    			var token = "{{csrf_token}}";
+    			if(id == 'id_send_mail_cancel'){
+    				var remove_ids = $(".remove-button").parent().map(function(){
+                        return this.id;
+                    }).get();
+                    for(i=0; i<remove_ids.length; i++){
+                        $('#'+remove_ids[i]).parent().remove();
+                    }
+                    var $inputs = $('#add_fields :input[type="text"]');
+					$inputs.each(function (index){
+						var ids_email_body = $(this).attr('id');
+						$('#'+ids_email_body).val('');
+					});
+					$('#id_title1').val('Select');
+    			}
+    			else{
+	    			var json_output_value = json_output_result();
+
+	                if(json_output_value[1] <= 0){
+		                document.getElementById('id_send_button').innerHTML = 'Sending ...';
+		    			$('#id_send_button').prop('disabled', true);
+		                $.ajax({
+		    				url:"/signup/send_profile_mail/",
+		                    method: "POST",
+		                    beforeSend: function (request) {
+		                        request.setRequestHeader("X-CSRFToken", token );
+		                    },
+		                    data :{
+		                        value : '['+json_output_value[0]+']'
+		                    },
+		                    success:function(response){
+		                    	if(response == 'success'){
+		                    		$('#email_modal').modal('hide');
+		                    		document.getElementById('id_send_button').innerHTML = 'Send';
+									$('#id_send_button').prop('disabled', false);
+									var remove_ids = $(".remove-button").parent().map(function(){
+				                        return this.id;
+				                    }).get();
+				                    for(i=0; i<remove_ids.length; i++){
+				                        $('#'+remove_ids[i]).parent().remove();
+				                    }
+				                    var $inputs = $('#add_fields :input[type="text"]');
+	    							$inputs.each(function (index){
+	    								var ids_email_body = $(this).attr('id');
+	    								$('#'+ids_email_body).val('');
+	    							});
+	    							$('#id_title1').val('Select');
+		                    		alert('Email has been sent successfully');
+		                    	}
+		                    },
+		                    error:function(response){
+		                    },
+		    			});
+		    		}
+		    	}
+    		}
+            function add_sales_acomplishment(id,help_id){
+                var sales_content_value = $("#"+id).val();
+                var token = "{{csrf_token}}";
+                if(sales_content_value == ''){
+                    $('#'+id).addClass('not_valid');
+                    $("#"+help_id).html('Please Enter Sales Accomplishments');
+                    return false;
+                }else{
+                    $('#'+id).removeClass('not_valid');
+                    $("#"+help_id).html('');
+                    $.ajax({
+                        url:"{% url 'signup:add_sales_acomplishments' %}",
+                        method: "POST",
+                        beforeSend: function (request) {
+                            request.setRequestHeader("X-CSRFToken", token );
+                        },
+                        data:{
+                            sales_content : sales_content_value
+                        },
+                        success:function(response){
+                            if(response == 'success'){
+                                $('#id_main_my_sales_content').html(sales_content_value);
+                                $('#id_add_sale').css('display','none');
+                                $("#id_mysale_accomplishments").modal('hide');
+                            }
+                        }
+                    })
+                }
+            }
+    		function edit_profile(user_id){
+	            var token = "{{ csrf_token }}";
+	            $.ajax({
+	                type: "POST",
+	                url: "/signup/edit_profile/",
+	                data: {user_id:user_id},
+	                beforeSend: function(request){
+	                    request.setRequestHeader("X-CSRFToken", token);
+	                },
+	                success: function(response){
+	                    $('#edit-profile-modal-body').html('');
+	                    $('#edit-profile-modal-body').html(response);
+	                    $('#edit-profile-modal').modal({
+	                        show: true,
+	                        backdrop: 'static',
+	                        keyboard: false,
+	                    });
+	                }
+	            });
+	        }
+	        function clearmodal(){
+                window.location.reload();
+        	}
+    	</script>
+    	<script type="text/javascript">
+    		function validating_text(id,help_text_id){
+    			if($("#"+id).val() != ''){
+    				document.getElementById(help_text_id).innerHTML = '';
+    			}
+    		}
+    	</script>
+    	<script type="text/javascript">
+		$(function(){
+			/***** Create the popover **************/
+			var options = {
+	    		html: true,
+	    		content: function(){
+	    			return $('#social_media_block').html();
+	    		},
+	    		title: function(){
+	    			return $('#example-popover-2-title').html();
+	    		}
+    		};
+		    $("#social_share").popover(options);
+		    /***** Dismiss all popovers by clicking outside, don't dismiss if clicking inside the popover content  **************/
+		    $('html').on('click', function(e) {
+				if (typeof $(e.target).data('original-title') == 'undefined' && !$(e.target).parents().is('.popover.in')) {
+		    		$('[data-original-title]').popover('hide');
+			  	}
+			});
+		});
+	</script>
+
+<!-- Edit profile script start-->
+
+	<script type="text/javascript">
+	    function remove_data(id){
+          var e = document.getElementById("financial_instruments"+id);
+          var strUser = e.options[e.selectedIndex].value;
+          add_options(strUser);
+          $('#financial'+id).remove();
+          var i = allids.indexOf(id);
+          if(i != -1) {
+              allids.splice(i, 1);
+          }
+	    }
+
+	    function add_options(strUser){
+	        removed_text='Select';
+	        if(strUser=='Equity'){
+	            removed_text='Equity'
+	        }else if(strUser=='Wealth Advisory'){
+	            removed_text='Wealth Advisory'
+	        }else if(strUser=='Mutual Fund'){
+	            removed_text= "Mutual Fund"
+	        }else if (strUser=='Insurance'){
+	            removed_text= "Insurance"
+	        }else if(strUser=='Real Estate'){
+	            removed_text= "Real Estate"
+	        }else if(strUser=='PortFolio Management'){
+	            removed_text= "PortFolio Management"
+	        }else{
+	            removed_text='Select';
+	        }
+	        if(removed_text!='Select'){
+	            for(var j=0; j<allids.length; j++) {
+	                var i=allids[j];
+	                var e = document.getElementById("financial_instruments"+i);
+	                myOption = document.createElement("option");
+	                myOption.text = removed_text;
+	                myOption.value = removed_text;
+	                e.appendChild(myOption);
+	            }
+	        }
+	    }
+</script>
+<script type="text/javascript">
+    function validateAlpha(str) {
+        var name = document.getElementById(str);
+        if(name.value==''){
+        	$('#help_text_'+str).html('Please Enter valid Input');
+            $('#'+str).css('border','1px solid #C32F2F');
+        }else{
+	        var alpha = /^[a-zA-Z()\s]+$/.test(name.value);
+	        if(alpha){
+	        	$('#help_text_'+str).html('');
+            	$('#'+str).css('border','');
+	            save_onchange(str,str,'help_text_'+str);
+	        }
+	        else {
+	            $('#help_text_'+str).html('Please Enter valid Input');
+            	$('#'+str).css('border','1px solid #C32F2F');
+	        }
+        }
+    }
+    function validateAlpha(str) {
+        var name = document.getElementById(str);
+        if(name.value==''){
+        	if(str!='m_name'){
+	        	$('#help_text_'+str).html('Please Enter valid Input');
+	            $('#'+str).css('border','1px solid #C32F2F');
+        	}
+        }else{
+	        var alpha = /^[a-zA-Z()\s]+$/.test(name.value);
+	        if(alpha){
+	        	$('#help_text_'+str).html('');
+            	$('#'+str).css('border','');
+	            save_onchange(str,str,'help_text_'+str);
+	        }
+	        else {
+	            $('#help_text_'+str).html('Please Enter valid Input');
+            	$('#'+str).css('border','1px solid #C32F2F');
+	        }
+        }
+    }
+
+</script>
+<script type="text/javascript">
+
+    $('#sebi_registration_date').on('keypress', function(e) {
+        e.preventDefault(); // Don't allow direct editing
+    });
+
+    $('#amfi_registration_date').on('keypress', function(e) {
+        e.preventDefault(); // Don't allow direct editing
+    });
+
+    $('#irda_registration_date').on('keypress', function(e) {
+        e.preventDefault(); // Don't allow direct editing
+    });
+
+    $('#irda_registration_date').on('keypress', function(e) {
+        e.preventDefault(); // Don't allow direct editing
+    });
+
+    $('.datepicker').on('keypress', function(e) {
+        e.preventDefault(); // Don't allow direct editing
+    });
+    function validateMobile(check, str) {
+
+        var isValidNumber = $('#mobilenumber').intlTelInput("isValidNumber");
+        if(isValidNumber == false){
+            $("#help_text_mobilenumber").html('Enter Valid Mobile number');
+            $('#mobilenumber').css('border','1px solid #C32F2F');
+        }else{
+        	$("#help_text_mobilenumber").html('');
+            $('#mobilenumber').css('border','');
+            check_advisor_is_crisil('mobile', str, 'help_text_mobilenumber', '{{ user.profile.mobile }}');
+        }
+    }
+    function validateExperience(str,id) {
+        var re = /^[1-9][0-9]?$|^99$/;
+        var validexperience = document.getElementById(str);
+        var validexperience = document.getElementById('financial_experience'+id);
+            if(!validexperience.value.match(re) || validexperience == null ) {
+                var a=document.getElementById('financial_experience'+id).value = "";
+                document.getElementById('financial_experience'+id).style.border='1px solid #C32F2F';
+                document.getElementById('help-text-financial_experience'+id).innerHTML='Enter Valid Experience';
+                $("#financial_experience"+id).focus();
+            }else{
+                document.getElementById('financial_experience'+id).style.border='';
+                document.getElementById('help-text-financial_experience'+id).innerHTML='';
+            }
+    }
+    function validate_total_client_served() {
+        var re = /^[0-9\b]+$/;
+        var inputvalue = $("#total_client_served").val();
+        if((inputvalue.match(re) && inputvalue > 0)||(inputvalue=="")){
+            document.getElementById('total_client_served').style.border='';
+            document.getElementById('help_text_total_client_served').innerHTML='';
+            save_onchange('total_clients_served','total_client_served','help_text_total_client_served');
+        }else{
+            var a=document.getElementById('total_client_served').value = "";
+            document.getElementById('total_client_served').style.border='1px solid #C32F2F';
+            document.getElementById('help_text_total_client_served').innerHTML='Enter Valid Input';
+            $("#total_client_served").focus();
+        }
+    }
+    function validate_advisor_is_connected_with() {
+        var re = /^[0-9\b]+$/;
+        var inputvalue = $("#advisor_is_connected_with").val();
+        if(($("#advisor_is_connected_with").val().match(re) && $("#advisor_is_connected_with").val() > 0)||(inputvalue== "")){
+            document.getElementById('advisor_is_connected_with').style.border='';
+            document.getElementById('help_text_advisor_is_connected_with').innerHTML='';
+            save_onchange('total_advisors_connected','advisor_is_connected_with','help_text_advisor_is_connected_with');
+        }else{
+            var a=document.getElementById('advisor_is_connected_with').value = "";
+            document.getElementById('advisor_is_connected_with').style.border='1px solid #C32F2F';
+            document.getElementById('help_text_advisor_is_connected_with').innerHTML='Enter Valid Input';
+            $("#advisor_is_connected_with").focus();
+        }
+    }
+</script>
+
+
+<script type="text/javascript">
+    function validate_financial_instruments(str,id) {
+        var validinstruments = document.getElementById('financial_instruments'+id).value;
+        if(validinstruments == 'select'|| validinstruments == ''){
+            document.getElementById('financial_instruments'+id).style.border='1px solid #C32F2F';
+            document.getElementById('help-text-financial_instruments'+id).innerHTML='Please Select Financial Instruments Sold';
+            $("#financial_instruments"+id).focus();
+        }else{
+            document.getElementById('financial_instruments'+id).style.border='';
+            document.getElementById('help-text-financial_instruments'+id).innerHTML='';
+        }
+    }
+
+    //  Action : Auto Save Form
+    function save_onchange(name,id,help_text_ids){
+        var value = $("#"+id).val();
+        if (value != '' || value != '--Select--'){
+            $("#"+help_text_ids).html('');
+            document.getElementById(id).style.border='1px #bfbfbf solid';
+        }
+        if (id == 'gender_male' || id == 'gender_female' || id == 'gender_others'){
+            document.getElementById(id).style.boxShadow = 'none';
+        }
+    }
+
+	function validateAlphaNumeric(field, str) {
+        var field_value = $('#'+field).val();
+        if(field !=''){
+            var alphanumeric = /^([0-9a-zA-Z]){1,15}$/.test(field_value);
+            if(!alphanumeric){
+                alert('Please Enter Valid' + str);
+                $('#'+field).focus();
+                return false;
+            }
+            else
+                return true;
+        }
+    }
+    </script>
+    <script type="text/javascript">
+        var id_value = '{{rera_result|length}}';
+        var id_rera;
+        if(id_value >1 ){
+            var id_rera = id_value;
+        }else{
+            var id_rera=1;
+        }
+        function validation_rera_fields(){
+            var check_value_id = id_rera;
+            var rera_registration_no = $("#rera_registration_no"+id_rera).val();
+            var rera_state = $("#rera_state"+id_rera).val();
+            var rera_expire_date = $("#rera_expire_date"+id_rera).val();
+            var validation_rera_fields_id = 0;
+            if(document.getElementById('certification_rera').checked == true){
+                if(rera_registration_no == ''){
+                    $("#help_rera_registration_no"+id_rera).html('Please Enter RERA Registration number');
+                    validation_rera_fields_id = 1;
+                }if(rera_state == ''){
+                    $("#help_rera_state"+id_rera).html('Please Enter RERA State');
+                    validation_rera_fields_id = 1;
+                }
+                // Commented on 29/09/2016 based on the requirement
+                // if(rera_expire_date == ''){
+                //     $("#help_rera_expire_date"+id_rera).html('Please Enter RERA Valid upto');
+                //     validation_rera_fields_id = 1;
+                // }
+                if (validation_rera_fields_id == 1){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        function add_rera_fields(){
+            var rera_validation = validation_rera_fields();
+            if (rera_validation == true){
+                id_rera++;
+                $('<div id="div_id'+id_rera+'" class="rera_div_row col-md-12 no-padding"><div class="form-group col-md-2 col-sm-2 col-lg-2"></div><div class="form-group col-md-3 col-sm-3 col-lg-3 others"><input type="text" class="form-control" id="rera_registration_no'+id_rera+'" name="rera_registration_no'+id_rera+'" placeholder="Registration Number." value="" onkeyup="check_rera_or_dsa_field(id,'+"'"+"'"+','+"'"+'rera'+"'"+');"><span class="help-block register_with" id="help_rera_registration_no'+id_rera+'"></span></div> <div class="form-group col-md-3 col-sm-3 col-lg-3 others"><input type="text" class="form-control" id="rera_state'+id_rera+'" name="rera_state'+id_rera+'" placeholder="State" value="" onkeyup="check_rera_or_dsa_field(id,'+"'"+"'"+','+"'"+'rera'+"'"+');"><span class="help-block register_with" id="help_rera_state'+id_rera+'"></span></div> <div class="form-group col-md-3 col-sm-3 col-lg-3 others inside-form date-picker-last-view"><input type="text" class="form-control datepicker" id="rera_expire_date'+id_rera+'" name="rera_expire_date'+id_rera+'" placeholder="Valid up to" value="" onkeyup="check_rera_or_dsa_field(id,'+"'"+"'"+','+"'"+'rera'+"'"+');"><span style="top: auto;"><i class="fa fa-calendar" onClick="show_date_for_rera('+id_rera+');" aria-hidden="true"></i></span><span class="help-block register_with" id="help_rera_expire_date'+id_rera+'"></span></div><a class="btn additional_btn rera_remove" id="div_id'+id_rera+'" onClick="remove_rera_row(id);"><i class="fa fa-minus-circle" ></i></a></div>').appendTo(additional_rera_fields);
+                $(".datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd-mm-yy",
+                    yearRange: "Date():+5Y",
+                    minDate:'Date()'
+                });
+            }
+        }
+        function remove_rera_row(id){
+            $('#'+id).remove();
+        }
+
+        function check_rera_field(id){
+            var value = $("#"+id).val();
+            if(value != ''){
+                $("#"+id).css('border','1px #bfbfbf solid');
+                $("#help_"+id).html('');
+            }
+        }
+</script>
+<script type="text/javascript">
+    function update_profile(){
+            var missed_field = 0;
+            if(x==0){
+                x=1;
+            }
+            if($('#my_promise').val() == ''){
+                $("#help_text_my_promise").html('Please Enter My Promise');
+                $('#my_promise').css('border','1px solid #C32F2F');
+                $("#my_promise").focus();
+                missed_field = 1;
+            }else{
+                $("#help_text_my_promise").html('');
+                $('#my_promise').css('border','');
+            }
+            if(allids.length>0){
+                document.getElementById('help-text-financial_instruments_main').innerHTML='';
+                for(var j=0; j<allids.length; j++) {
+                    var i=allids[j];
+                    var re = /^[1-9][0-9]?$|^99$/;
+                    var validexperience = document.getElementById('financial_experience'+i);
+                    if(!validexperience.value.match(re) || validexperience == null ) {
+                        var a=document.getElementById('financial_experience'+i).value = "";
+                        document.getElementById('financial_experience'+i).style.border='1px solid #C32F2F';
+                        document.getElementById('help-text-financial_experience'+i).innerHTML='Enter Valid Experience';
+                        $("#financial_experience"+i).focus();
+                        missed_field = 1;
+                    }else{
+                        document.getElementById('financial_experience'+i).style.border='';
+                        document.getElementById('help-text-financial_experience'+i).innerHTML='';
+                    }
+                }
+                for(var j=0; j<allids.length; j++) {
+                    var i=allids[j];
+                    validinstruments="";
+                    var validinstruments = document.getElementById('financial_instruments'+i).value;
+                    if(validinstruments == 'Select'|| validinstruments == 'select'){
+                        document.getElementById('financial_instruments'+i).style.border='1px solid #C32F2F';
+                        document.getElementById('help-text-financial_instruments'+i).innerHTML='Please Select Financial Instruments Sold';
+                        $("#financial_instruments"+i).focus();
+                            missed_field = 1;
+                    }else{
+                        document.getElementById('financial_instruments'+i).style.border='';
+                        document.getElementById('help-text-financial_instruments'+i).innerHTML='';
+                    }
+                }
+            }
+
+            var value1='';
+            var value2 ='';
+            for(var j=0; j<allids.length; j++) {
+                var i=allids[j];
+                var instruments = document.getElementById('financial_instruments'+i).value;
+                var experience = document.getElementById('financial_experience'+i).value;
+                if(j==0){
+                    value1 = '[{"instruments":"'+instruments+'","experience":"'+experience+'"}';
+
+                }else if(i==x){
+                    value2 = ',{"instruments":"'+instruments+'","experience":"'+experience+'"}';
+
+                }else{
+                    value2 = ',{"instruments":"'+instruments+'","experience":"'+experience+'"}';
+                }
+                    value1 = value1+value2;
+            }
+            value3=']';
+            if (value1 != ''){
+                value1=value1+value3;
+            }
+
+            document.getElementById("hidden_input").value = value1;
+            var isValidNumber = $('#mobilenumber').intlTelInput("isValidNumber");
+            if(isValidNumber == false){
+                $("#help_text_mobilenumber").html('Enter Valid Mobile number');
+                $('#mobilenumber').css('border','1px solid #C32F2F');
+                $("#mobilenumber").focus();
+                missed_field = 1;
+            }else{
+                $("#help_text_mobilenumber").html('');
+                $('#mobilenumber').css('border','');
+            }
+            var locality = $("#locality").val();
+            if(locality == ''){
+                document.getElementById('locality').style.border='1px solid #C32F2F';
+                $("#locality").focus();
+                document.getElementById('help-text-locality').innerHTML='Please Enter Locality';
+                missed_filed_count++;
+            }
+            var city = $("#city").val();
+            if(city == ''){
+                document.getElementById('city').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-city').innerHTML='Please Enter City';
+                $("#city").focus();
+                missed_filed_count++;
+            }
+            var language_known = $("#language_known").val();
+            if(language_known.trim().length==0){
+                document.getElementById('language_known').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-language_known').innerHTML='Please Enter Languages known to Speak';
+                $("#language_known").focus();
+                missed_filed_count++;
+            }
+            var languages_known_read_write = $("#languages_known_read_write").val();
+            if(languages_known_read_write.trim().length==0){
+                document.getElementById('languages_known_read_write').style.border='1px solid #C32F2F';
+                document.getElementById('help-text-languages_known_read_write').innerHTML='Please Enter Languages known to Read & Write';
+                $("#languages_known_read_write").focus();
+                missed_filed_count++;
+            }
+
+
+
+            if ('{{user.profile.advisor.is_registered_advisor}}' != 'False'){
+                if($("#certification_others").prop('checked') == true){
+                        // Commented on 29/09/2016 based on the requirement
+                        // if($('#other_expiry_date').val()==''){
+                        //     $("#help_text_other_expiredate").html('Please Enter Registration Valid date');
+                        //     $('#other_expiry_date').css('border','1px solid #C32F2F');
+                        //     $("#other_expiry_date").focus();
+                        //     $("#other_expiry_date").datepicker("hide");
+                        //     missed_field = 1;
+                        // }else{
+                        //     $("#help_text_other_expiredate").html('');
+                        //     $('#other_expiry_date').css('border','');
+                        // }
+                        if($('#other_registration_no').val()==''){
+                            $("#help_text_other_registration").html('Please Enter Registration number');
+                            $('#other_registration_no').css('border','1px solid #C32F2F');
+                            $("#other_registration_no").focus();
+                            missed_field = 1;
+                        }else{
+                            $("#help_text_other_registration").html('');
+                            $('#other_registration_no').css('border','');
+                        }
+                        if($('#other_organisation').val()==''){
+                            $("#help_text_other_organisation").html('Please Enter Organisation name');
+                            $('#other_organisation').css('border','1px solid #C32F2F');
+                            $("#other_organisation").focus();
+                            missed_field = 1;
+                        }else{
+                            $("#help_text_other_organisation").html('');
+                            $('#other_organisation').css('border','');
+                        }
+                }
+                if(document.getElementById('certification_dsa').checked){
+                    var final_dsa_json_result = dsa_json_output_result();
+                    $('#dsa_hidden_input_field').val(final_dsa_json_result[0]);
+                    if(final_dsa_json_result[1] != 0 ){
+                        missed_field = 1;
+                    }
+                }
+                if($("#certification_amfi").prop('checked') == true){
+                        // Commented on 29/09/2016 based on the requirement
+                        // if($('#amfi_expiry_date').val()==''){
+                        //     $("#help_text_amfi_expire_date").html('Please Enter Registration Valid date');
+                        //     $('#amfi_expiry_date').css('border','1px solid #C32F2F');
+                        //     $("#amfi_expiry_date").focus();
+                        //     $("#amfi_expiry_date").datepicker("hide");
+                        //     missed_field = 1;
+                        // }else{
+                        //     $("#help_text_amfi_expire_date").html('');
+                        //     $('#amfi_expiry_date').css('border','');
+                        // }
+                        if($('#amfi_registration_no').val()==''){
+                            $("#help_text_amfi_number").html('Please Enter AMFI Registration number');
+                            $('#amfi_registration_no').css('border','1px solid #C32F2F');
+                            $("#amfi_registration_no").focus();
+                            missed_field = 1;
+                        }else{
+                            $("#help_text_amfi_number").html('');
+                            $('#amfi_registration_no').css('border','');
+                        }
+                }
+                if($("#certification_irda").prop('checked') == true){
+                        // Commented on 29/09/2016 based on the requirement
+                        // if($('#irda_expiry_date').val()==''){
+                        //     $("#help_text_irda_expire_date").html('Please Enter Registration Valid date');
+                        //     $('#irda_expiry_date').css('border','1px solid #C32F2F');
+                        //     $("#irda_expiry_date").focus();
+                        //     $("#irda_expiry_date").datepicker("hide");
+                        //     missed_field = 1;
+                        // }else{
+                        //     $("#help_text_irda_expire_date").html('');
+                        //     $('#irda_expiry_date').css('border','');
+                        // }
+                        if($('#irda_registration_no').val()==''){
+                            $('#help_text_irda_number').html('Please Enter IRDA Reg.No');
+                            $('#irda_registration_no').css('border','1px solid #C32F2F');
+                            $("#irda_registration_no").focus();
+                            missed_field = 1;
+                        }else{
+                            $('#help_text_irda_number').html('');
+                            $('#irda_registration_no').css('border','');
+                        }
+                }
+                if($("#certification_sebi").prop('checked') == true){
+                        // Commented on 29/09/2016 based on the requirement
+                        // if($('#sebi_expiry_date').val()==''){
+                        //     $("#help_text_sebi_expire_date").html('Please Enter Registration Valid date');
+                        //     $('#sebi_expiry_date').css('border','1px solid #C32F2F');
+                        //     $("#sebi_expiry_date").focus();
+                        //     $("#sebi_expiry_date").datepicker("hide");
+                        //     missed_field = 1;
+                        // }else{
+                        //     $("#help_text_sebi_expire_date").html('');
+                        //     $('#sebi_expiry_date').css('border','');
+                        // }
+                        if($('#sebi_registration_no').val()==''){
+                            $("#help_text_sebi_number").html('Please Enter SEBI Reg.No');
+                            $('#sebi_registration_no').css('border','1px solid #C32F2F');
+                            $("#sebi_registration_no").focus();
+                            missed_field = 1;
+                        }else{
+                            $("#help_text_sebi_number").html('');
+                            $('#sebi_registration_no').css('border','');
+                        }
+                }
+                var i =$('input[class="count_checkbox"]:checked').length;
+                if($('input[class="count_checkbox"]:checked').length<1){
+                    $("#help_text_register_with").html('Please Select Your Register type');
+                    $("#certification_sebi").focus();
+                    missed_field = 1;
+                }else{
+                    $("#help_text_register_with").html('');
+                }
+
+                document.getElementById('sebi_expiry_date').disabled = false;
+                document.getElementById('amfi_expiry_date').disabled = false;
+                document.getElementById('irda_expiry_date').disabled = false;
+                document.getElementById('other_expiry_date').disabled = false;
+                if('{{user.profile.advisor.is_rera}}' != 'True'){
+                    document.getElementById('rera_expire_date1').disabled = false;
+                }
+                // ==============RERA Fields data fetching and making json.============//
+                if(document.getElementById('certification_rera').checked){
+                    var $inputs = $('#rera_subdetails :input');
+                    var json_str = [];
+                    var i=0;
+                    var second_id = 0;
+                    $inputs.each(function (index){
+                        var ids = {};
+                        var input_ids;
+                        ids[$(this).attr('name')] = $(this).attr('id');
+                        input_ids = $(this).attr('id');
+                        values= $("#"+input_ids).val();
+                        if(i == 0 || (i%3 == 0) ){
+                            if (values == ''){
+                                second_id =+1;
+                                $("#help_"+input_ids).html('Please Enter RERA Reg.No');
+                                $("#"+input_ids).css("border", "1px solid #C32F2F");
+                                $("#"+input_ids).focus();
+                            }else{
+                                json_str[i] = '"rera_registration_no"'+":"+'"'+values+'"'+",";
+                            }
+                        }
+                        if(i == 1 || (i%3 == 1)){
+                            if (values == ''){
+                                second_id =+1;
+                                $("#help_"+input_ids).html('Please Enter RERA State');
+                                $("#"+input_ids).css("border", "1px solid #C32F2F");
+                                $("#"+input_ids).focus();
+                            }else{
+                                var alpha = /^[a-zA-Z()\s]+$/.test(values);
+                                if(!alpha){
+                                    $("#"+input_ids).css("border", "1px solid #C32F2F");
+                                    $("#"+input_ids).focus();
+                                    second_id =+1;
+                                    $("#help_"+input_ids).html('Please Enter valid RERA State');
+                                }
+                                json_str[i] = '"rera_state"'+":"+'"'+values+'"'+",";
+                            }
+                        }
+                        if(i == 2 || (i%3 == 2)){
+                            // if (values == ''){
+                            //     second_id =+1;
+                            //     $("#help_"+input_ids).html('Please Enter RERA Valid upto');
+                            //     $("#"+input_ids).css("border", "1px solid #C32F2F");
+                            //     $("#"+input_ids).focus();
+                            //     $("#"+input_ids).datepicker("hide");
+                            // }else{
+                                json_str[i] = '"rera_expire_date"'+":"+'"'+values+'"';
+                            // }
+                        }
+                        i++;
+                    });
+                    var json_index = 0;
+                    var json_labels = [];
+                    var output = '{';
+                    for (var i = 0; i < json_str.length; i++) {
+                        var output = output +json_str[i];
+                        if((i+1)%3 == 0 && i != 0){
+                            var output = output+'}';
+                            json_labels[json_index] = output;
+                            json_index ++;
+                            var output = '{';
+                        }
+                    }
+                    document.getElementById('hidden_value').value = json_labels;
+                    if(second_id >0){
+                        return false;
+                    }
+                }
+            }
+            if($("#l_name").val() == ''){
+                $('#help_text_l_name').html('Please Enter Last Name');
+                $('#l_name').css('border','1px solid #C32F2F');
+                $("#l_name").focus();
+                missed_field = 1;
+            }
+            else if($("#l_name").val() !=''){
+                var alpha = /^[a-zA-Z()\s]+$/.test($("#l_name").val());
+                if(alpha){
+                }
+                else {
+                    $('#help_text_l_name').html('Please Enter only Characters in Last Name');
+                    $('#l_name').css('border','1px solid #C32F2F');
+                    $('#l_name').focus();
+                    missed_field = 1;
+                }
+            }
+            if($("#f_name").val() == ''){
+                $('#help_text_f_name').html('Please Enter First Name');
+                $('#f_name').css('border','1px solid #C32F2F');
+                $("#f_name").focus();
+                missed_field = 1;
+            }
+            if($("#f_name").val() !=''){
+                var alpha = /^[a-zA-Z()\s]+$/.test($("#f_name").val());
+                if(alpha){
+                	$('#help_text_f_name').html('');
+                	$('#f_name').css('border','');
+                }
+                else {
+                    $('#help_text_f_name').html('Please Enter only Characters in First Name');
+                    $('#f_name').css('border','1px solid #C32F2F');
+                    $('#f_name').focus();
+                    missed_field = 1;
+                }
+            }
+            // ===================== End of RERA =========================//
+            if (missed_field == 0){
+                save_profile();
+            }
+        }
+
+    //  Action : save profile
+    function save_profile(){
+        var first_name=$("#f_name").val();
+        var last_name=$("#l_name").val();
+        var middle_name=$("#m_name").val();
+        var mobile=$("#mobilenumber").val();
+        var locality=$("#locality").val();
+        var city=$("#city").val();
+        var advisor_is_connected_with=$("#advisor_is_connected_with").val();
+        var total_client_served=$("#total_client_served").val();
+        var language_known=$("#language_known").val();
+        var languages_known_read_write=$("#languages_known_read_write").val();
+        var hidden_input=$("#hidden_input").val();
+        var my_belief=$("#e_mybelief").val();
+        var my_promise=$("#my_promise").val();
+        var my_accomplishment=$("#my_accomplishment").val();
+        var sebi_registration_no=$("#sebi_registration_no").val();
+        var sebi_expiry_date=$("#sebi_expiry_date").val();
+        var amfi_registration_no=$("#amfi_registration_no").val();
+        var amfi_expiry_date=$("#amfi_expiry_date").val();
+        var irda_registration_no=$("#irda_registration_no").val();
+        var irda_expiry_date=$("#irda_expiry_date").val();
+        var other_organisation=$("#other_organisation").val();
+        var other_registration_no=$("#other_registration_no").val();
+        var other_expiry_date=$("#other_expiry_date").val();
+        var hidden_value=$("#hidden_value").val();
+        var highest_qualification=$("#highest_qualification").val();
+        var year_passout=$("#year_passout").val();
+        var college_name=$("#college_name").val();
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            url:"/signup/save_profile/",
+            method: "POST",
+            beforeSend: function(request) {
+                request.setRequestHeader("X-CSRFToken",token);
+            },
+            data :{
+                first_name : first_name,
+                last_name : last_name,
+                middle_name : middle_name,
+                mobile : mobile,
+                locality : locality,
+                city : city,
+                advisor_is_connected_with : advisor_is_connected_with,
+                total_client_served : total_client_served,
+                language_known : language_known,
+                languages_known_read_write : languages_known_read_write,
+                hidden_input : hidden_input,
+                dsa_hidden_input_field : $("#dsa_hidden_input_field").val(),
+                my_belief : my_belief,
+                my_promise : my_promise,
+                my_accomplishment : my_accomplishment,
+                sebi_registration_no :sebi_registration_no,
+                sebi_expiry_date : sebi_expiry_date,
+                amfi_registration_no : amfi_registration_no,
+                amfi_expiry_date : amfi_expiry_date,
+                irda_registration_no : irda_registration_no,
+                irda_expiry_date : irda_expiry_date,
+                other_organisation : other_organisation,
+                other_registration_no : other_registration_no,
+                other_expiry_date : other_expiry_date,
+                hidden_value : hidden_value,
+                highest_qualification : highest_qualification,
+        		year_passout : year_passout,
+        		college_name : college_name
+            },
+            success:function(response){
+                if(response=='success'){
+                    $('#edit-profile-modal-body').html('Profile Updated Successfully');
+                    window.location.reload();
+                }else{
+                    $('#edit-profile-modal-body').html(response);
+                }
+            },
+            error:function(response){
+            },
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function show_date(elementID,checkbox_status){
+        if(document.getElementById(checkbox_status).checked){
+            $(elementID).datepicker("show");
+        }
+    }
+    function show_date_for_rera(count){
+            $('#rera_expire_date'+count).datepicker("show");
+    }
+
+    function display_certification_details(id,action){
+        if (id=="certification_sebi"){
+            if(document.getElementById('certification_sebi').checked){
+                if(action=="clicked"){
+                    check_advisor_is_crisil_sebi_irda(id,true);
+                }
+                else {
+                    disable_fields(id);
+                }
+            }
+            else{
+                var sebi_registration_no_value = $("#sebi_registration_no").val();
+                var sebi_expiry_date_value = $("#sebi_expiry_date").val();
+                if(sebi_registration_no_value != '' || sebi_expiry_date_value != ''){
+                    check_advisor_is_crisil_sebi_irda(id,false);
+                }else{
+                    disable_fields(id);
+                }
+            }
+        }
+        if(id=='certification_amfi'){
+            if(document.getElementById('certification_amfi').checked){
+                if(action=="clicked"){
+                    check_advisor_is_crisil_sebi_irda(id,true);
+                }
+                else {
+                    disable_fields(id);
+                }
+            }
+            else{
+                var amfi_registration_value = $("#amfi_registration_no").val();
+                var amfi_expiry_date = $('#amfi_expiry_date').val();
+                if(amfi_registration_no != '' || amfi_expiry_date !=''){
+                    check_advisor_is_crisil_sebi_irda(id);
+                }else{
+                    disable_fields(id);
+                }
+            }
+        }
+        if(id=='certification_irda'){
+            if(document.getElementById('certification_irda').checked){
+                if(action=="clicked"){
+                    check_advisor_is_crisil_sebi_irda(id,true);
+                }
+                else {
+                    disable_fields(id);
+                }
+            }
+            else{
+                var irda_registration_no_value = $("#irda_registration_no").val();
+                var irda_expiry_date_value = $("#irda_expiry_date").val();
+                if(irda_registration_no_value != '' || irda_expiry_date_value != ''){
+                    check_advisor_is_crisil_sebi_irda(id);
+                }else{
+                    disable_fields(id);
+                }
+            }
+        }
+        if(id=='certification_others'){
+            if(document.getElementById('certification_others').checked){
+                if(action=="clicked"){
+                    check_advisor_is_crisil_sebi_irda(id,true);
+                }
+                else {
+                    disable_fields(id);
+                }
+            }
+            else{
+                var other_organisation = $("#other_organisation").val();
+                var other_registration_no = $("#other_registration_no").val();
+                var other_expiry_date = $("#other_expiry_date").val();
+                if(other_organisation != ''
+                    || other_registration_no != ''
+                    || other_expiry_date != ''){
+                        check_advisor_is_crisil_sebi_irda(id);
+                }else{
+                    disable_fields(id);
+                }
+            }
+        }
+        if(id == 'certification_rera'){
+            if(document.getElementById('certification_rera').checked){
+                if(action=="clicked"){
+                    check_advisor_is_crisil_sebi_irda(id,true);
+                }
+                else {
+                    disable_fields(id);
+                }
+            }
+            else{
+                var rera_registration_no = $("#rera_registration_no1").val();
+                var rera_state = $("#rera_state1").val();
+                var rera_expire_date = $("#rera_expire_date1").val();
+                if(rera_registration_no !=''
+                    || rera_state != ''
+                    || rera_expire_date !=''){
+                        check_advisor_is_crisil_sebi_irda(id);
+                }else{
+                    disable_fields(id);
+                }
+            }
+        }
+        if(id == 'certification_dsa'){
+            if(document.getElementById('certification_dsa').checked){
+                if(action=="clicked"){
+                    check_advisor_is_crisil_sebi_irda(id,true);
+                }
+                else {
+                    disable_fields(id);
+                }
+            }
+            else{
+                var dsa_registration_no = $("#dsa_registration_no1").val();
+                var dsa_code = $("#dsa_code_no1").val();
+                var dsa_how_long_associated = $("#dsa_how_long_associated1").val();
+                if(dsa_registration_no != ''
+                    || dsa_code != ''
+                    || dsa_how_long_associated != ''){
+                        check_advisor_is_crisil_sebi_irda(id);
+                }else{
+                    disable_fields(id);
+                }
+            }
+
+        }
+    }
+</script>
+<script type="text/javascript">
+    var dsa_id_value = '{{dsa_result|length}}';
+    var demo = '{{rera_result|length}}';
+    var id_dsa = 1;
+    if(dsa_id_value >1 ){
+        var id_dsa = dsa_id_value;
+    }else{
+        var id_dsa=1;
+    }
+    // for adding the additional fields in DSA details
+    function add_dsa_fields() {
+        if(document.getElementById('certification_dsa').checked){
+            var dsa_validation_result = dsa_json_output_result();
+            if(dsa_validation_result[1] == 0 ){
+                id_dsa++;
+                $('<div id="div_dsa_id'+id_dsa+'" class="dsa_div_row col-md-12 no-padding"><div class="form-group col-md-2 col-sm-2 col-lg-2"></div><div class="form-group col-md-3 col-sm-3 col-lg-3 others"><input type="text" class="form-control" id="dsa_registration_no'+id_dsa+'" name="dsa_registration_no'+id_dsa+'" placeholder="Bank Name." value="" onkeyup="check_rera_or_dsa_field(id,'+"'"+"'"+','+"'"+'rera'+"'"+');"><span class="help-block register_with" id="help_dsa_registration_no'+id_dsa+'"></span></div> <div class="form-group col-md-3 col-sm-3 col-lg-3 others"><input type="text" class="form-control" id="dsa_code_no'+id_dsa+'" name="dsa_code_no'+id_dsa+'" placeholder="DSA Code" value="" onkeyup="check_rera_or_dsa_field(id,'+"'"+"'"+','+"'"+'rera'+"'"+');"><span class="help-block register_with" id="help_dsa_code_no'+id_dsa+'"></span></div> <div class="form-group col-md-3 col-sm-3 col-lg-3 others inside-form date-picker-last-view"><input type="text" class="form-control" id="dsa_how_long_associated'+id_dsa+'" name="dsa_how_long_associated'+id_dsa+'" placeholder="how long associated with?" value="" onkeyup="reraExperience(id,'+id_dsa+');check_rera_or_dsa_field(id,'+"'"+"'"+','+"'"+'rera'+"'"+');"><span class="help-block register_with" id="help_dsa_how_long_associated'+id_dsa+'"></span></div><a class="btn additional_btn dsa_remove" id="div_dsa_id'+id_dsa+'" onClick="remove_dsa_row(id);"><i class="fa fa-minus-circle" ></i></a></div>').appendTo(additional_dsa_fields);
+            }
+        }
+    }
+    // removing the row when they click minus button
+    function remove_dsa_row(id) {
+        $('#'+id).remove();
+    }
+    // getting the validation result and converting fields data into json value
+    function dsa_json_output_result() {
+        var input_dsa_ids, dsa_value;
+        var dsa_input_values = [];
+        var i=0, dsa_missed_field=0;
+        var $inputs = $('#dsa_subdetails :input');
+        $inputs.each(function (index){
+            input_dsa_ids = $(this).attr('id');
+            dsa_value = $.trim($('#'+input_dsa_ids).val());
+            if ((i==0) || (i%3==0)) {
+                if(dsa_value == ''){
+                    dsa_missed_field = 1;
+                    $('#help_'+input_dsa_ids).html('Please Enter Bank name');
+                    $('#'+input_dsa_ids).focus();
+                }else{
+                    dsa_input_values[i] = '"dsa_bank_name"'+":"+'"'+dsa_value+'"'+",";
+                }
+            }
+            if ((i==1) || (i%3==1)) {
+                if(dsa_value == ''){
+                    dsa_missed_field = 1;
+                    $('#help_'+input_dsa_ids).html('Please Enter Dsa Code');
+                    $('#'+input_dsa_ids).focus();
+                }else{
+                    dsa_input_values[i] = '"dsa_code"'+":"+'"'+dsa_value+'"'+",";
+                }
+            }
+            if ((i==2) || (i%3==2)) {
+                if(dsa_value == ''){
+                    dsa_missed_field = 1;
+                    $('#help_'+input_dsa_ids).html('Please Enter How long associated with?');
+                    $('#'+input_dsa_ids).focus();
+                }else{
+                    dsa_input_values[i] = '"dsa_how_long_associated"'+":"+'"'+dsa_value+'"';
+                }
+            }
+            i++;
+        });
+        var dsa_json_index = 0;
+        var dsa_json_output = [];
+        var output = '{';
+        for (var i = 0; i < dsa_input_values.length; i++) {
+            output = output +dsa_input_values[i];
+            if((i+1)%3 == 0 && i != 0){
+                output = output+'}';
+                dsa_json_output[dsa_json_index] = output;
+                dsa_json_index ++;
+                output = '{';
+            }
+        }
+        var dsa_json_final_output = [dsa_json_output, dsa_missed_field]
+        return dsa_json_final_output;
+    }
+</script>
+    <script type="text/javascript">
+        var crisil_certificate_valid = '{{crisil_certificate_valid}}';
+        var changes_accepted = false;
+        function check_rera_or_dsa_field(id, input_value, register_type){
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "accept_changes_rera_dsa("+"'"+id+"'"+","+"'"+register_type+"'"+");");
+                $("#id_cancel_change").attr("onclick", "cancel_accept_changes_rera_dsa("+"'"+id+"'"+", "+"'"+input_value+"'"+");");
+                $("#edit-profile-modal").modal('hide');
+                $('#check_confirm_for_change').modal('show');
+            }else{
+                check_validation_rera_or_dsa(id);
+            }
+        }
+        function accept_changes_rera_dsa(id, register_type) {
+            check_validation_rera_or_dsa(id);
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+        function cancel_accept_changes_rera_dsa(id, value) {
+            $("#"+id).val(value);
+            $("#"+id).css('border','1px #bfbfbf solid');
+            $("#help_"+id).html('');
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+        // checking field is null or not, and removing validation from below respective fields
+        function check_validation_rera_or_dsa(id) {
+            var value = $("#"+id).val();
+            if(value != ''){
+                $("#"+id).css('border','1px #bfbfbf solid');
+                $("#help_"+id).html('');
+            }
+        }
+        // Descrption: Checking Advisor is crisil verified and removing rera_fields
+        function check_and_remove_rera_dsa(id, register_type) {
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "remove_rera_dsa("+"'"+id+"'"+","+"'"+register_type+"'"+");");
+                $("#id_cancel_change").attr("onclick", "cancel_rera_dsa("+"'"+id+"'"+");");
+                $('#check_confirm_for_change').modal('show');
+                $("#edit-profile-modal").modal('hide');
+            }else{
+                remove_rera_dsa(id, register_type)
+            }
+        }
+        function remove_rera_dsa(id, register_type) {
+            if(register_type == 'rera'){
+                remove_rera_row(id);
+            }
+            if(register_type == 'dsa'){
+                remove_dsa_row(id);
+            }
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+        function cancel_rera_dsa(id) {
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+        // Descrption: if user check or unchecking the Check box we are checking advisor is crisil
+        // certified or not according to that condition we are showing model
+        function check_advisor_is_crisil_sebi_irda(id,status) {
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "accept_changes_sebi_irda("+"'"+id+"'"+");");
+                $("#id_cancel_change").attr("onclick", "cancel_accept_changes("+"'"+id+"'"+","+status+");");
+                $('#check_confirm_for_change').modal('show');
+                $("#edit-profile-modal").modal('hide');
+            }else{
+                disable_fields(id);
+            }
+        }
+        function accept_changes_sebi_irda(id) {
+            disable_fields(id);
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+        function cancel_accept_changes(id,status) {
+            if(status==true){
+                $('#'+id).parent().removeClass("selected");
+                $("#"+id).prop("checked", false);
+            }else{
+                $('#'+id).parent().addClass("selected");
+                $("#"+id).prop("checked", true);
+            }
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+        // Descrption: if advisor try to change sebi, amfi, irda, others values
+        function check_advisor_is_crisil(id, input_id, help_id, input_value) {
+            if (crisil_certificate_valid == 'True' && changes_accepted == false){
+                $("#id_confirm_change").attr("onclick", "confirm_change_data("+"'"+id+"'"+", "+"'"+input_id+"'"+", "+"'"+help_id+"'"+");");
+                $("#id_cancel_change").attr("onclick", "cancel_changes("+"'"+input_id+"'"+", "+"'"+input_value+"'"+","+"'"+help_id+"'"+");");
+                $('#check_confirm_for_change').modal('show');
+                $("#edit-profile-modal").modal('hide');
+            }else{
+                $('#'+id).focusout(function() {
+                    save_onchange(id, input_id, help_id);
+                });
+            }
+        }
+        function confirm_change_data(id, input_id, help_id) {
+            save_onchange(id, input_id, help_id);
+            changes_accepted = true;
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+            save_onchange(id, input_id, help_id);
+        }
+        function cancel_changes(id,value, help_id) {
+            if (value == 'None'){
+                value = '';
+            }
+            $('#'+id).val(value);
+            save_onchange(id, id, help_id);
+            $('#'+help_id).html('');
+            $('#check_confirm_for_change').modal('hide');
+            $("#edit-profile-modal").modal('show');
+        }
+    </script>
+    <script type="text/javascript">
+        function disable_fields(id) {
+            if(id == 'certification_rera'){
+                if(document.getElementById('certification_rera').checked){
+                    $("#help_text_register_with").html('');
+                    $("#rera_registration_no1").prop('readonly', false);
+                    $("#rera_state1").prop('readonly', false);
+                    $("#rera_expire_date1").prop('readonly', false);
+                    $( "input[name='rera_expire_date1']" ).datepicker( "option", "disabled", false );
+                    var altFormat = $("input[name='rera_expire_date1']").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-mm-yy",
+                        yearRange: "Date():+5Y",
+                        minDate:'Date()',
+                        beforeShow: function(input, inst) {
+                            $(document).off('focusin.bs.modal');
+                        },
+                        onClose:function(){
+                            $(document).on('focusin.bs.modal');
+                        }
+                    });
+                }
+                else{
+                    $("#rera_registration_no1").prop('readonly', true);
+                    $("#rera_state1").prop('readonly', true);
+                    $("#rera_expire_date1").prop('readonly', true);
+                    $("#rera_registration_no1").val('');
+                    $("#rera_state1").val('');
+                    $("#rera_expire_date1").val('');
+                    $("#help_rera_registration_no1").html('');
+                    $("#help_rera_state1").html('');
+                    $("#help_rera_expire_date1").html('');
+                    $( "input[name='rera_expire_date1']" ).datepicker( "option", "disabled", true );
+                    var remove_ids = $(".rera_remove").parent().map(function(){
+                        return this.id;
+                    }).get();
+                    for(i=0; i<remove_ids.length; i++){
+                        $('#'+remove_ids[i]).remove();
+                    }
+
+                }
+            }
+            if(id == 'certification_dsa'){
+                if(document.getElementById('certification_dsa').checked){
+                    $("#help_text_register_with").html('');
+                    $("#dsa_registration_no1").prop('readonly', false);
+                    $("#dsa_code_no1").prop('readonly', false);
+                    $("#dsa_how_long_associated1").prop('readonly', false);
+                    $( "input[name='rera_expire_date1']" ).datepicker( "option", "disabled", false );
+                }
+                else {
+                    $("#dsa_registration_no1").prop('readonly', true);
+                    $("#dsa_code_no1").prop('readonly', true);
+                    $("#dsa_how_long_associated1").prop('readonly', true);
+                    $('#dsa_hidden_input_field').val('');
+                    $('#dsa_registration_no1').val('');
+                    $('#dsa_code_no1').val('');
+                    $('#dsa_how_long_associated1').val('');
+                    $('#help_dsa_registration_no1').html('');
+                    $("#help_dsa_code_no1").html('');
+                    $("#help_dsa_how_long_associated1").html('');
+                    var remove_ids = $(".dsa_remove").parent().map(function(){
+                        return this.id;
+                    }).get();
+                    for(i=0; i<remove_ids.length; i++){
+                        $('#'+remove_ids[i]).remove();
+                    }
+
+                }
+            }
+            if(id == 'certification_sebi'){
+                if(document.getElementById('certification_sebi').checked){
+                    $("#help_text_register_with").html('');
+                    $("#sebi_registration_no").prop('readonly', false);
+                    $("#sebi_expiry_date").prop('readonly', false);
+                    $( "input[name='sebi_expiry_date']" ).datepicker( "option", "disabled", false );
+                    $("input[name='sebi_expiry_date']").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-mm-yy",
+                        yearRange: "Date():+5Y",
+                        minDate:'Date()',
+                        beforeShow: function(input, inst) {
+                            $(document).off('focusin.bs.modal');
+                        },
+                        onClose:function(){
+                            $(document).on('focusin.bs.modal');
+                        }
+                    });
+                }
+                else{
+                    $("#sebi_registration_no").prop('readonly', true);
+                    $("#sebi_expiry_date").prop('readonly', true);
+                    $("#sebi_registration_no").val('');
+                    $("#sebi_expiry_date").val('');
+                    $("#help_text_sebi_number").html('');
+                    $("#help_text_sebi_expire_date").html('');
+                    $( "input[name='sebi_expiry_date']" ).datepicker( "option", "disabled", true );
+                }
+
+            }
+            if(id == 'certification_irda'){
+                if(document.getElementById('certification_irda').checked){
+                   $("#help_text_register_with").html('');
+                   $("#irda_registration_no").prop('readonly', false);
+                   $("#irda_expiry_date").prop('readonly', false);
+                   $( "input[name='irda_expiry_date']" ).datepicker( "option", "disabled", false );
+                   $("input[name='irda_expiry_date']").datepicker({
+                       changeMonth: true,
+                       changeYear: true,
+                       dateFormat: "dd-mm-yy",
+                       yearRange: "Date():+5Y",
+                       minDate:'Date()',
+                       beforeShow: function(input, inst) {
+                            $(document).off('focusin.bs.modal');
+                        },
+                        onClose:function(){
+                            $(document).on('focusin.bs.modal');
+                        }
+                   });
+                }
+                else{
+                    $("#irda_registration_no").prop('readonly', true);
+                    $("#irda_expiry_date").prop('readonly', true);
+                    $("#irda_registration_no").val('');
+                    $("#irda_expiry_date").val('');
+                    $("#help_text_irda_number").html('');
+                    $("#help_text_irda_expire_date").html('');
+                    $( "input[name='irda_expiry_date']" ).datepicker( "option", "disabled", true );
+                }
+            }
+            if(id == 'certification_amfi'){
+                if(document.getElementById('certification_amfi').checked){
+                    $("#help_text_register_with").html('');
+                    $("#amfi_registration_no").prop('readonly', false);
+                    $("#amfi_expiry_date").prop('readonly', false);
+                    $( "input[name='amfi_expiry_date']" ).datepicker( "option", "disabled", false );
+                    $("input[name='amfi_expiry_date']").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-mm-yy",
+                        yearRange: "Date():+5Y",
+                        minDate:'Date()',
+                        beforeShow: function(input, inst) {
+                            $(document).off('focusin.bs.modal');
+                        },
+                        onClose:function(){
+                            $(document).on('focusin.bs.modal');
+                        }
+                    });
+
+                }
+                else {
+                    $("#amfi_registration_no").prop('readonly', true);
+                    $("#amfi_expiry_date").prop('readonly', true);
+                    $("#amfi_registration_no").val('');
+                    $("#amfi_expiry_date").val('');
+                    $("#help_text_amfi_number").html('');
+                    $("#help_text_amfi_expire_date").html('');
+                    $( "input[name='amfi_expiry_date']" ).datepicker( "option", "disabled", true );
+
+                }
+            }
+            if(id == 'certification_others'){
+                if(document.getElementById('certification_others').checked){
+                    $("#help_text_register_with").html('');
+                    $("#other_organisation").prop('readonly', false);
+                    $("#other_registration_no").prop('readonly', false);
+                    $("#other_expiry_date").prop('readonly', false);
+                    $( "input[name='other_expiry_date']" ).datepicker( "option", "disabled", false );
+                    var altFormat = $("input[name='other_expiry_date']").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-mm-yy",
+                        yearRange: "Date():+5Y",
+                        minDate:'Date()',
+                        beforeShow: function(input, inst) {
+                                $(document).off('focusin.bs.modal');
+                            },
+                            onClose:function(){
+                                $(document).on('focusin.bs.modal');
+                            }
+                    });
+                }
+                else{
+                    $("#other_organisation").prop('readonly', true);
+                    $("#other_registration_no").prop('readonly', true);
+                    $("#other_expiry_date").prop('readonly', true);
+                    $("#other_organisation").val('');
+                    $("#other_registration_no").val('');
+                    $("#other_expiry_date").val('');
+                    $("#help_text_other_organisation").html('');
+                    $("#help_text_other_registration").html('');
+                    $("#help_text_other_expiredate").html('');
+                    $( "input[name='other_expiry_date']" ).datepicker( "option", "disabled", true );
+
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function close_modal(id, edit_profile_modal) {
+            $("#"+id).modal('hide');
+            $("#"+edit_profile_modal).modal('show');
+            var $file_input = $("#file");
+            $file_input.wrap('<form>').closest('form').get(0).reset();
+            $file_input.unwrap();
+            $(".cropped").find('img').remove();
+            $(".imageBox").removeAttr('style');
+        }
+        function call_profile_picture_modal(picture_modal, edit_profile_modal) {
+            $("#"+edit_profile_modal).modal('hide');
+            $("#"+picture_modal).modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false,
+                });
+            $("#file").css('display', 'block');
+            $("#upload_pic").css("display", "none");
+        }
+    </script>
+<!-- Edit profile script end-->
+        {% if profile_pic %}
+            <script type="text/javascript">
+                edit_profile('{{request.user}}');
+            </script>
+        {% endif %}
+    {% endblock %}
+    <!-- Scripts Ended -->
+    {% block social_share %}
+    	<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+    	<script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
+	    <script type="text/javascript">
+	        function fb_share(){
+	            var page = "{{DEFAULT_DOMAIN_URL | default:'http://localhost:8000'}}/profile/{{user_data.profile.referral_code}}/";
+	            var fbpopup = window.open("https://www.facebook.com/sharer/sharer.php?u="+page, "pop", "width=600, height=400, scrollbars=no");
+	        }
+	        function LinkedInShare() {
+                window.open("https://www.linkedin.com/shareArticle?mini=true&url={{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/&title=REIAGlobal&summary=My%20REIAGlobal%20Shared%20Profile&source=LinkedIn",'linkedin','height=400,width=600');
+	        }
+	        function googleplusbtn(url) {
+                javascript:window.open('https://plus.google.com/share?url='+url+'','','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=200,width=600');
+			    return false;
+			}
+			function twitter_share(){
+				var width  = 575,
+			        height = 400,
+			        left   = ($(window).width()  - width)  / 2,
+			        top    = ($(window).height() - height) / 2,
+			        url    = "https://twitter.com/intent/tweet?url={{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/",
+			        opts   = 'status=1' +
+			                 ',width='  + width  +
+			                 ',height=' + height +
+			                 ',top='    + top    +
+			                 ',left='   + left;
+
+			    window.open(url, 'twitter', opts);
+			    return false;
+			}
+	    </script>
+
+
+    {% endblock %}

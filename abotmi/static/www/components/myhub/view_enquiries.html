@@ -1,0 +1,48 @@
+<ion-view>
+	<ion-side-menus>
+    	<ion-side-menu-content>
+        	<ion-view>
+				<upwrdz-Tabs></upwrdz-Tabs>
+				<ion-content>
+          <div overflow-scroll="true" class="m-upwrdz-editpage-content">
+            <div class="editpage-title-bar">
+              <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+              VIEW ENQUIRIES
+            </div>
+						<div class="row list card" ng-repeat = "data in enquiry.details">
+							<div class="col-50 pull-right">
+								<div class="row smallpad">{{data.name}}</div>
+								<div class="row smallpad cardtextfont">
+									<i class="ion-ios-email-outline n-padding-r-5"></i>&nbsp{{data.email}}
+								</div>
+							</div>
+							<div class="col-33 pull-right cardtextfont">
+								<span class="row smallpad text-right">
+									<i class="ion-ios-location-outline n-padding-r-5"></i>&nbsp{{data['location']}}
+								</span>
+								<span class="row smallpad greenfont">
+									<i class="ion-ios-telephone-outline n-padding-r-5"></i>&nbsp{{data['phone']}}
+								</span>
+							</div>
+							<div>
+								{{data.earnings_and_transaction.transaction_count}}
+								{{data.earnings_and_transaction.earnings}}
+								<div ng-if="data.user_profile.is_wpb_user">
+									Course Enrolled
+								</div>
+								<div ng-if="data.user_profile.is_register_advisor">
+									Registered
+								</div>
+								<div ng-if="data.user_profile">
+									Signup
+								</div>
+								<div ng-if="!(data.user_profile || data.user_profile.is_register_advisor || data.user_profile.is_wpb_user)">
+								</div>
+							</div>
+						</div>
+                    </div>
+				</ion-content>
+        	</ion-view>
+    	</ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

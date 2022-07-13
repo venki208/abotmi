@@ -1,0 +1,22 @@
+<style>
+  .upwrdz-log-panel a {
+      color:#314799 !important;
+  }    
+</style>
+{% if user_profile and advisor_status.my_identity_status %}
+    <div class="search-dropdown-nxt transition">
+        <p class="item" id="id_batch" data-value="{{user_profile.batch_code}}">
+            <span class="item_data" id="id_item">
+                <a href="{{PROFILE_URL}}" target="_blank">Advisor's profile</a>
+            </span>
+        </p>
+    </div>
+{% else %}
+    <div class="search-dropdown-nxt transition">
+        <p class="item" id="id_batch" data-value="">
+            <span class="item_data" id="id_item">
+                <a href="{% url 'my_identity:follower_profile' %}" target="_blank">Advisor's profile<a>
+            </span>
+        </p>
+    </div>
+{% endif %}

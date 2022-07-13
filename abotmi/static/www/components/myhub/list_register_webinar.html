@@ -1,0 +1,89 @@
+<ion-view>
+    <ion-side-menus>
+       <ion-side-menu-content>
+             <upwrdz-Tabs></upwrdz-Tabs>
+             <ion-content class="m-upwrdz-editpage-content">
+               <div class="editpage-title-bar" ui-sref="app.myhub.view_webinar">
+                 <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" >
+                 List Mail Invitation
+               </div>
+                   <div class="row">
+                      <div class="col">
+                         <br/>
+                         <form name="sendinvitationform"   ng-init="webinarlist.details=''">
+                            <table id="table_id" name="table_id" class="table table-bordered">
+                               <thead>
+                                  <tr>
+                                     <th ng-if="!(webinarlist.details.advisor_data.length || webinarlist.details.member_data.length || webinarlist.details.webinar_data.length)">
+                                              No Records Found
+                                       </th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                   <tr>
+                                       <td ng-if="webinarlist.details.advisor_data.length || webinarlist.details.member_data.length">
+                                        <b>Email ID</b>
+                                       </td>
+                                   </tr>
+                                  <tr ng-if="webinarlist.details.advisor_data">
+                                  <tr data-ng-repeat="item in webinarlist.details.advisor_data">
+                                     <td>
+                                        <input type="check box" class="email_check_box hide"
+                                           name="email_list"
+                                           /> {{ item.email }}
+                                     </td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td >
+                                        <button ng-disabled="item.disabled"
+                                           type="button" name="button"
+                                          ng-click="webinarlist.register_member($index,item.first_name,item.email,webinarlist.details.room_id);">
+                                        {{item.reg_status ? item.reg_status : 'Register'}}
+                                        </button>
+                                     </td>
+                                  </tr>
+                                  </tr>
+                                  <tr ng-if="webinarlist.details.member_data">
+                                  <tr data-ng-repeat="user_profile_data in webinarlist.details.member_data">
+                                     <td>
+                                        <span><input type="checkbox" class="email_check_box hide" name="email_list" /> {{ user_profile_data.user_profile_email }}</span>
+                                     </td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>
+                                        <button ng-disabled="user_profile_data.disabled" type="button" name="button"  ng-click="webinarlist.register_member_data($index,user_profile_data.user_profile_name,user_profile_data.user_profile_email,webinarlist.details.room_id);" >
+                                          {{user_profile_data.reg_status ? user_profile_data.reg_status : 'Register'}}
+                                        </button>
+                                     </td>
+                                  </tr>
+                                  </tr>
+                                  <tr ng-if="webinarlist.details.webinar_data">
+                                  <tr data-ng-repeat="webinar_data in webinarlist.details.webinar_data">
+                                     <td>
+                                        <span>
+                                        {{ webinar_data.email }}</span>
+                                     </td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>&nbsp</td>
+                                     <td>
+                                        <button ng-disabled="true" type="button" name="button">
+                                        Registered
+                                        </button>
+                                     </td>
+                                  </tr>
+                                  </tr>
+                               </tbody>
+                            </table>
+                      </div>
+                   </div>
+                 </form>
+             </ion-content>
+         </ion-side-menu-content>
+    </ion-side-menus>
+ </ion-view>

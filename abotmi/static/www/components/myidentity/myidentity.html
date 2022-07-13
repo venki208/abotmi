@@ -1,0 +1,322 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-nav-bar class="m-upwrdz-navbar">
+                <ion-nav-buttons>
+                    <button class="button button-icon icon ion-navicon-round light"
+                        ng-click="track.showMenu();"></button>
+                </ion-nav-buttons>
+                <ion-nav-title class="up-logo">
+                    <img src="img/upwrdz-logo.png" alt="upwrdz-logo">
+                </ion-nav-title>
+                <upwrdz-Tabs></upwrdz-Tabs>
+            </ion-nav-bar>
+            <ion-content class="m-upwrdz-tab-content">
+                <div class="row">
+                    <div class="col col-33">
+                    </div>
+                    <div class="col col-33 col-offset-33">
+                        <select class="share-select pull-right" ng-model="mytrack.selectedoption"
+                            ng-options="opt for opt in mytrack.shareoptions"
+                            ng-change="mytrack.socialshare(mytrack.url)">
+                            <option value="" selected="selected">SHARE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card profile-pic-item">
+                    <div class="item item-text-wrap id-item">
+                        <p class="pull-right card-profile-edit"
+                            ui-sref="app.myidentity.changepicture({'picture':mytrack.details.profile.picture})">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="24px;">
+                        </p>
+                        <div class="id-img">
+                            <div ng-if="mytrack.details.profile.picture == ''"><img
+                                    src="/static/images/contactimg.png" /></div>
+                            <div ng-if="mytrack.details.profile.picture != ''">
+                                <img alt="" src="{{mytrack.details.profile.picture}}" />
+                            </div>
+                        </div>
+                        <p class="name text-center" style="color: black">{{mytrack.details.profile.first_name}}
+                            {{mytrack.details.profile.last_name}}</p>
+                        <p class="text-center">{{mytrack.details.profile.qualification||''}}</p>
+                    </div>
+                </div>
+                <div class="list card">
+                    <div class="item item-divider item-header">
+                        My Ratings / Rankings
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div class="row ">
+                            <div class="col right-border">
+                                <rating class="star-col black text-center"
+                                    ng-model="mytrack.details.otherdetails.final_peer_avg_rating" max="5"
+                                    style="pointer-events:none;"></rating>
+                                <p class="text-center rate-text" style="color: #05549e;"> Peer Ratings</p>
+                            </div>
+                            <div class="col">
+                                <rating class="star-col black text-center"
+                                    ng-model="mytrack.details.otherdetails.final_consumer_avg_ranking" max="5"
+                                    style="pointer-events:none;"></rating>
+                                <p class="text-center rate-text" style="color: #05549e;"> Client Rankings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- Professional Statement block starts -->
+                <div class="list card">
+                    <div class="item item-divider item-header">
+                        Professional Statement
+                        <p class="pull-right" ng-click="mytrack.about_me()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                    </div>
+                    <div class="item item-text-wrap" style="color:black">
+                        <span>{{mytrack.details.profile.self_description || 'Write about yourself'}}</span>
+                    </div>
+                </div>
+                <!-- Professional Statement block ends -->
+
+                <!-- Languages Spoken block starts -->
+                <div class="list card">
+                    <div class="item item-divider item-header">
+                        <p class="pull-right" ng-click="mytrack.language()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                        Languages Spoken
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div class="row">
+                            <div class="col">
+                                <p>{{mytrack.details.profile.language_known}}</p>
+                            </div>
+                        </div>
+                        <div class="row" style="color:black"
+                            ng-if="(mytrack.details.profile.language_known == '' && mytrack.details.profile.languages_known_read_write == null)">
+                            Languages not uploaded yet.
+                        </div>
+                    </div>
+                </div>
+                <!-- Languages Spoken block ends -->
+
+                <!-- MY Belief block starts here  -->
+                <div class="list card">
+                    <div class="item item-divider item-header">
+                        <p class="pull-right" ng-click="mytrack.belief()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                        My Belief
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div class="row">
+                            <div class="col">
+                                <p>{{mytrack.details.profile.my_belief || 'N/A'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- MY Belief block ends here-->
+
+                <!-- Education block starts here -->
+                <div class="list card">
+                    <div class="item item-divider item-header" style="color: black">
+                            <img src="/static/V2_theme/icons/education-icon.png"/>
+                            EDUCATION
+                        <p class="pull-right" ng-click="mytrack.education()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                       
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div ng-if="mytrack.details.otherdetails.educational_details !=null">
+                            <div class="row">
+                                <div class="col">
+                                    <p><b>Qualification:</b>{{mytrack.details.otherdetails.educational_details.qualification}}
+                                    </p>
+                                    <p><b>School:</b>{{mytrack.details.otherdetails.educational_details.school}}</p>
+                                    <p><b>From Year:</b>{{mytrack.details.otherdetails.educational_details.from_year }}
+                                    </p>
+                                    <p><b>To Year:</b>{{mytrack.details.otherdetails.educational_details.to_year }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" style="color:black" ng-if="(mytrack.details.otherdetails.educational_details == null )">
+                                Not yet added
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Education block ends here -->
+
+                <!-- Certifications blocks starts here -->
+                <div class="list card">
+                    <div class="item item-divider item-header" style="color: black">
+                            <img src="/static/V2_theme/icons/license-icon.png"/>
+                        
+                       CERTIFICATIONS
+                        <p class="pull-right" ng-click="mytrack.certifications()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div ng-if="mytrack.details.otherdetails.certification_details != null" ng-repeat="name_data in mytrack.details.otherdetails.certification_details track by $index">
+                            <div class="row">
+                                <div class="col">
+                                    <p ng-if="name_data.certi_authority">
+                                        <b>certi_authority:</b>{{name_data.certi_authority}}
+                                    </p>
+                                    <p ng-if="name_data.certification_name">
+                                        <b>certification_name:</b>{{name_data.certification_name}}
+                                    </p>
+                                    <p ng-if="name_data.from_year">
+                                        <b>From
+                                            Year:</b>{{name_data.from_year }}
+                                    </p>
+                                    <p ng-if="name_data.to_year">
+                                        <b>To
+                                            Year:</b>{{name_data.to_year }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" style="color:black"
+                                ng-if="!(mytrack.details.otherdetails.certification_details[0].certi_authority || mytrack.details.otherdetails.certification_details[0].certification_name || mytrack.details.otherdetails.certification_details[0].from_year || mytrack.details.otherdetails.certification_details[0].to_year)">
+                                Certification information not uploaded yet.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Certifications blocks ends here -->
+
+                <!-- SPECIALITIES / SKILLS blocks starts here -->
+                <div class="list card">
+                    <div class="item item-divider item-header" style="color: black">
+                            <img src="/static/V2_theme/icons/skills-icon.png"/>
+                        SPECIALITIES / SKILLS
+                        <p class="pull-right" ng-click="mytrack.edit_skills()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <span ng-repeat="skills in mytrack.details.otherdetails.skills">
+                            <span>{{skills}}{{$last ? '' : ' |'}}</span>
+                        </span>
+                        <div class="row" style="color:black" ng-if="mytrack.details.otherdetails.skills.length == 0"> Specialities / Skills
+                            not uploaded yet.</div>
+                    </div>
+                </div>
+                <!-- SPECIALITIES / SKILLS blocks ends here -->
+
+                <!-- Experience blocks starts here -->
+                <div class="list card">
+                    <div class="item item-divider item-header" style="color: black">
+                            <img src="/static/V2_theme/icons/experience-icon.png"/>
+                        EXPERIENCE
+                        <p class="pull-right" ng-click="mytrack.finacial_instrument()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div class="row"
+                            ng-if="!(mytrack.details.otherdetails.financial_instruments[0].instruments == 'select')"
+                            ng-repeat="instrument in mytrack.details.otherdetails.financial_instruments | limitTo:mytrack.instruments_limit">
+                            <div class="col">
+                                <p class="id-content-text">
+                                    <img class="reg-img" src="../www/img/Asset 2.png"
+                                        alt=""><b>{{instrument.instruments}} Advisory</b> &nbsp; :
+                                    {{instrument.experience}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row" style="color:black"
+                            ng-if="mytrack.details.otherdetails.financial_instruments[0].instruments == 'select' || mytrack.details.otherdetails.financial_instruments.length == 0">
+                            Experience not uploaded yet.
+                        </div>
+                    </div>
+                    <div class="item item-divider item-footer"
+                        ng-if="mytrack.details.otherdetails.financial_instruments.length > mytrack.instruments_limit">
+                        <p class="text-center">
+                            <a ng-click="mytrack.see_more();">SeeMore</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Experience blocks ends here -->
+
+                <!-- Contact details block starts here -->
+                <div class="list card">
+                    <div class="item item-divider item-header" style="color: black">
+                            <img src="/static/V2_theme/icons/contact-icon.png"/>
+                            
+                        <p class="pull-right" ng-click="mytrack.contact()">
+                            <img class="edit-img" src="../www/img/edit-icon.png" alt="" width="20px;" height="20px;">
+                        </p>
+                        CONTACT DETAILS
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div class="row contact-info">
+                            <div class="col">
+                                <p>
+                                    <img src="../www/img/Asset 4.png" class="contact-img" alt="">
+                                    {{mytrack.details.profile.email || 'N/A'}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row contact-info">
+                            <div class="col">
+                                <p>
+                                    <img src="../www/img/Asset 5.png" class="contact-img" alt="">
+                                    {{mytrack.details.profile.mobile || 'N/A'}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row contact-info">
+                        </div>
+                        <div class="row contact-info">
+                            <div class="col">
+                                <p>
+                                    <img src="../www/img/Asset 7.png" class="contact-img" alt="">
+                                    {{mytrack.details.profile.city || 'N/A'}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row contact-info">
+                            <div class="col">
+                                <p style="word-break: break-all;">
+                                    <img src="../www/img/calender.svg" class="contact-img" alt="">
+                                    {{mytrack.details.otherdetails.calendly_link || 'N/A'}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact details block ends here -->
+
+                <div class="list card">
+                </div>
+
+                <!-- Testimonials block starts here -->
+                <div class="list card">
+                    <div class="item item-divider item-header" style="color: black">
+                        TESTIMONIAL
+                    </div>
+                    <div class="item item-text-wrap">
+                        <div class="row" ng-repeat="feedback in mytrack.details.otherdetails.feedbacks">
+                            <div class="col col-25">
+                                <div>
+                                    <p><u>{{feedback.name}}</u></p>
+                                </div>
+                            </div>
+                            <div class="col col-75">
+                                <p>{{ feedback.feedback }}</p>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="mytrack.details.otherdetails.feedbacks.length == 0">
+                            <p>Testimonial not uploaded yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </ion-content>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>

@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<style>
+#id_calendly{
+    text-transform: lowercase;
+}
+</style>
+<div class="modal fade" tabindex="-1" role="dialog" id="contactDeailsModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="modal-title n-span-blue-color" id="send_modal-title"> CONTACT DETAILS</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form class="form-horizontal panel-body form-horizontal-contact" name="myform">
+                            <div class="form-group row">
+                                <label class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">{{user_profile.email}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-4 control-label">Mobile Number </label>
+                                <div class="col-sm-8">
+                                    <input type="tel" class="form-control" id="id_contact_mobileno" name="id_contact_mobileno" value="{{user_profile.mobile}}" is-mobile="true" required="true">
+                                    <span class="help-block" id="help_id_contact_mobileno"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-4 control-label">City  </label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="id_contact_city" name="id_contact_city" required="true" value="{{user_profile.city}}">
+                                    <span class="help-block" id="help_id_contact_city"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">  
+                                <label for="inputPassword3" class="col-sm-4 control-label">Calendly link </label>
+                                <div class="col-sm-8">
+                                    <input type="text" placeholder="" class="form-control calendly_lower_cases" id="id_calendly" name="id_calendly" min-length="3" value="{{advisor.calendly_link|default:''}}" onkeyup="calendly_domian();">
+                                    <span class="help-block" id="help_id_calendly"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button type="button" name="button" class="btn upwrdz-button contact_details_button my-identity-modal-btn" id="contact_details_button" onclick="update_contact_details();">UPDATE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#id_contact_mobileno").intlTelInput({
+            nationalMode: false,
+            initialCountry: user_agent_country,
+            separateDialCode: true,
+            autoPlaceholder: "off",
+            hiddenInput: "mobile",
+            utilsScript: "/static/js/plugins/intl-tel-input-js/js/utils.js",
+        });
+    });
+</script>

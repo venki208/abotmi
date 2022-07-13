@@ -1,0 +1,656 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+    {% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/new_css/radio_button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+    <style>
+        .attach_class{
+            display: inline-block;
+            padding-right: 6px;
+        }
+        .download_link_color_pan .pan_clip{
+            margin-left: -25px;
+        }
+        #paper_clip0{
+            margin-top: -6px;
+        }
+        .btn-primary-add{
+            color: #000;
+        }
+        .registration-form-div .proceed-btn .btn {
+            color: #fff;
+        }
+        .registration-form-div .main-alert{
+            margin-left: 15px;
+        }
+    </style>
+    {% endblock %}
+    <!-- body center content -->
+    {% block main_content %}
+        <section class="advisor-form parent-section-one">
+            <div class="container">
+                <div class="row">
+                    <h2 class="title-block w-100">Advisor Registration Form</h2>
+                </div>
+                <div class="col-sm-12 upwrdz-steps-advisor">
+                    {% include 'common/ekyc-steps.html' with result=result %}
+                </div>
+                <div class="row upwrdz-steps-advisor-content">
+                    <fieldset class="the-fieldset">
+                        <h2>Business Information</h2>
+                        <div class="col-sm-12 advisor-form-padding">
+                          
+                            <form class="contact-form" action="/signup/business_information/" method="post" name="form1" id="form1" autocomplete="off">
+                                {% csrf_token %}
+                                <div class="row form-group registration-form-div pull-left hide">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 radio-registration">
+                                        <p class="question-label" for="ex2">Primary Communication Address
+                                        <span>*</span></p>
+                                        <input type="radio" name="primary_communication_address" id="home" value="home" onclick="save_onchange('primary_communication',id,'help-text-primary_communication_address');"><strong class="lbl padding-8" id="primary_communication_address_validate_home"> Home</strong>
+                                        <input type="radio"  name="primary_communication_address" id="office" value="office" onclick="save_onchange('primary_communication',id,'help-text-primary_communication_address');"><strong class="lbl padding-8" id="primary_communication_address_validate_office"> Office</strong>
+                                        <span class="help-block" id="help-text-primary_communication_address"></span>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-sm-12 help-understand">
+                                        <h4 class="loop"> Help us understand you better </h4>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {% if user_agent_country == REGION_IN %}
+                                            <label for="ex3"><b>Name of your office</b></label>
+                                        {% else %}
+                                            <label for="ex3"><b>Name of Company<span>*</b></span></label>
+                                        {% endif %}
+                                        <input type="text" class="form-control" onfocus="this.placeholder = ''" name="company_name" id="company_name" value="{{user_profile.company_name}}" onchange = "save_onchange('company_name',id,'help-text-company-name');">
+                                        <span class="help-block" id="help-text-company-name"></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {% if user_agent_country == REGION_IN %}
+                                            <label for="ex3"><b>Your Designation</b></label>
+                                        {% else %}
+                                            <label for="ex3"><b>Your Position<span>*</b></span></label>
+                                        {% endif %}
+                                        <input type="text" class="form-control" onfocus="this.placeholder = ''" name="designation" id="designation" value="{{ user_profile.designation}}" onchange = "save_onchange('designation',id,'help-text-designation');">
+                                        <span class="help-block" id="help-text-designation"></span>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-sm-4 col-lg-4 col-md-4">
+                                        {% if user_agent_country == REGION_IN %}
+                                            <label for="ex3"><b>Your annual income (in {{currency}}) </b></label>
+                                        {% else %}
+                                        <label for="ex3"><b>Annual Income (USD)</b></label>
+                                        {% endif %}
+                                        {% comment %} <input type="text" class="form-control" onfocus="this.placeholder = ''" name="annual_income" id="annual_income" onchange="validateCurrency('annual_income');save_onchange('annual_income',id,'help-text-annual'); " value="{{ user_profile.annual_income}}"> {% endcomment %}
+                                        <select class="form-control" name="annual_income" id="annual_income" onchange="validateCurrency('annual_income');save_onchange('annual_income',id,'help-text-annual');" value="{{ user_profile.annual_income}}" >
+                                            {% if user_profile.annual_income %}
+                                            <option value="{{user_profile.annual_income}}">{{user_profile.annual_income}}</option>{% else %}
+                                            <option value="select">--N/A--</option>
+                                            {% endif %}
+                                            <option value="Under $25k">Under $25k</option>
+                                            <option value="$25k+">$25k+</option>
+                                            <option value="$50k+">$50k+</option>
+                                            <option value="$100k+">$100k+</option>
+                                            <option value="$250k+">$250k+</option>
+                                            <option value="$500k+">$500k+</option>
+                                            <option value="$1m+">$1m+</option>
+                                            <option value="$5m+">$5m+</option>
+                                            <option value="$10m+">$10m+</option>
+                                        </select>
+                                        <span class="help-block" id="help-text-annual"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4 col-md-4">
+                                        {% if user_agent_country == REGION_IN %}
+                                            <label for="ex3"><b>Website URL of your office</b></label>
+                                        {% else %}
+                                            <label for="ex3"><b>Website URL</b></label>
+                                        {% endif %}
+                                        <input type="text" onfocus="this.placeholder = ''" class="form-control" name="company_website" id="company_website" value="{{ user_profile.company_website}}" onchange =" validate_website_url(id);">
+                                        <span class="help-block" id="help-text-company_website"></span>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div">
+                                    <div class="col-sm-12">
+                                        <h4>Office Address</h4>
+                                    </div>
+                                </div>
+                                    
+                                <div class="row form-group registration-form-div ">
+                                    <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                        <label for="ex3"><b>Address Line 1</b></label>
+                                        <textarea type="text" onfocus="this.placeholder = ''" name="company_address1" id="company_address1" onchange = "save_onchange('company_address1',id,'help-text-company-address1'); ">{{user_profile.company_address1}}</textarea>
+                                        <span class="help-block" id="help-text-company-address1"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                        <label for="ex3"><b>Address Line 2</b></label>
+                                        <textarea type="text" onfocus="this.placeholder = ''" name="company_address2" id="company_address2" onchange="save_onchange('company_address2',id,'help-text-company-address2');">{{ user_profile.company_address2 }}</textarea>
+                                        <span class="help-block" id="help-text-company-address2"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                        <label for="ex3"><b>Town / City</b></label>
+                                        <input type="text" class="form-control" onfocus="this.placeholder = ''" name="company_city" id="company_city" value="{{ user_profile.company_city }}" onchange="validateCity('company_city','help-text-company-city'); save_onchange('company_city',id,'help-text-company-city');">
+                                        <span class="help-block" id="help-text-company-city"></span>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div">
+                                    <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                        {% if user_agent_country == REGION_IN %}
+                                            <label for="ex3"><b>Zip Code</b></label>
+                                        {% else %}
+                                            <label for="ex3"><b>Zip Code</b></label>
+                                        {% endif %}
+                                        <input type="text" class="form-control" onfocus="this.placeholder = ''" name="company_pincode" id="company_pincode" value="{{user_profile.company_pincode}}" onchange="validate_pincode('company_pincode');">
+                                        <span class="help-block" id="help-text-company_pincode"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4 mob-address-col">
+                                        <label for="ex3"><b>State</b></label>
+                                        <input type="text" class="form-control" onfocus="this.placeholder = ''" name="company_state" id="company_state" value="{{ user_profile.company_state }}" onchange="validateAlpha('company_state','help-text-Company-state'); save_onchange('company_state',id,'help-text-Company-state');">
+                                        <span class="help-block" id="help-text-Company-state"></span>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4 col-md-4 mob-address-col">
+                                        <label for="ex3"><b>Country</b></label><span class="help-text" id="help-text-company-country1"></span>
+                                        <select name="company_country" class="form-control" id="company_country" onchange="save_onchange('company_country',id,'help-text-company-country');">
+                                        <option value="" selected>Select</option>
+                                        {% for country in country_list %}
+                                        <option value="{{country.name}}">{{country.name}}</option>
+                                        {% endfor %}
+                                        </select>
+                                        <span class="help-block" id="help-text-company-country"></span>
+                                    </div>
+                                </div>
+                                        
+                           
+                                
+                                <div class="row">
+                                    <div class="n-padding-b-15 registration-form-financial col-md-12">
+                                        <p for="ex2">
+                                            <b>Languages known</b>
+                                        </p>
+                                        <div class="row form-group registration-form-div pull-left">
+                                            <div class="col-sm-4 col-lg-4 col-md-4 label-padding">
+                                                <label for="ex3"><b>Languages known to Speak <span>*</b></span></label>
+                                                <input type="text" class="form-control" onfocus="this.placeholder = ''" name="language_known" id="language_known" value="{{ user_profile.language_known|default:'' }}" onchange="validate_alpha('language_known', true);">
+                                                <span class="help-block" id="help-text-language_known"></span>
+                                            </div>
+                                            <div class="col-sm-4 col-lg-4 col-md-4">
+                                                <label for="ex3"><b>Languages known to Read & Write <span>*</b></span></label>
+                                                <input type="text" class="form-control" onfocus="this.placeholder = ''" name="languages_known_read_write" id="languages_known_read_write" value="{{ user_profile.languages_known_read_write|default:'' }}" onchange="validate_alpha('languages_known_read_write', true);">
+                                                <span class="help-block" id="help-text-languages_known_read_write"></span>
+                                            </div>
+                                            <div class="col-sm-4 col-lg-4 col-md-4 label-padding">
+                                                {% if user_agent_country == REGION_IN %}
+                                                <label for="ex3"><b>Mother Tongue</b><span>*</span></label>
+                                                {% else %}
+                                                    <label for="ex3"><b>Primary Language Spoken <span>*</b></span></label>
+                                                {% endif %}
+                                                <input type="text" class="form-control" onfocus="this.placeholder = ''" name="mother_tongue" id="mother_tongue" value="{{ user_profile.mother_tongue|default:'' }}" onchange="validate_alpha('mother_tongue', true); ">
+                                                <span class="help-block" id="help-text-language_mother_tongue"></span>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            </form>
+                       
+                            <select name="practice_countries" class="form-control" style="display:none;" id="practice_countries">
+                                <option value="Select">Select</option>
+                                {% for country in country_list %}
+                                    <option value="{{country.name}}">{{country.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="row form-group registration-form-div">
+                                <div class="col-sm-12">
+                                    <div class="registration-form-financial">
+                                        <label for="ex2">
+                                            <b>Add Practice Country Details</b>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="practice_count" id="practice_count" value="{{ advisor_practice_details_json|length }}"; />
+                                    <div class="row financial_class">
+                                        {% if not advisor_practice_details_json %}
+                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                <label for="ex2"><b>&nbsp;Country<span>*</b></span></label>
+                                                <select name="practice_country1" class="form-control" id="practice_country1" onchange="save_onchange('practice_country',id,'help_text_practice_country1');" onchange="check_country_selected(id);">
+                                                    <option value="Select">Select</option>
+                                                    {% for country in country_list %}
+                                                        <option value="{{country.name}}">{{country.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <span class="help-block" id="help_text_practice_country1"></span>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                <label for="ex1"><b>City <span>*</b></span></label>
+                                                <input class="form-control" id="practice_city1" name="practice_city1" type="text" onfocus="this.placeholder = ''" onchange="validateCity('practice_city1','help_text_practice_city1');" value="{{advisor.practice_city|default:''}}" />
+                                                <span class="help-block" id="help_text_practice_city1"></span>
+                                            </div>
+                                            {% if user_agent_country == REGION_IN %}
+                                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                                <label for="ex3"><b>&nbsp;Location <span>*</b></span></label>
+                                                <input class="form-control" id="practice_location1" name="practice_location1" type="text" onfocus="this.placeholder = ''" value="{{advisor.practice_location|default:''}}">
+                                                <span class="help-block" id="help_text_practice_location1"></span>
+                                            </div>
+                                            {% endif %}
+                                            <div class="col-sm-3 col-lg-3 col-md-3 mob-address-col">
+                                                {% if user_agent_country == REGION_IN %}
+                                                    <label for="ex3"><b>Pin Code 
+                                                    <span>*</b></span></label>
+                                                {% else %}
+                                                    <label for="ex3"><b>Zip Code 
+                                                    <span>*</b></span></label>
+                                                {% endif %}
+                                                <input type="text" name="practice_pincode1" id="practice_pincode1" onchange="validate_pincode('practice_pincode1');" class="form-control input"  value="" onfocus="this.placeholder = ''" required="required">
+                                                <span class="help-block" id="help_text_practice_pincode1"></span>
+                                            </div>
+                                            <a class="add_practice_field btn additional_btn btn-add-respn-one" id= "add_practice_field">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </a>
+                                        {% else %}
+                                            <div class="col-md-12">
+                                                <div class="input_practice_fields_wrap">
+                                                    {% for details in advisor_practice_details_json %}
+                                                        <div class="row row_financial" id="practice{{ forloop.counter }}">
+                                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                                {% if forloop.counter == 1 %}
+                                                                    <label for="ex2"><b>&nbsp;Country <span>*</b></span></label>
+                                                                {% endif %}
+                                                                <select name="practice_country{{ forloop.counter }}" class="form-control" id="practice_country{{ forloop.counter }}" onchange="check_country_selected(id);">
+                                                                    <option value="{{details.practice_country}}">{{details.practice_country}}</option>
+                                                                    {% for country in country_list %}
+                                                                    <option value="{{country.name}}">{{country.name}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                <span class="help-block" id="help_text_practice_country{{ forloop.counter }}"></span>
+                                                            </div>
+                                                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                                                {% if forloop.counter == 1 %}
+                                                                    <label for="ex1"><b>City <span>*</b></span></label>
+                                                                {% endif %}
+                                                                <input class="form-control" id="practice_city{{ forloop.counter }}" name="practice_city{{ forloop.counter }}" type="text" onfocus="this.placeholder = ''" value="{{details.practice_city}}" onchange="validateCity(id, 'help_text_practice_city{{ forloop.counter }}')"/>
+                                                                <span class="help-block" id="help_text_practice_city{{ forloop.counter }}"></span>
+                                                            </div>
+                                                            {% if user_agent_country == REGION_IN %}
+                                                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                                                {% if forloop.counter == 1 %}
+                                                                    <label for="ex3"><b>&nbsp;Location
+                                                                        <span>*</b></span>
+                                                                    </label>
+                                                                {% endif %}
+                                                                <input class="form-control" id="practice_location{{ forloop.counter }}" name="practice_location{{ forloop.counter }}" type="text" onfocus="this.placeholder = ''" value="{{details.practice_location}}" onchange="validateAlpha('practice_location{{ forloop.counter }}','help_text_practice_location{{ forloop.counter }}');">
+                                                                <span class="help-block" id="help_text_practice_location{{ forloop.counter }}"></span>
+                                                            </div>
+                                                            {% endif %}
+                                                            <div class="col-sm-3 col-lg-3 col-md-3 mob-address-col">
+                                                                {% if forloop.counter == 1 %}
+                                                                {% if user_agent_country == REGION_IN %}
+                                                                    <label for="ex3"><b>Pin code <span> * </b></span></label>
+                                                                {% else %}
+                                                                    <label for="ex3"><b>Zip code <span> * </b></span></label>
+                                                                {% endif %}
+                                                                {% endif %}
+                                                                <input type="text" name="practice_pincode{{ forloop.counter }}" id="practice_pincode{{ forloop.counter }}" class="form-control input"  value="{{details.practice_pincode}}" onchange="validate_pincode('practice_pincode{{ forloop.counter }}');" onfocus="this.placeholder = ''" required="required">
+                                                                <span class="help-block" id="help-text-practice_pincode{{ forloop.counter }}"></span>
+                                                            </div>
+                                                            <div class="col-sm-1 col-lg-1 col-md-1 mob-address-col">
+                                                                <label for="ex3">&nbsp;</label>
+                                                                <div class="minus-additional-btn">
+                                                                    {% if forloop.counter == 1 %}
+                                                                    <a class = "plus-btn-practice add_practice_field" id= "add_practice_field">
+                                                                    <img style="margin-top: 20px;
+                                                                    width: 30px;" src="{% static 'new_images/add-icon.png' %}">
+                                                                    </a>
+                                                                    {% else %}
+                                                                    <a class = "remove_field" id= "remove_practice_field" onClick="remove_practice_data({{ forloop.counter }});"><img style="margin-top: -2px;
+                                                                    width: 30px;" src="{% static 'new_images/delete-icon.png' %}"></a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <span class="help-block" id="help-text-practice_details">
+                                </div>
+                            </div>
+                        </div>
+                            <!--start -->
+                        <div class="col-sm-12 advisor-form-padding" id="main_div">
+                            {% if user_agent_country == REGION_IN %}
+                            <div class="row">
+                                <div class="form-group col-sm-12 form-nline text-left">
+                                    <h5><strong>Please upload the required documents for verification</strong><span>*</span></h5>
+                                </div>
+                                <form action="/signup/upload_file/" name="upload_doc0" id="upload_doc0" method="post" class="contact-form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                    <div class="form-group col-xs-12 form-nline reg-step4">
+                                        <div class="row registration-form-div registration-form-div-pancard" id="proof_indian">
+                                            <div class="col-sm-4 col-xs-12 text-right pan-card">
+                                                <label><b>PAN Card<span>*</b></span></label>
+                                            </div>
+                                            <div style="display:none;">
+                                                <input type="text" name="documents_type" id="documents_type" value="pan_card">
+                                            </div>
+                                            <div class="form-group col-sm-3 col-xs-8">
+                                                <input type="text" class="form-control" name="pan_no" id="pan_no" value="{{user.profile.pan_no}}" onchange="validate_pan(id);" style="margin-top:-6px;">
+                                                <span class="help-block" id="help-pan-no"></span>
+                                            </div>
+                                            {% if user_documents_indian_proof %}
+                                                {% for doc in user_documents_indian_proof %}
+                                                    <div class="download_link_color_pan">
+                                                    <label id="paper_clip0" class="col-sm-2 col-xs-4 fileinput fileinput-new pan_clip hide" data-provides="fileinput">
+                                                        <span class="btn btn-default btn-file" id="pan_card">
+                                                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                                            <input type="hidden" name="reupload" value="true">
+                                                            <input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_indian', 'paper_clip0');">
+                                                            {{block.super}}                                 </span>
+                                                    </label>
+                                                    <p class="attach_class hiding{{ doc.id }} n-padding-r-5" id="id_attached" name="attached">Attached</p>
+                                                    <a id="{{ doc.id }}" class="hiding{{ doc.id }} download_link_color n-padding-r-5" href="{{ doc.documents.url }}" onclick="window.open('{{ doc.documents.url }}', 'newwindow',  {{block.super}}'toolbar=yes,scrollbars=yes,resizable=yes, {{block.super}}top=250,left=500,width=550, height=550');  {{block.super}}return false;"><i class="fa fa-eye"  {{block.super}}aria-hidden="true"></i> </a>
+                                                    <a class="hiding{{ doc.id }}" onclick="removeDocument({{ doc.id }},'paper_clip0');"><i class='glyphicon glyphicon-repeat download_link_color' aria-hidden='true'></i></a>
+                                                    </div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <label id="paper_clip0" class="col-sm-2 fileinput fileinput-new  pan_clip" data-provides="fileinput">
+                                                    <span class="btn btn-default">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i><input type="hidden" name="reupload" value="true">
+                                                        <input type="file" name="document" id="document_pan" class="hide" accept="image/gif, image/jpeg,image/png,application/pdf" onchange="UploadDocuments('upload_doc0','proof_indian', 'paper_clip0');">
+                                                    </span>
+                                                </label>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </form>
+                                {% endif %}
+                            
+                            <!-- Questions Block  -->
+                           
+                                <!-- Question 1 -->
+                                <div class="row form-group registration-form-div pull-left">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                        <p class="question-label" for="question_one">{{question1}} <span>*</span></p>
+                                        <input id="question_one_yes" type="radio" name="question_one_yes" value="yes" onclick="clickResponse(1,'question1_div_area','question_one_yes','question_one_no','y-o-b')">
+                                        <strong class="lbl padding-8" id="validate_question_one_yes">Yes</strong>
+                                        <input  id="question_one_no" name="question_one_no" type="radio" value="no" onclick="clickResponse(0,'question1_div_area','question_one_yes','question_one_no','y-o-b'), onchange_savequestions(id);">
+                                        <strong class="lbl padding-8" id="validate_question_one_no">No</strong>
+                                        <span class="help-block" id="1_quest"></span>
+                                    </div>
+                                </div>
+                                <div class="row form-group registration-form-div" id = "question1_div_area" style="display:none">
+                                   
+                                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                            <p class="question-label" for="y-o-b"><b>Years of business <span>*</b></span></p>
+                                            <input class="form-control" name= "y-o-b" id="y-o-b" type="text" value="{{ questions_list.0.Remark.0.Answer }}" onchange="onchange_savequestions(id); validate_if_zero('y-o-b');">
+                                            <span class="help-block" id="help-y-o-b"></span>
+                                        </div>
+                                    
+                                    <input class="form-control" name="t-n-o-c" id="t-n-o-c" type="hidden" value="0">
+                                   
+                                        <div class="col-sm-6 col-md-3 col-lg-3 col-sm-12">
+                                            <p class="question-label" for="t-n-o-c"><b>Total Clients served <span>*</b></span></p>
+                                            <input class="form-control" id="total_client_served" name="total_client_served" type="text" onfocus="this.placeholder = ''" value="{{ advisor.total_clients_served|default:'' }}" onchange="validate_if_zero('total_client_served');" />
+                                            <span class="help-block" id="help_text_total_client_served"></span>
+                                        </div>
+                                    
+                                   
+                                        <div class="col-sm-6 col-md-3 col-lg-3 col-sm-12">
+                                            <p class="question-label" for="t-n-o-c"><b>Total Advisors connected <span>*</b></span></p>
+                                            <input class="form-control" id="advisor_is_connected_with" name="advisor_is_connected_with" type="text" onfocus="this.placeholder = ''" value="{{ advisor.total_advisors_connected|default:'' }}" onchange="validate_if_zero('advisor_is_connected_with');" />
+                                            <span class="help-block" id="help_text_advisor_is_connected_with"></span>
+                                        </div>
+                                   
+                                    <!-- commented for sprint 7 release -->
+                                    <!-- <div class="col-sm-6 col-lg-4 col-md-4 col-sm-12 input-append" id="datetimepicker4">
+                                        <p class="question-label" for="t-a-t-v">Total / Average transaction in {{currency}} <span>*</span></p>
+                                        <select class="form-control" name="t-a-t-v" id="t-a-t-v" onchange='onchange_savequestions(id);'>
+                                                    <option value="select">--Select--</option>
+                                                {% if questions_list.0.Remark.2.Answer == 'Above 50k and Under 1m+' %}
+                                                    <option value="Under 50k">Under {{currency}} 50k</option>
+                                                    <option value="Above 50k and Under 1m+" selected>Above {{currency}} 50k and Under {{currency}} {{covert_currency2}}</option>
+                                                    <option value="Above 1m+">Above {{currency}} {{covert_currency2}}</option>
+                                                {% elif questions_list.0.Remark.2.Answer == 'Under 50k' %}
+                                                    <option value="Under 50k" selected>Under {{currency}} 50k</option>
+                                                    <option value="Above 50k and Under 1m+">Above {{currency}} {{covert_currency1}} and Under {{currency}} {{covert_currency2}}</option>
+                                                    <option value="Above 1m+">Above {{currency}} {{covert_currency2}}</option>
+                                                {% elif questions_list.0.Remark.2.Answer == 'Above 1m+' %}
+                                                    <option value="Below 50k">Under {{covert_currency1}}</option>
+                                                    <option value="Above 50k and Under 1m+">Above {{currency}} {{covert_currency1}} and Under {{currency}} {{covert_currency2}}</option>
+                                                    <option value="Above 1m+" selected>Above {{currency}} {{covert_currency2}}</option>
+                                                {% else %}
+                                                    <option value="Under 50k">Under {{currency}} {{covert_currency1}}</option>
+                                                    <option value="Above 50k and Under 1m+">Above {{currency}} {{covert_currency1}} and Under {{currency}} {{covert_currency2}}</option>
+                                                    <option value="Above 1m+">Above {{currency}} {{covert_currency2}}</option>
+                                                {% endif %}
+                                        </select>
+                                        <span class="help-block" id="help-t-a-t-v"></span>
+                                    </div> -->
+                                   
+                                        <div class="col-sm-6 col-lg-4 col-md-4 col-sm-12 input-append" id="datetimepicker4">
+                                            <p class="question-label" for="t-a-t-v"><b>Total / Average transaction in {{currency}} <span>*</b></span></p>
+                                            <select class="form-control" name="t-a-t-v" id="t-a-t-v" onchange='onchange_savequestions(id);'>
+                                                    <option value="select">--Select--</option>
+                                                    <option value="Under $25k">Under $25k</option>
+                                                    <option value="$25k+">$25k+</option>
+                                                    <option value="$50k+">$50k+</option>
+                                                    <option value="$100k+">$100k+</option>
+                                                    <option value="$250k+">$250k+</option>
+                                                    <option value="$500k+">$500k+</option>
+                                                    <option value="$1m+">$1m+</option>
+                                                    <option value="$5m+">$5m+</option>
+                                                    <option value="$10m+">$10m+</option>
+                                            </select>
+                                            <span class="help-block" id="help-t-a-t-v"></span>
+                                        </div>
+                                </div>
+                            </div>
+                                <!--===========QUESTION TWO============-->
+                                <div class="form-group registration-form-div pull-left">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                        <p class="question-label" for="question_two" class="">{{question2}} <span>*  </span>
+                                        </p>
+                                        <input  id="question_two_yes" name = "question_two_yes" type="radio" value="yes" onclick="getAddress(1,'question2_div_area','question_two_yes','question_two_no','infra_address','{{ user_profile.company_address1 }}\n{{ user_profile.company_address2 }}\n{{ user_profile.company_landmark }}\n{{ user_profile.company_locality }}\n{{ user_profile.company_city }}\n{{ user_profile.company_state }}\n{{user_profile.company_pincode }}')">
+                                        <strong class="lbl padding-8" id="validate_question_two_yes">Yes</strong>
+                                        <input type="radio" name="question_two_no" id="question_two_no" value="no">
+                                        <strong class="lbl padding-8" id="validate_question_two_no">No</strong>
+                                        <span class="help-block" id="2_quest"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group registration-form-div pull-left" id="question2_div_area" style="display:none">
+                                    <div class="col-sm-4 col-lg-4 col-md-4">
+                                        <p class="question-label" for="office_address" class=""><b>Office Address</b></p>
+                                        <textarea name="infra_address" onfocus="this.placeholder = ''" id="infra_address" rows="4" cols="50">{{user_profile.company_address1}}></textarea>
+                                        <span class="help-block" id="help-infra_address"></span>
+                                    </div>
+                                </div>
+                                <!--===========QUESTION THREE============-->
+                                <div class="form-group registration-form-div pull-left">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                        <p class="question-label" for="question_three" class="">{{question3}} <span>*</span></p>
+                                        <input id="question_three_yes" type="radio" name="question_three_yes" onclick="clickResponse(1,'question3_div_area','question_three_yes','question_three_no','no_institutions')">
+                                        <strong class="lbl padding-8" id="validate_question_three_yes">Yes</strong>
+                                        <input id="question_three_no" name="question_three_no" type="radio">
+                                        <strong class="lbl padding-8" id="validate_question_three_no">No</strong>
+                                        <span class="help-block" id="3_quest"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group registration-form-div pull-left" >
+
+                                    <div class="col-sm-12 col-lg-12 col-md-12" style="padding-bottom: 10px; display:none;" id="question3_div_area"> 
+                                        <div class="row"> 
+                                            <div class="col-sm-12 display_block">
+                                                {% if user_agent_country == REGION_IN %}
+                                                <p class="n-margin-0"> Click "+" to enter all the organisation      details you are connected with</p>
+                                                {% else %}
+                                                <p class="n-margin-0"> Click "+" to enter all the organization details that you are connected with in this industry.</p>
+                                                {% endif %}
+                                                <a class="" id="add_financial_organisation" onclick="add_additional_organisation();">
+                                                    <img style="margin-top: 20px;
+                                                        width: 30px;" src="{% static 'new_images/add-icon.png' %}">
+                                                </a>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class = "col-md-12 col-sm-12 col-sm-12">
+                                    <div id="organisation_div"></div>
+                                    <span class="help-block" id="help-text-add_financial_organisation_main"></span>
+                                    </div>
+                                </div>
+                                <!--===========QUESTION FOUR============-->
+                                <div class="form-group registration-form-div pull-left">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 radio-registration">
+                                        <p class="question-label" for="question_four" class="">{{question4}} <span>*  </span></p>
+                                        <input  id="question_four_yes" name="question_four_yes" type="radio" onChange="training_program();" onclick="clickResponse(1,'','question_four_yes','question_four_no',''), onchange_savequestions(id);">
+                                        <strong class="lbl padding-8" id="validate_question_four_yes">Yes</strong>
+                                        <input  id="question_four_no" name="question_four_no" type="radio" onChange="training_program();" onclick="clickResponse(0,'','question_four_yes','question_four_no',''), onchange_savequestions(id);">
+                                        <strong class="lbl padding-8" id="validate_question_four_no">No</strong>
+                                        <span class="help-block" id="help-text-question_four"></span>
+                                        <span class="help-block" id="4_quest"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Digital Footprints Block-->
+                            <div class="row advisor-form-padding registration-form-div" id="main_div">
+                                <div class="col-sm-12">
+                                <label for="ex2">
+                                    <b>Digital Foot Prints</b>
+                                </label>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5><b>Add URL</b></h5>
+                                    </div>
+                                </div>
+                                <div class="row proceed-btn text-center">
+                                    <div class="col-md-4 col-sm-4 col-lg-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control lower_case" id="id_send_link_url" name="id_send_link_url" is-url='true' required='true'>
+                                            <span class="help-block" id="help_send_link_url"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-xs-12">
+                                        <div class="row">
+                                            <div class="add_link_div">
+                                                <a  class="digital_add_link btn-link" onclick="save_digital_link('id_send_link_url','help_send_link_url');">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row text-left" id="add_url">
+                                    {% for links in digi_links %}
+                                        
+                                            <div class="col-sm-12">
+                                                <div class="alert_link_box" role="alert">
+                                                    <span id="link_{{forloop.counter}}">{{links.digital_links}}</span>
+                                                    <button type="button" class="close alert_close" data-dismiss="alert" aria-label="Close" id="{{forloop.counter}}" onclick="delete_digital_link('{ </div>
+                                                    </div>{links.digital_links}}');">
+                                                        <i class="fa fa-times-thin fa-2x"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        
+                                    {% endfor %}
+                                </div>
+                                {% if user_agent_country == REGION_IN %}
+                                <div class="row text-center micro-learning-upload-video">
+                                    <h5>Micro Learning</h5>
+                                    <div class="proceed-btn">
+                                        <div class="col-md-offset-4 col-md-4 col-xs-12">
+                                            <button type="button" class="btn btn-applynow" title="Upload your YouTube video" onclick="upload_my_video('#video-upload-modal','#submit_document_modal');">Upload Video</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <input type="hidden" name="hidden_practice_details_input" id="hidden_practice_details_input" value="" />
+                            </div>
+                            <div class="col-sm-12 mt-5 mb-5 form-group registration-form-div registration-form-div-btn-proceed pull-left">
+                                <div class="text-center proceed-btn">
+                                    <a href="/signup/personal_information/" class="btn back-btn-gray kyc-btn-primary">Back</a>
+                                    <a class="btn kyc-btn-primary" onClick="user_profile_autosave('null');" id="submit1" class="btn btn-effect">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                   
+                    </div>
+            </fieldset>
+        </div>
+    </div>
+          {% comment %} <input type="hidden" name="id_back_btn" id="id_back_btn"> {% endcomment %}
+</section>
+    {% endblock %}
+    <!-- end body -->
+    {% block bootstrap_modal %}
+        <div id="personal_information_modal_div"></div>
+        <div id="submit_document_modal"></div>
+        <div class="modal fade" id="show_image_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="panel panel-default popup-panel">
+                    <div class="panel-heading dash-heading fix-modal-heading">
+                        <h4>
+                            Preview
+                            <span class="pull-right"><i class="fa fa-times-circle"  data-dismiss="modal" aria-hidden="true"></i></span>
+                        </h4>
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="image_show_body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <!-- end footer -->
+    <!-- script files -->
+    <!--{% block theme_scripts %}
+        <script src="{% static 'js/new_js/base.js'%}" charset="utf-8"></script>
+        <script src="{% static 'js/kyc_validate.js' %}"></script>
+        {% if user_agent_country == 'IN' %}
+            <script src="{% static 'js/new_js/upload_document.js' %}"></script>
+        {% endif %}
+    {% endblock %} -->
+    {% block scripts %}
+        {{block.super}}
+        <script src="{% static 'js/new_js/base.js'%}" charset="utf-8"></script>
+        <script src="{% static 'js/kyc_validate.js' %}"></script>
+        {% if user_agent_country == 'IN' %}
+            <script src="{% static 'js/new_js/upload_document.js' %}"></script>
+        {% endif %}
+        <script type="text/javascript">
+            $("input, textarea, select").attr('autocomplete', 'off');
+            var allids = [];
+            var x=0;
+            var default_country = '{{REGION_IN}}';
+            var user_name ="{{user.username}}";
+            var user_agent_country = "{{user_agent_country}}";
+            var primary_communication = "{{user_profile.primary_communication|default:''}}";
+            var company_country_value = '{{user_profile.company_country|default:""}}';
+            var question_1_ans = '{{questions_list.0.Answer}}';
+            var question_2_ans = '{{questions_list.1.Answer}}';
+            var question_3_ans = '{{questions_list.2.Answer}}';
+            var question_4_ans = "{{questions_list.3.Answer}}";
+            var office_add = "{{ questions_list.1.Remark }}";
+            var hidden_office_add = "{{ questions_list.1.Remark }}";
+            var num = "{{ questions_list.2.Remark.0.Answer }}";
+            var on_val = "{{questions_list.2.Remark.0.Remark}}";
+            var question1 = '{{question1}}';
+            var question2 = '{{question2}}';
+            var question3 = '{{question3}}';
+            var question4 = '{{question4}}';
+            var allids = [];
+            var x=0;
+            var max_fields= 5;
+            var total_clients_served = "{{advisor.total_clients_served|default:''}}";
+            var total_advisors_connected = "{{advisor.total_advisors_connected|default:''}}";
+            var digital_links_list_length = "{{digi_links|length}}";
+            var avg_transaction  = "{{questions_list.0.Remark.2.Answer}}";
+        </script>    
+        <script src="{% static 'js/new_js/ekyc/personal_information.js' %}"></script>
+        <script src="{% static 'js/new_js/ekyc/business_information.js' %}"></script>
+        <script src="{% static 'js/new_js/ekyc/practice_details.js' %}" charset="utf-8"></script>
+        <script src="{% static 'js/new_js/digital_foot_print.js' %}" charset="utf-8"></script>
+        <script src="{% static 'js/new_js/youtube_video.js' %}" charset="utf-8"></script>
+        <script>
+            loadingStartPage();
+        </script>
+    {% endblock %}

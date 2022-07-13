@@ -1,0 +1,499 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<link href="/static/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+<link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/demo.css' %}">
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#refer-advisor-modal-label').html('');
+    $('#refer-advisor-modal-label').html('{{ MODAL_NAME }}');
+    });
+</script>
+<style>
+    input[type="radio"] {
+        opacity: 1;
+    }
+    .registered-finacial{
+        padding-bottom: 10px;
+    }
+    .registered-finacial input[type="radio"]{
+        float: left;
+        position: relative;
+    }
+    .registered-finacial label{
+        padding: 5px 10px !important;
+    }
+    ul, li{
+        list-style: none;
+    }
+    .refer-advisor-form .loop-form-radio-one .form-control{
+        width: auto !important;
+    }
+    .n-background-pink-color{
+        margin-left: 15px;
+    }
+    .refer-advisor-form .additional_btn{
+        margin-left: 5px;
+        background-color: #2a2d92;
+        border-radius: 0;
+    }
+    .additional_btn_plus {
+        background-color: #2e3192;
+        color: #FFF !important;
+        padding: 6px 10px;
+    }
+    .additional_btn_term{
+        text-decoration: underline;
+    }
+
+</style>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="refer-advisor-modal" name="refer-advisor-modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color text-center pb-3">REFER ADVISOR</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-12' id="loop_list_view">
+                        <form id='refer_advisor_form1' class="refer-advisor-form refer-advisor-loop-form panel-body"  method='POST' action='/save_refer_advisor/'>
+                            <div class='row'>
+                                <div class='form-group loop-form-group col-lg-3 col-md-6 col-sm-6 pl-2 pr-1'>
+                                    <label>Name</label>
+                                    <div class='control'>
+                                        <input class='form-control' id='id_name1' name='name1' type='text' onChange="clear_name_errors(1)">
+                                    </div>
+                                    <div class="help-block" id='id_name_error1'></div>
+                                </div>
+                                <div class='form-group loop-form-group col-lg-3 col-md-6 col-sm-6 pl-1 pr-1'>
+                                    <label>Email ID</label>
+                                    <div class='control'>
+                                        <input class='form-control' id='id_email1' name='email1' type='text' onchange='check_email(id,1);'>
+                                    </div>
+                                    <div class="help-block" id='id_email_error1'></div>
+                                </div>
+                                <div class='form-group loop-form-group col-lg-3 col-md-6 col-sm-6 pl-1 pr-1 country-mobile-code'>
+                                    <label>Mobile Number</label>
+                                    <div class='control'>
+                                        <input class='form-control id_phone' id='id_phone1' name='phone1' type='tel' onchange='validateMobile(id,1);'>
+                                    </div>
+                                    <div class="help-block" id='id_phone_error1'></div>
+                                </div>
+                                <div class='form-group loop-form-group col-lg-3 col-md-6 col-sm-6 pl-1 pr-2'>
+                                    <label>Location</label>
+                                    <div class='control'>
+                                        <input class='form-control' id='id_location1' name='location1' type='text' onChange="clear_location_errors(1);">
+                                    </div>
+                                    <div class="help-block" id='id_location_error1'></div>
+                                </div>
+                                <div class='' style='display:none;' id='additional_info1' name='additional_info1'>
+                                    <div class='additional_info row'>
+                                        <div class='form-group loop-form-group col-lg-3 col-md-3 col-sm-6'>
+                                            <label>Products serviced</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_products_serviced1' name='products_serviced1'  placeholder='Product serviced' type='text'>
+                                            </div>
+                                            <div class="help-block" id='id_products_serviced_error1'></div>
+                                        </div>
+                                        <div class='form-group loop-form-group col-lg-3 col-md-3 col-sm-12'  style="margin-bottom: 5px;">
+                                            <label>Registered financial advisor</label>
+                                            <div class='control row loop-form-radio-one'>
+                                                <div class='col-sm-12 col-md-12 col-lg-12'>
+                                                    <div class='col-sm-3 col-md-6 col-lg-6 loop-form-group-one'>
+                                                        <input class='form-control' id='id_registered_financial_advisor_01' name='registered_financial_advisor1' value='1' type='radio'>
+
+                                                    <label for='id_registered_financial_advisor_0' style='margin-left: 10px; margin-top: 5px;'>Yes</label>
+                                                    </div>
+                                                    <div class='col-sm-3 col-md-6 col-lg-6 loop-form-group-one'>
+                                                        <input class='form-control' id='id_registered_financial_advisor_11' name='registered_financial_advisor1' value='0' type='radio'>
+
+                                                    <label for='id_registered_financial_advisor_1' style='margin-left: 10px; margin-top: 5px;'>No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="help-block" id='id_registered_financial_advisor_error1'></div>
+                                        </div>
+                                        <div class='form-group loop-form-group col-lg-3 col-md-3 col-sm-6'>
+                                            <label>SEBI Registration Number</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_sebi_reg_no1' name='sebi_reg_no1' placeholder='INB011289536 (BSE)' type='text'>
+                                            </div>
+                                            <div class="help-block" id='id_sebi_error1'></div>
+                                        </div>
+                                        <div class='form-group loop-form-group col-lg-3 col-md-3 col-sm-6'>
+                                            <label>AMFI Registration Number</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_amfi_reg_no1' name='amfi_reg_no1'  placeholder='IR/IMD/DF/21/2061' type='text'>
+                                            </div>
+                                            <div class="help-block" id='id_amfi_error1'></div>
+                                        </div>
+                                    </div>
+                                    <div class="refer-advisor-lablehight row">
+                                        <div class='form-group loop-form-group col-lg-3 col-sm-6 col-md-3 loop_form'>
+                                            <label>IRDA Registration Number</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_irda_reg_no1' name='irda_reg_no1'  placeholder='2409_GI_2004_ENG' type='text'>
+                                            </div>
+                                            <div class="help-block" id='id_irda_error1'></div>
+                                        </div>
+                                        <div class='form-group loop-form-group col-lg-3 col-sm-6 col-md-3 loop_form'>
+                                            <label>CRISIL Verified Number</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_crisil_verified_no1' name='crisil_verified_no1'   placeholder='SME4GISE1' type='text'>
+                                            </div>
+                                            <div class="help-block" id='id_crisil_error1'></div>
+                                        </div>
+                                        <div class='form-group loop-form-group col-lg-3 col-sm-6 col-md-3 loop_form'>
+                                            <label>Year's of relationship</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_know_duration1' name='know_duration1'  placeholder='5 years' type='number' onchange='validate_duration(1);'>
+                                            </div>
+                                            <div class="help-block" id='id_know_duration_error1'></div>
+                                        </div>
+                                        <div class='form-group loop-form-group col-lg-3 col-sm-6 col-md-3 '>
+                                            <label>Why do you believe he/she can be become an advisor?</label>
+                                            <div class='control'>
+                                                <input class='form-control' id='id_believe_become_advisor1' name='believe_become_advisor1' placeholder='Enter your thoughts' type='text'>
+                                            </div>
+                                            <div class="help-block" id='id_believe_become_advisor_error1'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-12 col-sm-12 text-right">
+                                    <a class="add_field additional_btn additional_btn_plus" href="#" id="add_field" onclick="addloop();">
+                                            <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='form-group col-lg-12 col-md-12 col-sm-12 loop_tandc text-center'>
+                                    {% if user_agent_country == REGION_IN  %}
+                                    <button type='button' name='button1' class='btn btn-default add-client-btn' onclick='showhidediv(1);'> Additional Information</button>
+                                    {% endif %}
+                                    <!-- <button type='button' name='loop_advisor' id='loop_advisor' class='btn btn-default add-client-btn' onclick='save_refer_advisor()'> Submit</button> -->
+                                    <!-- <a href="/advisor_loop_termsandconditions/" target="_blank" class="pull-right">Terms and Conditions </a> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <table id="loop_list" name="loop_list" class="table table-bordered table-striped" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button type='button' name='loop_advisor' id='loop_advisor' class='btn upwrdz-button' onclick='save_refer_advisor()'> Submit</button>
+                        
+                    </div>
+                    <div class="col-12 text-center">
+                           &nbsp; <br/>
+                        <a class="add_field additional_btn additional_btn_term" href="/advisor_loop_termsandconditions/" target="_blank" class="text-center">Terms and Conditions </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/static/js/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/utils.js' %}"></script>
+<script type="text/javascript">
+    var user_agent_country = '{{user_agent_country}}';
+    var default_country = '{{REGION_IN}}';
+    var user_email = "{{user.username}}";
+    $(document).ready(function(){
+        $('#loop_list').dataTable( {
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false
+            } );
+        if ($('#id_products_serviced').val() || $('#id_sebi_reg_no').val() || $('#id_amfi_reg_no').val() || $('#id_irda_reg_no').val() || $('#id_crisil_verified_no').val() || $('#id_know_duration').val() || $('#id_believe_become_advisor').val()){
+            $('.additional_info').show()
+        }
+    });
+
+    function init_tele_refer(){
+        $(".id_phone").intlTelInput({
+            nationalMode: false,
+            initialCountry: user_agent_country,
+            separateDialCode: true,
+            autoPlaceholder: "off",
+            nationalMode: false,
+            hiddenInput: "mobile",
+        });
+    }
+    init_tele_refer();
+
+    var IDs = [];
+    IDs.push(1);
+    var k=1;
+    function addloop(){
+        var validation_result=validate_all();
+            if(validation_result == true){
+            k=k+1;
+            IDs.push(k);
+        if (user_agent_country == default_country) {
+        $("#loop_list_view").append("<li id='list"+k+"'><div class='panel-body pannel-popup-content'><form id='refer_advisor_form"+k+"' method='POST' class='refer-advisor-form' action='/save_refer_advisor/'><div class='row'><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-2 pr-1'><label>Name</label><div class='control'><input class='form-control' id='id_name"+k+"' name='name"+k+"' placeholder='' type='text' onChange='clear_name_errors("+k+")'></div><div class='help-block' id='id_name_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-1 pr-1'><label>Email ID</label><div class='control'><input class='form-control' id='id_email"+k+"' name='email"+k+"' placeholder='' type='text' onchange='check_email(id,"+k+");'></div><div class='help-block' id='id_email_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-1 pr-1'><label>Mobile Number</label><div class='control'><input class='form-control id_phone' id='id_phone"+k+"' name='phone"+k+"' placeholder='' type='tel' onchange='validateMobile(id,"+k+");'></div><div class='help-block' id='id_phone_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-1 pr-2'><label>Location</label><div class='control'><input class='form-control' id='id_location"+k+"' name='location"+k+"'   placeholder='' type='text' onChange='clear_location_errors("+k+");'></div><div class='help-block' id='id_location_error"+k+"'></div></div></div><div class='additional_info row' style='display:none;' id='additional_info"+k+"' name='additional_info"+k+"'><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>Products serviced</label><div class='control'><input class='form-control' id='id_products_serviced"+k+"' name='products_serviced"+k+"'  placeholder='Product serviced' type='text'></div><div class='help-block' id='id_product_serviced_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>Registered financial advisor</label><div class='control loop-form-radio-one'><div class='col-sm-12 col-md-12 col-lg-12 loop-form-group-one'><div class='col-sm-6 col-md-6 col-lg-6 '><input class='form-control' id='id_registered_financial_advisor_0"+k+"' name='registered_financial_advisor"+k+"' value='1' type='radio'><label for='id_registered_financial_advisor_0' style='margin-left: 25px; margin-top: 5px;'>Yes</label></div><div class='col-sm-6 col-md-6 col-lg-6 loop-form-group-one'><input class='form-control' id='id_registered_financial_advisor_1"+k+"' name='registered_financial_advisor"+k+"' value='0' type='radio'><label for='id_registered_financial_advisor_1' style='margin-left: 25px; margin-top: 5px;'>No</label></div></div></div><div class='help-block' id='id_registered_financial_advisor_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>SEBI Registration Number</label><div class='control'><input class='form-control' id='id_sebi_reg_no"+k+"' name='sebi_reg_no"+k+"'  placeholder='INB011289536 (BSE)' type='text'></div><div class='help-block' id='id_sebi_reg_no_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>AMFI Registration Number</label><div class='control'><input class='form-control' id='id_amfi_reg_no"+k+"' name='amfi_reg_no"+k+"'  placeholder='IR/IMD/DF/21/2061' type='text'></div><div class='help-block' id='id_amfi_reg_no_error"+k+"'></div></div><div class='refer-advisor-lablehight'><div class='form-group loop-form-group col-lg-3 col-md-3 col-xs-12 loop_form'><label>IRDA Registration Number</label><div class='control'><input class='form-control' id='id_irda_reg_no"+k+"' name='irda_reg_no"+k+"'  placeholder='2409_GI_2004_ENG' type='text'></div><div class='help-block' id='id_irda_reg_no_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group loop_form'><label>CRISIL Verified Number</label><div class='control'><input class='form-control' id='id_crisil_verified_no"+k+"' name='crisil_verified_no"+k+"' placeholder='SME4GISE1' type='text'></div><div class='help-block' id='id_crisil_reg_no_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group loop_form'><label>Year's of relationship</label><div class='control'><input class='form-control' id='id_know_duration"+k+"' name='know_duration"+k+"' placeholder='5 years' type='text' onchange='validate_duration("+k+");'></div><div class='help-block' id='id_know_duration_reg_no_error"+k+"'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>Why do you believe he can be become an advisor?</label><div class='control'><input class='form-control' id='id_believe_become_advisor"+k+"' name='believe_become_advisor"+k+"' placeholder='Enter your thoughts'text'></div><div class='help-block' id='id_believe_become_advisor_reg_no_error"+k+"'></div></div></div></div><div class='row'><div class='form-group col-lg-12 col-md-12 col-xs-12 loop-form-group text-center'><button type='button' name='button"+k+"' class='btn btn-default popup-btn add-client-btn'onclick='showhidediv("+k+");'> Additional Information</button><a class='remove_field btn additional_btn text-right' id='remove_field"+k+"' onclick='remove_loop(list"+k+","+k+");'><i class='fa fa-minus-circle'></i></a></div></div></form></div></li>");
+        init_tele_refer();
+        refreshtable();
+        }else{
+            $("#loop_list_view").append("<li id='list" + k + "'><div class='panel-body pannel-popup-content'><form id='refer_advisor_form" + k + "' method='POST' class='refer-advisor-form' action='/save_refer_advisor/'><div class='row'><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-2 pr-1'><label>Name</label><div class='control'><input class='form-control' id='id_name" + k + "' name='name" + k + "' placeholder='' type='text' onChange='clear_name_errors(" + k + ")'></div><div class='help-block' id='id_name_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-1 pr-1'><label>Email ID</label><div class='control'><input class='form-control' id='id_email" + k + "' name='email" + k + "' placeholder='' type='text' onchange='check_email(id," + k + ");'></div><div class='help-block' id='id_email_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-1 pr-1'><label>Mobile Number</label><div class='control'><input class='form-control id_phone' id='id_phone" + k + "' name='phone" + k + "' placeholder='' type='tel' onchange='validateMobile(id," + k + ");'></div><div class='help-block' id='id_phone_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-6 col-sm-6 loop-form-group pl-1 pr-2'><label>Location</label><div class='control'><input class='form-control' id='id_location" + k + "' name='location" + k + "'   placeholder='' type='text' onChange='clear_location_errors(" + k + ");'></div><div class='help-block' id='id_location_error" + k + "'></div></div></div><div class='additional_info row' style='display:none;' id='additional_info" + k + "' name='additional_info" + k + "'><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>Products serviced</label><div class='control'><input class='form-control' id='id_products_serviced" + k + "' name='products_serviced" + k + "'  placeholder='Product serviced' type='text'></div><div class='help-block' id='id_product_serviced_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>Registered financial advisor</label><div class='control loop-form-radio-one'><div class='col-sm-12 col-md-12 col-lg-12 loop-form-group-one'><div class='col-sm-6 col-md-6 col-lg-6 '><input class='form-control' id='id_registered_financial_advisor_0" + k + "' name='registered_financial_advisor" + k + "' value='1' type='radio'><label for='id_registered_financial_advisor_0' style='margin-left: 25px; margin-top: 5px;'>Yes</label></div><div class='col-sm-6 col-md-6 col-lg-6 loop-form-group-one'><input class='form-control' id='id_registered_financial_advisor_1" + k + "' name='registered_financial_advisor" + k + "' value='0' type='radio'><label for='id_registered_financial_advisor_1' style='margin-left: 25px; margin-top: 5px;'>No</label></div></div></div><div class='help-block' id='id_registered_financial_advisor_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>SEBI Registration Number</label><div class='control'><input class='form-control' id='id_sebi_reg_no" + k + "' name='sebi_reg_no" + k + "'  placeholder='INB011289536 (BSE)' type='text'></div><div class='help-block' id='id_sebi_reg_no_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>AMFI Registration Number</label><div class='control'><input class='form-control' id='id_amfi_reg_no" + k + "' name='amfi_reg_no" + k + "'  placeholder='IR/IMD/DF/21/2061' type='text'></div><div class='help-block' id='id_amfi_reg_no_error" + k + "'></div></div><div class='refer-advisor-lablehight'><div class='form-group loop-form-group col-lg-3 col-md-3 col-xs-12 loop_form'><label>IRDA Registration Number</label><div class='control'><input class='form-control' id='id_irda_reg_no" + k + "' name='irda_reg_no" + k + "'  placeholder='2409_GI_2004_ENG' type='text'></div><div class='help-block' id='id_irda_reg_no_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group loop_form'><label>CRISIL Verified Number</label><div class='control'><input class='form-control' id='id_crisil_verified_no" + k + "' name='crisil_verified_no" + k + "' placeholder='SME4GISE1' type='text'></div><div class='help-block' id='id_crisil_reg_no_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group loop_form'><label>Year's of relationship</label><div class='control'><input class='form-control' id='id_know_duration" + k + "' name='know_duration" + k + "' placeholder='5 years' type='text' onchange='validate_duration(" + k + ");'></div><div class='help-block' id='id_know_duration_reg_no_error" + k + "'></div></div><div class='form-group col-lg-3 col-md-3 col-xs-12 loop-form-group'><label>Why do you believe he can be become an advisor?</label><div class='control'><input class='form-control' id='id_believe_become_advisor" + k + "' name='believe_become_advisor" + k + "' placeholder='Enter your thoughts'text'></div><div class='help-block' id='id_believe_become_advisor_reg_no_error" + k + "'></div></div></div></div><div class='row'><div class='form-group col-lg-12 col-md-12 col-xs-12 loop-form-group text-right'><a class='remove_field btn additional_btn additional_btn_plus' id='remove_field" + k + "' onclick='remove_loop(list" + k + "," + k + ");'><i class='fa fa-minus-circle'></i></a></div></div></form></div></li>");
+            init_tele_refer();
+            refreshtable();
+        }
+    }
+    }
+    function refreshtable(){
+            $('#loop_list').dataTable().fnClearTable();
+            for(var j=0; j<IDs.length; j++) {
+                var i=IDs[j];
+                var name=$('#id_name'+i).val();
+                var email=$('#id_email'+i).val();
+                var phone=$('#id_phone'+i).val();
+                var location=$('#id_location'+i).val();
+                var products_serviced=$('#id_products_serviced'+i).val();
+                if($('#id_registered_financial_advisor_1'+i).val()==1){
+                    var registered_financial_advisor=1;
+                }else{
+                    var registered_financial_advisor=0;
+                }
+                var sebi_reg_no=$('#id_sebi_reg_no'+i).val();
+                var amfi_reg_no=$('#id_amfi_reg_no'+i).val();
+                var irda_reg_no=$('#id_irda_reg_no'+i).val();
+                var crisil_verified_no=$('#id_crisil_verified_no'+i).val();
+                var know_duration=$('#id_know_duration'+i).val();
+                if(know_duration=="")
+                {
+                    know_duration=0;
+                }
+                var believe_become_advisor=$('#id_believe_become_advisor'+i).val();
+                var t = $('#loop_list').DataTable();
+                    t.row.add( [
+                        name,
+                        email,
+                        phone,
+                        location,
+                        products_serviced,
+                        registered_financial_advisor,
+                        sebi_reg_no,
+                        amfi_reg_no,
+                        irda_reg_no,
+                        crisil_verified_no,
+                        know_duration,
+                        believe_become_advisor
+                    ] ).draw( false );
+                $('#loop_list').dataTable();
+            }
+    }
+    function showhidediv(value){
+        $('#additional_info'+value).toggle();
+    }
+    function showhidedivmain(){
+        $('#additional_info').toggle();
+    }
+    function remove_loop(id,index){
+        if(k>1){
+            $(id).remove();
+            var i = IDs.indexOf(index);
+            if(i != -1) {
+                IDs.splice(i, 1);
+            }
+            refreshtable();
+        }
+    }
+    function validateMobile(id,count) {
+        var isValidNumber = $(".id_phone").intlTelInput("isValidNumber");
+        if(isValidNumber== false) {
+            document.getElementById(id).value = "";
+            $(".id_phone").focus();
+            document.getElementById('id_phone'+count).style.border='1px solid #C32F2F';
+            document.getElementById('id_phone_error'+count).innerHTML = "Please enter valid mobile number.";
+        }else{
+            document.getElementById('id_phone'+count).style.border='';
+            document.getElementById('id_phone_error'+count).innerHTML = "";
+        }
+    }
+
+    function validate_all(){
+        $('#loop_list').dataTable().fnClearTable();
+        var missed_filed_count = 0;
+        for(var k = 0; k < IDs.length; k++){
+            var status =document.getElementById('id_email_error'+IDs[k]).innerText;
+            if(status !='The advisor is already exist in our system'){
+                document.getElementById('id_email'+IDs[k]).style.border='';
+                document.getElementById('id_email_error'+IDs[k]).innerHTML = "";
+            }
+        }
+        for(var j=0; j<IDs.length; j++) {
+            var i=IDs[j];
+            var name=$('#id_name'+i).val();
+            var email=$('#id_email'+i).val();
+            var location=$('#id_location'+i).val();
+            var products_serviced=$('#id_products_serviced'+i).val();
+            var isValidNumber = $('#id_phone'+i).intlTelInput("isValidNumber");
+            if(name == ''){
+                document.getElementById('id_name'+i).style.border='1px solid #C32F2F';
+                document.getElementById('id_name_error'+i).innerHTML='Please Enter Name';
+                $("#name"+i).focus();
+                missed_filed_count ++;
+            }else{
+                document.getElementById('id_name'+i).style.border='';
+                document.getElementById('id_name_error'+i).innerHTML='';
+            }
+            if(email == ''){
+                document.getElementById('id_email'+i).style.border='1px solid #C32F2F';
+                document.getElementById('id_email_error'+i).innerHTML='Please Enter Email ID';
+                $("#email"+i).focus();
+                missed_filed_count ++;
+            }else{
+                    var status =document.getElementById('id_email_error'+i).innerText;
+                    if(status=='The advisor is already exist in our system'){
+                        $("#id_email"+i).focus();
+                        missed_filed_count ++;
+                    }else{
+                        document.getElementById('id_email'+i).style.border='';
+                        document.getElementById('id_email_error'+i).innerHTML='';
+                    }
+            }
+            if(isValidNumber== false){
+                document.getElementById('id_phone'+i).style.border='1px solid #C32F2F';
+                document.getElementById('id_phone_error'+i).innerHTML='Please Enter Mobile Number';
+                $("#phone"+i).focus();
+                missed_filed_count ++;
+            }else{
+                document.getElementById('id_phone'+i).style.border='';
+                document.getElementById('id_phone_error'+i).innerHTML='';
+            }
+            if(location == ''){
+                document.getElementById('id_location'+i).style.border='1px solid #C32F2F';
+                document.getElementById('id_location_error'+i).innerHTML='Please Enter Location';
+                $("#location"+i).focus();
+                missed_filed_count ++;
+            }else{
+                document.getElementById('id_location'+i).style.border='';
+                document.getElementById('id_location_error'+i).innerHTML='';
+            }
+
+            for(var k = 0; k < IDs.length; k++){
+                if (IDs[j]!=IDs[k] && $('#id_email'+IDs[j]).val() == $('#id_email'+IDs[k]).val()){
+                    document.getElementById('id_email'+IDs[k]).style.border='1px solid #C32F2F';
+                    document.getElementById('id_email_error'+IDs[k]).innerHTML = "Duplicate email entry";
+                    document.getElementById('id_email'+IDs[j]).style.border='1px solid #C32F2F';
+                    document.getElementById('id_email_error'+IDs[j]).innerHTML = "Duplicate email entry";
+                    missed_filed_count ++;
+                }
+            }
+        }
+        if(missed_filed_count<1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    function clear_name_errors(id){
+        var name=$('#id_name'+id).val();
+        if(name != ''){
+            document.getElementById('id_name'+id).style.border='';
+            document.getElementById('id_name_error'+id).innerHTML='';
+        }
+    }
+    function clear_location_errors(id){
+        var location=$('#id_location'+id).val();
+        if(location != ''){
+            document.getElementById('id_location'+id).style.border='';
+            document.getElementById('id_location_error'+id).innerHTML='';
+        }
+    }
+    function validate_duration(id) {
+        var duration=$('#id_know_duration'+id).val();
+        // var reone = /^\d{0}[0-9]$/;
+        if(duration <= 0 || duration >= 100) {
+            document.getElementById('id_know_duration'+id).value = "";
+            alert("Enter Valid Duration");
+        }
+    }
+    function check_email(emailfield,count){
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        var email = document.getElementById(emailfield);
+        if(!re.test(email.value)) {
+            document
+                .getElementById(emailfield)
+                .value = "";
+            email.focus;
+            document
+                .getElementById('id_email_error'+count)
+                .innerHTML = "Enter a valid email address.";
+            return false;
+        }
+        else if(email.value.trim() == user_email){
+            document
+                .getElementById(emailfield)
+                .value = "";
+            document
+                .getElementById('id_email_error'+count)
+                .innerHTML = "You can't Loop yourself";
+        }else{
+            var token = "{{csrf_token}}";
+            $.ajax({
+                type: "POST",
+                url: "/dashboard/valid_email/",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-CSRFToken", token);
+                },
+                data:{'email_id': email.value},
+                success: function(response) {
+                    if(response=='success'){
+                        document
+                            .getElementById('id_email_error'+count)
+                            .innerHTML = "";
+                        document
+                            .getElementById(emailfield)
+                            .style.border = '1px solid #ced4da';
+                    }
+                    else if(response == 'Advisor already exist'){
+                        email.focus;
+                        document
+                            .getElementById('id_email_error'+count)
+                            .innerHTML = "The advisor is already exist in our system";
+                        return false;
+                    }
+                    else if(response == 'Advisor already referred'){
+                        email.focus;
+                        document
+                            .getElementById('id_email_error'+count)
+                            .innerHTML = "The advisor is already Referred by you";
+                        return false;
+                    }
+                }
+            });
+        }
+    }
+</script>

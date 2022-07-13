@@ -1,0 +1,43 @@
+<!--Self declaration Modal -->
+{% load staticfiles %}
+<style>
+    .skills-content-div .skills-content-colums{
+        padding-bottom: 20px;
+    }
+    .skills-content-div .skills-content-colums .checkbox-inline{
+        width: 30%;
+    }
+    #pincode{
+      color:#000;
+    }
+</style>
+<div class="modal fade upwardz-modal" id="id_pincode_modal" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <h3 class="modal-title n-span-blue-color" id="send_modal-title">Edit Pincode</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content modal-body">
+                    <div class="form-group">
+                        <div class="row skills-content-div">
+                            <div class="col-sm-6 skills-content-colums">
+                                <label>
+                                    Enter Pincode
+                                </label>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <input type="text" name="pincode" id="pincode" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <button type="button" name="button" class="btn upwrdz-button" id="edit_pincode_btn" onclick="edit_pincode_func();">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end skills Modal -->

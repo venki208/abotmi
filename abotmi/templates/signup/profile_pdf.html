@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title></title>
+	<style>
+	    @page {
+	        size: a4;
+	        background-image: url('/static/images/watermark.jpg');
+	        @frame header_frame {           /* Static Frame */
+                    -pdf-frame-content: header_content;
+                    left: 10pt;
+                    right: 10pt;
+                    width: 575pt;
+                    top: 5pt;
+                    height: 5pt;
+					background-color: #c7c7c7;
+                }
+	        @frame content_frame {
+	            left: 10pt;
+	            right: 10pt;
+	            width: 575pt;/*(766.666667px;)*/
+	            top: 5pt;
+	            bottom: 5pt;
+	            height: 800pt;/*(1093.333333px;)*/
+	        }
+
+	    }
+	    .profile_image{
+	    	width: 119px;
+	    	height: 119px;
+	    }
+		.profile_image img{
+			border-radius: 50%;
+			position: relative;
+			top: -20px;
+		}
+	    .section{
+	    	padding:0px 13px;
+	    	border-bottom: 1px #f2f2f2 solid;
+	    }
+
+	    .section-title{
+	    	font-size:20px;
+			font-weight:400;
+			color: #194d3f;
+	    }
+	    .section-sub-title{
+	    	font-size:15px;
+	    }
+	    .table-2{
+	    	padding-top:10px;
+	    }
+	    .land-mark{
+	    	padding-top:10px;
+	    }
+	    .practice-locations{
+	    	padding-top:10px;
+	    }
+	    .instruments-sold{
+	    	padding-top:10px;
+	    }
+	    p{
+	    	font-size: 18px;
+	    }
+	    .promise-tab{
+	    	padding-left: 28px;
+	    }
+	    .table {
+	    	border-spacing: 15px;
+	    }
+	    .table#t01 th {
+	    	background-color: bwhite;
+	    	color: white;
+	    }
+		.header_logo{
+			background: #000;
+			height: 20px;
+			width: 100px;
+		}
+		.experience-blog{
+			text-align: center;
+		}
+
+
+	</style>
+</head>
+<body>
+
+
+    <div style="padding:15px 5px 0px 5px; border-top:10px #7d7e9b solid;">
+		<table style="border-bottom:1px #7d7e9b solid; margin-bottom:20px;">
+			<tr>
+				<td width="18%" style="border-radius: 45px;">
+					<div class="profile_image" >
+					{% if profile_pic %}
+						<img src="{{profile_pic}}"   class="img-responsive"/><br /><br /> <br />
+					{% else %}
+						<img src="/static/images/profile-pic-img.png"  height="119" width="119"  class="img-responsive"/><br /><br /><br />
+					{% endif %}
+					</div>
+				</td>
+
+				<td style="text-align:left;" width="40%">
+					<p>
+						<span style="font-size:24px;"><b>{{ user.profile.first_name }} {{user.profile.middile_name}} {{user.profile.last_name}}</b></span><br />
+						<span Style="font-size:19px;">{{ user.profile.qualification }}</span><br />
+						<span style="color:#2e3191;font-size:14px;"><b>My belief : </b><span style="font-size:14px;color:#000000;">{{user.profile.my_belief}}</span></span><br />
+					</p>
+					<p>
+						<br/>
+					</p>
+				</td>
+				<td width="2%"; style="border-left:1px #7d7e9b solid; height:100%; "></td>
+
+				<td class="addrass-main-div" style="text-align:left; padding-left:15px; padding-top:20px;" width="40%">
+					<p>
+						<span style="font-size:13px;color:#7d7e9b;"><img src="{% static 'new_images/email_small.png' %}" class="img-center rating-img" alt="">&nbsp;{{ user.userprofile.email }}</span><br />
+						<span style="font-size:13px;color:#7d7e9b;"><img src="{% static 'new_images/mobile_number.png' %}" class="img-center rating-img" alt="">&nbsp;&nbsp;{{ user.userprofile.mobile }}</span><br />
+						<span style="font-size:13px;color:#7d7e9b;"><img src="{% static 'new_images/locality.png' %}" class="img-center rating-img" alt="">&nbsp;&nbsp;{{ user.userprofile.locality }}</span><br />
+						<span style="font-size:13px;color:#7d7e9b;"><img src="{% static 'new_images/city.png' %}" class="img-center rating-img" alt="">&nbsp;&nbsp;{{ user.userprofile.city }}</span><br />
+						<span style="font-size:13px;color:#7d7e9b;">{{ user.userprofile.office_address }}</span><br />
+					</p>
+
+				</td>
+			</tr>
+		</table>
+	</div>
+<!-- End of profile_pic, official details and address -->
+
+	<div  style="padding:4px;">
+		<table Style="padding:4px 10px;border-radius: 25px;">
+			<tr>
+				<td>
+					<table border="0"  style="color: white;border-radius: 25px;">
+						<tr>
+							<td style="background-color:#7d7e9b ;font-size:18px;padding:6px 0px 0px;"><b>&nbsp;&nbsp;ABOUT ME</b>
+							</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+						</tr>
+					</table>
+					<table border="0" Style="padding:5px" width="100%">
+						<tr>
+							<td>
+								<table>
+									<p style="font-size:14px; padding-top:20px; padding-left:0px;">{{user.profile.self_description}}</p>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- Start of Financial Intruments -->
+    <div style="padding:0px;">
+	</div>
+	{% if financial_instruments %}
+	<div  style="padding:4px;">
+		<table Style="padding:4px 10px;border-radius: 25px;">
+			<tr>
+				<td>
+				<table border="0"  style="color: white;border-radius: 25px;" >
+					<tr>
+						<td style="background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px;" width="40%">
+							<b style="line-height:30px;">&nbsp;&nbsp;&nbsp;EXPERIENCE</b>
+						</td>
+						<td style="font-size:18px;padding:3px">&nbsp;</td>
+						<!-- <td width="20%"></td> -->
+						<td style="background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px;" width="40%"><b> &nbsp;&nbsp;&nbsp;MY RATINGS</b>
+
+						</td><td style="font-size:18px;padding:3px">&nbsp;</td>
+					</tr>
+				</table>
+				<table border="0" Style="padding:5px" width="100%">
+					<tr>
+						<td width="50%">
+							<table>
+							    {% for financial_instrument in financial_instruments %}
+    								{% if financial_instrument.instruments %}
+    								<td>
+    									<p class="experience-blog">
+                        <span style="font-size:14px;padding:10px;">{{financial_instrument.experience}}</span>
+                        <img src="{% static 'new_images/stars.png' %}" class="img-center rating-img" alt="">
+    									</p>
+    									<p class="text-center" style="font-size:10px;">Years as <br/>
+    									{{financial_instrument.instruments}} Advisor</p>
+    								</td>
+    								{% endif %}
+								{% endfor %}
+							</table>
+						</td>
+						<td width="50%">
+							<table>
+								<td>
+									<p style="font-size:14px;border-top: 'solid';">
+										{% if member_rating  %}
+											<span style="font-size:14px;">Client Ranking - {{ member_rating | floatformat }}</span>
+										{% else %}
+											<span style="font-size:14px;">Client Ranking - Nil </span>
+										{% endif %}
+									</p>
+								</td>
+								<td>
+									<p style="font-size:14px;border-top: 'solid';">
+										{% if peer_rating  %}
+											<span style="font-size:14px;">Peer Rating - {{ peer_rating | floatformat }}</span>
+										{% else %}
+											<span style="font-size:14px;">Peer Rating - Nil </span>
+										{% endif %}
+									</p>
+								</td>
+							</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+    </div>
+	{% endif %}
+	<!-- End of Financial Instruments -->
+
+	<!-- My Promise -->
+	<div style="padding:0px;">
+	</div>
+	<div  style="padding:4px;">
+		<table Style="padding:4px 10px;border-radius: 25px;">
+			<tr>
+				<td>
+					<table border="0"  style="color: white;border-radius: 25px;" >
+						<tr>
+							<td style="background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px;">&nbsp;&nbsp;&nbsp;<b>MY PROMISE </b></td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+							<td style="font-size:18px;padding:3px">&nbsp;</td>
+						</tr>
+					</table>
+					<table border="0" Style="padding:5px" width="100%">
+						<tr>
+							<td>
+								<table>
+									<p style="font-size:14px; padding-top:20px; padding-left:0px;">{{user.profile.advisor.my_promise}}</p>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="padding:0px;">
+	</div>
+			<!-- start of Self Declaration table -->
+		    {% if user.profile.advisor.sebi_number or user.profile.advisor.amfi_number or user.profile.advisor.irda_number or user.profile.advisor.other_registered_number %}
+		    <div  style="padding:4px;">
+				<table Style="padding:4px 10px;border-radius: 25px;">
+					<tr>
+						<td>
+							<table border="0"  style="color: white;border-radius:25px;">
+								<tr width="100%">
+									<th  width="50%" style="background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px; border-right:15px #fff solid; text-align:left;">&nbsp;&nbsp;<b>REGULATORY&nbsp;REGISTRATION</b></th>
+									<th width="50%" style="background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px; text-align:left;">&nbsp;&nbsp;<b>&nbsp;&nbsp;&nbsp;ADVISORY&nbsp;SPECIALIZATION</b></th>
+								</tr>
+							</table>
+							<table border="0" Style="padding:5px" width="100%">
+								<tr>
+									<td width="50%">
+										<table>
+											{% if user.profile.advisor.sebi_number %}
+										    <td>
+												<p >
+												<img src="/static/new_images/sbi-logo.png"></p>
+											</td>
+											{% endif %}
+											{% if user.profile.advisor.amfi_number %}
+											<td>
+												<p>
+												<img src="/static/new_images/amfi-logo.png"></p>
+											</td>
+											{% endif %}
+											{% if user.profile.advisor.irda_number %}
+											<td>
+												<p>
+												<img src="/static/new_images/irda-logo.png"></p>
+											</td>
+											{% endif %}
+
+											{% if user.profile.advisor.other_registered_number %}
+											<td>
+                          <p style="font-size:14px;margin-bottom:2px;">{{user.profile.advisor.other_registered_organisation}}</p>
+											</td>
+                      {% endif %}
+											{% if rera_result %}
+											<td>
+                        <img src="/static/images/rera.png" class="img-responsive" style="width:40px;height:40px;">
+                        <p class="section-sub-title" style="padding-left:25px;"> </p>
+											</td>
+											{% endif %}
+											{% if user.profile.advisor.dsa_details %}
+											<td>
+												<p style="font-size:14px;margin-bottom:2px;">DSA</p>
+											</td>
+											{% endif %}
+											<td></td>
+										</table>
+									</td>
+									<td width="50%">
+										<table>
+										    {% for financial_instrument in financial_instruments %}
+    											  {% if financial_instrument.instruments %}
+    											  <td>
+      												<p> <img src="{% static 'new_images/stars.png' %}"> </p>
+      												<span style="font-size:11px;"> {{financial_instrument.instruments}} Advisor </span>
+      											</td>
+    											  {% endif %}
+											  {% endfor %}
+										</table>
+									</td>
+								</tr>
+							</table>
+					    </td>
+					</tr>
+				</table>
+		    </div>
+		    <!-- End of Self Declaration Table -->
+		    {% endif %}
+			<!-- start of Declaration table ORGANIZATION and CERTIFICATION -->
+			<div  style="padding:4px;">
+				<table Style="padding:4px 10px;border-radius: 25px;">
+					<tr>
+						<td>
+							<table border="0"  style="color: white;border-radius:25px; ">
+								<tr>
+									<th width="50%" style="text-align:left; background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px; border-right:15px #fff solid;">&nbsp;&nbsp;<b>ORGANIZATION </b></th>
+									<th width="50%" style="text-align:left; background-color:#7d7e9b;font-size:18px;padding:6px 0px 0px;">&nbsp;&nbsp;<b>&nbsp;&nbsp;&nbsp; CERTIFICATION</b></th>
+								</tr>
+							</table>
+							<table border="0" Style="padding:5px" width="100%">
+								<tr>
+									<td>
+										<table width="50%">
+											<td style="text-align:center;vertical-align:top;">
+												{% if approved_companies %}
+					                                {% for company in aprroved_companies %}
+					                                    <p class="col-md-4 col-sm-6 col-xs-4 text-center">
+					                                        <h4><a href="{{company.website_url}}" target="_blank"><img src="{{company.logo.url}}" class="img-responsive"/></a></h4>
+					                                    <p>Company Name <br/><span>{{company.company_name}}<span></p>
+					                                    </p>
+					                                {% endfor %}
+					                            {% else %}
+					                                    <p>Not yet added</p>
+					                            {% endif %}
+
+											</td>
+										</table>
+									</td>
+									<td>
+										{% if user.profile.advisor.sebi_number or user.profile.advisor.amfi_number or user.profile.advisor.irda_number or user.profile.advisor.other_registered_number %}
+										<table  width="50%">
+											<td style="text-align:center;vertical-align:top;">
+									            <p>
+													{% if user.profile.advisor.is_crisil_verified %}
+													<img src="/static/images/crisil_icon.png" height="40" width="40" />
+													{% endif %}
+													{% if user.profile.advisor.is_certified_advisor %}
+													<img src="/static/images/Stream_logos.png" height="40" width="40"/>
+													{% endif %}
+									                {% if advisor_level == "connected" %}
+									                    <img src="/static/images/My_Tea_01.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									                {% if advisor_level == "well_connected" or level_advisor == "well_connected" and advisor_level == "highly_conneted" %}
+									                    <img src="/static/images/My_Tea_02.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									                {% if advisor_level == "highly_conneted" %}
+									                    <img src="/static/images/My_Tea_03.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									                {% if advisor_level == "trusted" %}
+									                    <img src="/static/images/My_Tea_05.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									                {% if clients_level == 'large_client_based' %}
+									                    <img src="/static/images/My_Tea_04.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									                {% if clients_level == 'most_trusted' and not advisor_level == 'trusted_economic_advisor' %}
+									                    <img src="/static/images/My_Tea_06.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									                {% if advisor_level == 'trusted_economic_advisor' %}
+									                    <img src="/static/images/My_Tea_08.png" alt="SMART" class="img-responsive" height="40" width="40">
+									                {% endif %}
+									            </p>
+												</td>
+										</table>
+										{% else %}
+				                <p>Not yet added</p>
+										{% endif %}
+									</td>
+								</tr>
+							</table>
+					    </td>
+					</tr>
+				</table>
+			</div>
+			<!-- End of of Declaration table ORGANIZATION and CERTIFICATION  -->
+        <div style="padding:0px;">
+		</div>
+</body>
+</html>

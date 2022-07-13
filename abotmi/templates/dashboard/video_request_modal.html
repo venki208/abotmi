@@ -1,0 +1,76 @@
+{% load staticfiles %}
+<link href="{% static 'css/toggle_switch.css' %}" rel="stylesheet">
+<link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet">
+<!-- Video Confirmation Popup -->
+<div id="video-request-modal" class="modal fade upwardz-modal" role="dialog" name="video-request-modal" aria-hidden="true"
+    style="display:none;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">Microlearning Application Form</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="video-request-modal-body">
+                    <div class="row padding-tb8">
+                        <form id="microlearning_form" name="microlearning_form" method="POST">
+                            <div>
+                                <div class="form-group col-md-12" data-toggle="toggle">
+                                    <input class="form-control" placeholder="Title" name="microlearning_tittle" id="microlearning_tittle" type="text" max-length='25'
+                                        min-length='3' required='true'>
+                                    <span class="help-block" id="help-text-microlearning-tittle"></span>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <textarea class="form-control no-spin" id="descrition_of_the_topic" name="descrition_of_the_topic" required='true' autocomplete="off"
+                                        required="required" placeholder="Description of the topic"></textarea>
+                                    <span class="help-block" id="help-text-descrition_of_the_topic"></span>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6" data-toggle="toggle">
+                                    <input class="form-control" placeholder="Location" id="microlearning_location" name="microlearning_location" max-length='25'
+                                        min-length='3' required='true' type="text">
+                                    <span class="help-block" id="help-text-microlearning-location"></span>
+                                </div>
+
+                                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6" data-toggle="toggle">
+                                    <div class='input-group date' id='div_preffered_date_of_shoot'>
+                                        <input type="text" name="preffered_date_of_shoot" id="preffered_date_of_shoot" class="form-control date" autocomplete="off"
+                                            placeholder="preffered date of shoot" readonly="true" required='true'>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block" id="help-text-preffered-date-of-shoot"></span>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6 col-lg-12 col-md-12">
+                                    <label class="control-label">
+                                        Animation Required?
+                                    </label>
+                                    <label class="switch_slider">
+                                        <input type="checkbox" id="animation_required" name="animation_required" autocomplete="off">
+                                        <div class="slider round"></div>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12 text-center">
+                                    <button type="button" class="btn upwrdz-button" onclick="video_shoot_request();">SUBMIT</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var today = new Date();
+        $("#div_preffered_date_of_shoot").datetimepicker({
+            startDate: today,
+            showMeridian: true,
+            autoclose: true,
+            format: 'yyyy-mm-dd hh:ii:ss'
+        });
+    });
+</script>

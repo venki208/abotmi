@@ -1,0 +1,521 @@
+{% extends 'company/company_base.html' %}
+{% load staticfiles %}
+{% block custom_theme_css %}
+    {{block.super}}
+{% endblock %}
+{% block main_content %}
+<section class="body-section parent-section" id="about">
+	<div class="container body-container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="col-lg-8">
+					<h4 class="n-h4-black n-padding-b-15">
+						My Company Track
+					</h4>
+				</div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-xs-12 dashboard-class">
+				<div class="col-md-12">
+					<div class="panel panel-default profile-detailes-view">
+						<div class="panel-body pannel-profile">
+							<div class="col-lg-3 col-md-4 col-sm-3 col-xs-3 no-padding profile-picture">
+								<div class="picture">
+                                    {% if company_logo %}
+									    <img src="{{company_logo_url}}" class="img-responsive img-thumbnail" />
+                                    {% else %}
+                                        <img src="/static/images/profile-pic-img.png" class="img-responsive img-thumbnail" />
+                                    {% endif %}
+								</div>
+							</div>
+            	            <div class="col-lg-6 col-md-5 col-sm-6 col-xs-12 n-padding-lr-30">
+                	            <div class="col-sm-12 col-xs-12">
+                                    <h4 style="margin-top:0px;"><b>{{company_ob.company_name}}</b></h4>
+                        	        <span style="color:#555;font-size: 14px;">{{company_ob.tagline}}</span>
+                                </div>
+                                <div class="pull-left col-sm-12 col-xs-12 col-md-12 my-belief-view" data-toggle="toggle">
+                                    <p>
+                                        <span class="n-span-pink-color" style="display:inline;font-weight:600;">Objective</span>
+                                        &nbsp;-&nbsp;{{company_ob.objective}}
+                                    </p>
+                                </div>
+                            </div>
+              	            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 connection-counter">
+                		        <div class="col-xs-6 connection-count">
+                			 	    <h2>{{company_ob.users_count}}</h2>
+                			        <p class="n-span-yellow-color">Advisor Connections</p>
+                		        </div>
+              	            </div>
+                        </div>
+					</div>
+				</div>
+                <div class="col-md-12">
+                    <div class="panel panel-default profile-detailes-view">
+                        <div class="panel-heading dash-heading">
+                            <h4><span>Company Description</span></h4>
+                        </div>
+                        <div class="panel-body pannel-content registerd">
+                            <p class="text-justify">
+                                {{ company_ob.description }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default profile-detailes-view">
+                        <div class="panel-heading dash-heading">
+                            <h4><span>Awards and Rewards</span></h4>
+                        </div>
+                        <div class="panel-body pannel-content registerd">
+                            {% if awards_or_rewards%}
+                            <ul>
+                                {% for awards in awards_or_rewards %}
+                                    <li>
+                                        {{awards.awards_and_rewards}}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 dashboard-class">
+				<div class="no-padding right-menu">
+	                <div class="list-group invite-frnds invite-frnds-contact pull-left">
+				        <h4><img src="/static/images/contact-deta.png">&nbsp;&nbsp;Contact Details</h4>
+                        <div class="col-xs-12 n-contact-icon">
+              	            <div class="col-md-12 right-side-bar-column">
+              		            <i class="fa fa-envelope-o n-padding-r-5" aria-hidden="true"></i>
+              		            <p class="content">{{user.profile.email}}</p>
+              	            </div>
+                        </div>
+                        <div class="col-xs-12 n-contact-icon">
+              	            <div class="col-sm-12 right-side-bar-column">
+              		            <i class="fa fa-phone n-padding-r-5" aria-hidden="true"></i>
+              		            <p class="content">{{user.profile.mobile}}</p>
+              	            </div>
+                        </div>
+                        <div class="col-xs-12 n-contact-icon">
+                          	<div class="col-sm-12 right-side-bar-column">
+                          		<i class="fa fa-map-marker n-padding-r-5" aria-hidden="true"></i>
+                          		<p class="content">{{user.profile.city}}</p>
+                          	</div>
+                        </div>
+                        <div class="col-xs-12 n-contact-icon">
+                          	<div class="col-sm-12 right-side-bar-column" style="border-bottom:none;">
+                          		<i class="fa fa-map-marker n-padding-r-5" aria-hidden="true"></i>
+                          		<p class="content">{{user.profile.state}}</p>
+                          	</div>
+                        </div>
+					</div>
+					{% if user.is_authenticated and user.profile.facebook_media or user.profile.google_media or user.profile.linkedin_media or user.profile.twitter_media %}
+	                   <div class="list-group invite-frnds pull-left invite-frnds-media">
+						    <h4>My Social Media Connects</h4>
+							<p>
+                                {% if user.profile.facebook_media %}
+								    <a class="n-social-right" href="{{user.profile.facebook_media}}" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                                {% endif %}
+                                {% if user.profile.google_media %}
+								    <a class="n-social-right" href="{{user.profile.google_media}}" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a>
+                                {% endif %}
+                                {% if user.profile.linkedin_media %}
+								    <a class="n-social-right" href="{{user.profile.linkedin_media}}" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                                {% endif %}
+                                {% if user.profile.twitter_media %}
+								    <a class="n-social-right" href="{{user.profile.twitter_media}}" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true" ></i></a>
+                                {% endif %}
+							</p>
+    					</div>
+					{% endif %}
+				</div>
+ 			</div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                {% if user.is_authenticated %}
+    				<div class=" col-md-12 col-sm-12 col-xs-12 text-right tooltip-share">
+    					<span><a><button class="btn btn-sm upwrdz-button" data-toggle="modal" data-target="#id_upload_advisor_list_modal"><i class="fa fa-edit"></i>Upload Doc</button></a></span>
+                        <span><a><button class="btn btn-sm upwrdz-button" data-toggle="modal" data-target="#id_update_company_details_modal"><i class="fa fa-edit"></i>Edit</button></a></span>
+                        <span><a href="{% url 'company:employees_details' %}" class="btn btn-sm upwrdz-button" data-toggle="tooltip" data-placement="bottom" title="Click here to Approve, Reject, Disown or Re-own your advisors">Manage your Advisors</a></span>
+    				</div>
+    			{% else %}
+    				<div class="col-xs-12 text-left footer-btns">
+    					<p>
+    						<a href="#" onclick="signup_user_modal('#login-modal');">
+    							* Signup with UPWRDZ to become an advisor
+    						</a>
+    					</p>
+    					<p>
+    						<a href="{{ IREIN_URL | default:'https://test.northfacing.in/' }}">
+    							* Signup with NF to become a Member
+    						</a>
+    					</p>
+    				</div>
+    			{% endif %}
+            </div>
+	    </div>
+    </div>
+    <div class="section">
+    </div>
+</section>
+    {% endblock %}
+    {% block footer %}
+       {{ block.super }}
+    {% endblock %}
+    {% block copy_rights %}
+       {{ block.super }}
+    {% endblock %}
+    {% block bootstrap-modal %}
+       <div class="modal fade bs-example-modal-lg upwardz-modal" id="id_update_company_details_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="panel panel-default upwrdz-log-panel">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color" id="send_modal-title">Edit Details</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content modal-body" id="id_update_company_details_modal_body">
+                        <form class="form-group" id="id_update_company_profile" name="update_company_profile" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="company_name">Company Name</label>
+                                    <input class="form-control" placeholder="The official name of your business as registered" name="company_name" id="company_name" type="text" onchange="validate_input(id);" value="{{company_ob.company_name}}">
+                                    <span class="help-block" id="help-text-company_name"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="company_tagline">Company Tagline</label>
+                                    <input class="form-control" placeholder="Company Branding tagline" name="company_tagline" id="company_tagline" type="text" onchange="validate_input(id);" value="{{company_ob.tagline}}">
+                                    <span class="help-block" id="help-text-company_tagline"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="company_url">Company URL</label>
+                                    <input class="form-control" placeholder="Company Web URL" name="company_url" id="company_url" type="text" onchange="validate_input(id);" value="{{company_ob.website_url}}">
+                                    <span class="help-block" id="help-text-company_url"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
+                                    <label for="Company Description">Company Description <span>*</span></label>
+                                    <textarea rows="5" type="text" class="form-control" name="company_description" id="company_description" placeholder="Your Company Description" onchange="validate_input(id);" style="height: auto;">{{ company_ob.description }}</textarea>
+                                    <span class="help-block" id="help-text-company_description"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="company_objective">Company Objective <span>*</span></label>
+                                    <input class="form-control" placeholder="Company Objective" name="company_objective" id="company_objective" type="text" onchange="validate_input(id);" value="{{company_ob.objective}}">
+                                    <span class="help-block" id="help-text-company_objective"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="company_address">Company Address <span>*</span></label>
+                                    <input class="form-control" placeholder="Your Company Address" name="company_address" id="company_address" type="text" onchange="validate_input(id);" value="{{user.profile.street_name}}">
+                                    <span class="help-block" id="help-text-company_address"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="address_line_2">Address Line2 <span>*</span></label>
+                                    <input class="form-control" placeholder="address line 2" name="address_line_2" id="address_line_2" type="text" onchange="validate_input(id);" value="{{user.profile.address}}">
+                                    <span class="help-block" id="help-text-address_line_2"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="location">Location <span>*</span></label>
+                                    <input class="form-control" placeholder="Location" name="location" id="location" type="text" onchange="validate_input(id);" value="{{user.profile.locality}}">
+                                    <span class="help-block" id="help-text-location"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="city">City <span>*</span></label>
+                                    <input class="form-control" placeholder="City" name="city" id="city" type="text" onchange="validate_input(id);" value="{{user.profile.city}}">
+                                    <span class="help-block" id="help-text-city"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">State <span>*</span></label>
+                                    <input class="form-control" placeholder="State" name="state" id="state" type="text" onchange="validate_input(id);" value="{{user.profile.state}}">
+                                    <span class="help-block" id="help-text-state"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4><label>Point of Contact</label></h4>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="contact_name">Contact Name <span>*</span></label>
+                                    <input class="form-control" placeholder="point of contact Name" name="point_of_contact_name" id="point_of_contact_name" type="text" onchange="validate_input(id);" value="{{user.profile.first_name}}">
+                                    <span class="help-block" id="help-text-point_of_contact_name"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="phone number">Mobile Number <span>*</span></label>
+                                    <input class="form-control" placeholder="point of contact Phone number" name="point_of_contact_phone_number" id="point_of_contact_phone_number" type="text" onchange="validate_input(id);" value="{{user.profile.mobile}}">
+                                    <span class="help-block" id="help-text-point_of_contact_phone_number"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4><label>Social Media Links</label></h4>
+                                </div>
+                                <div class="col-md-4 social-media-icons-links n-padding-0">
+                                    <input class="form-control" placeholder="Company social media links" name="facebook_media" id="facebook_media" type="text" onchange="validate_input(id);" value="{{user.profile.facebook_media}}">
+                                    <label for="ex3"><i class="fa fa-facebook-square fa-2x" aria-hidden="true" style="color:#3b5999 "></i></label>
+                                    <span class="help-block" id="help-text-facebook_media"></span>
+                                </div>
+                                <div class="col-md-4 social-media-icons-links n-padding-0">
+                                    <input class="form-control" placeholder="Company social media links" name="google_media" id="google_media" type="text" onchange="validate_input(id);" value="{{user.profile.google_media}}">
+                                    <label for="ex3"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true" style="color:#dd4b39"></i></label>
+                                    <span class="help-block" id="help-text-google_media"></span>
+                                </div>
+                                <div class="col-md-4 social-media-icons-links n-padding-0">
+                                    <input class="form-control" placeholder="Company social media links" name="linkedin_media" id="linkedin_media" type="text" onchange="validate_input(id);" value="{{user.profile.linkedin_media}}">
+                                    <label for="ex3"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true" style="color:#0077b5"></i></label>
+                                    <span class="help-block" id="help-text-linkedin_media"></span>
+                                </div>
+                                <div class="col-md-4 social-media-icons-links n-padding-0">
+                                    <input class="form-control" placeholder="Company social media links" name="twitter_media" id="twitter_media" type="text" onchange="validate_input(id);" value="{{user.profile.twitter_media}}">
+                                    <label for="ex3"><i class="fa fa-twitter-square fa-2x" aria-hidden="true" style="color:#4099FF"></i></label>
+                                    <span class="help-block" id="help-text-twitter_media"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="ex2">Awards and Rewards</label>
+                                    <a class="btn additional_btn btn-add-respn" id="rera_field" onClick="add_awards_and_rewards();">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div id="awards_and_rewards_div"></div>
+                                    <span class="help-block" id="help-text-add_financial_organisation_main"></span>
+                                </div>
+                                <input type="hidden" id="all_awards_and_rewards" name="all_awards_and_rewards">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="button" id="id_update_form" name="update_form" class="btn upwrdz-button" onclick="update_company_details();">
+                                    Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bs-example-modal-lg upwardz-modal" id="id_upload_advisor_list_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="panel panel-default upwrdz-log-panel">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color" id="send_modal-title">Upload Advisor details</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content modal-body" id="id_upload_advisor_list_modal_body">
+                       <form action="/company/upload_advisors_data/" name="upload_advisor_list" id="upload_advisor_list" method="post" class="contact-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <p>Advisor list</p>
+                            <div class="form-group control-group">
+                                <div class="control">
+                                    <input type="file" name="documents_advisor_list" id="documents_advisor_list" class="form-control" required="required" onchange="ChooseDocument_advisor_list();"/>
+                                </div>
+                                <span class="help-block"></span>
+                            </div>
+                            <div name="upload_file_btn" id="upload_file_btn" style="display: none;">
+                                <input type="button" class="btn btn-primary btn-sm" id="upload_file_btn" required="required" value="Upload" onclick="UploadUserDocuments_advisor_list()"/>
+                                <input type="button" class="btn btn-danger btn-sm" id="certificate_cancel" value="Cancel" onclick="upload_cancel('documents_advisor_list','upload_file_btn');"></input>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block theme_scripts %}
+        {{block.super}}
+        <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+        <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+    {% endblock %}
+    {% block scripts %}
+        {{ block.super }}
+        <script type="text/javascript">
+            var x=0;
+            var allids = [];
+            var max_fields= 5;
+            loadingPage();
+            function validate_form() {
+                var missed_field = 0
+                var i=0;
+                var field_ids = ['point_of_contact_phone_number','point_of_contact_name','state','city','location','address_line_2',
+                'company_address','company_description','company_objective','company_url','company_tagline',
+                'company_name']
+                var validation_messages = ['Please Enter Mobile Number','Please Enter Name','Please Enter State','Please Enter City','Please Enter Location','Please Enter Address Line2','Please Enter Company Address','Please Enter Company Descrption','Please Enter Company Objective','Please Enter Company URL','Please Enter Company Tag Line','Please Enter Your Company Name']
+                for (i=0; i<=field_ids.length; i++){
+                    if($.trim($('#'+field_ids[i]).val()) == '' && $('#'+field_ids[i]).val() == ''){
+                        $('#'+field_ids[i]).addClass('not_valid');
+                        $('#'+field_ids[i]).focus();
+                        $('#help-text-'+field_ids[i]).html(validation_messages[i]);
+                        missed_field++;
+                    }
+                }
+                for(var j=0; j<allids.length; j++) {
+                    var i=allids[j];
+                    if($('#awards_and_rewards'+i).val() == ""){
+                        $("#awards_and_rewards"+i).addClass("not_valid");
+                        $("#help_awards_and_rewards"+i).html('Please Enter Awards And Rewards');
+                        document.getElementById('awards_and_rewards'+i).focus();
+                        missed_field++;
+                    }else{
+                        $("#year_of_association"+i).removeClass('not_valid');
+                        document.getElementById('help_awards_and_rewards'+i).innerHTML='';
+                    }
+                }
+                return missed_field;
+            }
+
+            function ChooseDocument_advisor_list(){
+                document.getElementById('upload_file_btn').style.display='block';
+            }
+
+            function UploadUserDocuments_advisor_list() {
+                if($("#documents_advisor_list").val()=="")
+                    alert("Please upload the advisor_list file");
+                else
+                    $('#upload_advisor_list').submit();
+            }
+
+            function loadingPage(){
+                var on_val = "{{company_ob.awards_or_rewards}}";
+                if (on_val){
+                    q1=on_val.replace(/&quot;/gi,"\"");
+                    var obj = JSON.parse(q1);
+                    num=obj.length;
+                    var wrapper=$("#awards_and_rewards_div");
+                    if (num!="") {
+                        for(var ivalue = 1; ivalue <=num; ivalue++) {
+                            x++;
+                            allids.push(x);
+                            var name = obj[ivalue-1].awards_and_rewards;
+                            $(wrapper).append('<div class="row"><div class="col-md-11 col-xs-11 col-sm-11" id="awards_and_rewards_sub'+x+'" ><div class="col-md-11 col-xs-12 col-sm-6"><div class="control"><input type="text" class="form-control" name="awards_and_rewards'+x+'" id="awards_and_rewards'+x+'" placeholder="Awards and Rewards" value="'+name+'"></input><span class="help-block" id="help_awards_and_rewards'+x+'"></span></div></div><div class="col-md-1 col-xs-1 col-sm-1"><a class = "remove_field btn additional_btn" id = "remove_field" onClick="remove_data('+x+');"><i class="fa fa-minus-circle" ></i></a></div></div>');
+                        }
+                        creating_institutions_json();
+                    }
+                }
+            }
+
+            function creating_institutions_json(){
+                var value1='';
+                var value2 ='';
+                if(allids.length>0){
+                    for(var j=0; j<allids.length; j++) {
+                        var i=allids[j];
+                        var awards_and_rewards = document.getElementById('awards_and_rewards'+i).value;
+                        if(i==allids[0]){
+                            value1 = '[{"awards_and_rewards":"'+awards_and_rewards+'"}';
+
+                        }else{
+                            value2 = ',{"awards_and_rewards":"'+awards_and_rewards+'"}';
+                        }
+                        value1 = value1+value2;
+                    }
+                    value3=']';
+                    value1=value1+value3;
+                }
+                document.getElementById("all_awards_and_rewards").value = value1;
+            }
+        </script>
+        <script type="text/javascript">
+            var wrapper=$("#awards_and_rewards_div");
+            function add_awards_and_rewards(){
+                if(validation_awards_rewards()){
+                    if(allids.length < max_fields){
+                        x++;
+                        allids.push(x);
+                        $(wrapper).append('<div class="row"><div class="col-md-11 col-xs-11 col-sm-11" id="awards_and_rewards_sub'+x+'" ><div class="col-md-11 col-xs-12 col-sm-6"><div class="control"><input type="text" class="form-control" name="awards_and_rewards'+x+'" id="awards_and_rewards'+x+'" placeholder="Awards and Rewards" ></input><span class="help-block" id="help_awards_and_rewards'+x+'"></span></div></div><div class="col-md-1 col-xs-1 col-sm-1"><a class = "remove_field btn additional_btn" id = "remove_field" onClick="remove_data('+x+');"><i class="fa fa-minus-circle" ></i></a></div></div>');
+                    }
+                    creating_institutions_json();
+                }
+            }
+            function remove_data(id){
+                $('#awards_and_rewards_sub'+id).remove();
+                var i = allids.indexOf(id);
+                if(i != -1) {
+                    allids.splice(i, 1);
+                }
+                creating_institutions_json();
+            }
+            function validation_awards_rewards(){
+                flag=true;
+                for(var j=0; j<allids.length; j++){
+                    var i=allids[j];
+                    if($('#awards_and_rewards'+i).val() == ""){
+                        $("#awards_and_rewards"+i).addClass("not_valid");
+                        $("#help_awards_and_rewards"+i).html('Please Enter Awards And Rewards');
+                        document.getElementById('awards_and_rewards'+i).focus();
+                        flag=false;
+                    }else{
+                        $("#year_of_association"+i).removeClass('not_valid');
+                        document.getElementById('help_awards_and_rewards'+i).innerHTML='';
+                    }
+                }
+                return flag;
+            }
+        </script>
+        <script type="text/javascript">
+            function update_company_details(){
+                creating_institutions_json();
+                var validation_result = validate_form();
+                token = "{{ csrf_token }}";
+                if (validation_result == 0){
+                    var formData = new FormData($('#id_update_company_profile')[0]);
+                    $.ajax({
+                        type : 'POST',
+                        beforeSend: function(request){
+                            request.setRequestHeader("X-CSRFToken",token);
+                        },
+                        url : "{% url 'company:update_company_details' %}",
+                        data: formData,
+                        success: function (response){
+                            if(response == 'success'){
+                                window.location.reload();
+                            }
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+            }
+        </script>
+    {% endblock %}
+	{% block social_share %}
+    	<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+    	<script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
+	    <script type="text/javascript">
+	        function fb_share(){
+	            var page = "{{DEFAULT_DOMAIN_URL | default:'http://localhost:8000'}}/profile/{{user_data.profile.referral_code}}/";
+	            var fbpopup = window.open("https://www.facebook.com/sharer/sharer.php?u="+page, "pop", "width=600, height=400, scrollbars=no");
+	        }
+	        function LinkedInShare(){
+                window.open("https://www.linkedin.com/shareArticle?mini=true&url={{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/&title=REIAGlobal&summary=My%20REIAGlobal%20Shared%20Profile&source=LinkedIn",'linkedin','height=400,width=600');
+	        }
+	        function googleplusbtn(url){
+                javascript:window.open('https://plus.google.com/share?url='+url+'','','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=200,width=600');
+			    return false;
+			}
+			function twitter_share(){
+				var width  = 575,
+			        height = 400,
+			        left   = ($(window).width()  - width)  / 2,
+			        top    = ($(window).height() - height) / 2,
+			        url    = "https://twitter.com/intent/tweet?url={{DEFAULT_DOMAIN_URL}}/profile/{{user_data.profile.referral_code}}/",
+			        opts   = 'status=1' +
+			                 ',width='  + width  +
+			                 ',height=' + height +
+			                 ',top='    + top    +
+			                 ',left='   + left;
+
+			    window.open(url, 'twitter', opts);
+			    return false;
+			}
+	    </script>
+    {% endblock %}

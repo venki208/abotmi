@@ -1,0 +1,58 @@
+{% load staticfiles %}
+{% load utils_tags %}
+<style>
+    .media-body span{
+        font-size: 12px;
+    }
+    .unread{
+        background: #f4f1f0;
+    }
+    .notif-divider{
+        border-color: #d0d3d6;
+        margin: 0;
+    }
+    .nf-prof-pic{
+        width: 38px;
+        height: 37px;
+        border-radius: 50%;
+    }
+    .notif-act-btn{
+        background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%);
+        font-size: 13px;
+        color: #FFF;
+        padding: 2px 10px;
+        font-weight: 600;
+    }
+</style>
+{% if not nf_res %}
+    <h6 class="pl-4">You have {{n_f_count}} new notifications.</h6>
+{% endif %}
+{% for nf in nf_res %}
+<div class="media p-2 {% if not nf.read_status %}unread{% endif %}" {% if not nf.message.action and not nf.read_status %}static-notif="1" {% endif %} id="{{nf.id}}">
+    {% if nf.message.profile_url %}
+        <a  href="{{nf.message.profile_url}}" target="_blank" class="align-self-center"><img src="{% if nf.message.profile_pic %}{{nf.message.profile_pic}}{% else %}{% static 'V2_theme/icons/avatar.png' %}{% endif %}" class="align-self-center mr-3 nf-prof-pic" alt=""></a>
+    {% else %}
+        <img src="{% static 'V2_theme/icons/activities.png' %}" class="align-self-center mr-3" alt="">
+    {% endif %}
+    <div class="media-body">
+        <p class="m-0">{{nf.message.message}}</p>
+        <span>{{nf.created_date|format_date:'%Y-%m-%dT%H:%M:%S.%f'|date:'M d, Y'}}</span>
+        {% if nf.message.action_url %}
+            <p class="m-0"><a class="btn notif-act-btn" href="{{nf.message.action_url}}" target='_blank' name="action_btn">
+                {% if nf.message.nf_type == 'advice_request' %}
+                    Give Advice
+                {% endif %}
+            </a></p>
+        {% endif %}
+    </div>
+</div>
+<div class="dropdown-divider notif-divider"></div>
+{% endfor %}
+{% if nf_res %}
+<a class="dropdown-item text-center" href='/notification/'><h6>See All</h6></a> 
+{% endif %}
+<script>
+    $(document).ready(function(e){
+        $("#notif_drop_down").scrollTop(0, 0);
+    });
+</script>

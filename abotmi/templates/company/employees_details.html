@@ -1,0 +1,80 @@
+{% extends 'company/company_base.html' %}
+{% load staticfiles %}
+{% block custom_theme_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+{% endblock %}
+{% block main_content %}
+    <div class="section parent-section" id="about">
+        <div class="container">
+            <ul class="nav nav-tabs main-tab" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#not_approved_advisors_tab" class="ad_list_tabs" id="id_not_approved_advisors_list" aria-controls="not_approved_advisors_tab" onclick="fetch_not_approved_advisors_list(id);" role="tab" data-toggle="tab">Pending for Approval<span class="badge">{{not_approved_advisors_count}}</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#approved_advisors_tab" class="ad_list_tabs" id="id_approved_advisors_list" aria-controls="approved_advisors_tab" onclick="fetch_approved_advisors_list(id);" role="tab" data-toggle="tab">Approved<span class="badge">{{approved_advisors_count}}</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#disown_advisors_tab" class="ad_list_tabs" id="id_disown_advisors_list" aria-controls="disown_advisors_tab" onclick="fetch_disown_advisor_details(id);" role="tab" data-toggle="tab">Disowned<span class="badge">{{disown_advisor_count}}</span></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="not_approved_advisors_tab"></div>
+                <div role="tabpanel" class="tab-pane fade" id="approved_advisors_tab"></div>
+                <div role="tabpanel" class="tab-pane fade" id="disown_advisors_tab"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bootstrap-modal %}
+    <div class="modal fade upwardz-modal" id="id_advisor_details_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default upwrdz-log-panel">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="send_modal-title"> Details</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content modal-body" id="id_advisor_details_modal_body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade upwardz-modal" id="id_feedback_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default popup-panel upwrdz-log-panel">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="send_modal-title"> Feedback</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="id_feedback_body">
+                    <textarea name="feed_back" id="id_feed_back" rows="5" cols="40" class="form-control"></textarea>
+                    <span class="help-block" id="help_text_id_feed_back"></span>
+                    <button type="button" class="btn upwrdz-button pull-right" name="feedback_button" id="id_feedback_button" >Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/WearProtection.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/additional-methods.min.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+
+    <script type="text/javascript">
+        var token = '{{csrf_token}}';
+        var username = '{{request.user.username}}';
+        var domain = '{{domain}}';
+    </script>
+    <script src="{% static 'js/new_js/company/employee_details.js' %}"></script>
+{% endblock %}
+{% block theme_scripts %}
+    {{block.super}}
+{% endblock %}

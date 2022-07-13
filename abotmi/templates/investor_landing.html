@@ -1,0 +1,157 @@
+{% load staticfiles %}
+{% block custom_theme_css %}
+<style>
+.refer-modal-friend-center form{
+    padding: 40px 50px;
+}
+.refer-modal-friend-center form input{
+    border-radius: 0px;   
+}
+.refer-modal-friend-center .btn {
+    background: #211e72;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 0;
+    min-width: 100px;
+    border: 0;
+    min-height: 34px;
+    letter-spacing: 1px;
+    width: 100%;
+}
+</style>
+{% endblock %}
+<section class="abotmi-advisor-banner parent-section" name="ad_sec1">
+    <div class="container-fiuld">
+        <div class="upwrdz-join-now-rise text-center">
+            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img class="" src="{% static 'new_images/influencer-banner1.jpg' %}" alt="banner1">
+                    </div>
+                    <div class="item">
+                        <img class="" src="{% static 'new_images/influencer-banner2.jpg' %}" alt="banner2">
+                    </div>
+                    <div class="item">
+                        <img class="" src="{% static 'new_images/influencer-banner3.jpg' %}" alt="banner1">
+                    </div>
+                </div>
+                <a class="left carousel-control custome-cursol-control" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                </a>
+                <a class="right carousel-control custome-cursol-control" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="parent-section">
+    <div class="container">
+        <div class="row abotmi-product-wealth-form">
+            <h2 class="text-center title">Find Digital Asset Advisor, Around the world </br>connect with Right Advisor, It's Free...</h2>
+            <div class="col-md-8 col-sm-offset-2 text-center">
+                <form class="form-identity-advisor">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-identity-column">
+                            <div class="form-group">
+                                <select name="country_type" id="id_country_type" class="form-control cust-place input-lg">
+                                    <option value="" selected>Advisor Country</option>
+                                    <option value="IN">India</option>
+                                    <option value="US">USA</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="MY">Malaysia</option>
+                                </select>
+                            </div>
+                            <span id="id_country_type_error_msg" class="help-block"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-identity-column">
+                            <div class="form-group">
+                                <input type="text" name="ad_chk_loc" id="id_ad_chk_loc" class="form-control cust-place input-lg" placeholder="Advisor City">
+                            </div>
+                            <span id="id_ad_chk_loc_error_msg" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-identity-column">
+                            <div class="form-group">
+                                <input type="text" name="ad_chk_f_name" id="id_ad_chk_f_name" class="form-control cust-place input-lg" placeholder="Advisor Name*"
+                                    required="true">
+                            </div>
+                            <span id="id_ad_chk_f_name_error_msg" class="help-block"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-identity-column">
+                            <div class="form-group">
+                                <input type="text" name="ad_chk_email" id="id_ad_chk_email" class="form-control cust-place input-lg" placeholder="Advisor Email*"
+                                    required="true" is-email="true">
+                            </div>
+                            <span id="id_ad_chk_email_error_msg" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <h2 class="sub-content">Protecting Wealth is also Creating Wealth</h2>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <a class="btn btn-xl up-first-two mob-button" type="button" name="signup_a" id="discover_more" onclick="set_title('discover');">Search Now</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="abotmi-imege-text second parent-section" id="learn-more1" name="ad_sec2">
+    <div class="container facilitating-advisors-header">
+        <div class="row ">
+            <div class="col-sm-4 col-xs-4 flip_block_cards">
+                <div class="flip-container">
+                    <a onclick="show_bootstrap_modal('#get_advice_free');" data-toggle="modal" data-target="#myModal">
+                        <img src="{% static 'new_images/investor-get-advice.png' %}" alt="" class="img-responsive img-center">
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-4 flip_block_cards">
+                <div class="flip-container">
+                    <a onclick="show_bootstrap_modal('#refer_advice_help');">
+                        <img src="{% static 'new_images/investor-refer-advice.png' %}" alt="" class="img-responsive img-center">
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-4 flip_block_cards">
+                <div class="flip-container">
+                    <a onclick="show_bootstrap_modal('#rate_advice');">
+                        <img src="{% static 'new_images/investor-rate-advice.png' %}" alt="" class="img-responsive img-center">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="abotmi-imege-text second parent-section" id="learn-more1" name="ad_sec2">
+    <div class="container facilitating-advisors-header">
+        <div class="row abotmi-two-section">
+            <div class="col-md-6 col-sm-6 col-xs-6 abotmi-testmonial-portion text-center">
+                <h5>
+                    <span>
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                    </span>Abotmi connecting the
+                    <br/> right and legitimate advisors
+                    <br/> to every Investor.
+                    <span>
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </span>
+                </h5>
+                <img src="{% static 'new_images/joe.png' %}" />
+                <p>Joel Telpner - ​Partner at Sullivan & Worcester </p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 abotmi-testmonial-portion-two">
+                <div class="youtube-player" data-id="pLhiikG2ISs"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="refer-friend">
+    {% include 'common/refer_friend_modal.html' %}
+</div>
+

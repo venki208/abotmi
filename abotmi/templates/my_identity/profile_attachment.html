@@ -1,0 +1,71 @@
+{% load staticfiles %}
+{% load static %}
+{% block custom_theme_css %}
+{% comment %}
+<link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}"> {% endcomment %}
+{% endblock %}
+
+<div class="modal fade" tabindex="-1" role="dialog" id="profile_attach1" name="profile_attach1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">PROFILE ATTACHMENT</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="hide">
+                    <img id="image_a" src="{% static 'V2_theme/images/logo_big.png' %}" alt="logo" width="220"
+                        height="220">
+                    {% if user_profile.picture %}
+                    <img id="image_b" src="{{ user_profile.picture.url }}" class="img-circle" alt="dp" width="220"
+                        height="220">
+                    {% else %}
+                    <img id="image_b" src="{% static 'images/contactimg.png' %}" class="img-circle" alt="dp" width="220"
+                        height="220">
+                    {% endif %}
+                </div>
+                <div class="row hide copy_img_code"><a href="{{DEFAULT_DOMAIN_URL|default:'http://localhost:8000'}}/profile/{{user_profile.batch_code}}"
+                        id="profile_a_link"><img src="" alt="card" id="id_card_img"></a></div>
+
+                <div class="row" id="show_div">
+                    <div class="col-12 text-center">
+                        <button class="btn profile-attachment-btn card_btn my-identity-modal-btn" type="button"
+                            id="id_cp_badge" value='Back'>Preview Card</button>
+                        <button class="btn profile-attachment-btn edit_batch_btn my-identity-modal-btn" type="button"
+                            id="edit_profile_link_btn">Edit Profile Link</button>
+                    </div>
+                </div>
+                <div class="row" id="batch_img_div">
+                    <div class="col-12 text-center mt-3">
+                        <p class="badge-title hide" id="id_badge_font" style="font-size:12px;">Copy the badge and use it
+                            anywhere (Your Website/Email Signature)</p>
+                        <div id="previewImage" class="batch-previewimage hide">
+                            <canvas id="myCanvas" width="200" height="125">
+                                Your browser does not support the HTML5 canvas tag.</canvas>
+                        </div>
+                        <div class="row">
+                            <div class="col-8 m-auto">
+                                <input type="text" class="form-control hide" id="copy_code_input" value="" readonly>
+                            </div>
+                        </div>
+                        <a id="copy_button" class="profile-link-copy-code hide">Copy Code</a>
+                        &nbsp;
+                        &nbsp;
+                        <a id="btn_convert_html2image" class="profile-link-copy-code hide">Download</a>
+                    </div>
+                </div>
+                <!-- My Belief Modal -->
+                <div class="row">
+                    <div class="col-12 text-center" id="batch_url_div"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var full_name = "{{user_profile.full_name}}";
+    var advisor_city = "{{user_profile.city}}";
+</script>
+<script src="{% static 'js/new_js/preview_card.js' %}"></script>

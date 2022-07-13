@@ -1,0 +1,27 @@
+{% extends 'login.html' %}
+{% block slider %}
+{% endblock %}
+{% block main_content %}
+	<section id="about">
+	    <aside class="bg-dark1">
+	        <div class="container text-center">
+	            <div class="call-to-action to-know-more">
+	                <h2 class="col-md-6 col-lg-6 col-sm-6 text-right">Comming Soon </h2>
+	            </div>
+	        </div>
+	    </aside>
+    </section>
+{% endblock %}
+{% block theme_scripts %}
+<script type="text/javascript">
+	function shrink_header(){
+		$('nav').addClass('shrink');
+		$("#about").addClass('n-margin-top-100');
+		$(".riea-logo-1").addClass('img_shrink');
+		$(".social-icons").addClass('width-93');
+	}
+	$(document).ready(function(){
+		shrink_header();
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+<ion-modal-view>
+  <ion-header-bar class="bar">
+        <div ng-click="track.cancel(track.modal)">
+          <i class="icon ion-arrow-left-c light header-arrow-left"></i>
+        </div>
+        <ion-nav-title>
+            <h4 class="modaltitle whitefont">{{track.user_details.invitereqtitle}}</h4>
+        </ion-nav-title>
+  </ion-header-bar>
+  <ion-content ng-init="track.peerrate=''">
+    <form name="inviteform" novalidate ng-submit="track.inviterateSubmit(track.user_details.invitetype);">
+      <div class="list list-inset first-inset black-border">
+        <label class="item item-input">
+          <input type="text" placeholder="Name" ng-model="track.peerrate.name" name="name" ng-required="true" ng-touched/>
+        </label>
+      </div>
+      <h7 class="validationerrors" ng-show="inviteform.name.$error.required && inviteform.name.$touched"> Name is required</h7>
+      <div class="list list-inset other-inset black-border">
+        <label class="item item-input">
+          <input type="email" placeholder="Email ID" ng-model="track.peerrate.email" name="email" ng-required="true" ng-touched/>
+        </label>
+      </div>
+      <h7 class="validationerrors" ng-show="inviteform.email.$error.required && inviteform.email.$touched"> Email ID is required</h7>
+      <h7 class="validationerrors" ng-show="inviteform.email.$error.email  && inviteform.email.$touched"> Not an valid Email ID</h7>
+      <div class="list list-inset other-inset black-border">
+        <label class="item item-input">
+          <input type="number" placeholder="Mobile Number" ng-model="track.peerrate.mobile" name="mobile" ng-required="true" ng-touched  ng-minlength="10" ng-maxlength="10"/>
+        </label>
+      </div>
+      <h7 class="validationerrors" ng-show="(inviteform.mobile.$error.minlength && inviteform.mobile.$touched ) || (inviteform.mobile.$error.maxlength && inviteform.mobile.$touched)" > Enter valid 10 digits number</h7>
+      <button class="button form-round-btn mypageheadfont green-color white-font" ng-disabled="inviteform.$invalid">Submit</button>
+    </div>
+  </form>
+</ion-content>
+</ion-modal-view>

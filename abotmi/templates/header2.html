@@ -1,0 +1,139 @@
+{% load staticfiles %}
+{% spaceless %}
+<nav class="navbar navbar-inverse upwrdz-member-nav navbar-fixed-top nav-whiteframe" role="navigation">
+    <div class="container upwrdz-header-div upwrdz-header-div-head">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            {% if advisor.is_register_advisor or user_selected_role == 'investor' %}
+            <button type="button" class="navbar-toggle upwrdz-profile-main-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% endif %}
+            <a class="navbar-brand mob-logo" href="{{DEFAULT_DOMAIN_URL}}">
+                <img src="{% static 'V2_theme/images/abotmi-logo-icon.png' %}" class="img-responsive" alt="">
+                <!-- <span class="brand-title">Rise High</span> -->
+            </a>
+            <ul class="nav navbar-nav navbar-right profile-menu">
+                {% if user.is_authenticated %}
+                    {% comment %} Commented since, it this feature has postponted to 24/1/19 release {% endcomment %}
+                    {% comment %} {% if advisor.is_register_advisor %}
+                        <li class="notification-bell" title="Notifications" data-toggle="tooltip">
+                            <a><i class="glyphicon glyphicon-bell"></i></a>
+                        </li>
+                    {% endif %} {% endcomment %}
+                    {% if not advisor.is_register_advisor and not user_profile.is_company and not user_selected_role == 'investor' %}
+                    <li class="profile-pic-register-btn">
+                        <a href="{% url 'signup:face_capture' %}" title="Click here to Register" class="n-span-black-color" id="register_menu">Register</a>
+                    </li>
+                    {% endif %}
+                    {% if user_selected_role == 'advisor' %}
+                        <li class="nav-item dropdown notificationButton list-style-none batch-group-view" name="notfication_btn">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell-o fa-lg" aria-hidden="true"></i>
+                                <span class="badge badge-light custome-badge hide" id="notf_count"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right notification-header-div" aria-labelledby="navbarDropdown" id="notif_drop_down" style="height: 300px;overflow-y: auto;">
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle header-profile-pic profile-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="advisor-pro-pic" title="{{ user_profile.first_name }}"> Welcome {{ user_profile.first_name|truncatechars_html:30 }}</span> {% if user_profile.picture %}<img src="{{ user_profile.picture.url }}" class="img-responsive n-user-img header-profile" alt="">{% else %}<span class="glyphicon glyphicon-user header-profile"></span>{% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-header-menu">
+                            {% if advisor.is_register_advisor and user_selected_role == 'advisor' %}
+                                <li>
+                                    <a href="{% url 'signup:face_capture' %}"> Edit Profile </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'home:change_password' %}"> Settings </a>
+                                </li>    
+                            {% else %}
+                                {% if user_profile.is_company %}
+                                    <li><a href="/company/my_company_track/">My Identity</a></li>
+                                    <li><a href="{% url 'home:change_password' %}">Change Password</a></li>
+                                {% endif %}
+                            {% endif %}
+                            <li><a onclick="user_logout();">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% comment %}
+                    {% elif not title == 'Guest Details' and not title == 'Profile_details' %}
+                    <li>
+                        <a class="login-btn" name="login_a">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a class="page-scroll login-btn" name="signup_a">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Sign Up
+                        </a>
+                    </li>
+                    {% endcomment %}
+                {% endif %}
+            </ul>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-header header2">
+            {% if not title == 'Guest Details' and not title == 'Profile_details'%}
+                <a class="navbar-brand des-logo" href="{{DEFAULT_DOMAIN_URL}}">
+                    <img src="{% static 'V2_theme/images/abotmi-logo-icon.png' %}" class="img-responsive" alt="">
+                    <!-- <span class="brand-title">Rise High</span> -->
+                </a>
+            {% else %}
+                <a class="navbar-brand des-logo">
+                    <img src="{% static 'V2_theme/images/abotmi-logo-icon.png' %}" alt="upwrdz-logo" class="img-responsive up_logo">
+                    <!-- <span class="brand-title">Rise High</span> -->
+                </a>
+            {% endif %}
+        </div>
+        <div class="collapse navbar-collapse dropdown-menu-responsive navmenu-responsive-dropdown" id="bs-example-navbar-collapse-1">
+            {% if user.is_authenticated and advisor.is_register_advisor and user_selected_role == 'advisor' %}
+            <ul class="nav navbar-nav header-icons-menu registration-navgation-items">
+                <!-- commented for this release -->
+                <!-- <li>
+                    <a class="{% if title == 'My Repute' %}active{% endif %}" href="{% url 'my_repute:my_repute' %}">MY REPUTE</a>
+                </li> -->
+                <!-- <li>
+                    <a class="{% if title == 'My Repute' %}active{% endif %}" href="{% url 'my_repute:my_repute' %}"> REPUTE &nbsp;
+                        <img width="20px" src="{% if title == 'My Repute' %}/static/new_images/repute-white-bg-logo.png{% else %}/static/new_images/repute-logo.png{% endif %}"
+                            class="img-responsive header-tab-icons" alt="Repute">
+                    </a>
+                </li> -->
+                <li class="after-login-myidentity-btn">
+                    <a class="{% if title == 'My Identity' %}active{% endif %}"href="{% url 'my_identity:my_identity' %}"> MY IDENTITY &nbsp;</a>
+                </li>
+                <li class="after-login-myidentity-btn">
+                    <a class="{% if title == 'My Identity' %}active{% endif %}"href="{% url 'my_growth:my_growth' %}"> MY GROWTH &nbsp;</a>
+                </li>
+                <!-- <a class="{% if title == 'My Growth' %}active{% endif %}" href="{% url 'my_growth:my_growth' %}"> MY GROWTH &nbsp;<img width="20px" src="{% if title == 'My Growth' %}/static/new_images/my_growth_tab_white_icon.png{% else %}/static/new_images/my_growth_tab_icon.png{% endif %}" class="img-responsive header-tab-icons" alt="My Hub"></a> -->
+                <li class="after-login-myidentity-btn">
+                    <a class="{% if title == 'My Identity' %}active{% endif %}"href="/dashboard/"> MY HUB &nbsp;</a>
+                    {% comment %} <a class="{% if title == 'My Hub' %}active{% endif %}" href="/dashboard/"> MY HUB &nbsp;<img width="20px" src="{% if title == 'My Hub' %}/static/new_images/my_hub_tab_white_icon.png{% else %}/static/new_images/my_hub_tab_icon.png{% endif %}" class="img-responsive header-tab-icons" alt="My Hub">
+                    </a> {% endcomment %}
+                </li>
+            </ul>
+            {% else %}
+                {% if user_selected_role == 'investor' %}
+                {% comment %} <ul class="nav navbar-nav header-icons-menu"> {% endcomment %}
+                <ul class="nav navbar-nav header-icons-menu registration-navgation-items">
+                    <li class="after-login-myidentity-btn">
+                        <a class="{% if title == 'My Identity' %}active{% endif %}"href="{% url 'signup:investor_identity' %}"> MY IDENTITY &nbsp;</a>
+                    </li>
+                    <li class="after-login-myidentity-btn">
+                        <a class="{% if title == 'My Identity' %}active{% endif %}"href="/advisor_check/"> SEARCH ADVISOR&nbsp;</a>
+                    </li>
+                </ul>
+                {% endif %}
+            {% endif %}
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+{% endspaceless %}

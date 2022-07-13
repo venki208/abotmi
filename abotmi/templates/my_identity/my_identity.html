@@ -1,0 +1,325 @@
+{% extends "index_base.html" %}
+{% load static %}
+{% block custome_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/my_identity.css' %}">
+{% endblock custome_css %}
+{% block lib_css %}
+    {{block.super}}
+    <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+{% endblock lib_css %}
+{% block main_content %}
+    <header class="abotmi-myidentity-page">
+        <div class="container d-flex h-100">
+            <div class="row abotmi-inner-banner mt-5 pt-5 m-auto">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-3">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <div class="image-body rounded-circle img-thumbnail">
+                                            <div data-content="Click to view/upload Profile Picture" class="img-fluid {% if user.is_authenticated and user_selected_role == 'advisor' and is_advisor_own_profile %}advisor-identity-div-image{% else %}advisor-identity-div-hub{% endif %} id-profile-pic" id="{% if user.is_authenticated and user_selected_role == 'advisor' and is_advisor_own_profile %}id_profile_pic{% endif %}">
+                                                {% if profile_pic %}
+                                                    <img src="{{ profile_pic }}"  class="img-fluid img-thumbnail" id="id_image_tag"/>
+                                                {% else %}
+                                                    <img src="{% static 'images/contactimg.png' %}"  class="img-fluid img-thumbnail" id="id_image_tag"/>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <h4 class="card-title mb-0">{{user_data.get_full_name}}</h4>
+                                        <p class="card-text">{% if advisor_user_profile.city %}{{advisor_user_profile.city}}{% else %}N/A{% endif %}</p>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xl-6 start-peer-rating">
+                                                <h5>Peer Rating</h5>
+                                                <div class="rateit" id="peer_rating" data-rateit-readonly='true'>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-6 col-xl-6 start-client-rating">
+                                                <h5>Client Rating</h5>
+                                                <div class="rateit n-rating-dashboard" id="consumer_ranking" data-rateit-readonly='true'></div>
+                                            </div>
+                                            {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                                            <div class="col-md-6 col-sm-6 col-xl-6 mt-2">
+                                                <a name="signup_a" class="mt-xl-2 btn profile-attachment-btn abotmi-big-btn" onclick="profile_attach();"  title="Profile Attachment">
+                                                    PROFILE ATTACHMENT
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xl-6 mt-2">
+                                                <a name="signup_a" class="btn mt-xl-2 profile-attachment-btn abotmi-big-btn" onclick="view_followers();" title="My Followers">
+                                                    MY FOLLOWERS
+                                                </a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </header>
+
+      <section class="background-gradiant-div pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 my-identity-tab-section my-identity-tab-content-section m-auto pl-0 pr-0 mb-1">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">OVERVIEW</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">TESTIMONIALS</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content p-4" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="my-identity-tab-overview">
+                                <h5 class="mb-1">
+                                    Professional Statement 
+                                    {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                                        <button class="float-right pencil-btn" id="edit_self_declaration"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                                    {% endif %}
+                                </h5>
+                                <p id="id_main_about_me_content">{{advisor_user_profile.self_description|default:'Write  about yourself'}}</p>
+                                <h5>
+                                    Languages Spoken
+                                    {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                                        <button class="float-right pencil-btn" id="edit_languages_button"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                                    {% endif %}
+                                </h5>
+                                <p id="language_content" style="word-break: break-word;">{{advisor_user_profile.language_known|default:'Write the known languages'}}</p>
+                                <h5>
+                                    My Belief 
+                                    {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                                        <button class="float-right pencil-btn" id="id_belief_button"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                                    {% endif %}
+                                    </h5>
+                                <p id="my_belief_content">
+                                    {{ advisor_user_profile.my_belief|default:'Write your belief'|escapejs }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="row">
+                                <div class="col-md-12 col-center m-auto">
+                                    {% if feedbacks %}
+                                        {% for feedback in feedbacks %}
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        {% if feedback.existing_user_profile %}
+                                                            <h3><u>{{ feedback.existing_user_profile.first_name }}</u></h3>
+                                                        {% else %}
+                                                            <h3><u>{{ feedback.external_user.name }}</u></h3>
+                                                        {% endif %}
+                                                        <p>{{ feedback.feedback }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <p>No Testimonial</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 my-identity-education-section p-4 mb-3">
+                    <h5>
+                        <img src="{% static 'V2_theme/icons/education-icon.png' %}" class="pr-3">EDUCATION
+                        {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                            <button class="float-right pencil-btn" id="edit_education" onclick="edit_educations();"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                        {% endif %}
+                    </h5>
+                    {% if educational_details %}
+                    <label class="text-center"><b>School:</b> <span id="school_span">{{educational_details.school}}</span></label><br />
+                    <label class="text-center"><b>Degree:</b> <span id="qualification_span">{{educational_details.qualification}}</span></label><br />
+                    <label class="text-center"><b>Field of Study:</b> <span id="field_of_study_span">{{educational_details.field_of_study}}</span></label><br />
+                    <label class="text-center"><b>Activities (Sororities, Fraternities, Clubs):</b></label>
+                    <p id="activities_span">{{educational_details.activities}}</p>
+                    <label class="text-center"><b>From Year:</b> <span id="to_year_span">{{educational_details.from_year}}</span></label><br />
+                    <label class="text-center"><b>To year (or expected):</b> <span id="from_year_span">{{educational_details.to_year}}</span></label><br />
+                    {% else %}
+                    <p class="text-center"> Education information not uploaded yet.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 my-identity-education-section p-4 mb-3">
+                    <h5>
+                        <img src="{% static 'V2_theme/icons/license-icon.png' %}" class="pr-3">CERTIFICATION
+                        {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                            <button class="float-right pencil-btn" id='a_edit_certification'><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                        {% endif %}
+                    </h5>
+                    {% if certification_details %}
+                        {% for certifiate in certification_details %}
+                        <label><b>Name:</b> <span id="cert_name_span">{{certifiate.certification_name}}</span></label><br />
+                        <label><b>Authority:</b> <span id="certi_auth_span">{{certifiate.certi_authority}}</span></label><br />
+                        <label><b>Licence No:</b> <span id="certi_lic_no">{{certifiate.licence_number}}</span></label><br />
+                        <label><b>URL:</b> <span id="cert_url_span">{{certifiate.certi_url}}</span></label><br />
+                        <label><b>From Year:</b> <span id="cert_from_year_span">{{certifiate.from_year}}</span></label><br />
+                        <label><b>To year (or expected):</b> <span id="cert_to_year_span">{{certifiate.to_year}}</span></label><br/> 
+                        <hr />
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center mt-5"> Certification information not uploaded yet.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 my-identity-education-section p-4 mb-3">
+                    <h5><img src="{% static 'V2_theme/icons/skills-icon.png' %}" class="pr-3">SPECIALITIES / SKILLS
+                        {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                        <button class="float-right pencil-btn" id="id_edit_skills"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                        {% endif %}
+                    </h5>
+                    {% if skills %}
+                        <p class="" id="id_main_skills_content">
+                            {% for skill in skills %}
+                                {{skill}} {% if forloop.counter < skills|length %} &nbsp; &nbsp; | &nbsp;&nbsp;{% endif %}
+                            {% endfor %}
+                        </p>
+                    {% else %}
+                        <p class="text-center mt-5" id="id_main_skills_content">
+                            Specialities / Skills information not uploaded yet.
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 my-identity-education-section p-4 mb-3">
+                    <h5><img src="{% static 'V2_theme/icons/experience-icon.png' %}" class="pr-3">EXPERIENCE
+                    {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                        <button class="float-right pencil-btn" id="edit_experience"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                    {% endif %}
+                    </h5>
+                    <p class="total_experience_span text-left">
+                    {% if fin_ins %}
+                        {% for fin in fin_ins %}
+                            <label><b>{{fin.instrument}}:</b> <span>{{fin.experience}}</span></label><br />
+                        {% endfor %}
+                    {% else %}
+                    </p>
+                    <p class="text-center mt-5">
+                        Experience information not uploaded yet.
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 my-identity-education-section p-4 mb-3 hide">
+                    <h5><img src="{% static 'V2_theme/icons/organisation-icon.jpg' %}" class="pr-3">ORGANIZATION
+                    {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                        <a class="float-right"><img src="{% static 'V2_theme/icons/add-icon.png' %}"></a>
+                    {% endif %}
+                    </h5>
+                    <p class="text-center">You have not added any experience yet.</p>
+                </div>
+                <div class="col-md-12 my-identity-education-section p-4 mb-3">
+                    <h5><img src="{% static 'V2_theme/icons/contact-icon.png' %}" class="pr-3">CONTACT DETAILS
+                    {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                        <button class="float-right pencil-btn" id="id_contact_details"><img src="{% static 'V2_theme/icons/edit-icon.png' %}"></button>
+                    {% endif %}
+                    </h5>
+                    <p><img src="{% static 'V2_theme/icons/email-icon.png' %}" class="pr-3 mb-1">{{advisor_user_profile.email}}</p>
+                    <p><img src="{% static 'V2_theme/icons/location-pin-icon' %}.png" class="pr-3 mb-1"><span id="city_content">{{advisor_user_profile.city|default:'N/A'}}</span></p>
+                    <p><img src="{% static 'V2_theme/icons/call-icon.png' %}" class="pr-3 mb-1"><span id="mobile_content">{{advisor_user_profile.mobile|default:'N/A'}}</span></p>
+                    <p><img src="{% static 'V2_theme/icons/calendly.png' %}" alt="" style='font-size:25px;'>
+                    {% if advisor_obj.calendly_link %}
+                        <a href="{{advisor_obj.calendly_link}}" target="_blank" class="pl-3" id="cal_link">{{advisor_obj.calendly_link}}</a>
+                    {% endif %}
+                    </p>
+                </div>
+                {% if user_selected_role == 'advisor' and is_advisor_own_profile and user.is_authenticated %}
+                <div class="col-md-12 my-identity-education-section p-4 mb-3">
+                    <h5><img src="{% static 'V2_theme/icons/share-icon.png' %}" class="pr-3">SHARE</h5>
+                    <p>
+                        <a class="" onclick="fb_share();"><i class="fa fa-facebook text-right" aria-hidden="true" title="facebook"></i></a>&nbsp;
+                        <a class="" onclick="twitter_share()"><i class="fa fa-twitter" aria-hidden="true" title="twitter"></i></a>&nbsp;
+                        <a class="" onclick="LinkedInShare();"><i class="fa fa-linkedin" aria-hidden="true" title="linkedin"></i></a>&nbsp;
+                        <button class="share-email-btn" id="profile_share" onclick="load_share_profile_by_email_modal();"><i class="fa fa-envelope-o" aria-hidden="true" title="Share through email"></i></button> &nbsp;
+                        
+                        <a class= "" title="whatsapp" id="whatsappsharediv" onclick="whatsappshare('{{DEFAULT_DOMAIN_URL}}','{{advisor_profile_url}}');"><i class='fa fa-whatsapp' aria-hidden='true' id='whatsappshare' name='whatsappshare'></i></a>
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock main_content %}
+{% block bootstrap_modal %}
+    {{block.super}}
+    {% if user.is_authenticated and user_profile.is_advisor and is_advisor_own_profile %}
+    <div id="my_identity_modal"></div>
+    <div id="profile_attachment_modal_div"></div>
+    <div id="advisor_registration_modal_div"></div>
+    {% endif %}
+{% endblock bootstrap_modal %}
+{% block lib_scripts %}
+{{block.super}}
+<script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+
+{% endblock lib_scripts %}
+{% block scripts %}
+    {{block.super}}
+    <script>
+        var username = "{{user_data.username}}";
+        var contact_mobile = "{{advisor_user_profile.mobile}}";
+        var contact_city = "{{advisor_user_profile.city}}";
+        var advisor_profile_url = '{{DEFAULT_DOMAIN_URL|default:"localhost"}}/profile/{{user_profile.batch_code}}/';
+        var profile_link = '</br>To view the profile click <a href='+"'"+advisor_profile_url+"'"+'>here</a> <br/>';
+        var advisor_name = "{{advisor_user_profile.first_name |title}}";
+        var rating_value = '{{final_peer_avg_rating|floatformat:1}}';
+        var ranking_value = '{{final_consumer_avg_ranking}}';
+        var dsa_details = '{{advisor_obj.dsa_details}}';
+        var sebi_no = '{{advisor_obj.sebi_number}}';
+        var sebi_expired = '{{advisor_obj.sebi_expiry_date}}';
+        var amfi_no = '{{advisor_obj.amfi_number}}';
+        var amfi_expired = '{{advisor_obj.amfi_expiry_date}}';
+        var irda_no = '{{advisor_obj.irda_number}}';
+        var irda_exired = '{{advisor_obj.irda_expiry_date}}';
+        var others  = '{{advisor_obj.other_registered_organisation}}';
+        var other_registration_no = '{{advisor_obj.other_registered_number}}';
+        var other_expiry_date = '{{advisor_obj.other_expiry_date}}';
+        var is_rera = '{{advisor_obj.is_rera}}';
+        var id_value = '{{rera_result|length}}';
+        var dsa_id_value = '{{dsa_result|length}}';
+        var skill_length = '{{skills|length}}';
+        var is_rera_status = '{{advisor_obj.is_rera}}';
+        var email_signup = 'None';
+        var page_title = '{{title}}';
+        var calendly_links = '{{advisor_obj.calendly_link}}';
+        var isMobile;
+        $(document).ready(function() {
+            isMobile = {
+                Android: function() {
+                    return navigator.userAgent.match(/Android/i);
+                },
+                BlackBerry: function() {
+                    return navigator.userAgent.match(/BlackBerry/i);
+                },
+                iOS: function() {
+                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                },
+                Opera: function() {
+                        return navigator.userAgent.match(/Opera Mini/i);
+                },
+                Windows: function() {
+                        return navigator.userAgent.match(/IEMobile/i);
+                },
+                any: function() {
+                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                }
+            };
+        });
+    </script>
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+    {% if user_selected_role == 'advisor' %}
+        <script src="{% static 'js/new_js/html2canvas.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'js/my_identity.js' %}" charset="utf-8"></script>
+
+
+{% endblock scripts %}

@@ -1,0 +1,14 @@
+[Unit]
+Description=daphne server script for abotmi
+After=network.target
+
+[Service]
+User=abotmi
+Group=abotmi
+WorkingDirectory=/home/abotmi/abotmi
+Environment="ABOTMI_SETTINGS=/home/abotmi/abotmi/config/dev_config.json"
+ExecStart=/home/abotmi/env/bin/daphne -b 0.0.0.0 -p 8001 reia.asgi:channel_layer --access-log=/var/log/daphne.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

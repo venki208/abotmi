@@ -1,0 +1,256 @@
+{% extends 'advisor_check/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block top_header %}
+	{% comment %} {{block.super}} {% endcomment %}
+{% endblock %}
+{% block custom_theme_css %}
+	{{block.super}}
+	<link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+	<style>
+		footer{
+			display: none;
+		}
+	</style>
+{% endblock %}
+{% block main_content %}
+    <div class="container hide" id="advisor_container_block">
+        <!-- Filter Row -->
+        <div class="row mrg-tb50" id="id_card_results">
+            <ul class="pager upwrdz-pager">
+                <li class="previous">
+                    <a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i> Previous </a>
+                </li>
+                <li class="next">
+                    <a href="#">Next<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                </li>
+                <p class="match_text">
+                    {% if advisor_obj %}
+                        We have a <strong>Profile Match </strong> for you. Claim it!
+                    {% else %}
+                        No match found <strong>Create Yours !!!</strong>
+                    {% endif %}
+                </p>
+            </ul>
+        </div>
+        <!-- Members Row -->
+        <div class="row">
+            {% if advisor_records_obj %}
+                {% for advisor_obj in advisor_records_obj %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 center-align advisor-position-align">
+                        <div class="profile-pic card img-circle">
+                            <img class="img-circle img-responsive img-center" src="{% static 'advisor_check/images/demo-profile-pic.jpg' %}" alt="">
+                        </div>
+                        <h4 class="advisor-name">{{advisor_obj.name}}</h4>
+                        <p class="advisor-role">{{advisor_obj.city}}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block bootstrap-modal %}
+	<div id="advisorCheckCardModal" class="modal upwardz-modal advisor-modal-view" role="dialog">
+		<div class="modal-dialog advisor-modal modal-md">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="row financial-model-div">
+				<div class="col-md-12">
+					<div class="profile-pic">
+						<img class="img-circle img-responsive img-center" src="{% static 'advisor_check/images/demo-profile-pic.jpg' %}" alt="">
+					</div>
+				</div>
+				<div class="col-md-offset-1 col-md-6">
+					<h4 class="advisor-name"></h4>
+				</div>
+				<div class="details card_content_block row">
+					<form action="/advisor_check/save_advisor_card/" method="post" id="save_card_form">
+						{% csrf_token %}
+						<input type="hidden" name="advisor_check_card_id" value="">
+						<input type="hidden" name="certification_type" value="">
+						<input type="hidden" name="certification_id" value="">
+						<input type="hidden" name="expertise" value="">
+						<input type="hidden" name="country_type_val" value="">
+						<input type="hidden" name="advisors_city" value="">
+					</form>
+					<div class="col-xs-9 col-xs-offset-2 mg-t30">
+						<p>{{user_profile.first_name}} {{user_profile.last_name}}</p>
+						<div class="border">
+							<i class="glyphicon glyphicon-text-background fa-2x card-icons" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="col-xs-9 col-xs-offset-2 mg-t30">
+						<p>{{user_profile.email}}</p>
+						<div class="border">
+							<i class="fa fa-envelope fa-2x card-icons" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="col-xs-9 col-xs-offset-2 mg-t30 hide">
+						<p>{{user_profile.mobile|default:''}}</p>
+						<div class="border">
+							<i class="fa fa-phone fa-2x card-icons" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="col-xs-9 col-xs-offset-2 mg-t30">
+						<div class="border">
+							<i class="fa fa-building card-icons" aria-hidden="true"></i>
+							<input type="text" class="form-control" name="city" id="id_city" value="" min-length='3' required='true' placeholder="City">
+						</div>
+						<span class="help-block" id="help_city"></span>
+						</div>
+					<div class="col-xs-10 col-xs-offset-1 mg-t30 text-center" id="claim_it_block">
+						<button class="btn" type="button" name="claim_btn">CONNECT</button>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="advisorRegistrationModal" class="modal upwardz-modal" role="dialog">
+		<div class="modal-dialog advisor-modal modal-md financial-advisor-card">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<!-- <div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<h5 class="text-center font-weight-700">Type how you want to be recognized by your client. This will be displayed in your digital profile.</h5>
+						</div>
+					</div>
+				</div> -->
+				{% comment %}
+				<!-- need to remove once funtionality freze -->
+				<div class="row" id="id_expert_parent_row">
+					<div class="col-md-12" id="id_expert_additional_block">
+						<!-- dynamic content will add here -->
+					</div>
+					<div class="col-md-12" id="id_expertise_block">
+						<div class="row">
+							<label for="exampleInputName2" class="col-md-2 text-right" style="line-height: 30px;">I am a</label>
+							<div class="col-md-8">
+								<div class="form-group">
+									<select name="expertise_otp[]" id="id_expertise_opt" class="form-control">
+										<option value="Select">Select</option>
+										<option value="Real Estate - Commercial">Real Estate - Commercial</option>
+										<option value="Retail">Retail</option>
+										<option value="Mutual Fund">Mutual Fund</option>
+										<option value="Equity">Equity</option>
+										<option value="Insurance - Life">Insurance - Life</option>
+										<option value="Health">Health</option>
+										<option value="General">General</option>
+										<option value="Investment Advisor">Investment Advisor</option>
+										<option value="Wealth Manager">Wealth Manager</option>
+										<option value="RERA - State">RERA - State</option>
+										<option value="Home Loan Agent">Home Loan Agent</option>
+										<option value="Others">Others</option>
+									</select>
+									<span class="help-block"></span>
+								</div>
+							</div>
+							<a class="btn additional-button expert-btn col-md-2">
+								Add
+							</a>
+							<button type="button" class="btn additional-button tool-tip-btn" data-container="body" data-toggle="popover" data-content="For ex: I am a portfolio Manager." data-placement="top" data-original-title="" title="">
+								<i class="glyphicon glyphicon-info-sign"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				{% endcomment %}
+				<div class="row form-group financial-model-div" id="fin_question_block">
+					
+					<div class="col-md-12 text-center">
+						<h1>Are you a <br />Certified Financial Advisor?</h1>
+						<button type="button" name="fin_adv" style="margin-bottom:10px;" class="btn upwrdz-button question_btn">Yes</button>&nbsp;&nbsp;&nbsp;
+						<button type="button" name="not_fin_adv" style="margin-bottom:10px;" class="btn upwrdz-button question_btn">No</button>&nbsp;
+					</div>
+					
+					<div class="col-md-offset-2 col-md-8 none card-form" id="options_block">
+						<form action="/advisor_check/get_certified_card/" method="post" id="card_form" onsubmit='return false;'>
+							{% csrf_token %}
+							<select class="form-control form-group" name="country_type" id="id_country_type">
+								<option value="" selected>Select</option>
+								{% for c in country_list %}
+								<option value='{{c.code|upper}}'>{{c.name}}</option>
+								{% endfor %}
+								{% comment %}
+								<!-- need to remove the code once functinality confirmed -->
+								<!-- <option value="IN">India</option>
+									<option value="US">USA</option>
+									<option value="SG">Singapore</option>
+									<option value="MY">Malaysia</option>
+									<option value="others">Others</option> -->
+								{% endcomment %}
+							</select>
+							<select class="form-control form-group none" name="reg_option" id="id_reg_option">
+								<option value="">Select</option>
+								<option value="AMFI">AMFI</option>
+								<option value="BSE">BSE</option>
+								<option value="CA">CA</option>
+								<option value="IRDA">IRDA</option>
+								<option value="SEBI">SEBI</option>
+							</select>
+							<div class="form-group">
+								<div class="control">
+									<input type="text" class="form-control none" name="reg_no" id="id_reg_no" value="" min-length='3' required='true'>
+								</div>
+								<span class="help-block" id="help_reg_no"></span>
+							</div>
+							<div class="col-sm-12 text-center search-btn-row">
+								<button type="button" name="search_certification" class="btn upwrdz-button none">Verify Your Identity</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="not_certified_modal" class="modal upwardz-modal" role="dialog">
+		<div class="modal-dialog advisor-modal modal-md">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="col-md-12">
+					<p>Our system is only for registered advisors. Please register with a regulator to proceed.</p>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<button class="btn upwrdz-button additional-button pull-left" name="no_card_back_btn">Back</button>
+						<button class="btn upwrdz-button additional-button pull-right" name="logout" onclick="user_logout();">Logout</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript">
+		$(function () {
+			$('[data-toggle="popover"]').popover();
+			$('body').on('click', function (e) {
+				$('[data-toggle="popover"]').each(function () {
+					if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+						$(this).popover('hide');
+					}
+				});
+			});
+		})
+		var card_user_profile_id = ''
+		var card_id = '';
+		var is_advisor_found = "{{is_advisor_found}}";
+		if(is_advisor_found){
+			card_user_profile_id = '{{advisor_obj.advisor_id|default:''}}';
+			card_id = '{{advisor_obj.id}}';
+		}
+	</script>
+    <script type="text/javascript">
+        $(document).ready(function(e){
+			if(!card_user_profile_id){
+				$('html, body').animate({
+					scrollTop: $('#id_card_results').offset().top
+				}, 'fast');
+			}
+        });
+	</script>
+    <script src="{% static 'advisor_check/js/card.js' %}" charset="utf-8"></script>
+{% endblock %}

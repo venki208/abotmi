@@ -1,0 +1,178 @@
+<ion-view hide-nav-bar="true" ng-cloak name="content">
+  <ion-content class="m-upwrdz-content">
+
+     <div class="m-upwrdz-logo">
+        <img src="../images/logoldpi.png" alt="Upward logo">
+     </div>
+
+     <div class="m-upwrdz-social-media-signup" ng-if="(login.loginaccordion || login.signupaccordion)">
+       <ul class="text-center">
+         <button class="button btn-gplus" ng-if="(login.socialapp != null && login.socialapp.indexOf('gplusapp') !== -1)" ng-click="login.socialsignup('google');">
+           <img src="../images/logo_g+_new.png"/>
+         </button>
+         <button class="button btn-fb" ng-click="login.socialsignup('facebook');">
+           <img src="../images/logo_fb_new.png"/>
+         </button>
+         <button class="button btn-lin" ng-if="(login.socialapp != null && login.socialapp.indexOf('linkedinapp') !== -1)" ng-click="login.socialsignup('linkedin');">
+           <img src="../images/logo_ln_new.png"/>
+         </button>
+       </ul>
+     </div>
+     <div class="or-block" ng-if="(login.loginaccordion || login.signupaccordion)">
+       <p class="text-center"><span>OR</span></p>
+       <hr/>
+     </div>
+     <div class="sign-in-up-form">
+         <button class="m-upwrdz-btn m-upwrdz-block-btn" ng-click="login.toggle_accordion('signup')" ng-if="login.loginaccordion">
+            SIGN UP WITH EMAIL
+         </button>
+
+         <div ng-if="login.signupaccordion">
+             <div>
+                <h5 class="text-center">Sign up with Email
+                  <i class="icon ion-close pull-right" ng-click="login.closeform('signup')"></i>
+                </h5>
+             </div>
+             <form name="signuplist" ng-init="login.signup={}" novalidate ng-submit="signuplist.$valid && login.signupsubmit()">
+                <div class="list">
+                    <label class="item item-input inset-label">
+                        <input type="text" placeholder="First Name" ng-model="login.signup.name" name="name" ng-required="true" ngtouched ng-pattern="/^[a-zA-Z ]*$/" ng-pattern-restrict />
+                    </label>
+                    <span class="validatemsg" ng-if="((signuplist.$submitted && signuplist.name.$invalid) || signuplist.name.$touched && signuplist.name.$error.required) && !signuplist.name.$error.pattern">
+                     First Name is required
+                    </span>
+                    <span class="validatemsg" ng-if="signuplist.name.$error.pattern"> Enter only alphabet</span>
+                </div>
+                <div class="list">
+                  <label class="item item-input inset-label">
+                      <input type="text" placeholder="Last Name" ng-model="login.signup.lastname" name="lastname" ng-required="true" ngtouched ng-pattern="/^[a-zA-Z ]*$/" ng-pattern-restrict />
+                  </label>
+                  <span class="validatemsg" ng-if="((signuplist.$submitted && signuplist.lastname.$invalid) || signuplist.lastname.$touched && signuplist.lastname.$error.required) && !signuplist.lastname.$error.pattern">
+                   Last Name is required
+                  </span>
+                  <span class="validatemsg" ng-if="signuplist.lastname.$error.pattern"> Enter only alphabet</span>
+              </div>
+                <div class="list">
+                    <label class="item item-input inset-label">
+                        <input type="email" placeholder="Email ID" ng-model="login.signup.email" name="email" ng-required="true" ng-touched
+                        ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4}))$/"/>
+                    </label>
+                    <span class="validatemsg" ng-if="((signuplist.$submitted && signuplist.email.$invalid) || signuplist.email.$error.required && signuplist.email.$touched) && !signuplist.email.$error.pattern">Email ID is required</span>
+                    <span class="validatemsg" ng-if="signuplist.email.$error.pattern"> Email ID is not valid</span>
+                </div>
+              <div >
+                <div  ng-if="!login.showPassword"  class="list position-relative passwardport-detailes" >
+                    <label class="item item-input inset-label forget-psd-eye">
+                        <input type="password" id="create_password" ng-keyup="login.show_details();"  placeholder="Create Password" ng-model="login.signup.createpassword" name="createpassword" ng-required="true" ng-touched>
+                        
+                      </label>
+                      <div  class="forget-psd-eye">
+                          <div class="fa fa-eye" ng-click="login.toggleShowPassword()"></div>
+                      </div>
+                        <img width="30px" ng-show="login.show_question" ng-click="login.password_details()" height="30px"    src="../www/img/ionic_question.svg"/>
+                            <!-- <button >button</button> -->
+                         
+                   
+                    <span class="validatemsg" ng-if="((signuplist.$submitted && signuplist.createpassword.$invalid) || signuplist.createpassword.$error.required && signuplist.createpassword.$touched) && !signuplist.createpassword.$error.pattern">
+                      Create Password is required
+                    </span>
+                    <span class="validatemsg" ng-if="login.passwordvalue"> Please make sure you follow the instructions </span>
+                </div>
+              </div>
+              <div >
+                  <div class="list position-relative passwardport-detailes" ng-if="login.showPassword" >
+                      <label class="item item-input inset-label forget-psd-eye">
+                          <input type="text" id="create_password" ng-keyup="login.show_details();" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/" placeholder="Create Password" ng-model="login.signup.createpassword" name="createpassword" ng-required="true" ng-touched>
+                          
+                        </label>
+                        <div class="forget-psd-eye">
+                            <div class="fa fa-eye-slash"  ng-click="login.toggleShowPassword()" ></div>
+    
+                        </div>
+                          <img width="30px" ng-show="login.show_question" ng-click="login.password_details()" height="30px"    src="../www/img/ionic_question.svg"/>
+                              <!-- <button >button</button> -->
+                           
+                     
+                      <span class="validatemsg" ng-if="((signuplist.$submitted && signuplist.createpassword.$invalid) || signuplist.createpassword.$error.required && signuplist.createpassword.$touched) && !signuplist.createpassword.$error.pattern">
+                        Create Password is required
+                      </span>
+                      <span class="validatemsg" ng-if="signuplist.createpassword.$error.pattern"> Please make sure you follow the instructions </span>
+                  </div>
+                </div>
+
+                <div>
+                  <button class="m-upwrdz-btn m-upwrdz-block-btn" type="submit" ng-click="signuplist.$valid" ng-disabled="login.direct_signup_status">
+                      SIGN UP
+                  </button>
+                </div>
+              </form>
+          </div>
+
+         <div ng-if="login.loginaccordion">
+            <p class="text-center">Already have an account?<br/>Login with Email</p>
+            <form name="loginlist" novalidate ng-submit="login.loginsubmit()" ng-init="login.log={}">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                      <input type="email" placeholder="Email ID" name="username" ng-model="login.log.username" ng-required="true" ng-touched
+                          ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4}))$/"/>
+                    </label>
+                    <span class="validatemsg" ng-if="((loginlist.$submitted && loginlist.username.$invalid) || loginlist.username.$error.required && loginlist.username.$touched) && !loginlist.username.$error.pattern"> Email is required</span>
+                    <span class="validatemsg" ng-if="loginlist.username.$error.pattern"> Email ID is not valid</span>
+                </div>
+                <div class="list"  ng-if="!login.showPassword1" >
+                    <label class="item item-input item item-input item-floating-label bottomborder forget-psd-eye">
+                      <input type="password" placeholder="Password" ng-model="login.log.password" name="password" ng-required="true" ng-touched/>
+                      
+                    </label>
+                    <div  class="forget-psd-eye">
+                        <div class="fa fa-eye" ng-click="login.toggleShowPassword1()"></div>
+                    </div>
+                    <span class="validatemsg" ng-if="(loginlist.$submitted && loginlist.password.$invalid) || loginlist.password.$error.required && loginlist.username.$touched"> Password is required</span>
+                </div>
+
+                <div class="list"  ng-if="login.showPassword1" >
+                    <label class="item item-input item item-input item-floating-label bottomborder forget-psd-eye">
+                      <input type="text" placeholder="Password" ng-model="login.log.password" name="password" ng-required="true" ng-touched/>
+                     
+                    </label>
+                    <div class="forget-psd-eye">
+                        <div class="fa fa-eye-slash"  ng-click="login.toggleShowPassword1()" ></div>
+
+                    </div>
+                    <span class="validatemsg" ng-if="(loginlist.$submitted && loginlist.password.$invalid) || loginlist.password.$error.required && loginlist.username.$touched"> Password is required</span>
+                </div>
+
+                <div class="list" >
+                    <button class="m-upwrdz-btn m-upwrdz-block-btn" type="submit">
+                      LOG IN
+                    </button>
+                    <div class="pull-right" ng-click="login.toggle_accordion('pwd')" ng-if="!login.forgotpwdaccordion">
+                        <span>Forgot Password ?</span>
+                    </div>
+                </div>
+             </form>
+          </div>
+
+        <div ng-if="login.forgotpwdaccordion" class="forgot-form">
+            <div>
+              <h5 class="text-center">Forgot Password
+                <i class="icon ion-close pull-right" ng-click="login.closeform('pwd')"></i>
+              </h5>
+           </div>
+           <form name="forms.forgotpwd" novalidate ng-submit="login.forgotpassword()">
+              <div class="list">
+                <label class="item item-input item item-input item-floating-label bottomborder">
+                  <input type="email" placeholder="User Email ID" ng-model="login.forgot_pwd_user" name="email" ng-required="true" ng-touched ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4}))$/"/>
+                </label>
+                <span class="validatemsg" ng-if="((forms.forgotpwd.$submitted && forms.forgotpwd.email.$invalid) || forms.forgotpwd.email.$error.required && forms.forgotpwd.email.$touched) && ! forms.forgotpwd.email.$error.pattern">Email ID is required</span>
+                <span class="validatemsg" ng-if="forms.forgotpwd.email.$error.pattern"> Email ID is not valid</span>
+              </div>
+              <div>
+                <button class="m-upwrdz-btn m-upwrdz-block-btn" type="submit">SUBMIT</button>
+              </div>
+            </form>
+        </div>
+
+     </div>
+  </ion-content>
+</ion-view>

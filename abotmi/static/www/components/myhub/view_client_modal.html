@@ -1,0 +1,90 @@
+<ion-view>
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <ion-view>
+                <upwrdz-Tabs></upwrdz-Tabs>
+                <ion-content>
+                    <div overflow-scroll="true" class="m-upwrdz-editpage-content">
+                      <div class="editpage-title-bar">
+                        <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" back>
+                        VIEW CLIENTS
+                      </div>
+                        <div ng-repeat = "data in client.member_list">
+                            <div class="row accordion-toggle" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+                                <div class="col col-80">{{data.user_profile_name}}</div>
+                                <div class="col col-20"><i class="fa fa-chevron-down pull-right"></i></div>
+                            </div>
+                            <div class="row accordion-content default">
+                                <p class="row">
+									                  <span class="col col-25">Name</span>
+                                    <span class="col">{{data.user_profile_name}}</span>
+                                </p>
+                                <p class="row">
+									                  <span class="col col-25">Email</span>
+                                    <span class="col">{{data.user_profile_email}}</span>
+                                </p>
+                                <p class="row">
+									                  <span class="col col-25">Added on:</span>
+                                    <span class="col">{{data.created_date | date:"yyyy-MM-dd"}}</span>
+                                </p>
+                                <p class="row">
+									                  <span class="col col-25">Status</span>
+                                    <span class="col" ng-if="data.is_register_member == true">Registered</span>
+                                    <span class="col" ng-if="data.is_register_member == false">Not yet Registered</span>
+                                </p>
+                                <p class="row">
+									                  <span class="col col-25">No of Txns: </span>
+                                    <span class="col">{{data.no_of_transactions || 0}}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div ng-repeat = "data in client.invited_member_list">
+                            <div class="row accordion-toggle" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear" >
+                                <div class="col col-80">{{data.first_name}}</div>
+                                <div class="col col-20"><i class="fa fa-chevron-down pull-right"></i></div>
+                            </div>
+                            <div class="row accordion-content default">
+                                <p class="row">
+									                   <span class="col col-25">Name</span>
+                                     <span class="col">{{data.first_name}}</span>
+                                </p>
+                                <p class="row">
+									                   <span class="col col-25">Email</span>
+                                     <span class="col">{{data.email}}</span>
+                                </p>
+                                <p class="row">
+									                   <span class="col col-25">Added on:</span>
+                                     <span class="col">{{data.created_date | date:"yyyy-MM-dd"}}</span>
+                                </p>
+                                <p class="row">
+									                   <span class="col col-25">Status</span>
+                                     <span class="col" ng-if="data.is_rejected == true">Rejected</span>
+                                    <span class="col" ng-if="data.is_rejected == false">In Progress</span>
+                                </p>
+                                <p class="row">
+									                   <span class="col col-25">No of Txns: </span>
+                                     <span class="col">{{data.no_of_transactions || 0}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </ion-side-menu-content>
+    </ion-side-menus>
+</ion-view>
+
+
+<!--<ion-view>
+  <ion-nav-bar class="bar" align-title="center">
+    <ion-nav-back-button class="button-clear" side="left">
+        <i class="icon ion-arrow-left-a light"></i> Back
+    </ion-nav-back-button>
+    <ion-nav-title>
+       <h4 class="modaltitle whitefont">View Clients</h4>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content overflow-scroll="true">
+
+   </ion-content>
+</ion-view>-->

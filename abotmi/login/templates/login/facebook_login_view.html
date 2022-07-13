@@ -1,0 +1,111 @@
+{% load i18n admin_static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+    <head>
+        <title>ABOTMI</title>
+        {% load staticfiles %}
+        <meta charset="utf-8">
+        <!--webfonts-->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="{% static 'new_theme/assets/css/responsive.css' %}" media="screen">
+        <link rel="stylesheet" href="{% static 'new_theme/assets/css/bootstrap.min.css' %}" type="text/css" media="screen">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'new_theme/assets/css/social_buttons.css' %}"/>
+    </head>
+    <body>
+       <h2><center>ABOTMI</center></h2>
+        <form id="fb_login" action="/login/facebook/" method="POST">
+        {% csrf_token %}
+            <p>ABOTMI is a professional network that connects you with the most reliable and trustworthy digital asset advisors across the globe.</p><br/>
+            <!-- commented temporarly -->
+            <!-- <a class="btn btn-lg btn-facebook" onclick="login();"><i class="fa fa-google-plus"></i> Join </a> -->
+            <!-- <script type="in/Login"></script> -->
+            <div id="fetch_data"></div>
+            <!-- Hidden inputs -->
+            <input id="next_url" name="next_url" type="hidden" value="{{next}}"/>
+            <div id="data_fetched"></div>
+        </form>
+    </body>
+    <script type="text/javascript" src="{% static 'new_theme/assets/js/jquery-min.js' %}"></script>
+
+   <script type="text/javascript">
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{{FACEBOOK_API}}',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    };
+
+    function login(){
+      FB.login(function(response) {
+          if (response.status === 'connected') {
+              get_user_details();
+              // testAPI();
+              // get_basic_details();
+          } else if (response.status === 'not_authorized') {
+              alert('you have not authorized')
+          }
+      }, {scope: 'public_profile,email,user_birthday,user_likes,user_friends,user_location,user_hometown,read_custom_friendlists'});
+    }
+    function share() {
+      FB.ui({
+        method: 'feed',
+        href: '{{FACEBOOK_SINGLE_URL}}',
+        name: 'ABOTMI',
+        link: '{{FACEBOOK_SINGLE_URL}}',
+        caption: 'ABOTMI caption',
+        description: 'ABOTMI description',
+        message: 'ABOTMI message'
+      }, function(response){
+            window.location = "{{GOOGLE_REDIRECT}}";
+      });
+    }
+    function get_user_details(){
+      FB.api('/me',{fields:'first_name,last_name,email,gender,birthday,verified'},
+        function(response) {
+          var myBD = response.birthday;
+          // Update Hidden inputs
+          var birthday = "";
+          if (typeof myBD != 'undefined'){
+            var fb_date = response.birthday;
+            var fb_date_array = fb_date.split('/');
+            birthday = fb_date_array[2]+"-"+fb_date_array[0]+"-"+fb_date_array[1];
+          }
+          var token = "{{ csrf_token }}";
+          $.ajax({
+            type: "POST",
+            url: "/login/facebook/",
+            beforeSend: function (request) {
+              request.setRequestHeader("X-CSRFToken", token );
+            },
+            data : {
+              first_name : response.first_name,
+              last_name  : response.last_name,
+              user_name  : response.email,
+              birthday   : birthday,
+              gender     : response.gender,
+              next_url   : $('#next_url').val()
+            },success:function(response) {
+              if(response == "success") {
+                share();
+              }
+              if(response == "success_exist")
+                window.location = "{{GOOGLE_REDIRECT}}";
+              if(response == "deactivated")
+                alert('your account is not active call customer care');
+            }
+          });
+
+      });
+    }
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+    <script src="{% static 'js/WearProtection.js' %}"></script>
+</html>

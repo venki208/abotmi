@@ -1,0 +1,230 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/new-datatable.css' %}">
+<link href="/static/admin_theme/plugins/datatables/dataTables.bootstrap.css"
+rel="stylesheet" type="text/css" />
+<style>
+input[type="radio"]{
+    display:none;
+}
+input[type="radio"] + label{
+    cursor:pointer;
+}
+input[type="radio"] + label:before{
+    background: #5f5860;
+    height: 20px;
+    border:1px solid #ccc;
+    content: " ";
+    display: inline-block;
+    width: 20px;
+    vertical-align: middle;
+    position:relative;
+    top:-1px;
+}
+input[type="radio"]:checked + label:before{
+    content: "\2713";
+    color: #ccc;
+    font-size: 24px;
+    text-align: center;
+    line-height: 21px;
+}
+.comment-send-btn{
+    background: #2e3192;
+    color: #fff !important;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    height: 35px;
+    line-height: 35px;
+    padding: 0;
+    text-transform: uppercase;
+    padding-right: 7px !important;
+    padding-left: 7px !important
+}
+
+</style>
+<div class="modal fade upwardz-modal" id="enquiry-modal" name="enquiry-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="panel upwrdz-log-panel panel-default">
+            <div class="modal-header modal-header-border-bottom text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times-thin fa-2x"></i>
+                </button>
+                <h3 class="modal-title n-span-blue-color">CLIENT ENQUIRY LIST</h3>
+                <hr class="modal-heading-hr">
+                <span class="pull-right" onclick="window.location.reload();"></span>
+            </div>
+            <div class="panel-body pannel-popup-contentpanel-body pannel-popup-content" id="enquiry-modal-body">
+                <div class="bs-example">
+                    <div class="table-responsive">
+                        {% if enquiry_management %}
+                        <table id="table_id" name="table_id" class="table custome-table">
+                            <span class="pull-right">
+                                <a id="veiw-member-search-icon" onclick="enable_search()"><i class="fa fa-search-thin fa-lg"></i></a>
+                            </span>
+                            <thead class="custome-table-header">
+                                <tr class="custome-tr">
+                                    <th class="head-one">
+                                        Name
+                                    </th>
+                                    <th class="head-one">
+                                        Reingo ID
+                                    </th>
+                                    <th class="head-one">
+                                        Project Name
+                                    </th>
+                                    <th class="head-one">
+                                        Entry Date
+                                    </th>
+                                    <th class="head-one">
+                                        Status
+                                    </th>
+                                    <th class="head-one">
+                                        Accept / Decline
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for enquiry in enquiry_management %}
+                                <tr>
+                                    <td>{{enquiry.user_profile.first_name}}</td>
+                                    <td>{{enquiry.reingo_name}}</td>
+                                    <td>{{enquiry.project_name}}</td>
+                                    <td>{{enquiry.created_date}}</td>
+                                    <td id="status_tr{{ forloop.counter}}">
+                                        {% if enquiry.transaction_status == 'ADVISOR_ACCEPT' %}
+                                        {{enquiry.transaction_status}}
+                                        {% elif enquiry.transaction_status == 'ADVISOR_REJECT' %}
+                                        {{enquiry.transaction_status}}
+                                        {% elif enquiry.transaction_status == 'ALLOCATED' %}
+                                        {{enquiry.transaction_status}}
+                                        {% else %}
+                                        {{enquiry.transaction_status}}
+                                        {% endif %}
+                                    </td>
+                                    <td id="status_td{{ forloop.counter }}">
+                                        {% if enquiry.transaction_status == 'ADVISOR_ACCEPT' %}
+                                        <span class="label pink-btn-primary">Accepted</span>
+                                        {% elif enquiry.transaction_status == 'ADVISOR_REJECT' %}
+                                        <span class="label n-bg-grey">Rejected</span>
+                                        {% elif enquiry.transaction_status == 'ALLOCATED' %}
+                                        <span class="label blue-btn-primary">Allocated</span>
+                                        {% else %}
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <input type="radio" class="accept-reject-class" name="checkbox{{forloop.counter}}" id="checkbox_accept{{forloop.counter}}" value="{{enquiry.id}}-accept"  onclick="booking_transaction('{{enquiry.id}}', 'accept','div_reason{{ forloop.counter }}','id_reason{{ forloop.counter }}','btn_reason{{ forloop.counter }}','status_td{{ forloop.counter }}','status_tr{{ forloop.counter}}')">
+                                                <label for="checkbox_accept{{forloop.counter}}" title="Accept"></label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="radio" class="accept-reject-class" name="checkbox{{forloop.counter}}"  id="checkbox_reject{{forloop.counter}}" onclick="enable_div_reason('div_reason{{ forloop.counter }}')" value="{{enquiry.id}}-reject">
+                                                <label for="checkbox_reject{{forloop.counter}}" title="Reject"></label>
+                                                <div id="div_reason{{ forloop.counter }}" style="display:none;">
+                                                    <i><textarea class="form-control" type="textarea" ondragover=""    name="id_reason{{forloop.counter }}" id="id_reason{{ forloop.counter }}" ></textarea></i>
+                                                    <i><button class="comment-send-btn" oninvalid=""   name="btn_reason{{forloop.counter }}" id="btn_reason{{ forloop.counter }}" onclick="remarks_declined('{{enquiry.id}}','decline','btn_reason{{ forloop.counter }}','id_reason{{ forloop.counter }}','status_td{{ forloop.counter }}','status_tr{{ forloop.counter}}')">SEND</button></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p class="text-center" style="font-size:16px;">No Enquiry Found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<script type="text/javascript">
+function send_status(booking_id, status, div_reason, id_reason,td_status,tr_status){
+    var token = '{{ csrf_token }}';
+    var dash_rej_count = $("#dash_reject").html();
+    var dash_inprog_count = $("#dash_inprog").html();
+    var dash_accept_count = $("#dash_accept").html();
+    var confirm_status = confirm("Do you want to continue");
+    if(confirm_status){
+        $.ajax({
+            type: 'POST',
+            url: '/dashboard/accept_or_decline_booking/',
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data: {'booking_id': booking_id, 'status': status , 'reason': div_reason},
+            success: function(response){
+                if (response=='success'){
+                    $("#"+td_status).html('');
+                    $("#"+td_status).parent().remove();
+                    if(status == 'decline'){
+                        dash_rej_count = parseInt(dash_rej_count)+1;
+                        $("#dash_reject").html(dash_rej_count);
+                    }else{
+                        dash_accept_count = parseInt(dash_accept_count)+1;
+                        $("#dash_accept").html(dash_accept_count);
+                    }
+                    $("#dash_inprog").html(parseInt(dash_inprog_count)-1);
+                }
+                else{
+                    alert("Process Failed: Please contact contact@reiaglobal.com")
+                }
+            }
+        });
+    }
+    else {
+        $('#'+td_status).find("input[type='radio']").each(function (e) {
+            $(this).prop('checked', false);
+        });
+        if(status == 'decline'){
+            $($("#"+div_reason).closest('div')[0])
+                .css('display','none')
+                .find('input[type="textarea"]').val('');
+        }
+
+    }
+}
+function remarks_declined(booking_id,status,remarks_declined_id,id_reason,td_status,tr_status){
+    var reason = $("#"+remarks_declined_id).val();
+    var rea =$("#"+id_reason).val().trim();
+    if(rea== ""){
+        alert("Please enter the reason");
+    }
+    else{
+        send_status(booking_id, status, remarks_declined_id, id_reason, td_status,tr_status);
+    }
+}
+function enable_div_reason(div_reason){
+    $("#"+div_reason).css("display","block");
+}
+// Enquiry Management
+function booking_transaction(booking_id, status,div_reason,id_reason,btn_reason,td_status,tr_status){
+    $("#"+id_reason).html('');
+    send_status(booking_id, status,div_reason,id_reason,td_status,tr_status);
+}
+</script>
+{% if enquiry_management %}
+<script src="/static/admin_theme/plugins/datatables/jquery.dataTables.js"
+        type="text/javascript"></script>
+<script src="/static/admin_theme/plugins/datatables/dataTables.bootstrap.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#table_id').dataTable({
+            language: {
+                paginate: {
+                    previous: "< Previous",
+                    next: "Next >"
+                }
+            }
+        });
+        document.getElementById('table_id_filter').style.display = 'none';
+    });
+    function enable_search(){
+        document.getElementById('table_id_filter').style.display = 'block';
+        document.getElementById('veiw-member-search-icon').style.display = 'none';
+    }
+</script>
+{% endif %}

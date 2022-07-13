@@ -1,0 +1,247 @@
+{% extends 'company/company_base.html' %}
+{% load staticfiles %}
+{% block custom_theme_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/intl-tel-input-js/css/intlTelInput.css' %}">
+{% endblock %}
+{% block main_content %}
+    <section class="advisor-form parent-section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 upwrdz-profile-steps-one"><h2><span class="underline"><span class="title_span">Registration of Affiliate company</span></span></h2></div>
+                <div class="col-md-12 upwrdz-steps-advisor-content">
+                    <div class="panel-body pannel-popup-content">
+                        <form method="POST" action="/company/save_add_affiliate_form/" class="reia_contact_form" name="reia_contact_form" id="reia_contact_form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="activation_key" id="id_activation_key" value="{{activation_key}}">
+                            <div class="row registration-form-div">
+                                <div class="form-group col-md-3">
+                                    <label for="ex2">Company Logo<span>*</span></label>
+                                    <input type="file" name="company_logo" accept="image/*" id="document"  onchange="validate_input(id);">
+                                    <span style="font-size:12px;">(Please upload image file)</span>
+                                    <span class="help-block" id="help-text-document"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="ex2">Company Name <span>*</span></label>
+                                    <input class="form-control" placeholder="Official name of your company as registered" name="company_name" id="company_name" type="text" onchange="validate_input(id);" value="{{company.company_name}}">
+                                    <span class="help-block" id="help-text-company_name"></span>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="ex2">Company Tagline <span>*</span></label>
+                                    <input class="form-control" placeholder="Official tagline of your company" name="company_tagline" id="company_tagline" type="text" onchange="validate_input(id);" value="{{company.tagline}}">
+                                    <span class="help-block" id="help-text-company_tagline"></span>
+                                </div>
+                            </div>
+                            <div class="row registration-form-div">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="ex2">Company URL <span>*</span></label>
+                                            <input class="form-control" placeholder="Eg: www.abcd.com" name="company_url" id="company_url" type="text" onchange="validate_input(id);" value="{{company.website_url}}">
+                                            <span class="help-block" id="help-text-company_url"></span>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="ex2">Company Objective <span>*</span></label>
+                                            <input class="form-control" placeholder="Eg: To provide expert financial advise" name="company_objective" id="company_objective" type="text" onchange="validate_input(id);" value="{{company.objective}}">
+                                            <span class="help-block" id="help-text-company_objective"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label for="ex2">Company Description <span>*</span></label>
+                                        <textarea rows="5" type="text" name="company_description" id="company_description" placeholder="Describe your company in 150 words or less. Please note that this can be viewed by clients." onchange="validate_input(id);">{{company.description}}</textarea>
+                                        <span class="help-block" id="help-text-company_description"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row registration-form-div">
+                                <div class="col-md-4">
+                                    <label for="CIN">Company Identification Number <span>*</span></label>
+                                    <input type="text" class="form-control" name="cin_no" id="cin_no" value="{{company.corprate_identity_no|default:''}}" onchange="validate_input(id);" placeholder="A67120BC1995PLC086241">
+                                    <span class="help-block" id="help-text-cin_no"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Number of clients">Number of Clients <span>*</span></label>
+                                    <input type="number" class="form-control" name="no_of_clients" id="no_of_clients" onchange="validate_input(id);" placeholder="562332" value="{{company.number_client}}">
+                                    <span class="help-block" id="help-text-no_of_clients"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Number of employees">Number of Employees <span>*</span></label>
+                                    <input type="number" class="form-control" name="no_of_employees" id="no_of_employees" onchange="validate_input(id);" placeholder="562332" value="{{company.number_of_employee}}">
+                                    <span class="help-block" id="help-text-no_of_employees"></span>
+                                </div>
+                            </div>
+                            <div class="row registration-form-div">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4>Your Company Address</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row registration-form-div">
+                                            <div class="col-md-6">
+                                                <label for="ex2">Registered Office Address <span>*</span></label>
+                                                <textarea placeholder="Address line 1" name="re_office_address" id="company_address" type="text" onchange="validate_input(id);" rows="3"></textarea>
+                                                <span class="help-block" id="help-text-company_address"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ex2">Corporate Office Address <span>*</span></label>
+                                                <textarea placeholder="Address line 2" name="co_office_address" id="address_line_2" type="text" onchange="validate_input(id);" rows="3"></textarea>
+                                                <span class="help-block" id="help-text-address_line_2"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row registration-form-div">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4>Point of contact</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row registration-form-div">
+                                            <div class="col-md-4">
+                                                <label for="ex2">Name of Person <span>*</span></label>
+                                                <input class="form-control" placeholder="Name of the person" name="point_of_contact_name" id="point_of_contact_name" type="text" onchange="validate_input(id);">
+                                                <span class="help-block" id="help-text-point_of_contact_name"></span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="ex2">Email ID <span>*</span></label>
+                                                <input class="form-control" placeholder="Email id" name="point_of_contact_email_id" id="point_of_contact_email_id" type="text" onchange="validate_input(id);" value="{{user_auth_obj.username}}">
+                                                <span class="help-block" id="help-text-point_of_contact_email_id"></span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="ex2">Mobile Number <span>*</span></label>
+                                                <input class="form-control" placeholder="Mobile number" name="point_of_contact_phone_number" id="point_of_contact_phone_number" type="text" onchange="validate_input(id);">
+                                                <span class="help-block" id="help-text-point_of_contact_phone_number"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row registration-form-div">
+                                <h4>Social Media Links</h4>
+                                <div class="col-md-6 social-media-icons-links">
+                                    <input class="form-control" placeholder="Provide your company`s official Facebook URL" name="facebook_media" id="facebook_media" type="text" onchange="validate_input(id);">
+                                    <label for="ex3"><i class="fa fa-facebook-square fa-2x" aria-hidden="true" style="color:#3b5999 "></i></label>
+                                    <span class="help-block" id="help-text-facebook_media"></span>
+                                </div>
+                                <div class="col-md-6 social-media-icons-links">
+                                    <input class="form-control" placeholder="Provide your company`s official Google+ URL" name="google_media" id="google_media" type="text" onchange="validate_input(id);">
+                                    <label for="ex3"><i class="fa fa-google-plus-square fa-2x" aria-hidden="true" style="color:#dd4b39"></i></label>
+                                    <span class="help-block" id="help-text-google_media"></span>
+                                </div>
+                                <div class="col-md-6 social-media-icons-links">
+                                    <input class="form-control" placeholder="Provide your company`s official Linkedin URL" name="linkedin_media" id="linkedin_media" type="text" onchange="validate_input(id);">
+                                    <label for="ex3"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true" style="color:#0077b5"></i></label>
+                                    <span class="help-block" id="help-text-linkedin_media"></span>
+                                </div>
+                                <div class="col-md-6 social-media-icons-links">
+                                    <input class="form-control" placeholder="Provide your company`s official Twitter URL" name="twitter_media" id="twitter_media" type="text" onchange="validate_input(id);">
+                                    <label for="ex3"><i class="fa fa-twitter-square fa-2x" aria-hidden="true" style="color:#4099FF"></i></label>
+                                    <span class="help-block" id="help-text-twitter_media"></span>
+                                </div>
+                            </div>
+                            <div class="row registration-form-div">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label for="ex2">Awards and Rewards</label>
+                                            <a class="btn additional_btn btn-add-respn" id="rera_field" onClick="add_awards_and_rewards();">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="awards_and_rewards_div" class="row"></div>
+                                            <span class="help-block" id="help-text-add_financial_organisation_main"></span>
+                                        </div>
+                                        <input type="hidden" id="all_awards_and_rewards" name="all_awards_and_rewards">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ex2">Company e-Brochure<span>*</span></label>
+                                    <input type="file" name="company_e_brochure" id="document_e_brochure" onchange="validate_input(id);">
+                                    <span class="help-block" id="help-text-document_e_brochure"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="terms_and_conditions" value="true" id="iagree" onclick="validate_input(id);">
+                                        <label for="iagree">
+                                            <svg shape-rendering="optimizeQuality" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+                                                <rect class="outer" fill="#BDBCB9" x="0" y="0" width="64" height="64" rx="8"></rect>
+                                                <rect class="inner" fill="#BDBCB9" x="4" y="4" width="56" height="56" rx="4"></rect>
+                                                <polyline class="check" stroke="#FFFFFF" stroke-dasharray="270" stroke-dashoffset="270" stroke-width="8" stroke-linecap="round" fill="none" stroke-linejoin="round" points="16 31.8 27.4782609 43 49 22"></polyline>
+                                            </svg>
+                                            I have read and accepted the <a class="n-span-pink-color" data-toggle="modal" data-target="#company_terms_conditions">Terms and Conditions</a>
+                                        </label>
+                                </div>
+                                <span class="help-block" id="help-text-iagree"></span>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <button type="button" id="id_submit_form" class="btn upwrdz-button" data-target="#company_profile" onclick="validate_form();">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block bootstrap-modal %}
+{{ block.super }}
+    <div id="company_terms_conditions" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="simple-modal-lable" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">TERMS AND CONDITIONS</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="email_modal-body">
+                    Content has to be filled.
+                </div>
+            </div>
+       </div>
+    </div>
+
+    <div id="company_profile" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="simple-modal-lable" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="panel panel-default upwrdz-log-panel">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">COMPANY PROFILE</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content" id="email_modal-body">
+                    <p class="text-center">
+                        Your Company profile has created. Details are send to your registerd email.
+                    </p>
+                <div class="row text-center">
+                    <button type="button" id="ok_button" class="btn upwrdz-button" data-dismiss="modal">Ok</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block theme_scripts %}
+    {{block.super}}
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/WearProtection.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/additional-methods.min.js' %}"></script>
+    <script src="{% static 'js/plugins/intl-tel-input-js/js/intlTelInput.js' %}"></script>
+    <script src="{% static 'js/new_js/company/add_affliate.js' %}"></script>
+{% endblock %}
+

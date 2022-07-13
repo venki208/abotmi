@@ -1,0 +1,303 @@
+{% extends 'nfadmin/admin_base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% load utils_tags %}
+
+<!-- admin left-side-menu -->
+{% block sidebar-menu %}
+<!-- sidebar menu: : style can be found in sidebar.less -->
+<ul class="sidebar-menu">
+    <li>
+        <a href="/nfadmin/">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_list/">
+        <i class="fa fa-user text-pink"></i>
+        <span>Users</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/crisil_advisor_list/">
+          <img src="/static/admin_theme/dist/img/adminIcons/advisor.png" alt="">
+        <span>CRISIL Advisors</span>
+      </a>
+    </li>
+    <li>
+        <a href="/nfadmin/affiliated_companies/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-appliated.png" alt="">
+            <span>Affiliated Companies</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/add_client_list/">
+            <img src="/static/admin_theme/dist/img/adminIcons/client-icon.png" alt="">
+            <span>Clients</span>
+        </a>
+    </li>
+    <li>
+        <a href="/nfadmin/company_spoc/">
+            <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+            <span>Company Spoc</span>
+        </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_publish/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Publish</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/advisor_video_request/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Video Request</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/subscription-package/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Subscription Package</span>
+      </a>
+    </li>
+    <li>
+      <a href="/nfadmin/regulatory_registration_data_uploaded_url/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Regulatory Authentication</span>
+      </a>
+    </li>
+    <li class="active">
+      <a href="/nfadmin/educational_authentication/">
+        <img src="/static/admin_theme/dist/img/adminIcons/company-spoc.png" alt="">
+        <span>Educational Authentication</span>
+      </a>
+    </li>
+</ul>
+{% endblock %}
+
+<!-- =================================================================== -->
+<!-- = Admin Main Header and Main Content                              = -->
+<!-- =================================================================== -->
+
+    <!-- Content Header (Page header) -->
+    {% block content-header %}
+    <section class="content-header">
+        <h1> Educational Authentication List </h1>
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li><a href="/nfadmin/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    {% endblock %}
+
+
+{% block main-content %}
+<section class="content">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box adm-box">
+                    <div class="box-header">
+                        <h3 class="box-title"> Educational Authentication Table </h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>User Email</th>
+                                    <th>Mobile</th>
+                                    <th>Qualification</th>
+                                    <th>Qualification certificates </th>
+                                    <th>Status</th>
+                                    <th>Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for edu in education_data %}
+                                <tr>
+                                    <td> {{forloop.counter}} </td>
+                                    <td>{{ edu.fist_name }} {{ edu.last_name }} </td>
+                                    <td> {{edu.email}} </td>
+                                    <td> {{edu.mobile}} </td>
+                                    <td> {{edu.qualification}} </td>
+                                    <td>
+                                        {% if edu.heighest_qua_doc_url %}
+                                        {% with edu.heighest_qua_doc_url|split_path:'/' as dt %}
+                                            {% with dt|last as lt %}
+                                                {{ lt }}
+                                            {% endwith %}
+                                        {% endwith %}
+                                        <button type="button" id="{{ edu.heighest_qua_doc_url }}"  class="btn btn-primary" title="Preview" onclick="uploaded_edu_doc_preview(id)">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                        {% endif %}
+                                        {% if edu.additional_qualification %}
+                                        <button type="button" id="{{ edu.email }}" class="btn btn-primary" title="Preview" onclick="load_additional_edu_qua_list(id)">
+                                            Additional Qualification
+                                        </button>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <small class='label pull-center bg-green'>
+                                            {{edu.heighest_qua_doc_status|default:'NA'}}
+                                        </small>
+                                    </td>
+                                    <td>
+                                       {% if edu.heighest_qua_doc_status != 'verified' and edu.heighest_qua_doc_status != 'rejected' %}
+                                        <button type="button" id="{{ edu.email }}" class="btn btn-success" title="Approved" onclick="verify_heighest_qualification_doc(id, 'verified')">
+                                            <i class="glyphicon glyphicon-ok"></i>
+                                        </button>
+                                        {% else %}
+                                        <button type="button" class="btn btn-success" disabled="disabled" title="Approved">
+                                            <i class="glyphicon glyphicon-ok"></i>
+                                        </button>
+                                        {% endif %}
+                                        {% if edu.heighest_qua_doc_status != 'verified' and edu.heighest_qua_doc_status != 'rejected' %}
+                                            <button type="button" id="{{ edu.email }}" class="btn btn-danger" title="Rejected"
+                                            onclick="verify_heighest_qualification_doc(id, 'rejected')">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </button>
+                                            {% else %}
+                                             <button type="button" class="btn btn-danger" disabled="disabled" title="Rejected">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </button>
+                                        {% endif%}
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>User Email</th>
+                                    <th>Mobile</th>
+                                    <th>Qualification</th>
+                                    <th>Qualification certificates </th>
+                                    <th>Status</th>
+                                    <th>Manage</th
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+    <div class="modal fade" id="additional_educational_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"> Additional Qualification List</h4>
+                </div>
+                <div class="modal-body custome-model-body" id="body_additional_education">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="additional_qualification_preview_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onClick="close_preview_modal('preview')">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title"> Additional Qualification Document preview</h4>
+                </div>
+                <div class="modal-body custome-model-body">
+                    <object id='addi_doc_preview' width="400" height="400" data="">
+                    </object>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="close_preview_modal('preview')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="heighest_educational_preview_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title"> Heighest Document Preview </h4>
+                </div>
+                <div class="modal-body custome-model-body" id="">
+                    <object id='heighest_doc_preview' width="400" height="400" data="">
+                    </object>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- /.content -->
+
+<script>
+    function load_additional_edu_qua_list(id){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/load_additional_qual_list/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                user_email:id,
+            },
+            success:function(response){
+                $("#additional_educational_modal").modal('show');
+                $("#body_additional_education").html("");
+                $("#body_additional_education").html(response);
+                // window.location.reload();
+            }
+        });
+    }
+
+    function close_preview_modal(prev){
+        $("#additional_qualification_preview_modal").modal('hide');
+        $("#additional_educational_modal").modal('show');
+    }
+    function uploaded_edu_doc_preview(id_doc){
+        $('#heighest_doc_preview').prop('data', id_doc);
+        $("#heighest_educational_preview_Modal").modal("show");
+    }
+
+    function verify_heighest_qualification_doc(id, doc_status){
+        var token = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/nfadmin/verify_heighest_qua_doc/",
+            beforeSend: function(request){
+                request.setRequestHeader("X-CSRFToken", token);
+            },
+            data:{
+                user_email:id,
+                doc_status: doc_status
+            },
+            success:function(response){
+                window.location.reload();
+            }
+        });
+    }
+
+</script>
+{% endblock %}

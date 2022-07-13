@@ -1,0 +1,146 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    <style>
+        .build-color{
+            color: #eb1b95;
+        }
+        .partners-logo{
+            font-weight: 700;
+            font-size: large;
+        }
+        .abotmi-profile-people{
+            float: left;
+            width: 20%;
+            text-align: center;
+        }
+        .build-people-profile p{
+            margin: 5px 0px;
+        }
+        .abotmi-profile-ppl{
+            margin-top: 30px;
+        }
+        .abotmi-profile-people-row .abotmi-profile-people{
+            width: 210px;
+        }
+    </style>
+    {% if not user.is_authenticated %}
+        <style>
+            body{
+                padding-top: 123px;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/build-banners.png' %}">
+        <div class="container reputation-static-banner-position">
+            <h2>BUILD</h2>
+        </div>
+    </section>
+    <section class="reputation-static">
+        <div class="container">
+            <div class="row abotmi-build-main">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="row">
+                        <div class="col-md-12 abotmi-reputation-card-one abotmi-build-main-header">
+                            <h3>PURPOSE</h3>
+                            <h2>
+                                The Purpose<br/> that Drives us is<br/> 
+                                <span style="color: #e75581;">"Investor Protection"</span>
+                            </h2>
+                            <div class="abotmi-reputation-card">
+                                <img src="{% static 'new_images/infographic/vision_icon.png' %}">
+                                <h4 class="n-h4 build-color"><b>Vision</b></h4>
+                                <p>To be the leader and the most trusted digital asset investor protection platform globally.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="abotmi-reputation-card">
+                                <img src="{% static 'new_images/infographic/value_icon.png' %}">
+                                <h4 class="n-h4 build-color "><b>Value</b></h4>
+                                <p><b>Professional development -</b> Through consistent training, regular market updates and from customer feedback.</p>
+                                <p><b>Leadership  -</b> Leading by example, building the team, guiding the fellow members.</p>
+                                <p><b>Disclosure - </b> In all the advises, about the product, risk, legal framework of all known factual and actual.</p>
+                                <p><b>Respect -</b> To all the participant of the ecosystem, irrespective of the place, position and services rendered.</p>
+                                <p><b>Integrity -</b> To the highest standards.</p>
+                                <p><b>Strictly follow the code of conduct -</b>At all levels, at all times, in all situations, go by the rule book.</p>
+                                <p><b>Professional delivery -</b>In all advises that is made to the highest standard of professionalism, all advises with one expectation of creating wealth for the investors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="abotmi-reputation-card-two abotmi-reputation-card">
+                                <img src="{% static 'new_images/infographic/belief_icon.png' %}">
+                                <h4 class="n-h4 build-color"><b>Belief</b></h4>
+                                <p> We believe in Shaping the Future, than just solving the Problems of the Past.</p>
+                                <p>Solving the problems of the past will only solve the existing issues, but when we shape the future we disrupt the whole Eco system, which will by itself solve those old problems and build the future above that.</p>
+                                <p>Solving the past problems is addressing the existing consumer, shaping the future is building and adding the new consumer.</p>
+                                <p>Solving the past problems in making the product / service better, shaping the future is all about crafting the Eco system and creating the new product itself.</p>
+                                <p>In solving problems others become your benchmark, how they did and what they did become the reference point, in shaping the future we become the benchmark for everyone.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="abotmi-reputation-card">
+                                <img src="{% static 'new_images/infographic/commitment_icon.png' %}">
+                                <h4 class="n-h4 build-color"><b>Commitment</b></h4>
+                                <p>While advising a member, we will conduct all services in a lawful, prudent and professional manner consistent with the highest standards of honesty, integrity and ethics, ensuring compliance with all the ABOTMI rules, Bylaws, Code of Ethics and Professional Conduct and all other relevant laws. We will act in the member's best interests, above consideration of personal gain.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="row abotmi-reputation-card-three">
+                            <div class="col-md-12 abotmi-build-main-header">
+                                <h3 class="n-h4 build-color">
+                                    <b>Promise<br/>
+                                    <p style="color:#333; margin-top: 10px;">Here's Why<br/>we're better.</p></b>
+                                </h3>
+                                <h3></h3>
+                                <p>To connect you with the most trustworthy digital asset wealth creation decisions of your life across the globe. Just connect with us, anyway that way you want. A call, a message, a mail…. We promise you the best professional advisors connections.</p>
+                            </div>
+                            <div class="col-md-12">
+                                <h4 class="n-h4 build-color"><b>Partners</b></h4>
+                                <div class="row abotmi-profile-people-row">
+                                    <div class="col-md-4 abotmi-profile-people abotmi-profile-ppl">
+                                        <div class="partners-logo">Education partner</b></div>
+                                        <p><img src="{% static 'new_images/wpb-logo.png' %}"/></p>
+                                    </div>
+                                    <div class="col-md-4 abotmi-profile-people abotmi-profile-ppl">
+                                        <div class="partners-logo"><b>Process partner</b></div>
+                                        <p><img src="{% static 'new_images/ey-logo.png' %}"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                    </div>
+                </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/validate.js' %}"></script>
+{% endblock %}

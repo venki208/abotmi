@@ -1,0 +1,467 @@
+<ion-view>
+        
+       
+      <ion-content class="m-upwrdz-eipv-content"  >
+          <div ng-if="eipvprocess.step == 0">
+              <div class ="starteipv" >
+                 <p class="title-text">
+                     "In order to use the E-IPV application please give your mobile device permission to access your camera."
+                 </p>
+                 <p class="box-text">
+                    You will be asked to record your face.<br>
+                    Please make sure only face is covered in the mobile camera screen.<br>
+                    You will be asked to show your Identity card.<br>
+                    <!-- You will be asked to show your PAN card.<br>
+                    You will be asked to show your Signature on A4 sheet. -->
+                 </p>
+              </div>
+          </div>
+          <div class="eipv1 eipv-capture-process" ng-show="eipvprocess.step == 1">
+              <div class="abotmi-step-one">
+                  <p class="stepone">Profile Picture</p>
+                  <!-- <p>Face Capture
+                    </p> -->
+              </div>
+              <div class="camera-view">
+                  <p style="text-align: center">Please select camera or upload to complete profile picture</p>
+                  
+                  <p class="cam-text">
+                    <img ng-src="{{eipvprocess.eipv_face_capture}}"/>
+                  </p>
+             </div>
+              <div class="camera-btns">
+                   <div class="row">
+                        <div class="col text-center camara-capture-div camara-capture-div-img" ng-if="eipvprocess.eipv_face_capture">
+                             <div class="cam-upload" ng-click="eipvprocess.capturedata(eipvprocess.eipv_face_capture,'face')">
+                                 <img ng-src="{{eipvprocess.eipv_face_capture}}"/>
+                                 <i class="fa fa-check" aria-hidden="true"></i>
+
+                             </div>
+                       </div>
+                  <div class="col text-center camara-capture-div">
+
+                        <div ng-if="eipvprocess.devicedetection.os =='android'">
+                        <input id ="file" type="file" accept="image-camera/*" class="cam-upload cam-upload-main"  file-change="eipvprocess.eipv_face_capture" ng-model="eipvprocess.eipv_face_capture"/>
+                        </div>
+                        <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                <input id ="file" type="file" accept="image/*" class="cam-upload cam-upload-main"  file-change="eipvprocess.eipv_face_capture" ng-model="eipvprocess.eipv_face_capture"/>
+                                </div>
+                  </div>
+                      <div class="col text-center camara-capture-div camara-capture-div-img" ng-if="eipvprocess.eipv_face_capture">
+                          <div class="cam-upload">
+                              <label for="input_file">
+                                  <img ng-src="{{eipvprocess.eipv_face_capture}}"/>
+                                  <div ng-if="eipvprocess.devicedetection.os =='android'">
+                                  <input id ="file-close" capture="camera" accept="image-camera/*" type="file" class="cam-upload cam-upload-one"  file-change="eipvprocess.eipv_face_capture" ng-model="eipvprocess.eipv_face_capture"/>
+                                  </div>
+                                  <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                        <input id ="file-close"  accept="image/*" type="file" class="cam-upload cam-upload-one"  file-change="eipvprocess.eipv_face_capture" ng-model="eipvprocess.eipv_face_capture"/>
+                                        </div>
+                              </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" ng-show="eipvprocess.step == 4" >
+              <div class="pd-t20">
+                    <p class="stepone">Verification Process </p>
+              </div>
+              <div class="row">
+                  <div class ="col">
+                    <select  ng-required ="true"  name ="suffix">
+                        <option value=""> Select Title </option>
+                        <option  value ='Mr'>Mr</option>
+                        <option value= 'Ms' >Ms</option>
+                        <option value='Dr' >Dr</option>
+                        <option value='Prof'>Prof</option>
+                    </select>
+                  </div>
+              </div>
+              <!-- <div class="camera-view">
+                  <p class="cam-text"> <img ng-src="{{eipvprocess.eipv_aadharcard}}"/></p>
+              </div>
+                <div class="camera-btns">
+                      <div class="row">
+                           <div class="col text-center camara-capture-div camara-capture-div-img" ng-show="eipvprocess.eipv_aadharcard">
+                             <div  class="cam-upload" type="button" ng-click="eipvprocess.capturedata(eipvprocess.eipv_aadharcard,'aadhar')" >
+                                <img ng-src="{{eipvprocess.eipv_aadharcard}}"/>
+                                 <i class="fa fa-check" aria-hidden="true"></i>
+                             </div>
+                        </div>
+                         <div class="col text-center camara-capture-div">
+                                <div ng-if="eipvprocess.devicedetection.os =='android'">
+                             <input id="file" capture="camera"  class="cam-upload cam-upload-main" type="file" accept="image-camera/*" file-change="eipvprocess.eipv_aadharcard" ng-model="eipvprocess.eipv_aadharcard">
+                             </div>
+                             <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                    <input id="file"   class="cam-upload cam-upload-main" type="file" accept="image/*" file-change="eipvprocess.eipv_aadharcard" ng-model="eipvprocess.eipv_aadharcard">
+                                    </div>
+                            </a>
+                        </div>
+                         <div class="col text-center camara-capture-div camara-capture-div-img"ng-show="eipvprocess.eipv_aadharcard">
+                             <div class="cam-upload" >
+                                 <label for="input_file">
+                                     <img ng-src="{{eipvprocess.eipv_aadharcard}}"/>
+                                     <div ng-if="eipvprocess.devicedetection.os =='android'">
+                                        <input id ="file-close" type="file" capture="camera" class="cam-upload cam-upload-one" accept="image-camera/*" file-change="eipvprocess.eipv_aadharcard" ng-model="eipvprocess.eipv_face_capture"/>
+                                     </div>
+                                     <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                            <input id ="file-close" type="file"  class="cam-upload cam-upload-one" accept="image/*" file-change="eipvprocess.eipv_aadharcard" ng-model="eipvprocess.eipv_face_capture"/>
+                                         </div>
+                                </label>
+                              </div>
+                          </div>
+                        </div>
+                  </div> -->
+            </div>
+            <!-- <div class="eipv3 eipv-capture-process" ng-show ="eipvprocess.step == 3" >
+                <div class="pd-t20">
+                    <p class="stepone">Step 3- Pan Card</p>
+                </div>
+                <div class="camera-view">
+                    <p class="cam-text"><img ng-src="{{eipvprocess.eipv_pancard}}"/></p>
+                </div>
+                <div class="camera-btns">
+                    <div class="row">
+                        <div class="col text-center camara-capture-div camara-capture-div-img" ng-show="eipvprocess.eipv_pancard">
+                            <div  class="cam-upload" type="button" ng-click="eipvprocess.capturedata(eipvprocess.eipv_pancard,'pancard')" >
+                              <img ng-src="{{eipvprocess.eipv_pancard}}"/>
+                               <i class="fa fa-check" aria-hidden="true"></i>
+                       </div>
+                  </div>
+                  <div class="col text-center camara-capture-div">
+                          <input  id="file"  class="cam-upload cam-upload-main" type="file" capture="camera" accept="image/*" file-change="eipvprocess.eipv_pancard" ng-model="eipvprocess.eipv_pancard" >
+                  </div>
+                      <div class="col text-center camara-capture-div camara-capture-div-img"ng-show="eipvprocess.eipv_pancard">
+                          <div class="cam-upload" >
+                          <label for="input_file">
+                              <img ng-src="{{eipvprocess.eipv_pancard}}"/>
+                                  <input id ="file-close" type="file" capture="camera" class="cam-upload cam-upload-one" accept="image/*" file-change="eipvprocess.eipv_pancard" ng-model="eipvprocess.eipv_pancard"/>
+                          </label>
+                         </div>
+                      </div>
+                    </div>
+                 </div>
+             </div> -->
+             <!-- <div class="eipv4 eipv-capture-process" ng-show="eipvprocess.step == 4">
+                 <div class="pd-t20">
+                     <p class="stepone">Step 4- Signature</p>
+                 </div>
+                 <div class="camera-view">
+                     <p class="cam-text"><img ng-src="{{eipvprocess.eipv_signature}}"/></p>
+                 </div>
+                 <div class="camera-btns">
+                     <div class="row">
+                         <div class="col text-center camara-capture-div camara-capture-div-img"ng-show="eipvprocess.eipv_signature">
+                             <div  class="cam-upload" type="button" ng-click="eipvprocess.capturedata(eipvprocess.eipv_signature,'signature')" >
+                                 <img ng-src="{{eipvprocess.eipv_signature}}"/>
+                                  <i class="fa fa-check" aria-hidden="true"></i>
+                              </div>
+                         </div>
+                            <div class="col text-center camara-capture-div">
+                                    <input id="file"  class="cam-upload cam-upload-main" type="file" capture="camera" accept="image/*" file-change="eipvprocess.eipv_signature" ng-model="eipvprocess.eipv_signature" />
+
+                            </div>
+                            <div class="col text-center camara-capture-div camara-capture-div-img"ng-show="eipvprocess.eipv_signature">
+                            <div class="cam-upload" ng-show="eipvprocess.eipv_signature">
+                         ng-i   <label for="input_file">
+                                <img ng-src="{{eipvprocess.eipv_signature}}"/>
+                                    <input id ="file-close" type="file" capture="camera" class="cam-upload cam-upload-one" accept="image/*" file-change="eipvprocess.eipv_signature" ng-model="eipvprocess.eipv_signature"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="submit eipvprocess-continue" ng-show ="eipvprocess.step == 3">
+            <div class="pd-14">
+                <div class ="item">
+                    <p>
+                        Tng-ihank you for completing
+                         ng-i    the e-IPV process,
+                         ng-i <br >
+                         ng-i    Please click on continue button for further process.
+                         </br>
+                    </p>
+                </div>
+                <button class="button buttoninset sub-btn whitefont pinkbutton" ng-click ="eipvprocess.submit()">CONTINUE</button>
+            </div>
+        </div> -->
+
+        
+                <div class="form abotmi-steps-input-divs" ng-show="eipvprocess.step==2" >
+                        <div class="pd-14 step-5-form">
+                         <p class="text-center stepone">Verification Process</p>
+                         <form name="registration_form_verify" novalidate ng-submit="eipvprocess.verifySubmit();" style="padding-bottom:65px;">
+                             
+            
+            
+                            <div class="">
+                                <label for="ex3">Country of issuance <span class="validationerrors">*</span></label>
+                                    <select class="cust-select" ng-model="eipvprocess.user_details.country" name ="country" ng-required="true" ng-touched>
+                                        <option value=""> Select Country</option>
+                                        <option default ng-if="eipvprocess.user_details.country"   value="{{eipvprocess.user_details.country }}">
+                                                {{eipvprocess.user_details.country }}</option>
+                                        <option ng-repeat="data in eipvprocess.country"    value="{{data.name}}">{{data.name}}</option>
+                                      </select>
+                                
+                                                </div>
+            
+                            <span class="validationerrors" ng-if="registration_form_verify.country.$error.required && rregistration_form_verify.country.$touched"> Country is required </span>
+                            <div class="row">
+                             <div class="col col50 country-verification-upload text-center" style="background-color:#f2f3f2">
+                                <p for="ex3">PASSPORT DETAILS<span class="validationerrors">*</span></p>   
+                                <div class="camara-capture-div">
+                                            <div ng-if="eipvprocess.devicedetection.os =='android'">
+                                         <input id="file" capture="camera" onchange="angular.element(this).scope().fileNameChangedPassport()"  class="cam-upload cam-upload-main-verification" type="file" accept="image-camera/*" file-change="eipvprocess.eipv_passport" ng-model="eipvprocess.eipv_passport">
+                                         </div>
+                                         <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                                <input id="file"  onchange="angular.element(this).scope().fileNameChangedPassport()"  class="cam-upload cam-upload-main-verification" type="file" accept="image/*" file-change="eipvprocess.eipv_passport" ng-model="eipvprocess.eipv_passport">
+                                               
+                                                
+                                        
+                                    </div>
+                                    
+                                    </div>
+                                    <div class="" ng-if="eipvprocess.eipv_passport">
+                                        <div class="eipvprocess-passport-div" >
+                                            <img ng-hide="eipvprocess.myValue1" ng-src="{{eipvprocess.eipv_passport}}" style="width:auto;" height="100%"/>
+                                        </div>
+                                    </div>
+                                  <a  ng-if="eipvprocess.eipv_passport" > 
+                                      <button class="button buttoninset sub-btn" ng-disabled="eipvprocess.passport_isDisabled" ng-click="eipvprocess.capturedata_verify(eipvprocess.eipv_passport,'passport')"  >
+                                      Upload 
+                                    </button>
+                                </a>
+                                <div class="row1"   data-ng-repeat="passport in  eipvprocess.passport track by $index">
+                           
+                                    <div class= "col col20"  ><div class="eipvprocess-passport-div1" >
+                                        <img ng-src="{{passport.documents}}" width="auto" height="60%"/>
+                                    </div></div>
+                    
+                                    <div class= "col col20" ng-click="eipvprocess.passport_delete(passport.id,$index);"  >
+                                        <div class="eipvprocess-passport-div1" >
+                                            <img ng-src="/static/img/delete.png" width="auto" height="100%"/>
+                                            </div> 
+                                     </div>
+                                    </div>
+                    
+                                
+                                </div>
+                             <div class="col col50 country-verification-upload text-center" style="background-color:#f2f3f2">
+                                <p for="ex3">DRIVER'S LICENSE <span class="validationerrors">*</span></p>
+                                <div class=" camara-capture-div">
+                                    <div ng-if="eipvprocess.devicedetection.os =='android'">
+                                 <input id="file" capture="camera" onchange="angular.element(this).scope().fileNameChangedDrivingLicence()"  class="cam-upload cam-upload-main-verification" type="file" accept="image-camera/*" file-change="eipvprocess.eipv_driving_licence" ng-model="eipvprocess.eipv_driving_licence">
+                                 </div>
+                                 <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                        <input id="file" onchange="angular.element(this).scope().fileNameChangedDrivingLicence()"   class="cam-upload cam-upload-main-verification" type="file" accept="image/*" file-change="eipvprocess.eipv_driving_licence" ng-model="eipvprocess.eipv_driving_licence">
+                                        </div>
+                                
+                            </div>
+                            <div class="" ng-if="eipvprocess.eipv_driving_licence">
+                                <div class="eipvprocess-passport-div" >
+                                    <img ng-hide="eipvprocess.myValue2" ng-src="{{eipvprocess.eipv_driving_licence}}" width="auto" height="100%"/>
+                                </div>
+                            </div>
+                          <a  ng-if="eipvprocess.eipv_driving_licence" > 
+                              <button class="button buttoninset sub-btn" ng-disabled="eipvprocess.driving_licence_isDisabled" ng-click="eipvprocess.capturedata_verify(eipvprocess.eipv_driving_licence,'driving_licence')"  >
+                              Upload 
+                            </button></a>
+                            <div class="row1"   data-ng-repeat="driving in  eipvprocess.driving_licence track by $index">
+                           
+                                <div class= "col col20"  ><div class="eipvprocess-passport-div1" >
+                                    <img ng-src="{{driving.documents}}" width="auto" height="60%"/>
+                                </div></div>
+                
+                                <div class= "col col20" ng-click="eipvprocess.driving_delete(driving.id,$index);"  >
+                                    <div class="eipvprocess-passport-div1" >
+                                        <img ng-src="/static/img/delete.png" width="auto" height="100%"/>
+                                        </div>
+                                </div>
+                                
+                
+                            </div>
+                            </div>
+                             <div class="col col50 country-verification-upload text-center" style="background-color:#f2f3f2">
+                                <p for="ex3">ID CARD DETAILS<span class="validationerrors">*</span></p>
+                                <div class=" camara-capture-div">
+                                    <div ng-if="eipvprocess.devicedetection.os =='android'">
+                                 <input id="file" capture="camera" onchange="angular.element(this).scope().fileNameChangedIdCard()"  class="cam-upload cam-upload-main-verification" type="file" accept="image-camera/*" file-change="eipvprocess.eipv_id_card" ng-model="eipvprocess.eipv_id_card">
+                                 </div>
+                                 <div ng-if="eipvprocess.devicedetection.os =='ios'">
+                                        <input id="file" onchange="angular.element(this).scope().fileNameChangedIdCard()"  class="cam-upload cam-upload-main-verification" type="file" accept="image/*" file-change="eipvprocess.eipv_id_card" ng-model="eipvprocess.eipv_id_card">
+                                        </div>
+                                
+                            </div>
+                            <div class="" ng-if="eipvprocess.eipv_id_card">
+                                <div class="eipvprocess-passport-div" >
+                                    <img  ng-hide="eipvprocess.myValue3" ng-src="{{eipvprocess.eipv_id_card}}" width="auto" height="100%"/>
+                                </div>
+                            </div>
+                          <a  ng-if="eipvprocess.eipv_id_card" > 
+                              <button class="button buttoninset sub-btn" ng-disabled="eipvprocess.id_card_isDisabled" ng-click="eipvprocess.capturedata_verify(eipvprocess.eipv_id_card,'id_card')"  >
+                              Upload 
+                            </button>
+                        </a>
+                        <div class="row1"  data-ng-repeat="i in  eipvprocess.id_card_url track by $index">
+                           
+                            <div class= "col col20"  ><div class="eipvprocess-passport-div1" >
+                                <img ng-src="{{i.documents}}" width="auto" height="60%"/>
+                            </div></div>
+            
+                            <div class= "col col20" ng-click="eipvprocess.id_card_delete(i.id);"  >
+                                <div class="eipvprocess-passport-div1" >
+                                    <img ng-src="/static/img/delete.png" width="auto" height="100%"/>
+                                    </div>
+                            </div>
+                            
+            
+                        </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <h4>SCOPES</h4>
+                            </div>
+                            <div class="row">
+                                <!-- <h4>SCOPES</h4> -->
+                                <div class="col col50 country-verification-upload" style="background-color:#f2f3f2">
+                                        <!-- <p for="ex3">PASSPORT DETAILS<span class="validationerrors">*</span></p>    -->
+                                        <div class="camara-capture-div">
+                                                <img ng-src="/static/new_images/email-1.png" width="auto" height="100%"/>
+            
+                                            
+                                            </div>
+                                            <div class="" >
+                                                <div class="eipvprocess-passport-div" >
+                                                    <h5>Email</h5>
+                                                    <img ng-src="/static/new_images/greentick.png" style="width:auto;" height="100%"/>
+                                                </div>
+                                            </div>
+                                           
+                            
+                                        
+                                        </div>
+            
+                                        <div class="col col50 country-verification-upload text-center" style="background-color:#f2f3f2">
+                                                <div class=" camara-capture-div">
+                                                        <img src="/static/new_images/phone.png" width="auto" height="100%" alt=""/> 
+                                                
+                                            </div>
+                                            <div class="" >
+                                                    <div class="eipvprocess-passport-div" >
+                                                        <h5>Mobile</h5>
+                                                        <img ng-src="/static/new_images/cross.png" style="width:auto;" height="100%"/>
+                                                    </div>
+                                                </div>
+                                           
+                                           
+                                                
+                                
+                                            </div>
+                                            
+                                             <div class="col col50 country-verification-upload text-center" style="background-color:#f2f3f2">
+                                                <div class=" camara-capture-div">
+                                                        <img src="/static/new_images/id-card.png" width="auto" height="100%" alt="" />
+                                                
+                                            </div>
+                                            <div class="" >
+                                                    <div class="eipvprocess-passport-div" >
+                                                        <h5>Identity</h5>
+                                                        <img ng-src="/static/new_images/cross.png" style="width:auto;" height="100%"/>
+                                                    </div>
+                                                </div>
+                                            
+                                       
+                                            </div>
+            
+            
+            
+            
+            
+                            </div>
+            
+                            <!-- <div class="list">
+                                   <label class="item item-input inset-label">
+                                      <input ng-required="true"  class="form-control" placeholder="City/Town" id="AD1"  ng-model ="eipvprocess.user_details.city" name="city" type="text" ng-pattern="/^[a-zA-Z ]*$/" >
+                                  </label>
+                                  <span class="validationerrors"  ng-if="registration_form1.city.$error.required && registration_form1.city.$touched">*City name  is required</span>
+                                  <span class="validationerrors" ng-if="registration_form1.city.$error.pattern">Enter a valid city</span>
+                             </div>
+            
+                             <div class="list">
+                                <label class="item item-input inset-label">
+                                    <input ng-minlength ='5' ng-required="true" ng-maxlength ='6'  id="home_pincode" ng-model ="eipvprocess.user_details.pincode" placeholder="Zip Code" name="pincode" type="text" ng-touched ng-pattern="/^[0-9]*$/">
+                               </label>
+                               <span class="validationerrors"  ng-if="registration_form1.pincode.$error.required && registration_form1.pincode.$touched">*Zip Code is required</span>
+                               <span class="validationerrors" ng-if="(registration_form1.pincode.$error.minlength && registration_form1.pincode.$dirty) || (registration_form1.pincode.$error.maxlength && registration_form1.pincode.$dirty)" > Enter a valid  Zip Code</span>
+                             </div> -->
+            
+                             <!-- <div class="row">
+                                    It is mandatory to get verified your mobile number and email id .
+                                    On submitting this form, you will receive two different OTP’s to your email
+                                    and mobile number respectively. Use it appropriately to help us to verify your
+                                    email and mobile number.
+                             </div> -->
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button class="button buttoninset sub-btn" ng-disabled="registration_form_verify.$invalid || eipvprocess.enableSubmit" >SUBMIT</button>
+                                </div>
+                            </div>
+                       </form>
+                    </div>
+                </div>
+    <div class="send_otp verify-send-otp" ng-show="eipvprocess.step==7">
+        <form name="otp" novalidate >
+            <div class="pd-14">
+                 <p class="text-center bluefont">Verify OTP</p>
+                 <div class="row">
+                     <div class="col">
+                         <input type="text" ng-model="eipvprocess.user_details.motp" name="motp"  placeholder="Mobile OTP" ng-required="true">
+                         <span class="validationerrors"  ng-show="otp.motp.$error.required && otp.motp.$touched">Please enter mobile otp </span>
+                     </div>
+                     <div class="col">
+                         <button class="btn otp-btn pull-right" ng-click="eipvprocess.sendotp('mobile')"> Resend </button>
+                     </div>
+                 </div>
+                 <div class="row" ng-if="eipvprocess.user_details.email_signup_present!=true">
+                     <div class="col">
+                         <input type="text" ng-model="eipvprocess.user_details.eotp" name="eotp" placeholder=" Email OTP" ng-required="true">
+                         <span class="validationerrors"  ng-show="otp.eotp.$error.required && otp.eotp.$touched">Please enter email otp </span>
+                     </div>
+                     <div class="col">
+                         <button class="btn otp-btn pull-right " ng-click="eipvprocess.sendotp('email')">Resend</button>
+
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col text-center submiteipvprocess-continue">
+                         <button  class="button buttoninset sub-btn" ng-disabled="otp.$invalid" ng-click="eipvprocess.verify()">Submit</buttom>
+                         </div>
+                     </div>
+            </div>
+        </form>
+    </div>
+    </ion-content>
+    <div class="bar bar-footer eipv-footer" ng-hide="eipvprocess.step==4 || eipvprocess.step==0  || eipvprocess.step==3 || eipvprocess.step==2">
+        <div class="row">
+            <div class="col eipv-step-process">
+                <ion-checkbox ng-disabled=true ng-checked="eipvprocess.step > 1"></ion-checkbox>
+            </div>
+            <div class="col eipv-step-process">
+                <ion-checkbox  ng-disabled=true ng-checked="eipvprocess.step > '2'"></ion-checkbox>
+            </div>
+            <!-- <div class="col eipv-step-process">
+                <ion-checkbox ng-disabled=true ng-checked="eipvprocess.step >'3'"></ion-checkbox>
+            </div>
+            <div class="col eipv-step-process">
+                <ion-checkbox ng-disabled=true ng-checked="eipvprocess.step > '4'"></ion-checkbox>
+            </div> -->
+        </div>
+      <hr class="pro-line"/>
+    </div>
+    <div class="bar bar-footer cam-start bar-balanced" ng-hide="eipvprocess.step>0">
+      <div class="title"ng-click="eipvprocess.step=1">Start Camera</div>
+    </div>
+   
+</ion-view>

@@ -1,0 +1,121 @@
+.blog-creation-form .form-group .item {
+    border-top: 1px solid #FAFAFA;
+    padding: .78571429rem 1.14285714rem !important;
+    white-space: normal;
+    word-wrap: normal;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    border: none;
+    height: auto;
+    text-align: left;
+    border-top: none;
+    line-height: 1em;
+    color: rgba(0, 0, 0, .87);
+    padding: .78571429rem 1.14285714rem !important;
+    text-transform: none;
+    font-weight: 400;
+    box-shadow: none;
+    -webkit-touch-callout: none;
+    font-size: 14px;
+}
+
+.blog-creation-form .form-group .search-output {
+    display: none;
+}
+
+.blog-creation-form .item:hover {
+    background-color: blue;
+    color: #FFF;
+}
+
+.blog-creation-form .transition {
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.dashboard-bg1a {
+    margin-top: 80px !important;
+}
+
+.section {
+    padding: 0px;
+}
+
+.bloggroups .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.section-heading {
+    margin-top: 0;
+    border-bottom: 1px solid #e40b7d;
+}
+
+.widget a {
+    color: #337ab7;
+}
+
+a:hover {
+    color: #337ab7;
+}
+
+.blogs-links ul a {
+    color: #337ab7;
+}
+.blogs-links ul {
+    padding: 10px 0px;
+    border: 1px dashed rgba(0, 0, 0, 0.61);
+    border-left: none;
+    margin-top: 5px;
+    border-right: none;
+    font-size: 16px;
+}
+
+.blogs-links ul a {
+    color: #f05f40;
+    font-weight: 300 !important;
+}
+
+.blogs-links ul li {
+    display: inline-block;
+    padding: 0px 20px 0px 10px;
+    font-weight: 300 !important;
+}
+.comment-list{
+    list-style: none;
+    padding-left: 15px;
+}
+.blog-btn {
+    background-color: #fff !important;
+}
+
+#user_img-circle {
+    height: 50px;
+    width: 50px;
+}
+.comment-content{
+    margin-left:5px;
+}
+ul li .comment-box{
+    display: inline-flex;
+}
+
+.n-span-pink-color {
+    color: #264692 !important;
+}
+.chip{
+    display: inline-block;
+    background: #2a2d92;
+    padding: 0px 12px 5px;
+    border-radius: 36px;
+    color: #FFF;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    text-decoration: none !important;
+    margin-bottom: 3px;
+    margin-right: 2px;
+}
+.chip .closebtn{
+    font-size: 20px;
+    padding-left: 5px;
+}

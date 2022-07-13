@@ -1,0 +1,93 @@
+
+
+{% block custom_theme_css %}
+    <!-- Custom CSS -->
+    <style>
+        .refer-modal-friend-center form{
+            padding: 40px 50px;
+        }
+        .refer-modal-friend-center form input{
+            border-radius: 0px;   
+        }
+        
+        
+        .refer-modal-friend-center .btn {
+            background: #211e72;
+            text-transform: uppercase;
+            color: #fff;
+            border-radius: 0;
+            min-width: 100px;
+            border: 0;
+            min-height: 34px;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+<!-- models for transform advisor -->
+<div class="modal fade upwardz-modal refer-modal-friend-center" id="refer-modal" name="refer-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color">REFER FRIEND</h3>
+                    <hr class="modal-heading-hr">
+                </div>                  
+            </div>
+            <form action="#" class="refer-modal-advic-model" method="post" id="refer_friend_form" name="refer_friend_form">
+                <div class="form-group">
+                    <input class="form-control" type="text" autocomplete="off" name="name" id="name" placeholder="Your Name" title="Please enter name" min-length='3' max-length='30' required="true" tabindex="1" onchange="validate_field_onkeypress('name','error_first_name');">
+                    <span class="help-block" id="error_first_name"></span>
+                </div>
+                <div class="form-group">
+                    <input  class="form-control" type="text" autocomplete="off" name="your_email" id="your_email" class="form-control input" placeholder="Your Email ID"  tabindex="2" title="Please enter email id" min-length='3' required="true" is-email="true" onchange="validate_field_onkeypress('your_email','error_email');">
+                    <span class="help-block" id="error_email"></span>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" autocomplete="off" name="refer_first_name" id="refer_first_name" placeholder="Referring Name" tabindex="3" onchange="validate_field_onkeypress('refer_first_name','error_refer_first_name');" title="Please enter name" min-length='3' max-length='30' required="true">
+                    <span class="help-block" id="error_refer_first_name"></span>
+                </div>
+                <div class="form-group">
+                    <input  class="form-control" type="text" autocomplete="off" name="refer_email" id="refer_email" class="form-control input" placeholder="Referring Email ID" onchange="validate_field_onkeypress('refer_email','error_refer_email');" tabindex="4" title="Please enter email id" min-length='3' required="true" is-email="true">
+                    <span class="help-block" id="error_refer_email"></span>
+                </div>
+                <div id="Recaptcha_refer_friend_button" class="recaptcha1 form-group"></div>
+                <span class="help-block" id="help_refer_freind_recpatcha"></span>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" onclick="refer_friend()" data-loading-text="Processing ..."  autocomplete="off" class="btn btn-default signin-btn">SUBMIT</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Thank you modal for Refer friend -->
+<div class="modal fade upwardz-modal" id="refer_friend_alert" role="dialog" name="refer_friend_alert" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color" id="myModalLabel">THANK YOU</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content">
+                        <p class="text-center">
+                            You have sucessfully referred your friend! <br/> Please check your email. 
+                        </p>
+                        <div class="text-center">
+                            <button type="button" class="btn upwrdz-button" name="button" data-dismiss="modal" onclick="window.location.reload();">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

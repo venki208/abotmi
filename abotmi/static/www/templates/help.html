@@ -1,0 +1,45 @@
+<ion-view>
+    <ion-content overflow-scroll="true" class="sidemenu m-upwrdz-subpage-content">
+      <div class="editpage-title-bar">
+        <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ng-if="sidemenu.status == 'non_registered'" ui-sref="start.eipv">
+        <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ng-if="sidemenu.status == 'registered'" ui-sref="app.editprofile">
+        <img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow" ng-if="sidemenu.status == 'confirmed'" ui-sref="app.myhub">
+        Help
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4>Steps to Recover Password</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>1) Click on the Forgot Password</p>
+          <img src="../images/FP_01.png" style="width:100%;"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>
+            2) Enter the <strong>Registration Email Id</strong> and <strong>Submit</strong>
+          </p>
+          <img src="../images/FP_02.png" style="width:100%;"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>
+            3) You will receive an email on the <strong>Registered Email ID</strong>. Click the link to reset the Password.
+          </p>
+          <img src="../images/FP_03.png" style="width:100%;"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>
+            4) Submit on conformation
+          </p>
+          <img src="../images/FP_04.png" style="width:100%;"/>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,183 @@
+{% load staticfiles %}
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/additional-methods.min.js' %}"></script>
+<form method="POST" action="" name="edit_crisil_advisor" id="edit_crisil_advisor" role="form">
+    {% csrf_token %}
+	<!-- Panel Design Start -->
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<div class="panel-title">
+                <h4>
+                    Invoice No: {{ user_profile_details.payment.invoice_number }}
+                </h4>
+            </div>
+		</div>
+        <div class="panel panel-body">
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Username :
+                        <input type="text" class="form-control input" id="username" name="username" value="{{ user_profile_details }}" onchange="onchange_validating_crisil_edited_fields();" readonly/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-username"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Invoice No:
+                        <input type="text" class="form-control input" id="invoice_no" name="invoice_no" value="{{ user_profile_details.payment.invoice_number }}" onchange="onchange_validating_crisil_edited_fields();" readonly/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-invoice-no"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        First Name :
+                        <input type="text" class="form-control input" id="first_name" name="first_name" value="{{ user_profile_details.first_name }}" onchange="onchange_validating_crisil_edited_fields();" readonly/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-first-name"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Years Selected:
+                        <input type="text" class="form-control" name="no_years_selected" id="id_no_years_selected" value="" readonly="true">
+                    </div>
+                    <span class="help-block error-edit-model"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Bank Name :
+                        <input type="text" class="form-control input" id="bank_name" name="bank_name" value="{{ user_profile_details.payment.bank_name }}" onchange="onchange_validating_crisil_edited_fields();"/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-bank-name"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Cheque No :
+                        <input type="text" class="form-control input" id="cheque_dd_no" name="cheque_dd_no" value="{{ user_profile_details.payment.cheque_dd_no }}" onchange="onchange_validating_crisil_edited_fields();"/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-cheque-dd-no"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Cheque date:
+                        <input type="text" class="form-control input datepicker" id="cheque_dd_date" name="cheque_dd_date" value="{{ user_profile_details.payment.cheque_dd_date|date:'Y-m-d' }}" onchange="onchange_validating_crisil_edited_fields();"/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-cheque-dd-date"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Amount :
+                        <input type="text" class="form-control input" id="amount" name="amount" value="{{ user_profile_details.payment.discounted_amount }}" onchange="onchange_validating_crisil_edited_fields();"/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-discount-amount"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Payment Status :
+                        <select class="form-control" id="payment_status" name="payment_status" data-placeholder="Choose a country..." onchange="show_or_hide_field(id,'remark_field');onchange_validating_crisil_edited_fields();">
+                            {% if user_profile_details.advisor.crisil_application_status == CRISIL_RENEWAL_PAYMENT_SUBMITTED or user_profile_details.advisor.crisil_application_status == CRISIL_RENEWAL_PAYMENT_RE_SUBMIT %}
+                            <option value="Select">Select</option>
+                            <option value="renewal_paid" {% if user_profile_details.payment.status == 'paid' %} selected="selected" {% endif %}>Paid</option>
+                            <option value="renewal_bounced" {% if user_profile_details.payment.status == 'renewal_bounced' %} selected="selected" {% endif %}>Bounced</option>
+                            <option value="renewal_invalid" {% if user_profile_details.payment.status == 'renewal_invalid' %} selected="selected" {% endif %}>Invalid</option>
+                            {% else %}
+                            <option value="Select">Select</option>
+                            <option value="paid" {% if user_profile_details.payment.status == 'paid' %} selected="selected" {% endif %}>Paid</option>
+                            <option value="bounced" {% if user_profile_details.payment.status == 'bounced' %} selected="selected" {% endif %}>Bounced</option>
+                            <option value="invalid" {% if user_profile_details.payment.status == 'invalid' %} selected="selected" {% endif %}>Invalid</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-status"></span>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                <div class="form-group control-group">
+                    <div class="control">
+                        Payment Received Date :
+                        <input type="text" id="payment_received_date" name="payment_received_date" class="form-control input datepicker" value="{{ user_profile_details.payment.credited_date|date:'Y-m-d' }}" onchange="onchange_validating_crisil_edited_fields();"/>
+                    </div>
+                    <span class="help-block error-edit-model" id="help-text-payment-received-date"></span>
+                </div>
+            </div>
+            {% if description.remark %}
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6" id="remark_field" style="display:none;">
+                    <div class="form-group control-group">
+                        <div class="control">
+                            Remarks :
+                            <textarea class="form-control" id="id_remarks" name="remarks" onchange="onchange_validating_crisil_edited_fields();"></textarea>
+                            <span class="help-block error-edit-model" id="help-text-payment-remark"></span>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6" id="remark_field" style="display:none;">
+                    <div class="form-group control-group">
+                        <div class="control">
+                            Remarks :
+                            <textarea class="form-control" id="id_remarks" name="remarks" onchange="onchange_validating_crisil_edited_fields();"></textarea>
+                            <span class="help-block error-edit-model" id="help-text-payment-remark"></span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                    <p>Document : <br />
+                    <a href="{{ uploaded_documents.url }}" class="btn btn-success btn-md" onclick="window.open('{{ uploaded_documents.url }}', 'newwindow', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=500,width=550, height=550'); return false;">View</a></p>
+                </div>
+            </div>
+            <input type="hidden" name="hidden_years_selected" id="id_hidden_years_selected" value="">
+            <input type="hidden" name="hidden_offered_years" id="id_hidden_offered_years" value="">
+        </div>
+    </div>
+</form>
+<div id="hidden_inputs_buttons" style="display:none;">
+    <button type="button" class="btn btn-primary" id="id_save_details" onClick="edit_crisil_advisor_form();">Save</button>
+    <button type="button" class="btn btn-danger" id="id_save_cancel" data-dismiss="modal" onClick="$('.input').val('');">Close</button>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var altFormat = $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            beforeShow: function(input, inst) {
+                $(document).off('focusin.bs.modal');
+            },
+            onClose:function(){
+                $(document).on('focusin.bs.modal');
+            }
+        });
+        // Setting Modal Header and Footer
+        $('#CrisilAdvisorModal-title').text('');
+        $('#CrisilAdvisorModal-title').text('CRISIL Payment Details');
+        $('#id_no_years_selected').val(parseInt("{{description.no_of_years_selected}}")+parseInt("{{description.offered_years}}"));
+        $("#id_hidden_years_selected").val('{{description.no_of_years_selected}}');
+        $('#id_hidden_offered_years').val('{{description.offered_years}}');
+    });
+</script>
+<script type="text/javascript">
+    function show_or_hide_field(id,toggle_div){
+        if($("#"+id).val() == 'paid' || $("#"+id).val() == 'Select' || $("#"+id).val() == 'renewal_paid'){
+            $('#'+toggle_div).hide();
+        }else{
+            $('#'+toggle_div).show();
+        }
+    }
+</script>

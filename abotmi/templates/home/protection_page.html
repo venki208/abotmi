@@ -1,0 +1,102 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    <style>
+        .wealth-color{
+            color: #eb1b95;
+        }
+        .wealth-micro-condition {
+            padding: 15px 15px;
+        }
+        .protection-main{
+            margin-top: 50px;
+        }
+        .protection-btn{
+            background: #e40b7d;
+            color: #FFF;
+            border-radius: 0px;
+        }
+        .start-up{
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700 !important;
+        }
+    </style>
+    {% if not user.is_authenticated %}
+        <style>
+            body{
+                padding-top: 123px;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/wealth-banner.png' %}">
+        <div class="container">
+            <h2>PROTECTION</h2>
+        </div>
+    </section>
+    <section class="subpage-reia-primary parent-section wealth-micro-section protection-main" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <br/>
+                    <img src="{% static 'new_images/protection_icon.png' %}">
+                </div>
+                <div class="col-md-12 wealth-micro-condition">
+                    <h4 class="n-h4 wealth-color"><b>INVESTOR PROTECTION</b></h4>
+                </div>
+                <div class="col-md-12 wealth-micro-condition">
+                    <p class="modal-side-content sub-content">
+                        ABOTMI introduce access to investor protection by providing knowledge, security and loyalty to our clients empowered by our ​<a href="/ethical_commitment_page/" target="blank">Ethical Commitment​</a>.
+                    </p>
+                    <p>
+                        Our platform connects investors, advisors, and issuers across the globe by offering a unique way to learn and share with one another.
+                    </p>
+                    <p>
+                        We work closely with the SEC, FINRA and SIPC to protect the investors interests and promote confidence in the market’s integrity.
+                    </p>
+                    <p>
+                        Our mission is to provide an independent investor education needed by all global market players to make informed investment decisions.
+                    </p>
+                </div>
+                <div class="col-md-12 wealth-micro-condition">
+                    <p class="n-h4">&nbsp;</p>
+                    <p class="n-h4">&nbsp;</p>
+                    <p class="n-h4">&nbsp;</p>
+                    <p class="n-h4">&nbsp;</p>
+                    <p class="n-h4">&nbsp;</p>
+                    <p class="n-h4">&nbsp;</p>
+                    <p class="n-h4">&nbsp;</p>
+                </div>
+                
+            </div>
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn protection-btn" name="signup_a">Register Now</a>
+                </div>
+                <p class="n-h4">&nbsp;</p>
+                <p class="start-up">Start Building Your Reputation!</p>
+            </div>
+                
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

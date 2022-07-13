@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block base_css %}
+   {{ block.super }}
+{% endblock %}
+{% block theme_css %}
+       {{ block.super }}
+{% endblock %}
+{% block custom_theme_css %}
+   {{ block.super }}
+{% endblock %}
+{% block base_scripts %}
+   {{ block.super }}
+{% endblock %}
+{% block top_header %}
+   {{ block.super }}
+{% endblock %}
+{% block top_menu_bar %}
+   {{ block.super }}
+{% endblock %}
+{% block important_css %}
+   {{ block.super }}
+{% endblock %}
+{% block slider %}
+{% endblock %}
+{% block main_content %}
+    <div class="section">    
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="heading">
+                        <h2 style="color:#12603F">{{ info }}</h2>
+                        <p>{{ mail }}</p>
+                        <a href="/signup/save_invite_advisor_modal/" class="btn btn-effect"><i class="fa fa-angle-left"></i> <i class="fa fa-angle-left" ></i> Back </a>
+                    </div>       
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+   {{ block.super }}
+{% endblock %}
+{% block copy_rights %}
+   {{ block.super }}
+{% endblock %}
+{% block bootstrap-modal %}
+   {{ block.super }}
+{% endblock %}
+{% block theme_scripts %}
+   {{ block.super }}
+{% endblock %}

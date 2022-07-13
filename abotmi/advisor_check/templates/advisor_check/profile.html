@@ -1,0 +1,39 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+{% endblock %}
+{% block main_content %}
+    <section class="advisor-profile-view">
+            <div class="clearfix">&nbsp;</div>
+            <div class="bg-img "></div>
+            <div class="container justify-content-center Nomarg">
+                <div class="row">
+                    <div class="col-md-10 m-auto">
+                        <div class="card card-outline-secondary">
+                            <a href="#" class="pencil-edit"><i class="fa fa-pencil" aria-hidden="true" onclick="showediteditform()"></i></a>
+                            <h3 class="text-center">{{user_profile.first_name}}</h3>
+                            <div class="card-body investor-profile-view-div">
+                                <form class="form">
+                                    <div class="row Nomarg">
+                                        <div class="col-md-12 col-sm-12 Icons">
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-envelope-o" aria-hidden="true"></i>Email</p><p class="text-center prole-colan">:</p class="text-right"><p class="prole-result">{{ad_chk_obj.email|default:'Not Found'}}</p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-phone" aria-hidden="true"></i>Mobile</p><p class="text-center prole-colan">:</p class="text-right"><p class="prole-result">{{ad_chk_obj.mobile|default:'Not Found'}}</p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-map-marker" aria-hidden="true"></i>City</p><p class="text-center prole-colan">:</p class="text-right"><p class="prole-result">{{ad_chk_obj.city|default:'Not Found'}}</p></div>
+                                            <div class="profile-setion"><p class="text-left prole-title"><i class="fa fa-envelope-o" aria-hidden="true"></i>Zipcode</p><p class="text-center prole-colan">:</p class="text-right"><p class="prole-result">{{ad_chk_obj.pincode|default:'Nil'}}</p></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+{% endblock %}
+{% block bootstrap_modal %}
+{% endblock %}
+
+{% block scripts %}
+    {{block.super}}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<style>
+    .modal-title.identity-title {
+        display: inline-flex;
+    }
+    .modal-side-content {
+        color: #2a3290;
+        text-align: center;
+    }
+    .content {
+        font-size: 18px;
+    }
+    .sub-content{
+        font-weight: 600;
+        width: 70%;
+        margin: auto;
+    }
+    .share_icons{
+        list-style: none;
+        display: inline-flex;
+    }
+    .micro-img-sec{
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .upwardz-modal .close{
+       position:absolute;
+       top:15px;
+       right:15px;
+       font-weight:600;
+       background:transparent;
+   }
+   .upwardz-modal h3{
+       font-size: 25px;
+       font-weight: 600;
+   }
+   .upwardz-modal p{
+       font-size: 16px;
+   }
+</style>
+<div class="modal fade upwardz-modal" role="dialog" id="db_how_it_works_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content p-4">
+                    <h3 class="pt-3 pb-4 text-center">HOW IT WORKS</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                <div class="panel-body pannel-popup-content">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <p class="content text-center">
+                                ABOTMI enables users of the platform to post questions. The functionality Give Your Advice enables every Digital Asset Advisor to provide advice on the relevant topics. In return you receive the capability to grow your awareness, build your reputation and attract more clients to connect with.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

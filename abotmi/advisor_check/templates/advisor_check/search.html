@@ -1,0 +1,291 @@
+{% extends 'advisor_check/base.html' %}
+{% load staticfiles %}
+{% load static %}
+{% block custom_theme_css %}
+    {{block.super}}
+    <style media="screen">
+    .intl-tel-input {
+        position: initial;
+        display: block;
+    }
+    .cliam-error-msg{
+        color: rgb(255, 0, 0);
+    }
+    @media(max-width:1040px) and (min-width:990px){
+        .advisorcheck-serachresults .advisor-position-align .upwrdz-button{
+            padding: 6px 6px !important;
+        }
+    }
+    .content-color {
+        color: #FFF;
+    }
+    .upwrdz-button-green{
+        background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%);
+        -webkit-background: linear-gradient(135deg, #00c97e 0%, #4dddac 100%);
+        font-size: 16px;
+        padding: 8px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        color: #FFF !important;
+        font-size: 15px;
+        box-shadow: none;
+        letter-spacing: 0px;
+        text-transform: uppercase;
+    }
+    .card-text {
+        font-size: 12px;
+        text-align: center;
+    }
+    .btn-schedule{  margin-bottom:20px;}
+    </style>
+{% endblock %}
+{% block main_content %}
+    <section class="section bottom" id="id_card_results">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <h4 class="n-span-gray-color">We found <span class="n-span-yellow-color">{{total_advisors_found}}</span> result</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                {% if advisor_obj.has_other_pages %}
+                    <ul class="pagination">
+                        {% if advisor_obj.has_previous %}
+                            <li class="custome">
+                                <button type="button" name="button" onclick="navigate_to_search_page('{{advisor_obj.previous_page_number}}');" class="page-button">&laquo;</button>
+                            </li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in page_range %}
+                            {% if advisor_obj.number == i %}
+                                <li class="active custome"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li class="custome">
+                                    <button type="button" name="button" onclick="navigate_to_search_page('{{i}}');" class="page-button">{{ i }}</button>
+                            {% endif %}
+                        {% endfor %}
+                        {% if advisor_obj.has_next %}
+                            <li class="custome">
+                                <button type="button" name="button" onclick="navigate_to_search_page('{{advisor_obj.next_page_number}}');" class="page-button">&raquo;</button>
+                            </li>
+                        {% else %}
+                          <li class="disabled custome"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+                </div>
+            </div>
+            <div class="row advisorcheck-serachresults">
+                <div class="col-md-offset-1 col-md-10">
+                    {% for advisor in advisor_obj %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 pd-lr8">
+                        <div class="row center-align advisor-position-align">
+                            <div class="col-sm-12">
+                                <a name="button" class="view_card_link pull-right" adv_id="{{advisor.id}}" chk_country="{{chk_country|default:''}}" onclick="navigate_page(this, 'profile');" class="" title="Profile View">View</a>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="profile-pic">
+                                <img class="img-circle img-responsive img-center" src="{% static 'advisor_check/images/demo-profile-pic.jpg' %}" alt="">
+                                </div>
+                                <h4 class="advisor-name">{{advisor.name}}</h4>
+                                <p class="advisor-role">Advisor of Trades and Share</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row text-center btn-schedule">
+                                    <button type="button" name="button" class="btn upwrdz-button" adv_id="{{advisor.id}}" chk_country="{{chk_country|default:''}}" onclick="connect_advisor(this);">Connect</button>
+                                    <button 
+                                        catogery_type="{{category_name|default:''}}"
+                                        type="button" adv_id="{{advisor.id}}"
+                                        class="btn upwrdz-button-green" onclick="get_advice('{{advisor.id}}','{{advisor.name}}','{{advisor.email}}');" name="get_adivce"> Get Advice </button>
+                                </div>
+                                <div>
+                                <a onclick="get_advisors_calendly_link('{{advisor.advisor_id}}')" title="Schedule an Appointment" class="view_card_link pt-2">SCHEDULE AN APPOINMENT</a>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <br/>
+                                <p class="card-text mt-2">
+                                    {% if advisor.advisor_id %}
+                                        Abotmi Registered Advisor
+                                    {% else %}
+                                        FINRA Registered Advisor
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                    {% endfor %}
+                    {% comment %} 
+                    Calendly form commented for this release
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 pd-lr8">
+                        <div class="row">
+                            <div class="col-sm-12 text-left">
+                            <!-- Calendly inline widget begin -->
+                                <div class="calendly-inline-widget" data-url="https://calendly.com/aswatisunder" style="min-width:340px;height:580px;"></div>
+                                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
+                            <!-- Calendly inline widget end -->
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </section>
+{# % include 'common/social_media_verification.html' % #}
+{% endblock %}
+{% block bootstrap-modal %}
+    {{block.super}}
+    <div class="modal fade upwardz-modal" id="claim_it_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="panel panel-default upwrdz-log-panel">
+                <div class="panel-heading dash-heading fix-modal-heading">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" onclick="cancel_modal();">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color">CLAIM IT</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="panel-body pannel-popup-content" id="email_modal-body">
+                    <div class="alert alert-success hide" role="alert" id="id_success_alert">
+                        <div id="success_text"><strong>Successful!&nbsp;</strong> You have Added one.</div>
+                    </div>
+                    <div class="row" id="advisor_block">
+                        <form method="post" id="claim_it_form">
+                            <div class="col-md-12 form-group">
+                                <div class="input-group">
+                                    <input type="text" name="name" id="id_advisor_name" placeholder="Name" value="" class="form-control" onkeyup="validate_field_onkeypress(id, 'help_advisor_name', 'Name');" required ="true"  max-length='25' min-length='3' autocomplete="off">
+                                    <span class="input-group-addon cutome-add-on" id="basic-addon1">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </span>
+                                </div>
+                                <span class="cliam-error-msg" id="help_advisor_name"></span>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="input-group">
+                                    <input type="text" name="email" id="id_advisor_email" placeholder="Email" value="" class="form-control" onkeyup="validate_field_onkeypress(id, 'help_advisor_email', 'Email Id');" required="true"  max-length='50' min-length='3' is-email='true' autocomplete="off">
+                                    <span class="input-group-addon cutome-add-on" id="basic-addon1">
+                                        <i class="glyphicon glyphicon-envelope"></i>
+                                    </span>
+                                </div>
+                                <span class="cliam-error-msg" id="help_advisor_email"></span>
+                            </div>
+                            <div class="col-md-12 form-group mobile-claim-user mobile-claim-user-countrycode">
+                                <div class="input-group">
+                                    <input type="text" name="mobile" id="id_advisor_mobile" placeholder="Mobile" value="" class="form-control" onkeyup="validate_field_onkeypress(id, 'help_advisor_mobile', 'Mobile');" required ="true"  max-length='10' min-length='10' autocomplete="off">
+                                    <span class="input-group-addon cutome-add-on" id="basic-addon1">
+                                        <i class="glyphicon glyphicon-phone"></i>
+                                    </span>
+                                </div>
+                                <span class="cliam-error-msg" id="help_advisor_mobile"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="hide text-center" id="otp_block">
+                        <div class="form-group">
+                            <input type="text" name="otp" id="id_otp" class="form-control" value="" autocomplete="off">
+                            <span class="help-block" id="help_id_otp"></span>
+                        </div>
+                        <button type="button" class="btn upwrdz-button" id="id_otp_submit" onclick="verify_otp('id_otp');">Verify OTP</button>
+                    </div>
+                    <div class="col-md-12 text-center" id="id_claim_footer">
+                        <button type="button" class="btn upwrdz-button" onclick="cancel_modal();">Close</button>
+                        <button type="button" class="btn upwrdz-button" id="id_save_changes">Claim It</button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="id_hidden_advisor_id" value="">
+        </div>
+    </div>
+
+    <div class="modal fade" id="claim_it_success_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default upwrdz-log-panel">
+                <div class="panel-heading dash-heading">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color">Congratulations !</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="panel-body pannel-popup-content">
+                    <h3>Thank you</h3>
+                    <p>
+                        You have been successfully signed up with ABOTMI. Please check your email for your login credentials.
+                    </p>
+                    <div class="pull-right">
+                        <button type="button" class="btn upwrdz-button" name="button" data-dismiss="modal" onclick="window.location.reload();">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="alreadyClaimedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default upwrdz-log-panel">
+                <div class="panel-heading dash-heading">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                        </button>
+                        <h3 class="modal-title n-span-blue-color">THANK YOU</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                </div>
+                <div class="panel-body pannel-popup-content text-center">
+                    <p class="content-color">
+                        You have already <strong>CLAIMED</strong>
+                    </p>
+                    <button type="button" class="btn upwrdz-button" name="button" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <form action="/advisor_check/search/" method="post" id="hidden_page_form">
+            {% csrf_token %}
+            <input type="hidden" id="id_chk_name" name="name" value="{{name}}">
+            {% comment %} <input type="hidden" id="id_chk_mobile" name="mobile" value="{{mobile}}"> {% endcomment %}
+            {% comment %} <input type="hidden" id="id_chk_email" name="email" value="{{email}}"> {% endcomment %}
+            <input type="hidden" id="id_chk_location" name="city" value="{{city}}">
+            {% comment %} <input type="hidden" name="firm_name" id="id_chk_firm" value="{{firm_name}}"> {% endcomment %}
+            <select class="hide" name="country" id="id_chk_category" style="background: none;">
+                <option value="{{chk_country}}" selected>{{chk_country}}</option>
+            </select>
+            <input type="hidden" name="page" id="id_dynamic_page_no" value="">
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/new_js/calendly.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // Handler for .ready() called.
+        $('html, body').animate({
+            scrollTop: $('#id_card_results').offset().top-50
+        }, 'fast');
+
+        //$('#id_category').val("{{category_name}}");
+        //var adv_category = $('select[name="category"]').val()
+        //if (adv_category){
+        //    $('#id_firm').val('');
+        //    $('.firm_name_div').addClass('hide');
+        //}else{
+        //   $('.firm_name_div').removeClass('hide');
+        //}
+        $("#id_country").val('{{chk_country|default:""}}');
+        var ws = get_websocket();
+        if(ws == undefined){
+            ws = create_websocket_connection();
+        }
+    });
+    </script>
+{% endblock %}

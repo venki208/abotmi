@@ -1,0 +1,59 @@
+<ion-view>
+   <ion-side-menus>
+      <ion-side-menu-content>
+         <upwrdz-Tabs></upwrdz-Tabs>
+         <ion-content class="m-upwrdz-editpage-content">
+            <div class="editpage-title-bar">
+               <img src="../www/img/back_arrow_25px.png" ui-sref="app.myhub.view_meetup" class="back-btn">
+               List Mail Invitation
+            </div>
+            <div class="row">
+               <div class="col">
+                  <form name="sendinvitationform" ng-init="meetuplist.details=''">
+                     <table id="table_id" name="table_id" class="table table-bordered">
+                        <thead>
+                           <tr>
+                              <th
+                                 ng-if="!(meetuplist.details.advisor_data.length|| meetuplist.details.member_data.length)">
+                                 No Records Found
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td
+                                 ng-if="meetuplist.details.advisor_data.length || meetuplist.details.member_data.length">
+                                 <b> Email ID</b>
+                              </td><br>
+                           </tr>
+                           <tr data-ng-repeat="item in meetuplist.details.advisor_data">
+                              <td>
+                                 <input type="checkbox" class="email_check_box" name="email_list"
+                                    value="item.email,item.first_name,item.mobile"
+                                    ng-checked="meetuplist.exists(item, meetuplist.selected)"
+                                    ng-click="meetuplist.toggle(item, meetuplist.selected)" /> {{ item.email }}
+                              </td>
+                           </tr>
+                           <tr ng-if="meetuplist.details.member_data">
+                           <tr data-ng-repeat="user_profile_data in meetuplist.details.member_data">
+                              <td>
+                                 <span><input type="checkbox" class="email_check_box" name="email_list"
+                                       ng-checked="meetuplist.exists(user_profile_data, meetuplist.selected)"
+                                       ng-click="meetuplist.toggle(user_profile_data, meetuplist.selected)" value="{{ user_profile_data.user_profile_name }},{{ user_profile_data.user_profile_email }},
+                                           {{ user_profile_data.user_profile_mobile }}" />
+                                    {{ user_profile_data.user_profile_email }}</span>
+                              </td>
+                           </tr>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <button id="btn"
+                        ng-if="meetuplist.details.advisor_data.length|| meetuplist.details.member_data.length" disabled
+                        class="full-button" ng-click="meetuplist.submit();">Send Invitation</button>
+                  </form>
+               </div>
+            </div>
+         </ion-content>
+      </ion-side-menu-content>
+   </ion-side-menus>
+</ion-view>

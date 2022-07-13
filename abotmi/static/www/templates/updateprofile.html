@@ -1,0 +1,130 @@
+<ion-view>
+    <ion-nav-bar class="bar" align-title="center">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon icon ion-navicon-round light" ng-click="toggleDrawer();"></button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+         <h4 class="modaltitle whitefont">Update Profile</h4>
+    </ion-nav-title>
+  </ion-nav-bar>
+    <ion-content>
+        <form name="profileform" class="list card formcard" novalidate >
+            <div class="list list-inset first-inset black-border">First Name*
+                <label class="item item-input">
+                <input type="text" placeholder="First Name" ng-model="track.user_details.first_name" name="firstname" ng-required="true" ng-touched/>
+                </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.firstname.$error.required && profileform.firstname.$touched"> First Name is required</h7>
+            <div class="list list-inset other-inset black-border">Middle Name
+            <label class="item item-input">
+                <input type="text" placeholder="Middle Name" ng-model="track.user_details.middle_name" name="middlename" ng-touched/>
+            </label>
+            </div>
+            <div class="list list-inset first-inset black-border">Last Name*
+                <label class="item item-input">
+                <input type="text" placeholder="Last Name" ng-model="track.user_details.last_name" name="lastname" ng-required="true" ng-touched/>
+                </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.lastname.$error.required && profileform.lastname.$touched"> Last Name is required</h7>
+            <div class="list list-inset other-inset black-border">Mobile Number*
+            <label class="item item-input">
+                <input type="text" placeholder="Mobile Number" ng-model="track.user_details.mobile_number" name="mobile" ng-required="true" ng-touched/>
+            </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.mobile.$error.required && profileform.mobile.$touched"> Mobile Number is required</h7>
+            <div class="list list-inset first-inset black-border">Locality / Area*
+                <label class="item item-input">
+                <input type="text" placeholder="Locality / Area" ng-model="track.user_details.locality" name="locality" ng-required="true" ng-touched/>
+                </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.locality.$error.required && profileform.locality.$touched"> Locality is required</h7>
+            <div class="list list-inset other-inset black-border">Town / City*
+            <label class="item item-input">
+                <input type="text" placeholder="Town/City" ng-model="track.user_details.city" name="city" ng-required="true" ng-touched/>
+            </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.city.$error.required && profileform.city.$touched"> Town/City is required</h7>
+            <div class="list list-inset first-inset black-border">Highest Qualification
+                <label class="item item-input">
+                <input type="text" placeholder="Highest Qualification" ng-model="track.user_details.qualifications" name="qualification"/>
+                </label>
+            </div>
+            <div class="list list-inset other-inset black-border">Year of Passing
+            <label class="item item-input">
+                <input type="text" placeholder="Year of Passing" ng-model="track.user_details.year_passout" name="middlename" ng-touched/>
+            </label>
+            </div>
+            <div class="list list-inset first-inset black-border">Univeristy / Board
+                <label class="item item-input">
+                <input type="text" placeholder="univerisyt/Board" ng-model="track.user_details.college" name="lastname"/>
+                </label>
+            </div>
+            <div class="list list-inset other-inset black-border">Languages Known to Speak*
+            <label class="item item-input">
+                <input type="text" placeholder="Languages Known to Speak" ng-model="track.user_details.languages_known_speak" name="language_known" ng-required="true" ng-touched/>
+            </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.language_known.$error.required && profileform.language_known.$touched"> Languages Known is required</h7>
+            <div class="list list-inset first-inset black-border">Languages Known to Read & Write*
+                <label class="item item-input">
+                <input type="text" placeholder="Languages Known to Read & Write" ng-model="track.user_details.languages_known_read_write" name="languages_known_read_write" ng-required="true" ng-touched/>
+                </label>
+            </div>
+            <div class="list list-inset first-inset black-border">Current Financial Instruments Sold / Advised by me
+                <button class="add-button" ng-click="updateprofile.addRow(track.user_details.product_experience)">Add</button>
+                    <div ng-repeat="data in track.user_details.product_experience track by $index">
+                        <select name="finances"
+                            ng-model="data.instruments"
+                            ng-init=" data.instruments"
+                            ng-options="option for option in updateprofile.product_options">
+                        </select>
+                        <label class="item item-input">
+                            <input type="text" ng-model="data.experience"/>
+                        </label>
+                        <button class="minus-button" ng-click="updateprofile.deleteRow(track.user_details.product_experience,data)">Delete</button>
+                    </div>
+            </div>
+            <div class="list list-inset first-inset black-border">My Belief*
+                    <div>
+                        <select name="belief"
+                            ng-model="track.user_details.my_belief"
+                            ng-init="track.user_details.my_belief"
+                            ng-options="option for option in updateprofile.my_belief">
+                        </select>
+                        <label class="item item-input">
+                            <input type="text" ng-model="track.user_details.my_belief"/>
+                        </label>
+                    </div>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.languages_known_read_write.$error.required && profileform.languages_known_read_write.$touched"> Languages Known is required</h7>
+            <div class="list list-inset other-inset black-border">Total Clients Served
+                <label class="item item-input">
+                    <input type="text" placeholder="Total Clients Served" ng-model="track.user_details.total_clients_served" name="city"/>
+                </label>
+            </div>
+            <div class="list list-inset other-inset black-border">Total Advisors Connected
+                <label class="item item-input">
+                    <input type="text" placeholder="Total Advisors Connected" ng-model="track.user_details.total_advisors_connected" name="city"/>
+                </label>
+            </div>
+            <div class="list list-inset first-inset black-border">My Promise to the Client*
+                <label class="item item-input">
+                    <textarea placeholder="My promise to the client ..." ng-model="track.user_details.my_promise" name="promise" ng-required="true" ng-touched></textarea>
+                </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.promise.$error.required && profileform.promise.$touched"> My Promise is required</h7>
+            <div class="list list-inset first-inset black-border">My Sales Accomplishment
+                <label class="item item-input">
+                    <textarea placeholder="My Sales Accomplishment" ng-model="track.user_details.sales_accomplishments" name="sales" ng-required="true" ng-touched></textarea>
+                </label>
+            </div>
+            <h7 class="validationerrors" ng-show="profileform.sales.$error.required && profileform.sales.$touched"> Sales Accomplishment is required</h7>
+            <div class="list-inset">
+                <button class="button buttoninset whitefont pinkbutton" ng-disabled="profileform.$invalid" ng-click="updateprofile.submit(track.user_details)" type="submit">Submit</button>
+            </div>
+            <div class="list-inset">
+                <button class="button buttoninset whitefont pinkbutton" ui-sref="app.mytrack">Cancel</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

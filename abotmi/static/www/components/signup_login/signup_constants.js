@@ -1,0 +1,10 @@
+angular.module('signup_login_constants',[])
+
+.constant('USERSIGNUP','/api/direct_signup/')
+.constant('USERSIGNUPOTP','/api/signup-send-otp')
+.constant('CHECKEMAIL','/api/check-email/')
+.constant('AUTHORIZE','/api/get-auth-token/')
+.constant('ISREGISTER','/api/check-reg-user/')
+.constant('FORGOTPWD','/api/forgot-password/')
+.constant('signup_face','/api/social-signup/')
+.constant('MENUDETAILS','/api/is-registerd-user/')

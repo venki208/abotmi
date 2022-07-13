@@ -1,0 +1,54 @@
+server {
+    listen 80 default_server;
+    # Make site accessible from http://localhost/
+    server_name [SERVER_NAME];
+    return 301 https://[SERVER_NAME]$request_uri;
+}
+
+server {
+    listen 443;
+    server_name [SERVER_NAME];
+    client_max_body_size 50M;
+    ssl on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    access_log      /var/log/nginx/nf.access.log;
+    error_log       /var/log/nginx/nf.error.log;
+    ssl_certificate      /etc/ssl/nf/nf.crt;
+    ssl_certificate_key  /etc/ssl/nf/nf.key;
+    add_header           Front-End-Https    on;
+    keepalive_timeout    70;
+    root /home/northfacing/;
+
+    location /protected/ {
+        internal;
+        set $aws_access              'AKIAIHFRD2K6K3KW4CPQ';
+        set $aws_secret              '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';
+        set $bucket                  'nfdev';
+        set_unescape_uri $key        $arg_key;
+        set_by_lua $now              "return ngx.cookie_time(ngx.time())";
+        set $string_to_sign          "$request_method\n\n\n\nx-amz-date:${now}\n/$bucket/$key";
+        set_hmac_sha1                $aws_tsignature $aws_secret $string_to_sign;
+        set_encode_base64            $aws_signature $aws_tsignature;
+        proxy_pass_request_headers   on;
+        proxy_http_version           1.1;
+        proxy_set_header             Host $bucket.s3.amazonaws.com;
+        proxy_set_header             x-amz-date $now;
+        proxy_set_header             Authorization "AWS $aws_access:$aws_signature";
+        proxy_buffering              off;
+        proxy_intercept_errors       on;
+        proxy_pass                   http://nfdev.s3.amazonaws.com/;
+        resolver                     8.8.4.4 8.8.8.8 valid=300s;
+        resolver_timeout             10s;
+    }
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location /static/ {
+        try_files $uri /;
+    }
+}

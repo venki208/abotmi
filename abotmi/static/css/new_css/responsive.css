@@ -1,0 +1,1264 @@
+@media (min-width:1161px) and (max-width:1440px) {
+    /* .container {
+        width: 90% !important;
+    } */
+    /* body {
+        padding-bottom: 9rem;
+    } */
+}
+
+@media (min-width:960px) and (max-width:1440px) {
+    .scrollup-choose-upwrdz {
+        margin-bottom: 150px;
+    }
+}
+
+@media (min-width:768px) and (max-width:1160px) {
+    .container {
+        width: 95% !important;
+    }
+    /* body {
+        padding-bottom: 9rem;
+    } */
+    .upwrdz-padding-lr {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .additional_btn {
+        margin-left: 5px !important;
+    }
+    .upwrdz-myhub-content .upwrdz-myhub-content-headers, .upwrdz-myhub-content .upwrdz-myhub-content-subheader, .upwrdz-corestream .upwrdz-corestream-header {
+        font-size: 16px !important;
+    }
+    .upwrdz-corestream .upwrdz-corestream-prograss {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .upwrdz-corestream .upwrdz-corestream-prograss .overlay p {
+        font-size: 10px;
+    }
+    .upwrdz-corestream .upwrdz-corestream-prograss span {
+        position: relative;
+        top: 5px;
+    }
+    .upwrdz-corestream-row .upwrdz-corestream-prograss .progress {
+        min-height: 50px;
+    }
+    .uwd-crisil-verification .btn-applynow {
+        font-size: 12px;
+    }
+    .upwrdz-client-managementdiv {
+        padding-left: 0px;
+        border-right: 1px #c7c7c7 solid;
+        padding-right: 15px;
+    }
+    .upwrdz-client-management .client-management-light-b h2 {
+        font-size: 15px;
+    }
+    .upwrdz-myhub-sidenav .uwd-block-one h2 {
+        font-size: 18px;
+    }
+    .upwrdz-banner-header {
+        margin-top: 0px;
+    }
+    .facilitating-advisors-section p.right-cont {
+        font-size: 17px;
+    }
+    .facilitating-advisors-header h2 {
+        padding-top: 0px;
+    }
+    .declined-dashboard {
+        position: relative;
+        left: -12px;
+    }
+    .upwrdz-client-management .client-management-light-b h2 img {
+        margin-right: 5px;
+    }
+    .abotmi-eIPV-section-one, .abotmi-eIPV-section-two{
+        width: 100%;
+    }
+}
+
+@media (min-width:320px) and (max-width:1160px) {
+    .upwrdz-padding-lr .intl-tel-input .selected-flag .iti-arrow {
+        right: 5px;
+    }
+    .uwd-crisil-verification .micro-right-border .btn-applynow {
+        margin: 8px 0px !important;
+    }
+    .invite-friends {
+        padding-right: 8px;
+    }
+}
+
+/*Updated as on 3 oct 17*/
+
+@media (min-width:1024px) and (max-width:1070px) {
+    .upwrdz-myhub-sidenav {
+        padding: 0px 10px;
+    }
+}
+
+@media (min-width:968px) and (max-width:1023px) {
+    .invite-friends {
+        padding-right: 8px;
+    }
+}
+
+@media(min-width:992px) {
+    .uwd-crisil-verification .uwd-crisil-divider {
+        border-left: 1px #b2b2b7 solid;
+    }
+    .uwd-crisil-verification img {
+        width: 100% !important;
+    }
+    .micro-right-border {
+        border-right: 1px solid #c7c7c7;
+    }
+}
+
+@media(min-width:900px) and (max-width:1160px) {
+    .upwrdz-view-client-model {
+        width: 800px;
+    }
+}
+
+@media(max-width:1024px) and (min-height:800px) {
+    .upwrdz-steps-advisor-content .iti-flag.in, .invite-advisor-to-rate-form .iti-flag.in, .refer-advisor-loop-form .iti-flag.in, .form-horizontal-contact .iti-flag.in, .addclient-numberdiv .iti-flag.in, .eipv-verify-otp .iti-flag.in, .filtterby-advisor .iti-flag.in, .mobile-claim-user .iti-flag.in {
+        background-position: -2413px 0px;
+    }
+}
+
+@media(max-width:992px) {
+    .navbar li.dropdown-submenu:hover .profile-submenu {
+        display: block;
+    }
+    .user-profile-photo-crop .cropped img {
+        width: 100%;
+    }
+    .user-profile-photo-crop .fileinput-new {
+        padding-bottom: 20px;
+        padding-top: 10px;
+    }
+    .webinar-table-div {
+        overflow-x: scroll;
+    }
+    .webinar-table-div .table-responsive {
+        width: 990px;
+    }
+    .crisil-verfication-advisor-one, .uwd-crisil-verification {
+        margin-top: 0px !important;
+    }
+    .uwd-crisil-verification .upwrdz-btn {
+        font-size: 12px !important;
+        padding: 9px 12px;
+    }
+    .upwrdz-earning .btn-applynow {
+        width: auto;
+        margin: 0px 0px;
+        border-radius: 0;
+        padding: 8px 15px;
+    }
+    .uwd-crisil-verification img {
+        width: 90%;
+    }
+    .crisil-verfication-oneadvisor {
+        border-left: 1px #ccc solid;
+    }
+    .micro_learning_packages .modal-dialog, .identity_subscription_package_modal .modal-dialog {
+        width: 92%;
+    }
+    .subpage-reia-primary .wealth-micro-condition .modal-side-content {
+        width: 60%;
+    }
+}
+
+@media(max-width:960px) {
+    .footer-upwrdz-main {
+        position: static;
+    }
+    body {
+        padding-bottom: 0px;
+    }
+    .upwrdz-client-managementdiv, .upwrdz-client-courses {
+        width: 100%;
+    }
+    .upwrdz-client-managementdiv {
+        border-right: 0px #c7c7c7 solid;
+    }
+    .upwrdz-client-managementdiv .upwrdz-client-total {
+        padding-right: 0px;
+    }
+    .upwrdz-intro .intro-body .brand-heading {
+        font-size: 30px;
+        padding: 0;
+        font-weight: 300;
+    }
+    .upwrdz-intro .build_text {
+        font-size: 20px;
+        padding: 0;
+        font-weight: 300;
+    }
+    .upwrdz-steps-advisor-content {
+        padding: 30px 15px;
+    }
+}
+
+@media (min-width:960px) and (max-width:1024px) {
+    .upwrdz-corestream-head-row, .upwrdz-corestream-prograss {
+        width: 100%;
+    }
+    .upwrdz-corestream .progress-radial .overlay {
+        width: 30px;
+    }
+    .upwrdz-corestream .progress-radial {
+        width: 15%;
+    }
+    .upwrdz-corestream .upwrdz-corestream-prograss span {
+        top: 10px;
+    }
+    .flip_block_cards {
+        margin-right: 0px;
+    }
+}
+
+@media (min-width:100px) and (max-width:680px) {
+    .upwrdz-myhub-content, .upwrdz-myhub-sidenav {
+        width: 100%;
+        position: static;
+    }
+    .uwd-crisil-verification img {
+        width: 150px;
+    }
+    .upwrdz-log-panel .tab-content {
+        margin: 20px 0px;
+    }
+    .upwrdz-log-panel form {
+        width: 100% !important;
+    }
+    .upwrdz-section-one svg {
+        display: none;
+    }
+    .upwrdz-section-one {
+        height: auto !important;
+    }
+    .upwrdzanimation-bg-section {
+        display: none;
+    }
+    .upwrdz-section-one .upwrdz-section-svg {
+        width: 100%;
+    }
+    .upwrdz-section-one .upwrdz-section-svg .mobile-responsive-homepage {
+        width: 100%;
+    }
+    .scroller-main {
+        min-height: 200px !important;
+        max-height: auto !important;
+    }
+}
+
+@media(min-width:681px) {
+    .upwrdz-section-one .upwrdz-section-svg .mobile-responsive-homepage {
+        display: none;
+    }
+}
+
+@media (min-width:100px) and (max-width:480px) {
+    .upwrdz-myhub-content-one .upwrdz-myhub-one, .upwrdz-myhub-content-one .uwd-crisil-divider-left {
+        width: 100%;
+    }
+    .uwd-crisil-divider-left {
+        border-left: 0px #b2b2b7 solid;
+    }
+    .upwrdz-myhub-content {
+        background: #e6e6e6;
+        padding: 0px 10px 0px 10px;
+    }
+    .modal-dialog {
+        margin: 15px;
+        width: 95%;
+    }
+    .skills-content-div .skills-content-colums .checkbox-inline {
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div .help-understand h4 {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div-pancard {
+        position: relative;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div-pancard .download_link_color_pan {
+        position: absolute;
+        right: -25px;
+        bottom: 18px;
+    }
+    .collapse-navbar-loginsignup .login-button-btn {
+        margin-top: 18px !important;
+    }
+}
+
+@media (min-width:100px) and (max-width:380px) {
+    .upwrdz-client-management .client-management-light-b h2 {
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .total-client-blue p {
+        font-size: 12px;
+    }
+    .joinforcenow-enroll {
+        width: 50%;
+        text-align: center;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div .help-understand h4 {
+        font-size: 13px;
+        font-weight: bold;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div .help-understand .additional_btn {
+        margin-left: 8px;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div .proceed-btn .btn {
+        padding: 6px 5px;
+    }
+    .upwrdz-steps-advisor-content .registration-form-div-btn-proceed .proceed-btn {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+@media (min-width:767px) {
+    .newupwrdz-advisor-list {
+        background: #2e3191;
+        width: 100%;
+    }
+    .top-arrow {
+        margin: auto;
+        position: relative;
+        top: -45px;
+    }
+}
+
+@media (min-width:767px) and (max-width:991px) {
+    .modal-dialog {
+        min-width: 600px;
+    }
+    .dialog-registration-certi {
+        width: 85% !important;
+    }
+    .add-client-rate-btn {
+        width: auto;
+        padding: 0px 20px;
+    }
+    .upwrdz-view-peer-model, .upwrdz-view-peerclient-model {
+        width: 90%;
+    }
+    .edit_batch_btn {
+        margin-bottom: 12px;
+    }
+    .flip-container, .front, .back {
+        width: 100%;
+    }
+    .flip_block_cards {
+        margin-right: 0px;
+    }
+    .upwrdz-banner-header {
+        margin-top: 0px;
+    }
+    .abotmi-ethical-verification{
+        padding: 30px;
+    }
+}
+
+@media (min-width:100px) and (max-width:800px) {
+    .subscription-packeges-myide .subscription-packeges-section .subscription-packeges-section-inner .btn {
+        font-size: 16px;
+    }
+}
+
+@media (min-width:800px) and (max-width:991px) {
+    .upwrdz-section-svg {
+        width: 760px;
+        margin: auto;
+    }
+    .upwrdzanimation-bg-section .upwrdzanimation-bg-one, .upwrdzanimation-bg-section .upwrdzanimation-bg-two, .upwrdzanimation-bg-section .upwrdzanimation-bg-three {
+        height: 638px;
+    }
+    .upwrdz-section-one {
+        height: 1920px;
+    }
+    .camera-recorder #my_camera video {
+        width: 110% !important;
+    }
+}
+
+@media (min-width:680px) and (max-width:800px) {
+    .upwrdz-section-svg {
+        width: 600px;
+        margin: auto;
+    }
+    .upwrdzanimation-bg-section .upwrdzanimation-bg-one, .upwrdzanimation-bg-section .upwrdzanimation-bg-two, .upwrdzanimation-bg-section .upwrdzanimation-bg-three {
+        height: 505px;
+    }
+    .upwrdz-section-one {
+        height: 1517px;
+    }
+    .camera-recorder #my_camera video {
+        width: 110% !important;
+    }
+}
+
+@media (min-width:480px) and (max-width:680px) {
+    .upwrdz-section-svg {
+        width: 400px;
+        margin: auto;
+    }
+    .upwrdzanimation-bg-section .upwrdzanimation-bg-one, .upwrdzanimation-bg-section .upwrdzanimation-bg-two, .upwrdzanimation-bg-section .upwrdzanimation-bg-three {
+        height: 336px;
+    }
+    .upwrdz-section-one {
+        height: 1010px;
+    }
+    .camera-recorder #my_camera video {
+        width: 110% !important;
+    }
+    .eipv-registration-form {
+        background: #e6e6e6;
+        padding: 30px 60px;
+    }
+}
+
+@media (min-width:100px) and (max-width:480px) {
+    .upwrdz-section-svg {
+        width: 300px;
+        margin: auto;
+    }
+    .upwrdzanimation-bg-section .upwrdzanimation-bg-one, .upwrdzanimation-bg-section .upwrdzanimation-bg-two, .upwrdzanimation-bg-section .upwrdzanimation-bg-three {
+        height: 251px;
+    }
+    .upwrdz-section-one {
+        height: 758px;
+    }
+    .stepwizard .btn-circle {
+        width: 30px;
+        height: 30px;
+        line-height: 6px;
+        font-size: 14px;
+    }
+    .upwrdz-steps-advisor .prograss-bar-side {
+        top: 14px;
+    }
+    .kyc-steps-row .active a:after {
+        left: 5px;
+        border-bottom: 10px solid #e40b7d;
+    }
+    /* .stepwizard-step1 img, .stepwizard-step2 img, .stepwizard-step3 img, .stepwizard-step4 img, .stepwizard-step5 img {
+        width: 27px;
+        margin-top: -11px;
+        margin-left: 1px;
+    } */
+    .camera-recorder #my_camera video {
+        width: 150% !important;
+    }
+    .camera-recorder #my_camera {
+        height: 250px;
+    }
+    .record-section .joinforcenow-enroll {
+        width: 50% !important;
+    }
+    .eipv-registration-form {
+        background: #e6e6e6;
+        padding: 30px 20px;
+    }
+    .refer-advisor-loop-form .add-client-btn {
+        width: 90% !important;
+    }
+    .n-background-pink-color {
+        margin-top: 15px;
+    }
+    .what_eipv_links {
+        margin-top: 30px;
+    }
+}
+
+@media(max-width:767px) {
+    .navbar-header .upwrdz-profile-main {
+        position: absolute;
+        right: 35px;
+        top: 20px;
+    }
+    .upwrdz-profile-main-toggle {
+        position: relative;
+        top: 5px;
+    }
+    .upwrdz-member-nav .navbar-brand img {
+        height: auto !important;
+        position: relative;
+        top: 0px;
+        left: 15px;
+    }
+
+    .upwrdz-header-div-head {
+        padding: 10px 15px 10px 15px;
+    }
+    .collapse-navbar-profile-pic .navbar-nav .profile-pic-register-btn {
+        position: relative;
+        top: 10px;
+    }
+    .collapse-navbar-profile-pic .navbar-nav .dropdown-menu-profile-pic {
+        float: none !important;
+        position: absolute !important;
+        top: 50px;
+        left: 12px;
+    }
+    .upwrdz-profile-pic .profile-img {
+        position: absolute;
+        right: 34px;
+    }
+    .collapse-navbar-profile-pic .navbar-nav {
+        margin: 18.5px -15px !important;
+    }
+    .upwrdz-profile-pic .dropdown-menu {
+        position: relative !important;
+        top: 33px;
+        background: #fff !important;
+        box-shadow: 1px 1px 3px 0px #0000009e !important;
+    }
+    .upwrdz-profile-pic .dropdown-menu>li>a {
+        color: #000 !important;
+        cursor: pointer;
+    }
+    .dropdown-submenu.left>.dropdown-menu {
+        left: 0;
+        top: 0px;
+    }
+    .upwrdz-profile-pic .dropdown-menu>li>a:hover {
+        color: #000 !important;
+        background-color: transparent;
+    }
+    .upwrdz-header-div-head .upwrdz-header-welcome {
+        position: absolute;
+        right: 108px;
+    }
+    .navbar-header .profile-menu {
+        right: 64px;
+    }
+    .upwrdz-header-div-head .navbar-header {
+        position: relative;
+    }
+    .upwrdz-header-div-head .navbar-nav>li>a {
+        top: -13px;
+    }
+    .upwrdz-myidentity-sidenav {
+        width: 100%;
+        position: static;
+    }
+    .modal-dialog {
+        margin: 15px;
+        width: 90%;
+    }
+    .additional_btn {
+        margin-top: 0 !important;
+    }
+    .add-client-rate-btn {
+        width: 100%;
+        padding: 0px 20px;
+    }
+    .rated-form-advisor {
+        overflow: scroll;
+    }
+    .rated-form-advisor .table-responsive {
+        min-width: 500px;
+    }
+    .upwrdz-view-peer-model .bs-example, .upwrdz-view-peerclient-model .bs-example {
+        overflow: scroll;
+    }
+    .upwrdz-view-peer-model .bs-example .table-responsive, .upwrdz-view-peerclient-model .bs-example .table-responsive {
+        width: 800px;
+    }
+    .additional-remove-btn {
+        margin-bottom: 15px;
+    }
+    .my-identity-content .right-border {
+        border-right: 0px solid #c7c7c7;
+    }
+    .certificate-tab-boder-left {
+        border-left: 0px #ccc solid;
+    }
+    .upwrdz-intro .intro-body .scroll-btn {
+        transform: translate(-50%, 287%);
+    }
+    .upwrdz-intro .intro-body .scroll-btn img {
+        width: 70px;
+    }
+    .upwrdz-intro .intro-body .go-down {
+        transform: translate(-50%, 210%);
+    }
+    .upwrdz-intro .intro-body .go-down img {
+        width: 20px;
+    }
+    .upwrdz-section-svg .upwrdz-section-downarrow img {
+        transform: translate(-55%, -16px);
+        width: 65px;
+    }
+    .navbar-fixed-mobileres {
+        background-color: transparent;
+        border-bottom: 0px solid rgba(255, 255, 255, .3);
+    }
+    .micro_learning_packages .modal-dialog, .identity_subscription_package_modal .modal-dialog {
+        width: 95%;
+    }
+    .navbar-fixed-mobileres .upwrdz-header-div .collapse ul {
+        float: right;
+    }
+    .navbar-fixed-mobileres .upwrdz-header-div .collapse ul li {
+        float: left;
+    }
+    .upwrdz-steps-advisor-content .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input, .intl-tel-input.allow-dropdown.separate-dial-code.iti-sdc-3 input[type=text] {
+        padding-left: 85px;
+    }
+    .upwrdz-steps-advisor-content .date-picker-view-one .datepiker-expire {
+        position: absolute;
+        right: 16px;
+        top: 1px;
+    }
+    .upwrdz-steps-advisor-content .inside-form input[type="text"] {
+        width: 100%;
+    }
+    .upwrdz-steps-advisor-content label {
+        padding-left: 0px;
+    }
+    .registrator-form-let .additional_btn, .registration-form-div .additional_btn {
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
+    .finacial-additional-btn {
+        margin-left: 0px !important;
+    }
+    .registration-form-diBtTFs9i4v .btn-add-respn-one {
+        margin-left: 0px !important;
+    }
+    .form-nline.reg-step4 .pan-card {
+        text-align: left !important;
+    }
+    .user-profile-photo-crop .edit_image_box {
+        padding-bottom: 90px;
+    }
+    .panel-upload-video, .panel-upload-video .panel-body {
+        padding: 5px;
+    }
+    .panel-upload-video .upwrdz-button {
+        margin-bottom: 10px;
+    }
+    .upwrdz-profile-pic .header-profile-pic i {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    .pannel-popup-content-viewpeers .dataTables_wrapper .col-sm-6, .webinar-table-div .dataTables_wrapper .col-sm-6 {
+        width: 50%;
+    }
+    .refer-advisor-loop-form .add-client-btn {
+        width: 75%;
+    }
+    .regulatory-registration-checkbox .checkbox-img {
+        line-height: 20px;
+    }
+    .upwrdz-button-bottom {
+        margin-bottom: 20px;
+    }
+    .record-section .joinforcenow-enroll {
+        width: 25%;
+    }
+    /* .upwrdz-steps-advisor-content .iti-flag.in, .invite-advisor-to-rate-form .iti-flag.in, .refer-advisor-loop-form .iti-flag.in, .form-horizontal-contact .iti-flag.in, .addclient-numberdiv .iti-flag.in, .eipv-verify-otp .iti-flag.in, .filtterby-advisor .iti-flag.in, .mobile-claim-user .iti-flag.in {
+        background-position: -2404px 0px;
+    } */
+    .crisil-verfication-oneadvisor {
+        width: 100%;
+        border: 0px !important;
+    }
+    .identity_subscription_package_modal .modal-dialog {
+        overflow-x: scroll !important;
+    }
+    .identity_subscription_package_modal .modal-dialog .upwrdz-log-panel {
+        width: 760px;
+    }
+    .edit_batch_btn {
+        margin-bottom: 12px;
+    }
+    .flip-container, .front, .back {
+        width: 100%;
+    }
+    .flip_block_cards {
+        margin-right: 0px;
+    }
+    .des-logo {
+        display: none
+    }
+    .mob-logo {
+        display: block;
+    }
+    .guest-padding-div-myidenty {
+        width: 80%;
+    }
+    .video-size {
+        margin-top: 15px;
+    }
+    .upwrdz-log-panel .scrool-body{
+        overflow-y: inherit;
+        height: 100%;
+    }
+    .abotmi-advisor-banner {
+        margin-top: 90px;
+    }
+    .abotmi-product-wealth-form h2, .abotmi-product-wealth-form .sub-content{
+        font-size: 20px;
+    }
+    .reputation-static-banner{
+        margin-top: 90px;
+    }
+    .sto-education-model, .issuer-modal-size, .issuer-modal-offering {
+       padding: 15px 15px;
+     }
+     .subpage-reia-primary-div{
+       margin-top: 95px;
+     }
+     .abotmi-ethical-verification{
+        padding: 15px;
+    }
+}
+
+@media (min-width: 680px) and (max-width: 870px) {
+    .uwd-crisil-verification .upwrdz-btn {
+        font-size: 10px !important;
+        padding: 10px 10px;
+    }
+    .crisil-verfication-oneadvisor-one {
+        width: 100%;
+        border: 0px;
+    }
+}
+
+@media (min-width: 100px) and (max-width: 600px) {
+    .upwrdz-myhub-one-width {
+        width: 100%;
+    }
+    .upwrdz-myhub-one-50 {
+        width: 50% !important;
+    }
+    .switch_slider{
+        max-width: 50px !important;
+        width: 50px;
+    }
+    .facilitating-advisors-header .flip_block_cards img {
+      width: auto;
+      padding-right: 0px;
+    }
+}
+
+/* new upwards css */
+
+@media(min-width:901px) {
+    .facilitating-advisors-flipper {
+        width: 900px;
+        margin: auto;
+    }
+}
+
+@media (min-width:600px) and (max-width:767px) {
+    .newupwrds-banner-slide .banner-text-content {
+        top: 40%;
+    }
+    .flip_block_cards img {
+      width: 100%;
+      padding-right: 7px;
+      padding-left: 7px;
+    }
+}
+
+@media(max-width:767px) {
+    .new-upwrdz-navbar-custom {
+        margin-top: 30px;
+        background: #fff;
+    }
+    .navbar-brand {
+        letter-spacing: 0px;
+    }
+    .navbar-fixed-mobileres .navbar-brand {
+        height: auto;
+        padding: 10px 14px 10px;
+        margin-top: 0;
+    }
+    .new-upwrdz-navbar-custom .upwrdz-header-div .navbar-nav {
+        margin:8px -15px;
+    }
+    .navbar-fixed-mobileres .upwrdz-header-div .navbar-header {
+        width: 30%;
+        float: left;
+    }
+    .navbar-fixed-mobileres .upwrdz-header-div .collapse {
+        display: block;
+        width: 70%;
+        float: right;
+    }
+    .upwrdz-ourpartners-section {
+        padding-top: 1rem;
+    }
+    .upwrdz-ourpartners-section h2, .upwrdz-imageone-text h2 {
+        padding-bottom: 40px;
+    }
+    .custome-cursol-control.right i, .custome-cursol-control.left i {
+        font-size: 50px;
+    }
+    .upwrdz-investor-protection img {
+        display: none;
+    }
+    .upwrdz-investor-protection {
+        background: url(/static/new_images/uplyf-three.jpg) bottom center no-repeat;
+        -webkit-background-size: cover;
+        background-position: center;
+        height: 300px;
+    }
+    .facilitating-advisors-section .facilitating-one {
+        padding: 30px;
+    }
+    .upwrdz-ourpartners-section h2, .upwrdz-imageone-text h2 {
+        font-size: 30px;
+    }
+    .facilitating-advisors-section h3 {
+        font-size: 24px;
+    }
+    .form-control.cust-place::-webkit-input-placeholder, .form-control.cust-place::-moz-placeholder, .form-control.cust-place:-ms-input-placeholder {
+        color: #2e3191;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+    }
+    .form-control.cust-place:-moz-placeholder {
+        color: #2e3191;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+    }
+    .form-control.cust-place::placeholder {
+        color: #2e3191;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+    }
+    .cust-col {
+        font-size: 12px;
+    }
+
+    body {
+        padding-top: 10px;
+    }
+    .up_logo {
+        max-width: 195px;
+    }
+    .upwrdz-log-panel .panel-heading .nav-tabs {
+        border-bottom: none;
+        position: static;
+    }
+    .upwrdz-log-panel .panel-heading .nav-tabs li{
+        width: 100%;
+    }
+    .upwrdz-log-panel .panel-heading .nav-tabs li a{
+        border: 0px;
+        margin-right:0px;
+    }
+    .abotmi-reputation-main .abotmi-reputation-card-one,
+    .abotmi-build-main .abotmi-reputation-card-one {
+        margin-top: 15%;
+    }
+    .abotmi-reputation-main .abotmi-reputation-card-two,
+    .abotmi-reputation-main .abotmi-reputation-card-three,
+    .abotmi-build-main .abotmi-reputation-card-three,
+    .abotmi-build-main .abotmi-reputation-card-two {
+        margin-top: 20px;
+    }
+    .abotmi-build-main .abotmi-reputation-card{
+        margin-bottom: 15px;
+    }
+    .reputation-static-banner h2 {
+        margin-top: 12%;
+    }
+    .codeof-conduct-micro-condition{
+        margin-top: 10%;
+        width: 100%;
+    }
+    .abotmi-eIPV-section-one,
+    .abotmi-eIPV-section-two {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+    .abotmi-eIPV-section-tabs .abotmi-steps-forward .next-step {
+        position: absolute;
+        top: -150px !important;
+        font-size: 50px;
+    }
+    .abotmi-eIPV-section-tabs .abotmi-steps-forward .prev-step{
+        position: absolute;
+        left: -30px;
+        top: 0px !important;
+        font-size: 50px;
+    }
+    .camera-capture-main-section{
+        width: 100%;
+    }
+    .abotmi-reset-passwordd-change{
+        width: 90%;
+        margin: auto;
+    }
+    .abotmi-addarr-verification-step-one{
+        width: 90%;
+    }
+    .abotmi-reset-passwordd-sidecontent{
+        padding-top: 10px;
+    }
+}
+
+@media(max-width:600px) {
+    .flip_block_cards {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    .newupwrds-banner-slide .banner-text-content h3 {
+        font-size: 25px;
+    }
+    .newupwrds-banner-slide .banner-text-content {
+        top: 36%;
+        width: 95%;
+    }
+    .newupwrds-banner-slide .banner-text-content.mob-cont {
+        top: 46%;
+    }
+    .newupwrds-banner-slide .banner-text-content p.sub-content {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+    .mob-button {
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .abotmi-section-btns-optin .advisor-btn{
+        width: 100%;
+    }
+    .abotmi-section-btns-optin .advisor-btn .btn{
+        width: 220px;
+        margin-bottom: 10px;
+    }
+    .abotmi-testmonial-portion, .abotmi-testmonial-portion-two{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .subpage-reia-primary .wealth-micro-condition .modal-side-content{
+        width: 100%;
+    }
+    .reputation-static-banner h2 {
+        padding: 0% 0px 10%;
+        font-size: 30px;
+    }
+    .abotmi-reputation-main .how-it-works li{
+        width: 100% !important;
+    }
+    .abotmi-reputation-main .how-it-works li img {
+        width:auto;
+    }
+    .abotmi-reputation-main .abotmi-reputation-card-one, .abotmi-build-main .abotmi-reputation-card-one {
+        margin-top: 5%;
+    }
+}
+
+@media(max-width:409px) {
+    .banner-text-content .up-first-one {
+        margin-bottom: 10px;
+    }
+    .get-advice-profile-menu{
+        position: absolute!important;
+        right: 173px !important;
+        top: 12px;
+    }
+    .get-advice-profile-menu .get-advice-btn{
+        font-size: 12px;
+        padding: 3px 5px;
+    }
+    .abotmi-get-adivce-upload{
+        padding: 0px 0px 10px;
+        text-align: center;
+    }
+    .abotmi-get-adivce-upload label{
+        width: 100%;
+    }
+    .abotmi-get-adivce-upload a{
+        text-align: 100%;
+    }
+    .reputation-static .register .btn{
+        font-size: 10px;
+    }
+    .reputation-static-banner h2 {
+        font-size: 22px;
+    }
+}
+
+@media(max-width:450px) {
+    .form-identity-advisor .form-identity-column{
+        width: 100%;
+    }
+    .sto-education-model .abotmi-itstrue-bottom .btn{
+      font-size: 10px;
+    }
+}
+
+@media (min-width:600px) and (max-width:880px) {
+    .newupwrds-banner-slide .banner-text-content h3 {
+        font-size: 25px;
+    }
+}
+
+@media (min-width:100px) and (max-width:550px) {
+    .advisor-enroll-digits {
+        width: 100%;
+    }
+    .advisor-enroll-digits p {
+        font-size: 16px;
+    }
+    .form-identity-advisor .form-identity-column .form-group .form-control {
+        width: 100%;
+        height: 40px;
+        padding: 2px 7px;
+        font-size: 14px;
+    }
+
+    .upwrdz-footer .responsive-width-100 br {
+        display: block;
+    }
+    .form-identity-column {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .mob-button {
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .newupwrdz-advisor-list {
+        height: 106px;
+    }
+    .advisor-enroll-digits .btn {
+        font-size: 30px;
+    }
+    .micro-img-sec ul {
+        margin: auto;
+        padding-left: 0px;
+        width: 100%;
+        display: inline;
+    }
+    .micro-img-sec ul li {
+        text-align: center;
+        display: -webkit-inline-box;
+    }
+    .micro-img-sec ul li img {
+        width: 35px;
+    }
+    .form-control.cust-place::-webkit-input-placeholder, .form-control.cust-place::-moz-placeholder, .form-control.cust-place:-ms-input-placeholder {
+        color: #2e3191;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+    }
+    .form-control.cust-place:-moz-placeholder {
+        color: #2e3191;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+    }
+    .form-control.cust-place::placeholder {
+        color: #2e3191;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+    }
+    .cust-col {
+        font-size: 10px !important;
+    }
+    .mobile-footer p {
+        text-align: center;
+    }
+}
+
+@media (min-width:100px) and (max-width:480px) {
+    .upwrdz-join-now-section .upwrdz-join-now-row {
+        margin: auto;
+    }
+    .upwrdz-join-now-section {
+        margin: 50px 0px 0px 0px;
+    }
+    .upwrdz-ourpartners-section {
+        padding-bottom: 0rem;
+    }
+    .upwrdz-investor-protection h3 {
+        margin-top: 0;
+        font-size: 25px;
+    }
+    .upwrdz-investor-protection h3 span {
+        font-size: 20px !important;
+    }
+    .newupwrds-banner-slide .banner-text-content h3 {
+        font-size: 18px;
+    }
+    .newupwrds-banner-slide .banner-text-content p.sub-content {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+    .banner-text-content .up-first-two.mob-button {
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .newupwrds-banner-slide .banner-text-content {
+        top: 46%;
+    }
+    .upwrdz-footer .responsive-width-100 span {
+        display: none;
+    }
+    .upwrdz-footer .responsive-width-100 br {
+        display: block;
+    }
+    .upwrdz-footer .responsive-width-100 p {
+        text-align: center;
+    }
+    .upwrdz-profile-pic .profile-img {
+        position: absolute;
+        right: 24px;
+    }
+    .navbar-header .profile-menu {
+        right: 75px;
+    }
+    .collapse-navbar-profile-pic .navbar-nav {
+        margin: 0px -15px !important;
+    }
+    .collapse-navbar-profile-pic .navbar-nav .dropdown-menu-profile-pic {
+        top: 45px;
+    }
+}
+
+@media (min-width:100px) and (max-width:320px) {
+    .newupwrds-banner-slide .banner-text-content {
+        top: 36%;
+    }
+    .navbar-custom .nav li a {
+        padding: 5px 10px;
+    }
+    .upwrdz-header-div-head .upwrdz-header-welcome {
+        right: 88px;
+    }
+    .navbar-header .profile-menu {
+        right: 64px;
+    }
+    .upwrdz-profile-pic .profile-img {
+        position: absolute;
+        right: 24px;
+    }
+    .navbar-header .upwrdz-profile-main {
+        right: 20px;
+    }
+}
+
+@media (min-width:480px) {
+    .upwrdz-footer .responsive-width-100 br {
+        display: none;
+    }
+}
+
+@media (min-width:100px) and (max-width:1024px) {
+    .ruputation-index-social .nav-tabs>li a {
+        margin: 7px 2px;
+    }
+}
+@media (min-width:700px) {
+    .abotmi-mobile-responsive{
+        display: none;
+    }
+ 
+}
+@media (max-width:699px) {
+    .abotmi-desktop-responsive{
+        display: none !important;
+    }
+    .abotmi-mobile-responsive .menu-open{
+        float:right;
+        position: relative;
+        right: 15px;
+        top: 15px;
+        font-size: 25px;
+        color: #334192;
+    }
+    .abotmi-mobile-responsive .login-btn{
+        margin-bottom: 10px;
+        width: 160px;
+    }
+    .abotmi-mobile-responsive .login-button-btn{
+        margin-bottom: 10px;
+    }
+
+}
+@media (min-width:600px) and (max-width:767px) {
+    .abotmi-imege-text .abotmi-testmonial-portion h5{
+        font-size: 20px;
+    }
+    .abotmi-imege-text .abotmi-testmonial-portion h5 i{
+        font-size: 30px;
+    }
+    .wealth-micro-section{
+        margin-top: 60px;
+    }
+}
+@media (min-width:768px) {
+    .abotmi-reset-passwordd-change{
+        margin: auto;
+        width: 90%;
+    }
+    .abotmi-camera-eipv {
+        width: 420px !important;
+        max-height: 330px !important;
+        min-height: 130px !important;
+        height: auto !important;
+    }
+    .abotmi-addarr-verification-step-one{
+        width: 750px;
+    }
+}
+@media (max-width:479px) {
+.abotmi-camera-eipv {
+        width: auto !important;
+        height: auto !important;
+
+}
+.abotmi-tabs-section-scroll ul li{
+    width: 70px;
+    height: 70px;
+}
+.abotmi-tabs-section-scroll ul li img{
+    width: 35px;
+}
+}
+.abotmi-camera-eipv video{
+    width: 100% !important;
+    height: auto !important;
+    transform-origin: 0px 0px 0px !important;
+    transform: scaleX(1) scaleY(1) !important;
+}
+
+/* @media (min-width:991px){
+    .abotmi-eIPV-section-tabs .abotmi-steps-forward .prev-step.custome{
+        left: -100%;
+    }
+} */

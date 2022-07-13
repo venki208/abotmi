@@ -1,0 +1,1022 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+  {{block.super}}
+  <style>
+    body{
+        padding-top: 118px;
+    }
+    .help-block, .error-message{
+      color: red;
+      margin-bottom: 15px;
+    }
+  </style>
+{% endblock custome_css %}
+{% block custom_theme_css %}
+    {% if advisor.is_register_advisor %}
+        <link rel="stylesheet" href="{% static 'css/new_css/header2.css' %}">
+        <link rel="stylesheet" href="{% static 'css/new_css/footer.css' %}">
+    {% else %}
+        {{block.super}}
+    {% endif %}
+    <style>
+    .navbar-colorbottom{
+      border-bottom: 1px solid black;
+    }
+    .bg-form{
+      color: #000;
+      font-family: 'Arial', sans-serif;
+      padding:20px 0px;
+    }
+    .start-rating-view{
+      padding-top:30px;
+    }
+    .ratings{
+      margin:auto;
+    }
+    .star-rating-heading h2{
+      font-size:16px;
+      font-weight:600;
+      text-align:center;
+      padding-bottom:0px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+    .main-heading-star{
+      width:60%;
+      margin:auto;
+    }
+    .registration-btn{
+      margin-top:20px;
+    }
+    .ratings p {
+      margin-bottom: 0px;
+    }
+    .ratings {
+    padding-bottom: 10px;
+    }
+    .error-star-msg {
+      padding-bottom: 20px;
+    }
+    .error-star-msg span {
+      color: #DA3838;
+    }
+    .error-message {
+      color: #DA3838;
+    }
+    .registrator-form-let {
+    padding-bottom: 0px !important;
+    float: left;
+    width: 100%;
+    }
+    input[type="radio"] {
+      opacity: 1;
+    }
+    .radio-inline{
+      line-height: 25px;
+    }
+    .rate-btn1{
+      margin: auto;
+      width: 100%;
+    }
+    form{
+        width: 100%;
+    }
+    @media screen and (max-width: 992px){
+      .main-heading-star{
+      width:100%;
+      float:left;
+      }
+    }
+    .advisor-ratings-error-message {
+      text-align: center;
+      padding-left: 22%;
+    }
+    .ratings-error-message{
+      text-align: center;
+      padding-left: 37%;
+    }
+    .rate-error-message {
+      text-align: center;
+      padding-left: 30%;
+    }
+    .checkbox-sebi-certified{
+      position: relative;
+      top: 8px;
+    }
+    .checkbox-sebi-certified input[type="checkbox"]{
+      margin-right: 5px;
+      position: relative;
+      top: 2px;
+    }
+    .checkbox-sebi-rera input[type="text"]{
+      width: 100% !important;
+    }
+    .checkbox-sebi-rera .certification{
+      position: relative;
+    }
+    .checkbox-sebi-rera .certification span{
+      position: absolute;
+      top: 31px;
+      right: 25px;
+    }
+    </style>
+{% endblock %}
+{% block main_content %}
+<section class="bg-form" id="about">
+    <div class="container">
+        <div class="row">
+            {% if not advisor_to_rate.existing_user_profile.is_advisor and not advisor_to_rate.user_type == 'member' %}
+                <div class="col-md-12 n-padding-t-30">
+                    <p align="center">Welcome to Peer rating! Thank you for taking the initiative to rate your peer. Your rating is very valuable to them.</p>
+                    <p align="center"> Please answer the question and complete the process.</p>
+                    <p class="n-padding-b-15"><strong>Are you a Registered Financial Advisor?</strong></p>
+                    <form role="form">
+                        <label class="radio-inline" for="chkYes">
+                            <input type="radio" name="optradio" id="chkYes"  onclick="ShowHideDiv();">YES
+                        </label>
+                        <label class="radio-inline" for="chkNo">
+                            <input type="radio" name="optradio" id="chkNo" onclick="ShowHideDiv();" data-toggle="modal" data-target="#div_details">NO
+                        </label>
+                    </form>
+                </div>
+                {% if is_user_exist %}
+                <div class="" id="formshow" style="display: none">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 start-rating-view">
+                        <div class="form-group n-rating-heading">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                {% if user_agent_country == REGION_IN %}
+                                <p>It is mandatory to provide at least one of the following registration information.</p>
+                                {% endif %}
+                                <div class="panel n-panel-g">
+                                    <div class="panel-heading n-bg-gredient hide">
+                                        <h4> Registered with</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form id="registered_advisor" class="registration-form-div pull-left">
+                                            {% if user_agent_country == REGION_IN %}
+                                            <div class="form-group form-inline registrator-form-let">
+                                                <div class="checkbox checkbox-sebi-certified col-sm-2 col-md-2 col-lg-2">
+                                                    <label><input type="checkbox" name="sebi_certified" id="sebi_certified" value="yes"/>SEBI </label>
+                                                </div>
+                                                <div class="sebi_certification" id="sebi_certification" style="display:none">
+                                                    <div class="certification form-group col-sm-5 col-md-5 col-lg-5 inside-form">
+                                                        <label for="email">Registration&nbsp;No.</label>
+                                                        <input type="text" name='sebi_reg_id' class="form-control" id="sebi_reg_id" placeholder="Registration Number"/>
+                                                        <div class="error-message advisor-ratings-error-message"></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-5 col-md-5 col-lg-5 inside-form date-picker-view">
+                                                        <label for="pwd">Valid up to</label>
+                                                        <input type="text" class="form-control" placeholder="Valid up to" name="sebi_date" id="sebi_date"/>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                        <div class="error-message"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-inline registrator-form-let">
+                                                <div class="checkbox checkbox-sebi-certified col-sm-2 col-md-2 col-lg-2">
+                                                    <label><input type="checkbox" name="amfi_certified" id="amfi_certified" value="yes"/>AMFI</label>
+                                                </div>
+                                                <div class="amfi_certification" id="amfi_certification" style="display:none">
+                                                    <div class="certification form-group col-sm-5 col-md-5 col-lg-5 inside-form">
+                                                        <label for="email">Registration&nbsp;No.</label>
+                                                        <input type="text" name='amfi_reg_id' class="form-control" id="amfi_reg_id" placeholder="Registration Number"/>
+                                                        <div class="error-message advisor-ratings-error-message"></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-5 col-md-5 col-lg-5 inside-form date-picker-view">
+                                                        <label for="pwd">Valid up to</label>
+                                                        <input type="text" class="form-control"                         placeholder="Valid up to" name="amfi_date" id="amfi_date"/>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                        <div class="error-message"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-inline registrator-form-let">
+                                                <div class="checkbox checkbox-sebi-certified col-sm-2 col-md-2 col-lg-2">
+                                                    <label><input type="checkbox" name="irda_certified" id="irda_certified" value="yes" />IRDA  </label>
+                                                </div>
+                                                <div class="irda_certification" id="irda_certification" style="display:none">
+                                                    <div class="certification form-group col-sm-5 col-md-5 col-lg-5 inside-form">
+                                                        <label for="email">Registration&nbsp;No.</label>
+                                                        <input type="text" class="form-control" id="irda_reg_id" name="irda_reg_id" placeholder="Registration Number"/>
+                                                        <div><span class="error-message ratings-error-message"></span></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-5 col-md-5 col-lg-5 inside-form date-picker-view">
+                                                        <label for="pwd">Valid up to</label>
+                                                        <input type="text" class="form-control" placeholder="Valid up to" name="irda_date" id="irda_date"/>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                        <div class="error-message"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-inline registrator-form-let">
+                                                <div class="checkbox checkbox-sebi-certified col-sm-2 col-md-2">
+                                                    <label><input type="checkbox" name="RERA_certified" id="RERA_certified" value="yes" />RERA  </label>
+                                                </div>
+                                                <div class="RERA_certification checkbox-sebi-rera" id="RERA_certification"  style="display:none">
+                                                    <div class="certification form-group col-sm-4 col-md-4 inside-form">
+                                                        <label for="registration_no">Registration&nbsp;No.</label>
+                                                        <input type="text" class="form-control" id="RERA_reg_no" name="RERA_reg_no" placeholder="Registration Number">
+                                                        <div class="error-message rate-error-message"></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-3 col-md-3 inside-form">
+                                                        <label for="rera_state">State</label>
+                                                        <input type="text" class="form-control" id="RERA_state" name="RERA_state" placeholder="State">
+                                                        <div class="error-message rate-error-message"></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-3 col-md-3 inside-form date-picker-last-view">
+                                                        <label for="rera_date">Valid Upto</label>
+                                                        <input type="text" class="form-control"                         placeholder="Valid up to" name="RERA_date" id="RERA_date"/>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                        <div class="error-message"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            <div class="form-group form-inline registrator-form-let hide">
+                                                <div class="checkbox checkbox-sebi-certified col-sm-2 col-md-2">
+                                                    <label><input type="checkbox" name="other_certified" id="other_certified" value="yes" />Others</label>
+                                                </div>
+                                                <div class="other_certification checkbox-sebi-rera" id="other_certification"  style="display:none">
+                                                    <div class="certification form-group col-sm-4 col-md-4  inside-form">
+                                                        <label for="email">Authority</label>
+                                                        <input type="text" class="form-control" id="other_reg_name" name="other_reg_name" placeholder="Authority Name"/>
+                                                        <div class="error-message rate-error-message"></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-3 col-md-3 inside-form">
+                                                        <label for="email">Registration&nbsp;No.</label>
+                                                        <input type="text" class="form-control" id="other_reg_id" name="other_reg_id" placeholder="Registration Number"/>
+                                                        <div class="error-message rate-error-message"></div>
+                                                    </div>
+                                                    <div class="certification form-group col-sm-3 col-md-3 inside-form date-picker-last-view">
+                                                        <label for="pwd">Valid up to</label>
+                                                        <input type="text" class="form-control"                          placeholder="Valid up to" name="other_date" id="other_date"/>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                        <div class="error-message "></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 star-rating-heading">
+                        <div class="panel n-panel-g main-heading-star">
+                            <div class="panel-heading n-bg-gredient">
+                                <h2>Please rate your peer {{ advisor_to_rate.advisor.user_profile.user.get_full_name }} on the following parameters:</h2>
+                            </div>
+                            <div class="panel-body">
+                                <form id="advisor_rating_form">
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                        <div class='rateit pull-right' id='trust' data-rateit-resetable="false"></div>
+                                        <p>Reliability</p>
+                                        <input type='hidden' id='input_trust' name='input_trust' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                        <div class='rateit pull-right' id='financial' data-rateit-resetable="false"></div>
+                                        <p>Risk disclosure</p>
+                                        <input type='hidden' id='input_financial' name='input_financial' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                        <div class='rateit pull-right' id='communication' data-rateit-resetable="false"></div>
+                                        <p>Accessibility</p>
+                                        <input type='hidden' id='input_communication' name='input_communication' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                        <div class='rateit pull-right' id='advisory' data-rateit-resetable="false"></div>
+                                        <p>Integrity</p>
+                                        <input type='hidden' id='input_advisory' name='input_advisory' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                        <div class='rateit pull-right' id='ethics' data-rateit-resetable="false"></div>
+                                        <p>Commitment </p>
+                                        <input type='hidden' id='input_ethics' name='input_ethics' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                        <div class='rateit pull-right' id='customer' data-rateit-resetable="false"></div>
+                                        <p>Care for investor safety</p>
+                                        <input type='hidden' id='input_customer' name='input_customer' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings col-lg-12 col-xs-12 col-md-12">
+                                          <div class='rateit pull-right' id='average' data-rateit-readonly='true' data-rateit-resetable="false"></div>
+                                          <p>Average</p>
+                                    </div>
+                                    <div class="ratings">
+                                        <p><em>* One star being the lowest and five the highest</em></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="form-group registration-form-div registration-btn col-lg-12 col-xs-12 col-md-12">
+                            <div class="col-sm-12 col-md-1 col-xs-12 col-lg-12 text-center proceed-btn rate-btn1">
+                                <a><button class="btn upwrdz-button" onclick="rate_advisor();">Rate</button></a>
+                            </div>
+                        </div>
+                        <input type="hidden" id="activation_key" value="{{ advisor_to_rate.activation_key }}" />
+                    </div>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="col-md-12">
+                    {% if advisor_to_rate.user_type == 'member' %}
+                        <h4 align="center">Welcome to Advisor ranking! Thank you for taking the initiative to rank your advisor. <br>Your ranking is very valuable to them.</h4>
+                    {% else %}
+                        <h4 align="center">Welcome to Peer rating! Thank you for taking the initiative to rate your peer. <br>Your rating is very valuable to them.</h4>
+                    {% endif %}
+                    <div class="col-md-12 star-rating-heading">
+                        <div class="panel n-panel-g main-heading-star">
+                            <div class="panel-heading n-gredient-bg-blue-pink">
+                                {% if advisor_to_rate.user_type == 'member' %}
+                                    <h4 class="text-center">Please rank your advisor "<b>{{advisor_to_rate.advisor.user_profile.user.get_full_name}}</b>" on the following parameters:</h4> <br>
+                                {% else %}
+                                    <h4 class="text-center">Please rate your advisor "<b>{{advisor_to_rate.advisor.user_profile.user.get_full_name}}</b>" on the following parameters:</h4> <br>
+                                {% endif %}
+                            </div>
+                            <form id="advisor_rating_form">
+                                <div class="panel-body">
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='trust' data-rateit-resetable="false"></div>
+                                        {% if advisor_to_rate.user_type == 'member' %}
+                                            <p>Trust</p>
+                                        {% else %}
+                                            <p>Reliability</p>
+                                        {% endif %}
+                                        <input type='hidden' id='input_trust' name='input_trust' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='financial' data-rateit-resetable="false"></div>
+                                        {% if advisor_to_rate.user_type == 'member' %}
+                                            <p>Financial Knowledge</p>
+                                        {% else %}
+                                            <p>Risk disclosure</p>
+                                        {% endif %}
+                                        <input type='hidden' id='input_financial' name='input_financial' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='communication' data-rateit-resetable="false"></div>
+                                        {% if advisor_to_rate.user_type == 'member' %}             <p>Communication</p> 
+                                        {% else %}
+                                            <p>Accessibility</p>
+                                        {% endif %}
+                                        <input type='hidden' id='input_communication' name='input_communication' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='advisory' data-rateit-resetable="false"></div>
+                                        {% if advisor_to_rate.user_type == 'member' %}             <p>Advisory</p>
+                                        {% else %}
+                                            <p>Integrity</p>
+                                        {% endif %}
+                                        <input type='hidden' id='input_advisory' name='input_advisory' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='ethics' data-rateit-resetable="false"></div>
+                                        {% if advisor_to_rate.user_type == 'member' %}             <p>Ethics</p>
+                                        {% else %}
+                                            <p>Commitment</p>
+                                        {% endif %}
+                                        <input type='hidden' id='input_ethics' name='input_ethics' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='customer' data-rateit-resetable="false"></div>
+                                        {% if advisor_to_rate.user_type == 'member' %} 
+                                            <p>Customer Care</p>
+                                        {% else %}
+                                            <p>Care for investor safety</p>
+                                        {% endif %}
+                                        <input type='hidden' id='input_customer' name='input_customer' value=""/>
+                                        <div class="col-lg-12 pull-right error-star-msg no-padding"><span class="error-message pull-right"></span></div>
+                                    </div>
+                                    <div class="ratings offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                                        <div class='rateit pull-right' id='average' data-rateit-readonly='true' data-rateit-resetable="false"></div>
+                                        <p><b>Average</b></p>
+                                    </div>
+                                    <div class="ratings">
+                                        {% if advisor_to_rate.user_type == 'member' %}
+                                            <div class="offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3 text-center proceed-btn rate-btn1">
+                                            <p>FeedBack</p>
+                                                <textarea class="form-control" rows="4" cols="50" id='feedback' name="feedback" ></textarea>
+                                                <span class="error-message pull-right" id="help-text-feedback"></span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="ratings text-center">
+                                        <p><em>* One star being the lowest and five the highest</em></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="form-group registration-form-div registration-btn offset-lg-3 col-lg-6 col-xs-12 col-md-6 offset-md-3">
+                        {% if advisor_to_rate.user_type == 'member' %}
+                            <div class="col-sm-12 col-md-1 col-xs-12 col-lg-12 text-center proceed-btn rate-btn1">
+                                <button class="btn upwrdz-button" onclick="rank_reg_advisor();">Rank</button>
+                            </div>
+                            <input type="hidden" id="id_rating_hidden_value" value="member">
+                        {% else %}
+                            <div class="col-sm-12 col-md-1 col-xs-12 col-lg-12 text-center proceed-btn rate-btn1">
+                                <button class="btn upwrdz-button" onclick="rate_reg_advisor();">Rate</button>
+                            </div>
+                            <input type="hidden" id="id_rating_hidden_value" value="advisor">
+                        {% endif %}
+                    </div>
+                    <input type="hidden" id="activation_key" value="{{ advisor_to_rate.activation_key }}" />
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Thank you modal for Rating HTML Starts  -->
+    <div class="modal fade upwardz-modal" id="rate-modal" name="rate-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default" >
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <h3 class="modal-title n-span-blue-color">THANK YOU !</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" style="padding:30px;text-align: center;" id="rate-modal-body">
+                        <p class="text-center">Thank you for Rating</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Thank you modal for Rating HTML Ends  -->
+    <!-- ========================================================================= -->
+    <!-- Thank you modal for Ranking HTML Starts  -->
+    <div class="modal fade upwardz-modal" id="rank-modal" name="rank-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="panel upwrdz-log-panel panel-default">
+                    <div class="modal-header modal-header-border-bottom text-center">
+                        <h3 class="modal-title n-span-blue-color">THANK YOU !</h3>
+                        <hr class="modal-heading-hr">
+                    </div>
+                    <div class="panel-body pannel-popup-content" id="rank-modal-body">
+                        <p class="text-center">Thank you for Ranking</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Thank you modal for Ranking HTML Ends  -->
+</section>
+{% endblock %}
+{% block bootstrap_modal %}
+    {{block.super}}
+<div class="modal fade upwardz-modal" id="div_details" name="div_details" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3><span class="modal-title n-span-blue-color">CONFIRMATION</span></h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                    <!-- Modal content-->
+                    <div class="panel-body pannel-popup-content text-center" id="email_modal_body" style="padding:30px;">
+                        <p class="text-center">You have to be a Registered Financial Advisor to rate.</p>
+                        <button type="button" class="btn upwrdz-button" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{{block.super}}
+    <!-- Plugin JavaScript -->
+    <script type="text/javascript">
+        function ShowHideDiv() {
+            var chkYes = document.getElementById("chkYes");
+            var dvPassport = document.getElementById("formshow");
+            dvPassport.style.display = chkYes.checked ? "block" : "none";
+        }
+    </script>
+    <script type="text/javascript">
+        function customCheckbox(checkboxName){
+            var checkBox = $('input[name="'+ checkboxName +'"]');
+            $(checkBox).each(function(){
+                $(this).wrap( "<span class='custom-checkbox'></span>" );
+                if($(this).is(':checked')){
+                    $(this).parent().addClass("selected");
+                }
+            });
+            $(checkBox).click(function(){
+                $(this).parent().toggleClass("selected");
+            });
+        }
+    </script>
+
+    <!-- Custom Theme JavaScript -->
+  <link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+  <script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+  <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+  <script src="{% static 'js/additional-methods.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/datetimepicker.js' %}"></script>
+  <script src="{% static 'js/new_js/captcha.js' %}"></script>
+  <script type="text/javascript">
+    var user_agent_country = '{{user_agent_country}}';
+    var default_country = '{{REGION_IN}}';
+    var is_user_exist = '{{is_user_exist}}';
+    $(document).ready(function () {
+        if(is_user_exist == "False"){
+            $(".close").addClass("hide");
+            a_signup_button.click();
+        }
+    });
+
+    var valid1, valid2, valid3, valid4, valid5, valid6;
+    if($("#id_rating_hidden_value").val() == 'member'){
+        var validate_key = 'rank'
+        valid1 = 'Trust';
+        valid2 = 'Financial Knowledge';
+        valid3 = 'Communication';
+        valid4 = 'Advisory';
+        valid5 = 'Ethics';
+        valid6 = 'Customer Care';
+    }else{
+        var validate_key = 'rate'
+        valid1 = 'Reliability';
+        valid2 = 'Risk Disclosure';
+        valid3 = 'Accessibility';
+        valid4 = 'Integrity';
+        valid5 = 'Commitment';
+        valid6 = 'Investor Safety';
+    }
+    function update_average() {
+      var average = ($("#trust").rateit('value')/6 + $("#financial").rateit('value')/6 + $("#communication").rateit('value')/6 + $("#advisory").rateit('value')/6 + $("#ethics").rateit('value')/6 + $("#customer").rateit('value')/6)
+      $('#average').rateit('value', average)
+    }
+
+    $('#trust').bind('rated', function(){
+      $('#input_trust').val($(this).rateit('value'))
+      update_average();
+    });
+
+
+    $('#financial').bind('rated', function(){
+      $('#input_financial').val($(this).rateit('value'))
+      update_average();
+    });
+
+    $('#communication').bind('rated', function(){
+      $('#input_communication').val($(this).rateit('value'))
+      update_average();
+    });
+
+    $('#advisory').bind('rated', function(){
+      $('#input_advisory').val($(this).rateit('value'))
+      update_average();
+    });
+
+    $('#ethics').bind('rated', function(){
+      $('#input_ethics').val($(this).rateit('value'))
+      update_average();
+    });
+
+    $('#customer').bind('rated', function(){
+      $('#input_customer').val($(this).rateit('value'))
+      update_average();
+    });
+
+    // When the document is ready
+    $(document).ready(function () {
+      customCheckbox("sebi_certified");
+      customCheckbox("amfi_certified");
+      customCheckbox("irda_certified");
+      customCheckbox("other_certified");
+      customCheckbox("RERA_certified");
+
+      $('#sebi_date').datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          minDate:'D',
+          maxDate:'20Y',
+      });
+      $('#amfi_date').datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          minDate:'D',
+          maxDate:'20Y'
+      });
+      $('#irda_date').datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          minDate:'D',
+          maxDate:'20Y'
+      });
+      $('#RERA_date').datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          minDate:'D',
+          maxDate:'20Y'
+      });
+      $('#other_date').datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          minDate:'D',
+          maxDate:'20Y'
+      });
+      $('#sebi_date').on('keypress', function(e) {
+            e.preventDefault(); // Don't allow direct editing
+        });
+      $('#amfi_date').on('keypress', function(e) {
+            e.preventDefault(); // Don't allow direct editing
+        });
+      $('#irda_date').on('keypress', function(e) {
+            e.preventDefault(); // Don't allow direct editing
+        });
+      $('#RERA_date').on('keypress', function(e) {
+            e.preventDefault(); // Don't allow direct editing
+        });
+      $('#other_date').on('keypress', function(e) {
+            e.preventDefault(); // Don't allow direct editing
+        });
+      $("#sebi_certified").click(function(){
+        if ($("#sebi_certification").is(":visible")){
+          $("#sebi_certification").hide()}
+        else{
+          $("#sebi_certification").show()
+
+        }
+      });
+      $("#amfi_certified").click(function(){
+        if ($("#amfi_certification").is(":visible")){
+          $("#amfi_certification").hide()}
+        else{
+          $("#amfi_certification").show()
+        }
+      });
+      $("#irda_certified").click(function(){
+        if ($("#irda_certification").is(":visible")){
+          $("#irda_certification").hide()}
+        else{
+          $("#irda_certification").show()
+        }
+      });
+      $("#RERA_certified").click(function(){
+        if ($("#RERA_certification").is(":visible")){
+          $("#RERA_certification").hide()}
+        else{
+          $("#RERA_certification").show()
+        }
+      });
+      $("#other_certified").click(function(){
+        if ($("#other_certification").is(":visible")){
+          $("#other_certification").hide()}
+        else{
+          $("#other_certification").show()
+        }
+      });
+
+      $("#registered_advisor").validate({
+          rules: {
+            sebi_reg_id: {
+              required: {
+                depends: function () {
+                  return $('#sebi_certified').is(':checked')
+                }}
+            },
+            amfi_reg_id: {
+              required: {
+                depends: function () {
+                  return $('#amfi_certified').is(':checked')
+                }
+              }
+            },
+            irda_reg_id: {
+              required: {
+                depends: function () {
+                  return $('#irda_certified').is(':checked')
+                }
+              }
+            },
+            RERA_reg_no: {
+              required:{
+                depends: function(){
+                  return $('#RERA_certified').is(':checked')
+                }
+              }
+            },
+            RERA_state: {
+              required:{
+                depends: function(){
+                  return $('#RERA_certified').is(':checked')
+                }
+              }
+            },
+            other_reg_name: {
+              required: {
+                depends: function () {
+                  return $('#other_certified').is(':checked')
+                }}
+            },
+            other_reg_id: {
+              required: {
+                depends: function () {
+                  return $('#other_certified').is(':checked')
+                }
+              }
+            },
+          },
+          messages: {
+            sebi_reg_id: {
+              required: "Please enter Registration Number"
+            },
+            amfi_reg_id: {
+              required: "Please enter Registration Number"
+            },
+            irda_reg_id: {
+              required: "Please enter Registration Number"
+            },
+            RERA_reg_no:{
+              required: "Please enter Registration Number"
+            },
+            RERA_state:{
+              required: "Please enter State"
+            },
+            other_reg_name: {
+              required: "Please enter Authority Name"
+            },
+            other_reg_id: {
+              required: "Please enter Registration Number"
+            },
+          },
+          highlight: function(element) {
+          $(element).closest('.certification').removeClass('success').addClass('error');
+          },
+          unhighlight: function(element) {
+          $(element).closest('.certification').removeClass('error').addClass('success');
+          },
+          success: function(element) {
+          $(element).closest('.certification').find('.error-message').hide();
+          },
+          errorPlacement: function (error, element) {
+          $(element).closest('.certification').find('.error-message').html(error.text());
+          }
+      })
+
+      $("#advisor_rating_form").validate({
+        ignore: "input[type='text']:hidden",
+        rules: {
+          input_trust: {
+            required: true
+          },
+          input_financial: {
+            required: true
+          },
+          input_communication: {
+            required: true
+          },
+          input_advisory: {
+            required: true
+          },
+          input_ethics: {
+            required: true
+          },
+          input_customer: {
+            required: true
+          },
+        },
+        messages: {
+          input_trust: {
+            required: "Please "+validate_key+" for "+valid1
+          },
+          input_financial: {
+            required: "Please "+validate_key+" for "+valid2
+          },
+          input_communication: {
+            required: "Please "+validate_key+" for "+valid3
+          },
+          input_advisory: {
+            required: "Please "+validate_key+" for "+valid4
+          },
+          input_ethics: {
+            required: "Please "+validate_key+" for "+valid5
+          },
+          input_customer: {
+            required: "Please "+validate_key+" for care for "+valid6
+          },
+        },
+        highlight: function(element) {
+        $(element).closest('.ratings').removeClass('success').addClass('error');
+        },
+        unhighlight: function(element) {
+        $(element).closest('.ratings').removeClass('error').addClass('success');
+        },
+        success: function(element) {
+        $(element).closest('.ratings').find('.error-message').hide();
+        },
+        errorPlacement: function (error, element) {
+        $(element).closest('.ratings').find('.error-message').html(error.text());
+        }
+      })
+
+    });
+    
+    function rate_advisor(){
+      var status="{{ advisor_to_rate.user_type }}";
+      var token = '{{ csrf_token }}';
+      var activation_key = $('#activation_key').attr('value');
+      var average = (($("#trust").rateit('value') + $("#financial").rateit('value') + $("#communication").rateit('value') + $("#advisory").rateit('value') + $("#ethics").rateit('value') + $("#customer").rateit('value'))/6)
+      $("#average").rateit('value', average)
+      if ($("#sebi_certified").is(':checked') || $("#amfi_certified").is(':checked') || $("#irda_certified").is(':checked') || $("#RERA_certified").is(':checked') || $("#other_certified").is(':checked') || user_agent_country != default_country) {
+        if ($("#registered_advisor").valid() && $("#advisor_rating_form").valid()) {
+          $.ajax({
+                type: 'POST',
+                url: '/signup/advisor_rating/'+activation_key,
+                beforeSend: function(request){
+                            request.setRequestHeader("X-CSRFToken", token);
+                        },
+                data: {
+                  'sebi_certified': $('#sebi_certified').is(':checked'),
+                  'sebi_reg_id': $('#sebi_reg_id').val(),
+                  'sebi_date': $('#sebi_date').val(),
+                  'amfi_certified': $('#amfi_certified').is(':checked'),
+                  'amfi_reg_id': $('#amfi_reg_id').val(),
+                  'amfi_date': $('#amfi_date').val(),
+                  'irda_certified': $('#irda_certified').is(':checked'),
+                  'irda_reg_id': $('#irda_reg_id').val(),
+                  'irda_date': $('#irda_date').val(),
+                  'RERA_certified': $('#RERA_certified').is(':checked'),
+                  'RERA_reg_no':$('#RERA_reg_no').val(),
+                  'RERA_state':$('#RERA_state').val(),
+                  'RERA_date':$('#RERA_date').val(),
+                  'other_certified': $('#other_certified').is(':checked'),
+                  'other_reg_name': $('#other_reg_name').val(),
+                  'other_reg_id': $('#other_reg_id').val(),
+                  'other_date' : $('#other_date').val(),
+                    'trust': $("#trust").rateit('value'),
+                    'financial': $("#financial").rateit('value'),
+                    'communication': $("#communication").rateit('value'),
+                    'advisory': $("#advisory").rateit('value'),
+                    'ethics': $("#ethics").rateit('value'),
+                    'customer': $("#customer").rateit('value'),
+                    'average': average,
+                },
+                success: function(response){
+                    if (response=='success'){
+                      if(status == 'member'){
+                          add_ranking_content();
+                      }else{
+                          add_rating_content();
+                      }
+                    }
+                    else{
+                      if(status=='member'){
+                        $('#rank-modal-body').html(response);
+                      }else{
+                        $('#rate-modal-body').html(response);
+                      }
+                    }
+                },
+            });
+          }
+        }
+      else{
+        alert("Please Provide At Least One Certification Details to Continue");
+      }
+    }
+
+    function rate_reg_advisor(){
+      var token = '{{ csrf_token }}';
+      var status="{{ advisor_to_rate.user_type }}";
+        var feedback = $.trim($('#feedback').val());
+        var activation_key = $('#activation_key').attr('value');
+        var average = (($("#trust").rateit('value') + $("#financial").rateit('value') + $("#communication").rateit('value') + $("#advisory").rateit('value') + $("#ethics").rateit('value') + $("#customer").rateit('value'))/6)
+        $("#average").rateit('value', average)
+        if ($("#advisor_rating_form").valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/signup/advisor_rating/'+activation_key,
+                beforeSend: function(request){
+                            request.setRequestHeader("X-CSRFToken", token);
+                        },
+                data: {
+                    'trust': $("#trust").rateit('value'),
+                    'financial': $("#financial").rateit('value'),
+                    'communication': $("#communication").rateit('value'),
+                    'advisory': $("#advisory").rateit('value'),
+                    'ethics': $("#ethics").rateit('value'),
+                    'customer': $("#customer").rateit('value'),
+                    'average': average,
+                    'feedback':feedback,
+                },
+                success: function(response){
+                    if (response=='success'){
+                      if(status=='member'){
+                          add_ranking_content();
+                      }else{
+                        add_rating_content();
+                      }
+                    }
+                    else{
+                      if(status=='member'){
+                        $('#rank-modal-body').html(response);
+                      }else{
+                        $('#rate-modal-body').html(response);
+                      }
+                    }
+                },
+            });
+          }
+        }
+
+      function rank_reg_advisor(){
+        var token = '{{ csrf_token }}';
+        var status="{{ advisor_to_rate.user_type }}";
+        var feedback = $('#feedback').val();
+        document.getElementById('help-text-feedback').innerHTML='';
+        var activation_key = $('#activation_key').attr('value');
+        var average = (($("#trust").rateit('value') + $("#financial").rateit('value') + $("#communication").rateit('value') + $("#advisory").rateit('value') + $("#ethics").rateit('value') + $("#customer").rateit('value'))/6)
+        $("#average").rateit('value', average)
+        if ($("#advisor_rating_form").valid()) {
+          if (feedback.length<250){
+            document.getElementById('help-text-feedback').innerHTML='';
+            $.ajax({
+                type: 'POST',
+                url: '/signup/advisor_rating/'+activation_key,
+                beforeSend: function(request){
+                            request.setRequestHeader("X-CSRFToken", token);
+                        },
+                data: {
+                    'trust': $("#trust").rateit('value'),
+                    'financial': $("#financial").rateit('value'),
+                    'communication': $("#communication").rateit('value'),
+                    'advisory': $("#advisory").rateit('value'),
+                    'ethics': $("#ethics").rateit('value'),
+                    'customer': $("#customer").rateit('value'),
+                    'average': average,
+                    'feedback':feedback,
+                },
+                success: function(response){
+                    if (response=='success'){
+                      if(status=='member'){
+                        add_ranking_content();
+                      }else{
+                        add_rating_content();
+                      }
+                    }
+                    else{
+                      if(status=='member'){
+                        $('#rank-modal-body').html(response);
+                      }else{
+                        $('#rate-modal-body').html(response);
+                      }
+                    }
+                },
+            });
+          }else{
+             document.getElementById('help-text-feedback').innerHTML='Maximum 250 characters allowed!';
+             $("#feedback").focus();
+             return false
+          }
+
+      }
+    }
+  </script>
+    <script type="text/javascript">
+        function cancel_navigate(id) {
+            $("#"+id).modal('hide');
+            window.location = '/';
+        }
+        function add_rating_content(){
+            $("#rate-modal-body").append('<button type="button" class="btn upwrdz-button pull-right" onclick="cancel_navigate('+"'"+'rate-modal'+"'"+');">Ok</button>');
+            $('#rate-modal').modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false,
+            });
+        }
+        function add_ranking_content(){
+            $("#rank-modal-body").append('<button type="button" class="btn upwrdz-button pull-right" onclick="cancel_navigate('+"'"+'rank-modal'+"'"+');">Ok</button>');
+            $('#rank-modal').modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false,
+            });
+        }
+    </script>
+{% endblock %}

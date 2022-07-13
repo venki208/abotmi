@@ -1,0 +1,131 @@
+.get-advice-heading {
+    font-size: 24px;
+    color: #20529e;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.get-advice-heading a {
+    text-decoration: none;
+    color: #20529e;
+}
+
+.get-side-heading {
+    font-size: 18px;
+    color: #20529e;
+    font-weight: 600;
+}
+
+.get-side-advice {
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.get-no-questions-displayed {
+    font-size: 18px;
+    color: #707070;
+    font-weight: lighter;
+    margin-top: 40px;
+}
+
+.get-advice {
+    font-size: 16px;
+    color: #707070;
+    font-weight: lighter;
+}
+
+.get-advice-button {
+    padding: 4px 10px !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    background: #f12284 !important;
+    border-radius: 0px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.get-advice-desc {
+    font-size: 16px;
+    font-weight: lighter;
+}
+
+.border-div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #272525;
+}
+
+.side-search {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.read-more {
+    font-weight: 700;
+    color: #5976fc;
+}
+
+.advice-text {
+    border:1px #656565 solid !important;
+    background-color: #fefae3;
+    border-radius: 0;
+    color: #000;
+    border: none;
+}
+
+@media(max-width:420px) {
+    .get-advice-button {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+}
+
+@media(max-width:450px) {
+    .advice-text {
+        width: 100%;
+    }
+}
+
+.search-dropdown {
+    position: absolute;
+    z-index: 12;
+    background: #e6e6e6;
+    width: 100%;
+    box-shadow: 0px 1px 10px #949090;
+    height: 100px;
+    overflow-y: scroll;
+    color: #000000;
+    list-style: none;
+}
+
+.upwrdz-log-panel1 {
+    margin-bottom: 0px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 0px;
+    border-top: 1px solid #8e898e !important;
+}
+
+.advisor-description {
+    word-wrap: break-word !important;
+}
+
+.get-side-advice-more {
+    font-size: 20px;
+    color: #707070;
+    font-weight: lighter;
+    padding-top: 50px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.question_break {
+    word-wrap: break-word
+}
+.form-control{
+    background-color: #efefef !important;
+    border-color: #efefef !important;
+}

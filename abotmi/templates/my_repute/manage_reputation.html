@@ -1,0 +1,64 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    {% if not user.is_authenticated %}
+        <style>
+            /* body{
+                padding-top: 123px;
+            } */
+            .start-up{
+                text-align: center;
+                font-size: 18px;
+                font-weight: 700 !important;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/advisor-banner.png' %}">
+        <div class="container">
+            <h2>MANAGE <br/>REPUTATION</h2>
+        </div>
+    </section>
+    <section class="reputation-static abotmi-reputation-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/reputation-icon2.png' %}"> 
+                        <h3>Manage Reputation</h3>
+                        <p>It’s essential to establish and manage the advisor’s reputation by validating the credibility through a third-party certification. This is achieved by using a rating and ranking system through your current network of peers and clients. It helps to prove your expertise and trustworthiness in this field. As a digital asset advisor it’s vital to
+                        satisfy your client’s needs by delivering a superior service.</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn" name="signup_a">Register Now</a>
+                </div>
+            </div>
+            <p class="start-up">Start Building Your Reputation!</p>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

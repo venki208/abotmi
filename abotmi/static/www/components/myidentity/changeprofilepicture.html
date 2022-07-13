@@ -1,0 +1,55 @@
+<ion-view>
+	<ion-side-menus>
+		<ion-side-menu-content>
+			<upwrdz-Tabs></upwrdz-Tabs>
+			<ion-content class="m-upwrdz-editpage-content">
+				<div class="row editpage-title-bar">
+					<div class="back-btn" back>
+						<img src="../www/img/back_arrow_25px.png" class="back-btn" alt="back arrow">
+					</div>
+					<div class="col" style="color: black">
+						Edit Profile Picture
+					</div>
+				</div>
+				<div class="profile-edit">
+					<div ng-if="!changepicture.showdiv">
+						<p class="text-center">
+							<img style="width:30%;" ng-src="{{changepicture.picture}}" />
+						</p>
+					</div>
+					<div ng-if="changepicture.data.os =='ios'">
+						<input type="file" capture="camera" accept="image/*"
+							file-change="changepicture.filechanged($event)" ng-model="changepicture.inputImage"
+							accept=".png, .jpg, .jpeg" />
+
+					</div>
+					<div ng-if="changepicture.data.os =='android'">
+						<input type="file" file-change="changepicture.filechanged($event)"
+							ng-model="changepicture.inputImage" accept=".png, .jpg, .jpeg" />
+					</div>
+					<div ng-if="changepicture.inputImage" class="cropping-img-block">
+
+						<div ng-if="changepicture.data.os =='android'">
+							<ng-croppie src="changepicture.inputImage" ng-model="changepicture.picture"
+								boundry="{w: 200, h: 200}" viewport="{w: 100, h: 100}" type="square">
+							</ng-croppie>
+						</div>
+						<div ng-if="changepicture.data.os =='ios'">
+							<ui-cropper class="cropArea" image="changepicture.inputImage" area-type="circle"
+								result-image="changepicture.picture" canvas-scalemode="true"></ui-cropper>
+						</div>
+						<div class="row">
+							<div class="col col-50">
+								<button class="button full-button"
+									ng-click="changepicture.uploadpic(changepicture.picture)">Submit</button>
+							</div>
+							<div class="col col-50">
+								<button class=" button full-button" type="button" back>Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ion-content>
+		</ion-side-menu-content>
+	</ion-side-menus>
+</ion-view>

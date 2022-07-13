@@ -1,0 +1,277 @@
+{% load staticfiles %}
+<style>
+    .help-block{
+        color: red;
+    }
+</style>
+<link href="{% static 'css/validate.css' %}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'js/plugins/jrateit/rateit.css' %}">
+<p class="text-center"><strong>Please rate your peer '{{advisor_to_rate.advisor.user_profile.first_name}}' on the following</strong></p>
+<form id="advisor_rating_form" >
+    <div class="section service">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                        <table width="100%" cellspacing="10">
+                            <tr>
+                                <td>
+                                    <p><b>1. Reliability</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                <div class='rateit' id='trust' data-rateit-resetable="false"></div>
+                                <input type='hidden' id='input_trust' name='input_trust' value=""/>
+                                <div><span class="help-block"></span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>2. Risk disclosure</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                <div class='rateit' id='financial' data-rateit-resetable="false"></div>
+                                 <input type='hidden' id='input_financial' name='input_financial' value=""/>
+                                <div><span class="help-block"></span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>3. Accessibility</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                <div class='rateit' id='communication' data-rateit-resetable="false"></div>
+                                <input type='hidden' id='input_communication' name='input_communication' value=""/>
+                                <div><span class="help-block"></span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>4. Integrity</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                <div class='rateit' id='advisory' data-rateit-resetable="false"></div>
+                                <input type='hidden' id='input_advisory' name='input_advisory' value=""/>
+                                <div><span class="help-block"></span></div>
+                                    <div class="Clear">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>5. Commitment</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                <div class='rateit' id='ethics' data-rateit-resetable="false"></div>
+                                <input type='hidden' id='input_ethics' name='input_ethics' value=""/>
+                                <div><span class="help-block"></span></div>
+                                    <div class="Clear">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>6. Care for investor safety</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                    <div class='rateit' id='customer' data-rateit-resetable="false"></div>
+                                <input type='hidden' id='input_customer' name='input_customer' value=""/>
+                                <div>
+                                <div><span class="help-block"></span></div>
+                                </div>
+                                </td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <form id='form3'>
+                        <table width="100%" cellspacing="10">
+                            <tr>
+                                <td>
+                                    <p><b>Average Rating :</b></p>
+                                </td>
+                                <td class="pull-right text-right">
+                                    <div class='rateit' id='average' data-rateit-readonly='true' data-rateit-resetable="false"></div>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" id='activation_key' value='{{activation_key}}'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ <td style="color:#919191;"><em>* One star being the lowest and five the highest</em>
+<div class="text-center" style="margin-top: 20px;">
+    <span><input type="submit" class="btn upwrdz-button" value="Submit" onclick="rate_advisor()"></span>
+</div>
+<script type="text/javascript" src="{% static 'js/plugins/jrateit/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/additional-methods.min.js' %}"></script>
+<script type="text/javascript">
+
+    $( document ).ready(
+        function() {
+            $('#trust').rateit()
+            $('#financial').rateit()
+            $('#communication').rateit()
+            $('#advisory').rateit()
+            $('#ethics').rateit()
+            $('#customer').rateit()
+            $('#average').rateit()
+            $("#advisor_rating_form").validate({
+                ignore: "input[type='text']:hidden",
+                rules: {
+                  input_trust: {
+                    required: true
+                  },
+                  input_financial: {
+                    required: true
+                  },
+                  input_communication: {
+                    required: true
+                  },
+                  input_advisory: {
+                    required: true
+                  },
+                  input_ethics: {
+                    required: true
+                  },
+                  input_customer: {
+                    required: true
+                  },
+                },
+                messages: {
+                  input_trust: {
+                    required: "Please rate for Reliability"
+                  },
+                  input_financial: {
+                    required: "Please rate for financial Risk disclosure"
+                  },
+                  input_communication: {
+                    required: "Please rate for Accessibility"
+                  },
+                  input_advisory: {
+                    required: "Please rate for Integrity"
+                  },
+                  input_ethics: {
+                    required: "Please rate for Commitment"
+                  },
+                  input_customer: {
+                    required: "Please rate for Care for investor safety"
+                  },
+                },
+                highlight: function(element) {
+                $(element).closest('td').removeClass('success').addClass('error');
+                },
+                unhighlight: function(element) {
+                $(element).closest('td').removeClass('error').addClass('success');
+                },
+                success: function(element) {
+                //$(element).closest('.control-group').find('.fillimg').addClass('valid');
+                // What is ".fillimg"?  That's not a real word.
+                },
+                errorPlacement: function (error, element) {
+                $(element).closest('td').find('.help-block').html(error.text());
+                }
+            })
+        }
+    )
+    $('#trust').bind('rated', function(){
+        $('#input_trust').val($(this).rateit('value'))
+        if($('#average').rateit('value')){
+            $('#average').rateit('value',  (($('#average').rateit('value') + $(this).rateit('value'))/2));
+        }
+        else{
+            $('#average').rateit('value',$(this).rateit('value'));
+            }
+        }
+    );
+
+
+    $('#financial').bind('rated', function(){
+        $('#input_financial').val($(this).rateit('value'))
+        if($('#average').rateit('value')){
+            $('#average').rateit('value',  (($('#average').rateit('value') + $(this).rateit('value'))/2));
+        }
+        else{
+            $('#average').rateit('value',$(this).rateit('value'));
+            }
+        }
+    );
+
+    $('#communication').bind('rated', function(){
+        $('#input_communication').val($(this).rateit('value'))
+        if($('#average').rateit('value')){
+            $('#average').rateit('value',  (($('#average').rateit('value') + $(this).rateit('value'))/2));
+        }
+        else{
+            $('#average').rateit('value',$(this).rateit('value'));
+        }
+    });
+
+    $('#advisory').bind('rated', function(){
+        $('#input_advisory').val($(this).rateit('value'))
+        if($('#average').rateit('value')){
+            $('#average').rateit('value',  (($('#average').rateit('value') + $(this).rateit('value'))/2));
+        }
+        else{
+            $('#average').rateit('value',$(this).rateit('value'));
+        }
+    });
+
+    $('#ethics').bind('rated', function(){
+        $('#input_ethics').val($(this).rateit('value'))
+        if($('#average').rateit('value')){
+            $('#average').rateit('value',  (($('#average').rateit('value') + $(this).rateit('value'))/2));
+        }
+        else{
+            $('#average').rateit('value',$(this).rateit('value'));
+        }
+    });
+
+    $('#customer').bind('rated', function(){
+        $('#input_customer').val($(this).rateit('value'))
+        if($('#average').rateit('value')){
+            $('#average').rateit('value',  (($('#average').rateit('value') + $(this).rateit('value'))/2));
+        }
+        else{
+            $('#average').rateit('value',$(this).rateit('value'));
+        }
+    });
+
+    function rate_advisor(){
+        var token = '{{ csrf_token }}';
+        var activation_key = $('#activation_key').attr('value');
+        var average = (($("#trust").rateit('value') + $("#financial").rateit('value') + $("#communication").rateit('value') + $("#advisory").rateit('value') + $("#ethics").rateit('value') + $("#customer").rateit('value'))/6)
+        $("#average").rateit('value', average)
+        if ($("#advisor_rating_form").valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/dashboard/rate_advisor/?activation_key='+activation_key,
+                beforeSend: function(request){
+                            request.setRequestHeader("X-CSRFToken", token);
+                        },
+                data: {
+                    'trust': $("#trust").rateit('value'),
+                    'financial': $("#financial").rateit('value'),
+                    'communication': $("#communication").rateit('value'),
+                    'advisory': $("#advisory").rateit('value'),
+                    'ethics': $("#ethics").rateit('value'),
+                    'customer': $("#customer").rateit('value'),
+                    'average': average,
+                    'activation_key':activation_key
+                },
+                success: function(response){
+                    if (response=='success'){
+                        $('#rate-modal-body').html('');
+                        $('#rate-modal').modal('hide');
+                    }
+                    else{
+                        $('#rate-modal-body').html(response);
+                    }
+                },
+            });
+        }
+    }
+</script>

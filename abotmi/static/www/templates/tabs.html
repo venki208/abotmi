@@ -1,0 +1,96 @@
+<ion-view>
+	<ion-side-menus enable-menu-with-back-views="true">
+		<ion-side-menu-content ng-class="{'menu-open':track.isMenuOpen()}" drag-content="false">
+			<ion-nav-bar class="m-upwrdz-navbar" align-title="center">
+	        	<ion-nav-buttons side="left">
+					<button class="button button-icon icon ion-navicon-round light" ng-click="track.showMenu();"></button>
+				</ion-nav-buttons>
+				<ion-nav-title class="up-logo">
+					<img src="img/upwrdz-logo.png" alt="upwrdz-logo">
+				</ion-nav-title>
+	  		</ion-nav-bar>
+			<ion-nav-view name="content"></ion-nav-view>
+	 	</ion-side-menu-content>
+		<ion-side-menu>
+			<ion-header-bar class="abotmi-header-logo">
+				<div class="row">
+					<div class="col">
+						<img src="../images/mobile_images/upwrdz_logo.png" alt="" style="width: 45px;">
+					</div>
+					<div class="col btn-block" ng-click="track.showMenu();">
+						<button class="button button-icon icon ion-android-close close-btn pull-right" ng-click="track.showMenu();"></button>
+					</div>
+				</div>
+			</ion-header-bar>
+			<ion-content class="sidemenuheader side-bar" has-header="true">
+        <ion-list class="side-bar">
+					<ion-item class="menu-list">
+						<!-- <div class="side-bar" menu-close ng-click="track.apphelp()">
+							<p>
+							<span class="pull-right"><i class="icon ion-chevron-right"></i></span>
+							<span><img src ="../images/mobile_images/help.png"></span>
+							<span>Help</span>
+							</p>
+						</div>
+						<div class="side-bar" menu-close ng-click="track.appfaq()">
+							<p>
+							<span class="pull-right"><i class="icon ion-chevron-right"></i></span>
+							<span><img src="../images/mobile_images/faq.png"></span>
+							<span>FAQ</span>
+							</p>
+						</div> -->
+						<div class="" ng-click="showdropdown = !showdropdown">
+							<p>
+							<span class="pull-right"><i class="icon ion-chevron-right"></i></span>
+							<span><img src="../images/mobile_images/settings.png"></span>
+							<span>Settings</span>
+						   </p>
+							<div ng-show="showdropdown">
+								<ion-item  menu-close  ui-sref="app.eipv_verification">Edit Profile</ion-item>
+								<ion-item  menu-close  ng-click="track.changepass()">Change Password</ion-item>
+								<!--  Commented for next version -->
+								<!-- <ion-item  menu-close ui-sref="app.smsalert">Alert</ion-item> -->
+							</div>
+						</div>
+						<div class="" menu-close  ng-click="track.appterms()">
+							<p>
+							<span class="pull-right"><i class="icon ion-chevron-right"></i></span>
+							<span><img src="../images/mobile_images/termsandconditions.png"></span>
+							<span>Terms & conditions</span>
+							</p>
+
+						</div>
+						<div class=""  menu-close ng-click="track.appprivacypolicy()">
+							<p>
+							<span class="pull-right"><i class="icon ion-chevron-right"></i></span>
+							<span><img src="../images/mobile_images/privacy_policy.png"></span>
+							<span>Privacy policy</span>
+							</p>
+						</div>
+						<div class="" menu-close ui-sref="logout">
+							<p>
+							<span class="pull-right"><i class="icon ion-chevron-right"></i></span>
+							<span><img src="../images/mobile_images/sign_out.png"></span>
+							<span>Log out</span>
+							</p>
+						</div>
+          </ion-item>
+					<!--<ion-item menu-close ui-sref="app.apphelp"> <img src ="../images/mobile_images/help.png"/>Help</ion-item>
+					<ion-item menu-close ui-sref="app.appfaq"> <img src ="../images/mobile_images/faq.png"/>FAQ</ion-item>
+					<ion-item class="side-bar" ng-click="showdropdown = !showdropdown"> <img src ="../images/mobile_images/settings.png"/>Settings
+						<div ng-if="showdropdown">
+							<ion-item  menu-close ui-sref="app.changepassword">Change Password</ion-item>
+							<ion-item  menu-close ui-sref="app.smsalert">Alert</ion-item>
+						</div>
+					</ion-item>
+					<ion-item menu-close ui-sref="app.termsandconditions"> <img src ="../images/mobile_images/termsandconditions.png"/>Terms & Conditions</ion-item>
+					<ion-item menu-close ui-sref="app.privacypolicy"> <img src ="../images/mobile_images/privacy_policy.png"/>Privacy Policy</ion-item>
+					<ion-item menu-close ui-sref="logout"> <img src ="../images/mobile_images/sign_out.png"/>Sign out</ion-item>-->
+          </ion-list>
+				 <div class="copyrights-text">
+                 	<p> &copy; 2016 Datanet Techno Solutions Private Limited</p>
+               </div>
+           </ion-content>
+			</ion-side-menu>
+	</ion-side-menus>
+</ion-view>

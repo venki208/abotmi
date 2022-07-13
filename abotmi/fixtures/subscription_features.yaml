@@ -1,0 +1,610 @@
+##
+## FeatureListMaster Constant data
+##
+[
+    {
+    "fields": {
+    "feature_name": "No. of videos",
+    "feature_short_name" : "no_of_videos",
+    "feature_description": "Number of videos can be uploaded for this package",
+    "subscription_category_id": "2",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 1
+    },
+    {
+    "fields": {
+    "feature_name": "Duration of the video",
+    "feature_short_name" : "duration_of_video",
+    "feature_description": "Duration of video uploaded for this package in  minutes",
+    "subscription_category_id": "2",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 2
+    },
+    {
+    "fields": {
+    "feature_name": "Content duration",
+    "feature_short_name" : "content_duration",
+    "feature_description": "Content Duration of video uploaded for this package in  minutes",
+    "subscription_category_id": "2",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 3
+    },
+    {
+    "fields": {
+    "feature_name": "List of Viewers",
+    "feature_short_name" : "list_of_viewers",
+    "feature_description": "list of viewers for advisor profile",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 4
+    },
+    {
+    "fields": {
+    "feature_name": "Number of Viewer Details",
+    "feature_short_name" : "number_of_viewer_details",
+    "feature_description": "Diplay details of who viewed your profile",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 5
+    },
+    {
+    "fields": {
+    "feature_name": "Name",
+    "feature_short_name" : "name",
+    "feature_description": "viewer name",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 6
+    },
+    {
+    "fields": {
+    "feature_name": "Email",
+    "feature_short_name" : "email",
+    "feature_description": "viewers email",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 7
+    },
+    {
+    "fields": {
+    "feature_name": "Contact Number",
+    "feature_short_name" : "contact_number",
+    "feature_description": "viewers contact number",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 8
+    },
+    {
+    "fields": {
+    "feature_name": "When They Visit",
+    "feature_short_name" : "when_they_visit",
+    "feature_description": "viewer visited time",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 9
+    },
+    {
+    "fields": {
+    "feature_name": "Social Media Link",
+    "feature_short_name" : "social_media_link",
+    "feature_description": "Social media link detials",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 10
+    },
+    {
+    "fields": {
+    "feature_name": "Location",
+    "feature_short_name" : "location",
+    "feature_description": "Viewer location",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 11
+    },
+    {
+    "fields": {
+    "feature_name": "Visitor's Registration Status",
+    "feature_short_name" : "viewer_registrations_status",
+    "feature_description": "Viewer Registrations status",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 12
+    },
+    {
+    "fields": {
+    "feature_name": "Purpose of Visite",
+    "feature_short_name" : "pupose_of_visit",
+    "feature_description": "viewers purpose to visit",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 13
+    },
+    {
+    "fields": {
+    "feature_name": "Real Time Notification",
+    "feature_short_name" : "real_time_notification",
+    "feature_description": "Notification",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 14
+    },
+    {
+    "fields": {
+    "feature_name": "Social Graph",
+    "feature_short_name" : "social_graph",
+    "feature_description": "Social graph",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 15
+    },
+    {
+    "fields": {
+    "feature_name": "Behavioural Graph",
+    "feature_short_name" : "behavioural_graph",
+    "feature_description": "Behavioural graph",
+    "subscription_category_id": "1",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 16
+    },
+    {
+    "fields": {
+    "feature_name": "Amount to pay",
+    "feature_short_name" : "amount_to_pay",
+    "feature_description": "Amount to pay",
+    "subscription_category_id": "2",
+    },
+    "model": "datacenter.featurelistmaster",
+    "pk": 17
+    },
+    ##
+    ## FeatureSubscriptionPkgMapping Constant data
+    ##
+    {
+    "fields": {
+    "subscription_pkg_id": "1",
+    "feature_list_id": "1",
+    "feature_data" : "1"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 1
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "1",
+    "feature_list_id": "2",
+    "feature_data" : "2.5"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 2
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "1",
+    "feature_list_id": "3",
+    "feature_data" : "3"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 3
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "2",
+    "feature_list_id": "1",
+    "feature_data" : "3"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 4
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "2",
+    "feature_list_id": "2",
+    "feature_data" : "2.5"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 5
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "2",
+    "feature_list_id": "3",
+    "feature_data" : "3"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 6
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "3",
+    "feature_list_id": "1",
+    "feature_data" : "6"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 7
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "3",
+    "feature_list_id": "2",
+    "feature_data" : "2.5"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 8
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "3",
+    "feature_list_id": "3",
+    "feature_data" : "3"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 9
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "4",
+    "feature_data" : "ALL"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 10
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "5",
+    "feature_data" : "1"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 11
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "6",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 12
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "7",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 13
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "8",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 14
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "9",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 15
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "10",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 16
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "11",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 17
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "12",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 18
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "13",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 19
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "14",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 20
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "15",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 21
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "4",
+    "feature_list_id": "16",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 22
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "4",
+    "feature_data" : "ALL"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 23
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "5",
+    "feature_data" : "1"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 24
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "6",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 25
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "7",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 26
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "8",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 27
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "9",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 28
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "10",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 29
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "11",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 30
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "12",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 31
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "13",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 32
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "14",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 33
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "15",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 34
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "5",
+    "feature_list_id": "16",
+    "feature_data" : "False"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 35
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "4",
+    "feature_data" : "ALL"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 36
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "5",
+    "feature_data" : "1"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 37
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "6",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 38
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "7",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 39
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "8",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 40
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "9",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 41
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "10",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 42
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "11",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 43
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "12",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 44
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "13",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 45
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "14",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 46
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "15",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 47
+    },
+    {
+    "fields": {
+    "subscription_pkg_id": "6",
+    "feature_list_id": "16",
+    "feature_data" : "True"
+    },
+    "model": "datacenter.featuresubscriptionpkgmapping",
+    "pk": 48
+    },
+]

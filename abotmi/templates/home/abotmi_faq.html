@@ -1,0 +1,388 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+{% endblock %}
+{% block main_content %}
+    <style>
+     
+        .faq-section .abotmi-faq .card-header a {
+            padding: 12px 35px 12px 15px;
+            display: inline-block;
+            width: 100%;
+            background: #efefef;
+            color: #3e3d3d;
+            position: relative;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .faq-section .abotmi-faq .card-header{
+            padding: 0px;
+            border-bottom: 0px;
+        }
+        .faq-section a.collapsed:after {
+            content: "\f196";
+        }
+        .faq-section  a:after {
+            font-family: "FontAwesome";
+            content: "\f147";
+            position: absolute;
+            right: 20px;
+            font-size: 20px;
+            font-weight: 400;
+            top: 50%;
+            line-height: 1;
+            margin-top: -10px;
+        }
+ 
+        .faq-section{
+            margin: 150px 0px 50px;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        .faq-section h3{
+            font-size: 40px !important;
+            color: #2b81df;
+            font-weight: 600;
+        }
+        .faq-section .abotmi-faq .panel-default{
+            margin-bottom: 8px;
+        }
+
+        @media only screen and (min-width: 992px){
+            .faq-section .abotmi-faq {
+                width: 80%;
+                margin: auto;
+            }
+        }
+    </style>
+    <!--    FAQ SECTION-->
+    
+    <section class="main-contact faq-section" id="about">
+
+            
+        <div class="container">
+
+
+
+        <!-- NAVBAR CODE END -->
+            <div class="col-md-12 col-sm-12 abotmi-faq">
+                <h3 class="text-left n-h2">FAQ</h3>
+                <div id="accordion">
+
+                    <div class="card mb-2">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <h4 class="mb-0">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">What is the cost of receiving advice regarding Digital Assets?
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse show" role="tabpanel" data-parent="#accordion" aria-labelledby="headingOne">
+                             <div class="p-3">
+                                <p>
+                                    Each digital asset advisor is compensated by the issuer based on their qualifications, skill sets, and experience
+                                    in this field. They will be paid through tokens based on a retainer fee or overall success rate.
+                                </p>
+                                <p>
+                                    Investors are not obligated to pay any fees unless the investor and advisor come to a mutual agreement that is
+                                    written before the start of their conversation.
+                                </p>
+                                <p>
+                                    It’s also the responsibility of the advisor to disclose this information incase they are paid by the STO issuer for distributing / selling / or advising their offerings to clients.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingTwo">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">What do Digital Assets Advisors do?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingTwo">
+                                 <div class="p-3">
+                                    <p>
+                                        DAA provide personalized advice to the investors after analyzing the proposed risks/returns of the investor’s
+                                        portfolio.
+                                    </p>
+                                    <p>
+                                        The advisors will assess the financial needs of the individual and devise a plan to outline all of the investor’s implications and choices.
+                                    </p>
+                                    <p>
+                                        Advisors help clients plan for short-term and long-term goals, based upon their ultimate objective whether it’s
+                                        to invest versus save.
+                                    </p>
+                                    <p>
+                                        Once you have agreed upon a plan, they will scope out optimal options that will match your personalized
+                                        requirements.
+                                    </p>
+                                    <p>
+                                        Once your advisor receives your permission, they will perform all of the necessary administrative work to
+                                        execute the various transactions.
+                                    </p>
+                                    <p>
+                                        Finally, an advisor will frequently update you on how your portfolios are performing and discuss any future
+                                        suggestions or changes with you periodically.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingThree">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">When should I Approach an Advisor?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingThree">
+                                 <div class="p-3">
+                                    <p>
+                                        Investors can meet with advisors at any stage of their life whether they are young, mid-age, pre-retirement,
+                                        post-retirement, married, or divorced.
+                                    </p>
+                                    <p>
+                                        Certain individuals will meet with a digital asset advisor to discuss investments such as how to manage their digital wealth creation goals.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingFour">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Can I check the Financial Advisors Credibility?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingFour">
+                                 <div class="p-3">
+                                    <p>
+                                        ABOTMI, is a platform that helps the investors to check the credibility of advisors. This feature is free to use
+                                        before setting up your first consultation.
+                                    </p>
+                                    <p>
+                                        Every advisor onboard has the capability to get all of their credentials validated through a third-party credit
+                                        agency to receive their certification.
+                                    </p>
+                                    <p>
+                                        ABOTMI enables the investors to protect their wealth through advisors and investor education awareness.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingFive">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Which certifications should my Digital Asset planner have?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFive" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingFive">
+                                 <div class="p-3">
+                                    <p>
+                                        There are a variety of different digital asset planning certifications. Although, a planning professional can have several different designations or certifications, it’s vital to make sure that he or she is properly licensed and in good standing .
+                                    </p>
+                                    <p>
+                                        ABOTMI enables the inventors to access advisors that have specialized skill qualifications and are highly
+                                        educated in this space.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingSix">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">How should I choose my Advisor?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseSix" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingSix">
+                                 <div class="p-3">
+                                    <p>
+                                        Your plan should be to interview several advisors and find one that meets your personal investment and wealth
+                                        creation style. It’s essential to find an advisor with a strong track record that is transparent about their fee
+                                        structure, and discloses any conflicts of interest.
+                                    </p>
+                                    <p>
+                                        During the interview process, ask several questions that address your your main points of concern. It’s wise to
+                                        ask the advisor for references and you should follow up with them to make sure the advisor is trustworthy.
+                                    </p>
+                                    <p>
+                                        Check if the advisors are 3​ rd​ party certified on the ABOTMI platform.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingSeven">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">How can I check out the background of an advisor?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseSeven" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingSeven">
+                                 <div class="p-3">
+                                    <p>
+                                        ABOTMI provides a complete disclosure of their client’s ratings, peer rankings ,self-disclosures, authentication and 3​ rd​ party verifications. You can access the social media accounts that are linked to every
+                                        advisor onboard. This feature is completely free for the advisor and the investor.
+                                    </p>
+                                    <p>
+                                        It’s easiest to ask the advisor if they can list and share their profile through ABOTMI .
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingEight">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">What do we provide for the investors?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseEight" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingEight">
+                                 <div class="p-3">
+                                    <p>We provide our investors the following:</p>
+                                    <ul>
+                                        <li>We provide free access to our platform for investors</li>
+                                        <li>We provide references and feedback from all of the advisors previous clients.</li>
+                                        <li>We provide all of the advisors certifications and qualifications</li>
+                                        <li>We educate on cryptocurrency and security tokens</li>
+                                        <li>We enable customers to connect</li>
+                                        <li>We provide our clients the ability to engage with the community</li>
+                                        <li>We offer a peer to peer ranking system</li>
+                                        <li>We educate on new offerings</li>
+                                        <li>We alert the advisors when new investors are registered with the platform.</li>
+                                        <li>We provide market insights through public blogs and forums</li>
+                                        <li>We provide accessibility to industry leaders</li>
+                                        <li>We provide accessibility to raise complaints with regulators</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingNine">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">What is the value of receiving Digital Asset advice?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseNine" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingNine">
+                                 <div class="p-3">
+                                    <ul>
+                                        <li>To build a customized wealth plan that is aimed to achieving your goals</li>
+                                        <li>To minimize risks and tax implications</li>
+                                        <li>To provide behavioral coaching</li>
+                                        <li>To offer increased investment returns and income</li>
+                                        <li>To provide protection</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingTen">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">What to expect in your first meeting with an advisor?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTen" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingTen">
+                                 <div class="p-3">
+                                    <p>
+                                        Your first meeting with your advisor could be could be over the phone or in person. This gives you the opportunity to discuss your current situation and goals for the future.
+                                    </p>
+                                    <p>
+                                        After this meeting your financial advisor will construct a proposal that outlines the next steps to follow. This
+                                        will include what type of services they can offer you and the costs of working with them.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingLevan">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseLevan" aria-expanded="false" aria-controls="collapseLevan">What is involved in Digital Asset Wealth Planning?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseLevan" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingLevan">
+                                 <div class="p-3">
+                                    <p>
+                                        Digital Asset Wealth planning looks at the individual's overall picture.
+                                    </p>
+                                    <p>
+                                        A DAWP ( Digital Assets Wealth Planner ) planner will often ask a prospective client to fill out an extensive
+                                        questionnaire in order to understand his or her digital wealth desires and goals.
+                                    </p>
+                                    <p>
+                                        The planner will usually put together a detailed, short-term 5-year plan that is designed to improve the client's current wealth situation.
+                                    </p>
+                                    <p>
+                                        The planner will also look at ways to reduce the current and future tax liabilities in order to protect the assets.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingTwelve">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">How often should I see my planner?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwelve" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingTwelve">
+                                <div class="p-3">
+                                    <p>
+                                        It’s advised to see your financial planner at least once a year depending upon your circumstances. You should
+                                        also consider making an appointment if you have the anticipation of any life-changing events coming up.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-header" role="tab" id="headingThirteen">
+                                <h4 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">What does a fiduciary responsibility mean and why is it significant?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThirteen" class="collapse" role="tabpanel" data-parent="#accordion" aria-labelledby="headingThirteen" >
+                                <div class="p-3">
+                                    <p>
+                                        A fiduciary is a person who holds a legal or ethical relationship of trust with one or more parties.
+                                    </p>
+                                    <p>
+                                        A Digital Asset Advisor is also a financial services industry professional that has the fiduciary
+                                        responsibility to their client as they must always must put a client's needs and interests ahead of
+                                        themselves.
+                                    </p>
+                                    <p>
+                                        While stockbrokers and insurance agents are regulated and licensed, they do not have a fiduciary
+                                        responsibility to their clients. The recommendations they make are only required to meet the
+                                        "suitability standard." In other words, the risk level of the product must be suitable for the client
+                                        based on their income, assets, and risk tolerance.
+                                    </p>
+                                    <p>
+                                        Advisors with a fiduciary responsibility are less likely to push products that earn them a quick
+                                        turnaround.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </section>
+{% endblock %}
+

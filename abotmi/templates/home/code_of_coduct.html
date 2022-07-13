@@ -1,0 +1,121 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block custome_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'V2_theme/css/inner_page.css' %}">
+{% endblock %}
+{% block main_content %}
+<header class="abotmi-abotu-whyus-section" style="min-height: 10rem;">
+    <div class="container">
+        <div class="row abotmi-inner-banner align-items-center mt-5 pt-5">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center pt-5 pb-3">
+                <h3>Code of Conduct</h3>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="parent-section wealth-micro-section" id="about">
+    <div class="container">
+        <div class="row reputation-static code-of-conduct-section">
+            <div class="col-md-12 codeof-conduct-micro-condition">
+                <p class="text-justify">
+                    The purpose of the Code of Conduct is to provide a framework for applying the Five Core Values underpinning ABOTMI’s commitment to excellence:
+                </p>
+                <ul>
+                    <li>Professional Development</li>
+                    <li>Leadership</li>
+                    <li>Disclosure</li>
+                    <li>Respect</li>
+                    <li>Integrity</li>
+                </ul>
+                <p class="text-justify">
+                    The detailed Code of Conduct will be given to each Digital Asset Advisor onboard. You can download it.
+                </p>
+            </div>
+            
+            <div class="col-md-8">
+                <p>
+                    ABOTMI has adopted the following business Code of  Ethics for advisors, directors,  divisions, subsidiaries and employees. This code is intended to focus on the areas of ethical risk and guidance. We provide mechanisms to report any unethical conduct in order to help  foster a culture of honesty and accountability.
+                </p>
+                <h3 class="n-h3 wealth-color">Policy</h3>
+                <p>
+                    This policy is created to set strong legal and ethical standards which all of the advisors, directors and employees of ABOTMI are required to abide by.
+                </p>
+                <h3 class="n-h3 wealth-color">Responsibility</h3>
+                <p>
+                    All advisors, directors, and employees of ABOTMI are responsible for the implementation of this policy.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'V2_theme/images/code-of-conduct.png' %}" class="img-fluid"/>
+            </div>
+            
+            <div class="col-md-12 conflict-intrest-div">
+                <h3 class="n-h3 wealth-color">Conflict of Interest</h3>
+                <p>
+                    All advisors, directors, and employees of ABOTMI have the responsibility of representing their loyalty to the company. This helps to avoid any conflicts of interest within the company. A conflict of interest is where an employees personal interest might contradict the morals of the ABOTMI. This is an undesirable circumstance as it may have severe implications on the employee’s judgement and commitment to ABOTMI. This policy will outline the rules regarding any conflicts of interest and the proper steps to take if any discrepancies may arise in the future.
+                </p>
+                <h3 class="n-subheading-h3 n-padding-b-15">Some of the more common conflicts are as follows:</h3>
+                <p>
+                    <span class="code-conduct">Compensation from Non-Company Sources:</span> Advisors, directors, and employees may not accept compensation in any form for any services that are performed outside of the company.
+                </p>
+                <p>
+                    <span class="code-conduct"> Relationship of Company with Third Parties :</span> Advisors, directors, and employees may not engage in any activities that could hurt the company's reputation. Furthermore, they’re responsible to not conflict with any of the companies business or personal relationships.
+                </p>
+                <p>
+                    <span class="code-conduct"> Gifts :</span> Advisors, directors, employees and members of their respective families may not offer to give or receive any gifts as they could potentially be trying to influence a person for their own selfish reasons. This is considered a conflict of interest within the company.
+                </p>
+                <h3 class="n-h3 wealth-color">Corporate opportunity</h3>
+                <p>
+                    Advisors, directors, and  employees are responsible  to adhere to a standard of professional conduct and integrity of the company.  All of these parties are prohibited from the following:
+                </p>
+                <ul>
+                    <li style="list-style:none;">
+                        <p>
+                            (a) Stealing any of the company’s personal property is strictly prohibited.
+                        </p>
+                    </li>
+                    <li style="list-style:none;">
+                        <p>
+                            (b) It’s against the companies policy to use any corporate property or information for any individuals personal needs.
+                        </p>
+                    </li>
+                    <li style="list-style:none;">
+                        <p>
+                            (c) All of the parties are prohibited from competing with the company.
+                        </p>
+                    </li>
+                </ul>
+                <h3 class="n-h3 wealth-color">Confidentiality</h3>
+                <p>
+                    Advisors, directors, and employees of the company may have access to confidential and proprietary data, which is not known by competitors or within the company’s field of business generally. This information (hereinafter referred to as “Confidential Information”) includes, but is not limited to: data relating to the Company’s marketing and servicing programs; procedures and techniques; the criteria and formula used by the Company in pricing its products and services; the structure and pricing of special packages that the Company has negotiated; lists of customers and prospects; the identity, authority and responsibilities of key contacts at Company accounts; the composition and organization of accounts’ businesses; the peculiar risks inherent in their operations; sensitive details concerning the structure, conditions, and extent of their existing products and services; contract expiration dates; commission rates; service arrangements; proprietary software, Web applications and analysis tools; and other data showing the particularized requirements and preferences of the accounts.This Confidential Information is a valuable asset of the Company, developed over a long period of time and at substantial expense.
+                </p>
+                <p>
+                    To protect the company’s interest in this valuable asset, you must (a) not use any such Confidential Information for your personal benefit or for the benefit of any person or entity other than the Company, and (b) use your best efforts to limit access to such Confidential Information to those who have a need to know it for the business purposes of the Company.
+                </p>
+                <h3 class="n-h3 wealth-color">Fair Dealing</h3>
+                <p>
+                    Each advisor, director, and employee are required to fairly deal with all the company’s customers, suppliers, and competitors. Therefor, no one should manipulate data, misrepresent facts, or abuse any privileged information towards another at any time.
+                </p>
+                <h3 class="n-h3 wealth-color">Protection and Proper use of Company Assets</h3>
+                <p>
+                    All advisors, directors, and employees are required to protect the company’s assets and ensure they are used properly. If any cases of theft, loss, misuse, or carelessness arise this  will directly impact the profitability of the company. All company assets should only be used  legitimate business purposes. It’s strictly prohibited to use any of the company's assets for personal use without permission.
+                </p>
+                <h3 class="n-h3 wealth-color">Compliance Regarding Laws, Rules and Regulations</h3>
+                <p>
+                    All employees, advisors and directors of the Company shall respect and comply with all of the laws, rules and regulations applicable to the Company. This Code does not summarize all laws, rules and regulations applicable to the Company and its employees, advisors and directors.
+                </p>
+                <h3 class="n-h3 wealth-color">Document Retention</h3>
+                <p>
+                    Advisors, directors, and employees are expected to become familiar with the company’s policies regarding any recorded documents that are applicable to them. All records and files should always be retained or destroyed according to the company’s record retention policies. In the event of the company facing a subpoena, a pending imminent, a contemplated litigation or a governmental investigation the records should not be destroyed.
+                </p>
+                <h3 class="n-h3 wealth-color">Penalties for Failure to Comply </h3>
+                <p>
+                    Adherence to this Code of Conduct is mandatory for any employee of ABOTMI. Any advisor or director onboard that chooses to ignore or violate this code will be subject to a disciplinary action by the company. This is inappropriate under any set of circumstances and can lead to the option of immediate termination.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+<!-- My Sale Accomplishments Modal HTML Starts-->
+{% load staticfiles %}
+<div class="modal fade upwardz-modal" id="id_mysale_accomplishments" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="send_modal-title">MY SALE ACCOMPLISHMENTS</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content modal-body">
+                    <form class="panel-body">
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" rows="4" cols="50" id='id_sale_accomplishment' name="sale_accomplishment_content" placeholder="My Sale Accomplishments" >{{advisor.my_sales|default:''}}</textarea>
+                            <span class="help-block" id="help_sale_accomplishment"></span>
+                        </div>
+                        <div class="row text-center">
+                            <button type="button" name="button" class="btn upwrdz-button" id="promise_button" onclick="add_sales_acomplishment('id_sale_accomplishment','help_sale_accomplishment');">SUBMIT</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  My Sale Accomplishments Modal HTML Ends -->

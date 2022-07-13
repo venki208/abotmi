@@ -1,0 +1,123 @@
+{% load i18n admin_static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+    <head>
+        <title>ABOTMI</title>
+        {% load staticfiles %}
+        <meta charset="utf-8">
+        <!--webfonts-->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="{% static 'new_theme/assets/css/responsive.css' %}" media="screen">
+        <link rel="stylesheet" href="{% static 'new_theme/assets/css/bootstrap.min.css' %}" type="text/css" media="screen">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'new_theme/assets/css/social_buttons.css' %}"/>
+    </head>
+    <body>
+       <h2><center>ABOTMI</center></h2>
+        <form id="fb_login" action="/login/google/" method="POST">
+        {% csrf_token %}
+            <p><center>If you want to become an advisor for real estate investment, read all the given informations , eligibility criteria, code of conduct, our support and benefits for the  ABOTMI , terms and conditions and then fill the registration form for advisors with all supported documents and mail it to us. Our selection team will connect with you as soon as possible.</center></p><br/>
+            <a class="btn btn-lg btn-google-plus" onclick="googleLogin();"><i class="fa fa-google-plus"></i> Join </a>
+            <!-- <script type="in/Login"></script> -->
+            <div id="fetch_data"></div>
+            <!-- Hidden inputs -->
+            <input id="next_url" name="next_url" type="hidden" value="{{next}}"/>
+            <div id="data_fetched"></div>
+        </form>
+    </body>
+    <script type="text/javascript" src="{% static 'new_theme/assets/js/jquery-min.js' %}"></script>
+    <script>
+        var OAUTHURL    =   'https://accounts.google.com/o/oauth2/auth?';
+        var VALIDURL    =   'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
+        var SCOPE       =   'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me';
+        var CLIENTID    =   '{{GOOGLE_CLIENTID}}';
+        var REDIRECT    =   '{{GOOGLE_REDIRECT}}';
+        var TYPE        =   'token';
+        var _url        =   OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
+
+        function googleLogin() {
+            var win         =  window.open(_url, "windowname1", 'width=800, height=600');
+            var pollTimer   =  window.setInterval(function() {
+                try {
+                    if (win.document.URL.indexOf(REDIRECT) != -1) {
+                        window.clearInterval(pollTimer);
+                        var url =  win.document.URL;
+                        acToken =  gup(url, 'access_token');
+                        tokenType = gup(url, 'token_type');
+                        win.close();
+                        validateToken(acToken);
+                    }
+                } catch(e) {
+                }
+            }, 100);
+        }
+        function validateToken(token) {
+          var csrf_token = "{{csrf_token}}";
+          $.ajax({
+                url: VALIDURL + token,
+                beforeSend: function (request) {
+                  request.setRequestHeader("X-CSRFToken", csrf_token );
+                },
+                data: null,
+                success: function(responseText){
+                    getUserInfo();
+                },
+                dataType: "jsonp"
+            });
+        }
+        function getUserInfo() {
+            $.ajax({
+                type    : 'GET',
+                url     : 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + acToken,
+                data    : null,
+                success : function(resp) {
+                    user    =   resp;
+                    $('#uName').append(user.name);
+                    $('#imgHolder').attr('src', user.picture);
+                    googleUser(user);
+                },
+                dataType : "jsonp"
+            });
+        }
+        function googleUser(user) {
+            var token = "{{csrf_token}}";
+            $.ajax({
+                type    : 'POST',
+                url     : "/login/google/",
+                beforeSend: function (request) {
+                    request.setRequestHeader("X-CSRFToken", token );
+                },
+                data    : {
+                    email           : user.email,
+                    name            : user.name,
+                    first_name      : user.given_name,
+                    last_name       : user.family_name,
+                    gender          : user.gender,
+                    profile_image   : user.picture,
+                    next            : $('#next_url').val(),
+                },
+                success     : function(response) {
+                    if(response == "success")
+                        window.location = "{{GOOGLE_REDIRECT}}";
+                    if(response == "success_exist")
+                        window.location = "{{GOOGLE_REDIRECT}}";
+                    if(response == "deactivated")
+                        alert('your account is not active call customer care');
+                },
+            });
+        }
+        function gup(url, name) {
+          var result;
+          if(name=='access_token')
+            result = url.match(/\#(?:access_token)\=([\S\s]*?)\&/)[1];
+          else if(name=='token_type')
+            result = url.match(/\&(?:token_type)\=([\S\s]*?)\&/)[1];
+          else if(name=='expires_in')
+            result = url.match(/\&(?:expires_in)\=([\S\s]*?)\&/)[1];
+          if( result == null )
+            return "";
+          else
+            return result;
+        }
+    </script>
+    <script src="{% static 'js/WearProtection.js' %}"></script>
+</html>

@@ -1,0 +1,28 @@
+<!-- edit client connections Modal -->
+<div class="modal fade upwardz-modal" id="client_connection_modal" data-toggle="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="panel upwrdz-log-panel panel-default">
+                <div class="modal-header modal-header-border-bottom text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-thin fa-2x"></i>
+                    </button>
+                    <h3 class="modal-title n-span-blue-color" id="send_modal-title">Client Connections</h3>
+                    <hr class="modal-heading-hr">
+                </div>
+                <div class="panel-body pannel-popup-content modal-body">
+                    <form class="panel-body" onsubmit="return false;">
+                        <div class="form-group">
+                            <input ype="text" is-num='true' min-length="1" max-length="9" class="form-control" id="id_client_connection" value="{{advisor.total_clients_served|default:''}}" required='true' placeholder="Enter total clients served">
+                            <span class="help-block" id="help_id_client_connection"></span>
+                        </div>
+                    </form>
+                    <div class="row text-center">
+                        <button type="button" name="button" class="btn upwrdz-button" id="belief_button" onclick="save_client_connection();">submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end edit client connections  Modal -->

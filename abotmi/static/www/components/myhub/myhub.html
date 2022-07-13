@@ -1,0 +1,795 @@
+<ion-view>
+	<ion-side-menus>
+		<ion-side-menu-content>
+				<ion-nav-bar class="m-upwrdz-navbar" align-title="center">
+						<ion-nav-buttons side="left">
+							<button class="button button-icon icon ion-navicon-round light" ng-click="track.showMenu();"></button>
+						</ion-nav-buttons>
+						<ion-nav-title class="up-logo">
+							<img src="img/upwrdz-logo.png" alt="upwrdz-logo">
+						</ion-nav-title>
+						<upwrdz-Tabs></upwrdz-Tabs>
+				</ion-nav-bar>
+
+				<ion-content class="m-upwrdz-tab-content">
+						<div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont" style="color:black">
+									
+									RATINGS & RANKINGS
+								</div>
+							</div>
+							<div class="item item-text-wrap">
+								<div class="row item-font">
+									<div class="col right-border">
+											
+										<!-- <div class="ratings">
+
+												
+											
+											<p>{{myhub.details.otherdetails.peer_rating || 0.0 | number :1}}</p>
+										</div> -->
+										<p class="text-center bluefont item-font" style="color: #05549e;"> Peer Ratings</p>
+										<span class="stars alignright">
+												<span ng-style="{ 'width': myhub.getStars1(myhub.details.otherdetails.peer_rating)}"></span>
+											</span>
+										<div class="row">
+											<div class="col nopadding">
+												<u class="small-font" ui-sref="app.myhub.requestrate({'requesttype':'advisor'})">Request</u>
+											</div>
+											<div class="col nopadding peer-rate-text" ng-click="myhub.getToRatePeersList()">
+												<u class="small-font">RatePeers</u>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+											</div>
+											<div class="col nopadding">
+												<u class="small-font" ng-click="myhub.viewraterank('advisor')">View</u>
+											</div>
+											<div class="col">
+											</div>
+										</div>
+									</div>
+									<div class="col">
+										<!-- <div class="ratings">
+											
+											<p>{{myhub.details.otherdetails.member_rating || 0.0 | number :1}}</p>
+										</div> -->
+										<p class="text-center bluefont item-font" style="color: #05549e;"> Client Rankings</p>
+										<span class="stars alignright1">
+												<span ng-style="{ 'width': myhub.getStars(myhub.details.otherdetails.member_rating) }"></span>
+											</span>
+										<div class="row">
+											<div class="col col-70 nopadding">
+												<u class="small-font" ui-sref="app.myhub.requestrate({'requesttype':'member'})">Request</u>
+											</div>
+											<div class="col nopadding">
+												<u class="small-font" ng-click="myhub.viewraterank('member')">View</u>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont" style="color:black">
+									<img src="/static/V2_theme/images/my_hub/refer.png"/>
+									REFER AN ADVISOR
+								</div>
+							</div>
+							<div class="item-text-wrap">
+								<div class="row mg-tb20">
+									<div class="col  right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.total_reffered_advisor_count || 0}}</p>
+										<p class="text-center bluefont small-font" style="color: #05549e;">TOTAL REFERRALS</p>
+									</div>
+									<!-- <div class="col col-20 right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.loop_points || 0}}</p>
+										<p class="text-center bluefont small-font">Points</p>
+									</div> -->
+									<div class="col right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.referred_register_advisor_count || 0}}</p>
+										<p class="text-center bluefont small-font">Registered</p>
+									</div>
+									<div class="col">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.referred_unregister_advisor_count || 0}}</p>
+										<p class="text-center bluefont small-font">UnRegistered</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col col-50">
+										<button class="full-button" ui-sref="app.myhub.requestadvisor">
+												REFERRALS
+										</button>
+									</div>
+									<div class="col col-50">
+										<button class="full-button" style="background: linear-gradient(135deg, #2b2b2b 0%, #787878 100%) !important;" ng-click="myhub.viewLoop()">
+											VIEW
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont">
+									<img src="../images/mobile_images/earning.png"/>
+									<span class="">My Earnings</span>
+								</div>
+							</div>
+							<div class="item-text-wrap">
+								<div class="row mg-tb20">
+									<div class="col pink-highlight">
+										<p class="text-center large-number">{{myhub.details.otherdetails.total_earnings || 0}}</p>
+										<p class="text-center xsmall-font">Total Earnings</p>
+									</div>
+									<div class="col right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.total_advisor_earning || 0}}</p>
+										<p class="text-center bluefont small-font"> Advisor Earning</p>
+									</div>
+									<div class="col">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.total_referral_earning || 0}}</p>
+										<p class="text-center bluefont small-font"> Referral Earning</p>
+									</div>
+								</div>
+							</div>
+							<div class="row marg-t-5">
+									<div class="col col-50">
+									</div>
+									<div class="col col-50">
+										<button class="full-button" disabled="true">
+											View
+										</button>
+									</div>
+								</div>
+						</div> -->
+						<!-- <div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont">
+									<img src="../images/mobile_images/clientmgnt.png"/>
+										Client Management
+								</div>
+							</div>
+							<div class="item-text-wrap">
+								<div class="row mg-tb20">
+									<div class="col pink-highlight">
+										<p class="text-center large-number">{{myhub.details.otherdetails.total_members_count || 0}}</p>
+										<p class="text-center xsmall-font">Total Clients</p>
+									</div>
+									<div class="col right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.registered_members_count || 0}}</p>
+										<p class="text-center bluefont small-font">Registered</p>
+									</div>
+									<div class="col">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.un_registered_members_count || 0}}</p>
+										<p class="text-center bluefont small-font">Un-Registered</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col col-50">
+										<button class="full-button" disabled>
+											Go To UPLYF
+										</button>
+									</div> -->
+									<!-- <div class="col col-50"> -->
+										<!--<button class="full-button">
+											Add
+										</button>-->
+										<!-- <select disabled class="myhub-select"ng-model="myhub.manageselected" ng-options="opt for opt in myhub.manageoptions" ng-change="myhub.manageclients()">
+											<option value="">Manage</option>
+										</select> -->
+										<!-- <button class="full-button" disabled>
+										Manage
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont">
+									<img src="../images/mobile_images/enquirymgnt.png"/>
+									Enquiry Management
+								</div>
+							</div>
+							<div class="item-text-wrap">
+								<div class="row mg-tb20">
+									<div class="col col-20 pink-highlight">
+										<p class="text-center large-number">{{myhub.details.otherdetails.total_enquiries || 0}}</p>
+										<p class="text-center xsmall-font">Total Enquiry</p>
+									</div>
+									<div class="col right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.enquiry_management_accepted || 0}}</p>
+										<p class="text-center bluefont small-font">Accepted</p>
+									</div>
+									<div class="col right-border">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.enquiry_management_rejected || 0}}</p>
+										<p class="text-center bluefont small-font">Declined</p>
+									</div>
+									<div class="col">
+										<p class="text-center myhub-counts">{{myhub.details.otherdetails.enquiry_management_inprogress || 0}}</p>
+										<p class="text-center bluefont small-font">In-Progress</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col col-50">
+										<button class="full-button" ng-click="myhub.viewenquiries('client');">
+											Open
+										</button>
+									</div>
+									<div class="col col-50">
+										<button class="full-button" ng-click="myhub.viewenquiries('other');">
+											View
+										</button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+						<!-- <div class="list card"> -->
+              <!-- Removed for Version1  -->
+              <!-- <div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont">
+									NXTMOV
+								</div>
+							</div> -->
+							<!-- <div class="row">
+								<div class="col">
+									<p class="pull-right status-text">
+                    <a href="">GO TO NXTMOV</a>
+                  </p>
+									<img src="../www/img/nxtmov-50px.png" alt="">
+								</div>
+							</div> -->
+							<!-- <div class="item item-text-wrap">
+								<div class="row item-font" ng-repeat="course in myhub.details.otherdetails.stream_course_details_json">
+									<div class="col right-border">
+										<p class="text-center bluefont item-font">{{course.course_name}}</p>
+									</div>
+									<div class="col" ng-if="course.percentage <= 99.99">
+										<div class='progress_new'>
+											<div class='progress_bar progress_bar_info' role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width:{{ objects.percentage }}%'>
+												<span>{{ objects.percentage|floatformat:2 }}%</span>
+											</div>
+										</div>
+									</div>
+									<div class="col" ng-if="course.course_percentage > 50">
+										<p>Completed</p>
+									</div>
+									<div class="col" ng-if="course.course_percentage < 50">
+										<p>Take Test</p>
+									</div>
+								</div>
+								<div class="item-font" ng-if="myhub.details.otherdetails.get_all_stream_course_json">
+									<div class="row" ng-repeat="data in myhub.details.otherdetails.get_all_stream_course_json">
+										<div ng-if="myhub.details.otherdetails.stream_course_details_json != None">
+											<div ng-repeat="course in myhub.details.otherdetails.stream_course_details_json">
+												<div ng-if="data.pre_course_id == course.course_id && course.course_percentage > 50">
+													<div class="col right-border">
+														<p class="text-center bluefont item-font">{{course.course_name}}</p>
+													</div>
+													<div class="col">
+														<button>Join</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row" ng-if="!myhub.details.otherdetails.stream_course_details_json">
+											<div class="col col-80 right-border">
+												<p class="text-center bluefont item-font">{{data.course_name}}</p>
+											</div>
+											<div class="col">
+												<button>Join</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+            <!-- not required for version 1 so commented -->
+						<!-- <div class="list card">
+							<div class="row item item-divider item-header large-header-font">
+								<div class="col item-header-img bluefont">
+										ICORE
+								</div>
+								<div class="pull-right">Total Blogs: <span class="bluefont">{{myhub.details.otherdetails.total_icore_posts}}</span></div>
+							</div>
+							<div class="item item-text-wrap">
+								  <div class="row" ng-repeat ="post in myhub.details.otherdetails.icore_posts | limitTo:3" class="item icorelist" ui-sref="app.myhub.post({id:post.ID})">
+              				<div class="item-font nopadding" style="margin-left:30px;">{{post.title}}
+											</div>
+								  </div>
+							</div>
+						</div> -->
+
+						<!-- <div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont">
+									CRISIL Verified Advisor (CVA)
+								</div>
+							</div>
+							<div class="item item-text-wrap">
+								<div class="row">
+									<div class="col col-30">
+										<img src="../images/crisil.png"/ style="margin-top:15px;">
+									</div>
+									<div class="col col-60">
+										<div class="row bluefont item-font" ui-sref="app.myhub.makepayment">Make Payment</div>
+										<div class="row bluefont item-font" ui-sref="app.myhub.crisilfaq">FAQ</div>
+										<div class="row bluefont item-font" ui-sref="app.myhub.crisiltermsconditions">Terms & Conditions</div>
+									</div>
+								</div>
+								<div class="row">
+									<button class="upwrdz-button" ng-if="myhub.details.advisor.crisil_application_status == myhub.CRISIL_NOT_APPLIED" ui-sref="app.myhub.applycrisil">Apply Now</button>
+									<button class="upwrdz-button" ng-if="(myhub.details.advisor.crisil_application_status == myhub.CRISIL_EXPIRED || myhub.details.advisor.crisil_application_status == myhub.CRISIL_EXPIRED_BY_USER)" ui-sref="app.myhub.applycrisil">RENEWAL</button>
+									<button class="upwrdz-button" ng-if="myhub.details.advisor.crisil_application_status == myhub.CRISIL_APPLIED" ui-sref="app.myhub.entercrisilpayment">Enter Payment Details</button>
+									<div ng-if="(myhub.details.advisor.crisil_application_status == myhub.CRISIL_PAYMENT_SUBMITTED || myhub.details.advisor.crisil_application_status == myhub.CRISIL_RENEWAL_PAYMENT_SUBMITTED)">
+										<label>Bank Name:</label>
+										{{ myhub.details.advisor.user_profile.payment[0] }}<br>
+										<label>Cheque / DD  Ref No:</label>
+										{{ myhub.details.advisor.user_profile.payment[1] }}<br>
+										<label>Cheque / DD - Date:</label>
+										{{ myhub.details.advisor.user_profile.payment[2] }}<br>
+										<label>Paid Amount:</label>
+										{{ myhub.details.advisor.user_profile.payment[3] }} INR<br>
+										<p id="status" class="text-justify" style="word-break: normal;">
+											Please wait while your transaction is processing.
+										</p>
+									</div>
+									<div ng-if="(myhub.details.advisor.crisil_application_status == myhub.CRISIL_PAYMENT_RE_SUBMIT || myhub.details.advisor.crisil_application_status == myhub.CRISIL_RENEWAL_PAYMENT_RE_SUBMIT || myhub.details.advisor.crisil_application_status == 			myhub.CRISIL_VERIFICATION_FAILED)">
+										<button class="upwrdz-button" ui-sref="app.myhub.entercrisilpayment">Re-enter Payment Details</button>
+									</div>
+									<div ng-if="myhub.details.advisor.crisil_application_status == myhub.CRISIL_CERTIFICATE_IN_PROCESS || myhub.details.advisor.crisil_application_status == myhub.CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS">
+										<p>
+											Your payment has been received<br /> successfully. CRISIL Verification process has been initiated.
+										</p>
+									</div>
+									<div ng-if="myhub.details.advisor.crisil_application_status == myhub.CRISIL_GOT_CERTIFICATE">
+										<label>CRISIL REGNo:</label>
+										{{ myhub.details.advisor.crisil_registration_number }}<br />
+										<label>CRISIL Exp Date:</label>
+										{{ myhub.details.advisor.crisil_expiry_date }}<br/>
+										<label>Number of years applied:</label>
+										{{ myhub.details.otherdetails.no_of_years_selected }}<br />
+										   
+										 <i>
+											<a href="" ng-click="click_to_download('{{request.user}}');" class="n-span-blue-color">Click here</a> to download certificate
+										</i>
+									</div>
+								</div>
+							</div>
+						</div> -->
+
+						<div class="list card">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont" style="color:black">
+									<img src="/static/V2_theme/images/my_hub/invitefriends.png"/>
+									INVITE FRIENDS
+								</div>
+							</div>
+							<div class="item item-text-wrap">
+								<div  class="row" >
+									<!-- commented for now -->
+									<div class="col text-center">
+										<button class="invite-friends pull-right" ng-click="myhub.socialsharefacebook(myhub.url)">
+											<img   src="../www/img/fb.png"/>
+										</button>
+									</div>
+									
+									<div class="col text-center">
+										<button class="invite-friends pull-left"  ng-click="myhub.socialsharelinkdeln(myhub.url)">
+											<img src="../www/img/linkedin.png"/>
+										</button>
+									</div>
+                  
+                  
+                  </div>
+								</div>
+							</div>
+						</div>
+
+						<!-- code for Calendly block code starts  -->
+						<div class="list card micro-learning-hub">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont" style="color:black">
+									CALENDLY
+								</div>
+							</div>
+									<div class="row">
+										<div class="row text-center">
+												<a type="button" class="invite-friends" >
+													<img src="../www/img/calendly.png"/>
+												</a>
+										</div>
+										
+									</div>
+									<div class="row">
+											<div  ng-if="myhub.details.calendly_link" class="col text-center" ng-click="myhub.calendlylinkmodule()">
+													<span class="bluefont" >{{myhub.details.calendly_link}}</span>
+											</div>
+											<div class="col text-center" ng-if="!myhub.details.calendly_link">
+													<button class="microL-btn"  ui-sref="app.myhub.calendly">
+															ADD LINK
+														</button>
+											</div>
+										</div>
+									<div class="row">
+										<div class="col text-center">
+												<span class="bluefont item-font" ui-sref="app.myhub.calendly_how_it_work">How It Works</span>
+										</div>
+									</div>
+						</div>
+					<!-- code for Calendly block code Ends  -->
+
+						<div class="list card micro-learning-hub">
+							<div class="item item-divider item-header large-header-font">
+								<div class="item-header-img bluefont" style="color:black">
+										<img src="/static/V2_theme/images/my_hub/micro.png"/>
+									MICRO LEARNING
+								</div>
+							</div>
+								<!-- <div class="row">
+										<div class="col text-center">
+											<button class="microL-btn" ui-sref="app.myhub.videorequest">
+												Create Video
+											</button>
+										</div>
+									</div> -->
+									<div class="row">
+										<div class="col text-center">
+											<button class="microL-btn" ui-sref="app.myhub.videopublish">
+												Upload Video
+											</button>
+										</div>
+									</div>
+									<div class="row">
+											<div class="col text-center">
+												<!-- <span class="bluefont item-font" ui-sref="app.myhub.microlearninghelp">Help</span><br> -->
+												<span class="bluefont item-font" ui-sref="app.myhub.microlearningtc">Terms & Conditions</span>
+											</div>
+									</div>
+									<div class="row">
+											<div class="col text-center">
+												<span class="bluefont item-font" ui-sref="app.myhub.microlearninghowitworks">How It Works</span>
+											</div>
+									</div>
+									<div class="row">
+											<div class="col text-center">
+												<span class="bluefont item-font" ui-sref="app.myhub.micro_faq">FAQ</span>
+											</div>
+									</div>
+								</div>
+								<!-- code for Dun & bradstreet block code starts  -->
+								<div class="list card micro-learning-hub">
+										<div class="item item-divider item-header large-header-font">
+											<div class="item-header-img bluefont" style="color:black">
+												Coming soon
+											</div>
+										</div>
+												<div class="row">
+													<div class="col text-center">
+															<img src="/static/V2_theme/images/my_hub/dandb.png">
+															<!-- <img src="/static/V2_theme/images/my_hub/wpb.png"> -->
+													</div>
+												</div>
+												<div class="row">
+														<div class="col text-center">
+															<span class="bluefont item-font" ui-sref="app.myhub.db_how_it_work">How It Works</span>
+														</div>
+												</div>
+												<div class="row">
+														<div class="col text-center">
+															<span class="bluefont item-font" ui-sref="app.myhub.db_faq">FAQ</span>
+														</div>
+												</div>
+									</div>
+								<!-- code for Dun & bradstreet block code Ends  -->
+								<!-- code for WPB block code starts  -->
+								<div class="list card micro-learning-hub">
+										<div class="item item-divider item-header large-header-font">
+											<div class="item-header-img bluefont" style="color:black">
+												Coming soon
+											</div>
+										</div>
+												<div class="row">
+													<div class="col text-center">
+															<img  src="/static/V2_theme/images/my_hub/wpb-02.png">
+													</div>
+												</div>
+												<div class="row">
+														<div class="col text-center">
+															<span class="bluefont item-font" ui-sref="app.myhub.wpb_how_it_work">How It Works</span>
+														</div>
+												</div>
+									</div>
+								<!-- code for WPB block code Ends  -->
+						</div>
+				</ion-content>
+    </ion-side-menu-content>
+  </ion-side-menus>
+</ion-view>
+
+<!--<ion-content class="dashboardbg" overflow-scroll="true" ng-cloak>
+<div class="list card">
+  <div class="item item-body nopadding">
+   <div class="clientmgmt animated bounceInLeft">
+     <div class="panel panel-default">
+       <div class="panel-body pannel-content">
+          <div class="row">
+            <div class="col-10 mypageimg">
+              <img src="../images/Client_Mangment.png"/>
+            </div>
+            <div class="col">
+              <span class="cardheadingfont white-font">Client Management</span></h4>
+            </div>
+            <div class="col">
+              <div class="text-right bluefont cardnumberfont white-font"><span>000</span>{{ track.user_details.total_clients_added || 0}}
+              </div>
+              <div class="text-right cardtextfont white-font">Total Clients</div>
+            </div>
+          </div>
+          <div class="row" >
+           <div class="col-33"  style="margin-left:5px;">
+              <div class="text-right bluefont cardnumberfont"><span>000</span>{{ track.user_details.total_clients_registered || 0}}</div>
+              <div class="text-right cardtextfont white-font">Registered</div>
+            </div>
+            <div class="col-33">
+              <div class="text-right bluefont cardnumberfont"><span>000</span>{{ track.user_details.total_clients_added - track.user_details.total_clients_registered || 0}}</div>
+              <div class="text-right cardtextfont white-font">Un-Registered </div>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-33"></div>
+              <div class="col-33 ">
+                <select ng-model="track.manageselected" ng-options="opt for opt in track.manageoptions" ng-change="track.manageclients()">
+                    <option value="">Manage</option>
+                </select>
+              </div>
+              <div class="col-33 ">
+                <button class="button pinkfont white-font cardtextfont pull-right" ng-click="track.viewClientDetails();">View Clients
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list card noscroll" >
+   <div class="item item-body nopadding">
+    <div class="panel panel-default">
+      <div class="panel-body pannel-content animated bounceInRight">
+        <div class="row">
+          <div class="col-10 mypageimg">
+            <img src="../images/Client_Mangment.png"/>
+          </div>
+          <div class="col">
+            <span class="cardheadingfont white-font">Advisor Loop</span></h4>
+          </div>
+          <div class="col">
+            <div class="text-right cardnumberfont bluefont white-font"><span>000</span>{{ track.user_details.total_reffered_advisor_count}}
+            </div>
+            <div class="text-right cardtextfont white-font">Total Advisor Loop</div>
+          </div>
+        </div>
+        <div class="text-right row">
+          <div class="col-20">
+           <div class="cardnumberfont bluefont"><span>0</span>{{ track.user_details.advisor_total_points || 0}}</div>
+           <div class="cardtextfont"><a ng-click="track.showModal('how_to_redeem')">Points</a></div>
+          </div>
+          <div class="col-25">
+           <div class="cardnumberfont bluefont"><span>000</span>{{ track.user_details.referred_registered_advisor_count || 0}}</div>
+           <div class="cardtextfont">Registered</div>
+          </div>
+          <div class="col-33">
+           <div class="cardnumberfont bluefont"><span>000</span>{{ track.user_details.total_reffered_advisor_count - track.user_details.
+            referred_registered_advisor_count || 0}}</div>
+           <div class="cardtextfont">Un-Registered </div>
+          </div>
+        </div>
+        <div class="row">
+          <br/>
+          <div class="col"></div>
+              <div class="col-20">
+                <button class="button pinkfont cardtextfont pull-right"
+                ui-sref="app.page.requestadvisor">Loop
+              </button>
+            </div>
+              <div class="col-20">
+                <button class="button pinkfont cardtextfont pull-right" ng-click="track.viewLoop()">View </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="list card noscroll">
+   <div class="panel panel-default">
+      <div class="item item-body nopadding rateblock white-font">
+        <div class="panel-body pannel-content animated bounceInLeft">
+          <div class="row">
+            <div class="col-10 mypageimg">
+              <img src="../images/Client_Mangment.png"/>
+            </div>
+            <div class="col">
+              <span class="cardheadingfont"> Peer Rating</span>
+              <div class="row">
+                <div class="cardtextfont">{{track.user_details.total_no_rated}}
+                <h7 class="no-padding-top"> out of </h7> {{ track.user_details.total_no_invites_to_rate}}
+                <h7>have rated</h7>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <rating class="star-col pull-right" ng-model="track.user_details.final_peer_avg_rating" max="5" style="pointer-events:none;"></rating>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-xs-4 pull-right">
+                <button class="button cardtextfont pinkfont pull-right" ng-click="track.inviteRequest('advisor');">Request
+              </button>
+            </div>
+              <div class="col-xs-4 pull-right">
+                  <button class="button cardtextfont pinkfont pull-right" ng-click="track.getToRatePeersList()">
+                 Rate Peers
+                 </button>
+              </div>
+              <div class="col-xs-4 pull-right">
+                <button class="button cardtextfont pinkfont pull-right" ng-click="track.viewrank('advisor')">View
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <inviterate-request ng-init="track.peerrate=''"></inviterate-request>
+  <div class="list card noscroll">
+   <div class="panel panel-default">
+      <div class="item item-body nopadding">
+        <div class="panel-body pannel-content animated bounceInLeft">
+          <div class="row">
+            <div class="col-10 mypageimg">
+              <img src="../images/Client_Mangment.png"/>
+            </div>
+            <div class="col">
+              <span class="cardheadingfont"> Client Ranking</span>
+                <div class="row">
+                  <div class="cardtextfont">{{ track.user_details.total_member_ranks}}
+                  <h7>  out of </h7> {{ track.user_details.total_no_invites_to_rank}} ranked
+                </div>
+              </div>
+            </div>
+            <div class="col">
+                 <rating class="star-col pull-right" ng-model="track.user_details.final_consumer_avg_ranking" max="5" style="pointer-events:none;"></rating>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-xs-4 pull-right">
+            <div class="col-xs-4 pull-right">
+              <button class="button cardtextfont pinkfont" ng-click="track.viewrank('member')">
+                View
+              </button>
+            </div>
+            <div class="col-xs-4 pull-right">
+                 <button class="button cardtextfont pinkfont"  ng-click="track.inviteRequest('member');">Request</button>
+              </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <inviterank-request ng-init="track.peerrate=''"></inviterank-request>
+  <div>
+    <div class="ratehead">
+      <span class="cardheadingfont pinkfont">&nbsp &nbsp Learn more</span></h4>
+    </div>
+    <div class="list">
+      <div class="panel panel-default">
+         <div class="item item-body dashboardpadding">
+         <div class="panel-body pannel-content">
+           <div class="row">
+           <div class="col-10 logo">
+             <img src="../images/Stream_logos.png"/>
+           </div>
+           <div class="col-90">
+          <div class="cardheadingfont">  STREAM</div>
+          <div class="row nopadding">
+            <div class="col-90 coursediv cardtextfont nopadding">Course</div>
+          </div>
+          <div class="row cardtextfont" ng-repeat="data in track.user_details.stream_details">
+            <div class="col-90 coursediv ">{{data.course_name}}</div>
+            <div class="col-10 progress-wrapper" style="text-align:center;">
+                <round-progress max="100" current=data.course_percentage color="#C78839" bgcolor="#E8E8EE"
+                    radius="15" stroke="3" offset="0" semi="false" rounded="true" clockwise="false" responsive="false"
+                    duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
+                    <div class="text">{{data.course_percentage}}%</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="list">
+   <div class="panel panel-default">
+      <div class="item item-body no-border rateblock white-font dashboardpadding">
+        <div class="panel-heading dash-heading">
+          <div class="row">
+            <div class="col-10 logo">
+              <img src="../images/reialogo.png"/>
+            </div>
+           <div class="col cardheadingfont">ICORE</div>
+           <div class="col cardtextfont text-right">Total Blogs: <span class="bluefont">{{track.user_details.total_icore_posts}}</span></div>
+          </div>
+            <div class="row" ng-repeat ="post in track.user_details.icore_posts" class="item icorelist" ui-sref="app.mytrack.post({id:post.ID})">
+              <div class="cardtextfont nopadding" style="margin-left:30px;">{{post.title}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="list">
+   <div class="panel panel-default">
+    <div class="item item-body nopadding dashboardpadding">
+      <div class="panel panel-default">
+        <div class="panel-body pannel-content clientmgmt">
+          <div class="row">
+            <div class="col-10 logo" ng-if="track.user_details.crisil_application_status == track.CRISIL_PAYMENT_SUBMITTED || track.user_details.crisil_application_status == track.CRISIL_GOT_CERTIFICATE">
+               <img src="../images/crisil.png"/>
+            </div>
+            <div class="col-40">
+                <span class="cardheadingfont green-color-font">CRISIL Verification</span>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_NOT_APPLIED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.applycrisil">Apply Now</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_APPLIED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.crisilpayment">Enter Payment Details</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_PAYMENT_RE_SUBMIT || track.user_details.crisil_application_status == track.CRISIL_RENEWAL_PAYMENT_RE_SUBMIT || track.user_details.crisil_application_status == track.CRISIL_VERIFICATION_FAILED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.crisilpayment">Re-enter Payment Details</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_EXPIRED_BY_USER || track.user_details.crisil_application_status == track.CRISIL_EXPIRED">
+                <button class="button cardtextfont pinkfont"  ui-sref="app.mytrack.crisilrenewal">Renewal</button>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_CERTIFICATE_IN_PROCESS || track.user_details.crisil_application_status == track.CRISIL_RENEWAL_CERTIFICATE_IN_PROCESS">
+                <label>Your payment has been received<br /> successfully. CRISIL Verification process<br/> has been initiated.</label>
+            </div>
+            <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_PAYMENT_SUBMITTED || track.user_details.crisil_application_status == track.CRISIL_RENEWAL_PAYMENT_SUBMITTED">
+              <label>Bank Name:</label><br>
+              {{ track.user_details.crisil_amount.bankname }}<br>
+              <label>Cheque / DD / Ref No:</label><br>
+              {{ track.user_details.crisil_amount.cheque_no }}<br>
+              <label>Cheque / DD - Date:</label><br>
+              {{ track.user_details.crisil_amount.cheque_date }}<br>
+              <label>Paid Amount:</label><br>
+              {{ track.user_details.crisil_amount.amount }} INR<br>
+              <p id="status" class="text-justify" style="word-break: normal;">
+                  Please wait while your transaction is processing.
+              </p>
+          </div>
+          <div class="col-50" ng-if="track.user_details.crisil_application_status == track.CRISIL_GOT_CERTIFICATE">
+              GOT CERTIFICATE
+              <label>CRISIL REGNo:</label><br />
+              {{ track.user_details.crisil_register_no }}<br />
+              <label>CRISIL Exp Date:</label><br />
+              {{ track.user_details.crisil_expiry_date}}<br />
+              <label>Number of years applied:</label>
+              {{track.user_details.crisil_years_selected }}<br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </ion-content>
+</ion-view>-->

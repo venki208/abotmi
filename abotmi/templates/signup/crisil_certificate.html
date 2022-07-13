@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title></title>
+	<style>
+		@font-face {
+			font-family: "LavanderiaRegular";
+			src: url('/static/fonts/LavanderiaRegular.otf');
+		}
+	    body {
+	        background-image: url('/static/new_images/certificate_approved.jpg');
+			background-repeat: no-repeat;
+			height:595px;
+			width:100%;
+			position: absolute;
+
+	    }
+	</style>
+</head>
+<body>
+	<div>
+		<div style="padding:240px 0px 10px 10px;">
+			<table>
+				<tr>
+					<td align="center" style="padding-left:30px;">
+						<p style="font-size:40px; color:#e40b7d; text-align:center; font-family:LavanderiaRegular;">
+							<b>{{advisor_name}}&nbsp;{{advisor_name1}}</b>
+		                </p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	    <div>
+			<table>
+				<tr>
+					<td style="text-align:right; padding-left:410px; padding-top:-250px;">
+						<p style="font-size:16px; color:#e40b7d; Position:relative; top:-70px;">
+							<b>{{crisil_details.crisil_issued_date|date:'F Y'}}.</b>
+		                </p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right; padding:5px 15px 0px 20px;">
+						<p style="font-size:16px; color:#e40b7d; Position:relative; top:-110px; right:60px;">
+							<b>{{crisil_details.crisil_expiry_date|date:'F Y'}}.</b>
+		                </p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+		   <table>
+	 	   	   <tr style="">
+				   <td style="text-align:right;vertical-align:center;padding:0px 130px 0px 123px;">
+					   <p style="font-size:18px; color:#e40b7d; Position:relative; top:-95px; left:-45px;">
+						   {{crisil_details.crisil_registration_number}}
+					   </p>
+				   </td>
+				   <td style="text-align:right;vertical-align:center;padding:0px 305px 0px 35px;">
+					   <p style="font-size:18px; color:#e40b7d; Position:relative; top:-95px; left:20px;">
+						   {{crisil_details.crisil_issued_date|date:'d-b-y'}}
+					   </p>
+				   </td>
+			   </tr>
+		   </table>
+	   </div>
+   </div>
+</body>
+</html>

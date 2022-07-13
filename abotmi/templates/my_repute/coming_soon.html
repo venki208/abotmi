@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block custom_theme_css %}
+<style media="screen">
+    .upwrdz-btn{
+        background: #2e3192 !important;
+        color: white !important;
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+        letter-spacing: 1px;
+        padding: 5px 10px;
+        text-decoration: none;
+    }
+    .coming-soon{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .coming-soon center{
+        margin-bottom: 30px;
+    }
+</style>
+{% endblock %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="coming-soon">
+            <center> COMING SOON </center>
+            {% if slug %}
+            <center>
+                <a href="/guest/{{slug}}" type="button" class="btn btn-primary upwrdz-btn"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left">Back</a>
+            </center>
+            {% else %}
+                <center>
+                    <a href="/advisor_check/" type="button" class="btn btn-primary upwrdz-btn"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left">Back</a>
+                </center>
+            {% endif%}
+        </div>
+    </body>
+
+</html>

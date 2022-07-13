@@ -1,0 +1,8 @@
+[ {"fields":{"name": "REIT", "description":'', "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundcategory", "pk":1}, 
+{"fields":{"name": "REF", "description":'', "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundcategory", "pk":2}, 
+{"fields":{"name": "SREIO", "description":'', "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundcategory", "pk":3}, 
+{"fields":{"name": "REMF", "description":'', "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundcategory", "pk":4
+},
+{"fields":{"name":"debt_REIT", "description":'', "category":1, "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundsubcategory", "pk":1}, 
+{"fields":{"name":"equity_REIT", "description":'', "category":1, "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundsubcategory", "pk":2}, 
+{"fields":{"name":"hybrid_REIT", "description":'', "category":1, "created_date":"2016-05-09T03:33:55Z", "modified_date":"2016-05-09T03:33:55Z"}, "model":"datacenter.fundsubcategory", "pk":3}]

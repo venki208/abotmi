@@ -1,0 +1,67 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    {% if not user.is_authenticated %}
+        <style>
+            /* body{
+                padding-top: 123px;
+            } */
+            .start-up{
+                text-align: center;
+                font-size: 18px;
+                font-weight: 700 !important;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/advisor-banner.png' %}">
+        <div class="container">
+            <h2>BUILD <br/>REPUTATION</h2>
+        </div>
+    </section>
+    <section class="reputation-static abotmi-reputation-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/reputation-icon1.png' %}"> 
+                        <h3>Build Reputation</h3>
+                        <p>ABOTMI helps you to create your own unique digital asset identity.</p>
+                        <ul>
+                            <li>You now have the capability to expand your network by connecting with your counterparts.</li>
+                            <li>You can easily let your new potential clients and peers contact you.</li>
+                            <li>Your clients have the capability to evaluate you, which can only help elevate and build your reputation.</li>
+                            <li>You can gain recognition, credibility and make a mark in the industry by using ABOTMI.</li>
+                        </ul>
+                    </div>
+                </div>               
+            </div>
+            
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn" name="signup_a">Register Now</a>
+                </div>
+            </div>
+            <p class="start-up">Start Building Your Reputation!</p>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'login.html' %}
+{% load staticfiles %}
+{% block top_header %}
+    {% if not user.is_authenticated %}
+        {% include 'header.html' %}
+    {% else %}
+        {% include 'header2.html' %}
+    {% endif %}
+{% endblock %}
+{% block custom_theme_css %}
+    {{ block.super }}
+    {% if not user.is_authenticated %}
+        <style>
+            /* body{
+                padding-top: 123px;
+            } */
+            .start-up{
+                text-align: center;
+                font-size: 18px;
+                font-weight: 700 !important;
+            }
+        </style>
+    {% else %}
+        <link href="/static/css/new_css/header2.css" type="text/css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <section class="reputation-static-banner">
+        <img src="{% static 'new_images/advisor-banner.png' %}">
+        <div class="container">
+            <h2>SHARE <br/>REPUTATION</h2>
+        </div>
+    </section>
+    <section class="reputation-static abotmi-reputation-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="abotmi-reputation-card-one abotmi-reputation-card">
+                        <img src="{% static 'new_images/infographic/reputaion-share-repute.png' %}">
+                        <h3>Share Reputation</h3>
+                        <p>ABOTMI enables the advisors to share their individual digital profile with their existing clients, potential clients, peer networks and regulators. This is formulated through multiple communication channels such as Email, Telegram and WhatsApp to build their reputation.</p>
+                    </div>
+                </div>
+            </div>
+            
+           
+            <div class="row register register-its-work">
+                <div class="col-md-12 text-center">
+                    <h3>IT'S FREE</h3>
+                    <a type="button" class="btn" name="signup_a">Register Now</a>
+                </div>
+            </div>
+            <p class="start-up">Start Building Your Reputation!</p>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{block.super}}
+{% endblock %}
+{% block theme_scripts %}
+    <script src="{% static 'js/new_js/base.js' %}"></script>
+{% endblock %}

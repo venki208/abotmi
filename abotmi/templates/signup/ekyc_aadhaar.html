@@ -1,0 +1,390 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+{% block lib_css %}
+<link rel="stylesheet" href="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.css' %}">
+{% endblock %}
+
+    {% block custome_css %}
+        {{block.super}}
+        <link rel="stylesheet" href="{% static 'css/new_css/kyc_steps.css' %}">
+        <link rel="stylesheet" href="{% static 'css/new_css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base_class.css' %}">
+        <link rel="stylesheet" href="{% static 'css/aadhaar.css' %}">
+        
+        <style>
+            .attach_class{
+                display: inline;
+            }
+            .abotmi-addarr-verification-step-one .btn{
+                margin-top: 20px;
+                margin-bottom: 30px;
+            }
+            .abotmi-addarr-verification-step-one{
+                margin: 20px auto;
+            }
+            .attachment_div a{
+                text-decoration: none !important;
+            }
+            .upload-document-div{
+                font-size: 16px;
+            }
+        </style>
+    {% endblock %}
+    <!-- body center content -->
+    {% block main_content %}
+    
+    <section class="advisor-form parent-section-one">
+            <div class="container">
+                <div class="row">
+                    <h2 class="title-block w-100">Advisor Registration Form</h2>
+                </div>
+                <!-- <div class="col-md-12 upwrdz-profile-steps-one"><h2><span class="underline"><span class="title_span">Advisor Registration Form</span></span></h2></div> -->
+                <div class="col-md-12 upwrdz-steps-advisor">
+                    {% include 'common/ekyc-steps.html' with result=result %}
+                </div>
+                <div class="col-md-12 upwrdz-steps-advisor-content">
+                    <fieldset class="the-fieldset">
+                        <h2 class="text-center">
+                            {% if user_agent_country == REGION_IN %} 
+                                Aadhaar Verification Process
+                            {% else %}
+                                Verification Process
+                            {% endif %}
+                        </h2>
+                        {% if user_agent_country == REGION_IN %}
+                            <div class="col-md-12 upwrdz-steps-advisor-content">
+                                {% if not user_profile.adhaar_card %}
+                                <div class="col-sm-12 advisor-form-padding">
+                                    <div class=" upwrdz-ekyc">
+                                        <div class="panel with-nav-tabs upwrdz-ekyc-modal panel-default">
+                                            <div class="panel-body">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade in active" id="tab1default">
+                                                        <p class="e-heading">e-KYC</p>
+                                                        <hr>
+                                                        <form onsubmit="return false;">
+                                                            <p class="e-title">Enter Aadhaar Card Number</p>
+                                                            <div class="form-group">
+                                                                <input type="text" id="adhaar_card_number" name="aadhaar_no" onchange="save_aadhaar();" autocomplete="off" class="form-control" value="{{user_profile.adhaar_card}}">
+                                                                <span class="help-block" id="error_aadhar"></span>
+                                                            </div>
+                                                            <!-- Commented - Since the aadhaar service system is not working -->
+                                                            {% comment %}
+                                                            <div>
+                                                                <button type="button" id="generate_aadhaar_otp" onclick="send_aadhaar_number();" class="btn btn-default get-otp-btn">Get OTP</button>
+                                                            </div>
+                                                            {% endcomment %}
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                    <h4 class="text-center">You have completed Aadhaar Registration.</h4>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="col-md-12  col-sm-12">
+                                <div class="row abotmi-addarr-verification-step-one">
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-one text-center">
+                                            <label for="country">Country of issuance *</label>
+                                            <select name="country" class="form-control" id="country" onchange='save_onchange("country", id, "help-text-country");' required='true'>
+                                                <option value="">Select</option>
+                                                {% for country in country %}
+                                                    <option value="{{country.name}}" 
+                                                        code="{{country.code}}">{{country.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <span class="help-block" id="help-text-country"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Upload verification block -->
+                                    <div class="col-md-12 col-sm-12 col-sm-12" id="verification_div">
+                                        <p class="text-center"><b>Upload a document *</b></p>
+                                        <div class="row">
+                                            <!-- Passport block -->
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="verf_block w-100">
+                                                        <h5>PASSPORT</h5>
+                                                        <form name="passport_form" id="passport_form" method="post" class="contact-form" enctype="multipart/form-data">
+                                                            <input type="hidden" name="documents_type" id="documents_type" value="passport">
+                                                            <label id="paper_clip1" class="fileinput fileinput-new check" data-provides="fileinput">
+                                                                <span>
+                                                                    <img src="{% static 'new_images/upload.png' %}" alt="" class="img-fluid">
+                                                                    <input type="file" name="document" class="hide" accept="image/jpeg,image/png,application/pdf" onchange="load_preview(this);">
+                                                                </span>
+                                                            </label>
+                                                        </form>
+                                                        <div class="preview hide">
+                                                            <img src="" alt="preview" class="img-fluid" id="preview_img_tag">
+                                                            <br>
+                                                            <iframe class="img-fluid" src="" id="preview_pdf" frameborder="0"></iframe>
+                                                            <a class="upload upload-document-div" onclick="upload_verf_doc('passport_form','passport_attachment_div', '');">UPLOAD</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-center attachment_div w-100 pl-3" id="passport_attachment_div">
+                                                    {% if passport %}
+                                                        {% for doc in passport %}
+                                                            <p class="attach_class hiding{{doc.id}} n-padding-r-5" id="id_attached" name="attached">Attached</p>
+                                                            <a id="{{ doc.id }}" class="hiding{{doc.id}} download_link_color n-padding-r-5" href="{{ doc.documents.url }}"
+                                                                target="_blank" data-toggle="tooltip" data-placement="bottom" title="Preview image">
+                                                                <i class="fa fa-eye" style="margin-left: 80px;" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a class="hiding{{ doc.id }}" id="{{doc.id}}" onclick="remove_document_file(id,'passport_form');" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                                               
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a> <br id="br{{doc.id}}" />
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <!-- Driving Licence block -->
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="verf_block w-100">
+                                                        <h5>DRIVER'S LICENSE</h5>
+                                                        <form name="dl_form" id="dl_form" method="post" class="contact-form" enctype="multipart/form-data">
+                                                            <input type="hidden" name="documents_type" id="documents_type" value="driving_licence">
+                                                            <label id="paper_clip1" class="fileinput fileinput-new check" data-provides="fileinput">
+                                                                <span>
+                                                                    <img src="{% static 'new_images/upload.png' %}" alt="" class="img-fluid">
+                                                                    <input type="file" name="document" class="hide" accept="image/jpeg,image/png,application/pdf" onchange="load_preview(this);">
+                                                                </span>
+                                                            </label>
+                                                        </form>
+                                                        <div class="preview hide">
+                                                            <img src="" alt="preview" class="img-fluid" id="preview_img_tag">
+                                                            <iframe class="img-fluid" src="" id="preview_pdf" frameborder="0"></iframe>
+                                                            <br>
+                                                            <a class="upload upload-document-div" onclick="upload_verf_doc('dl_form','dl_attachment_div', '');">UPLOAD</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-center attachment_div w-100 pl-3" id="dl_attachment_div">
+                                                   {% if driving_licence %}
+                                                        {% for doc in driving_licence %}
+                                                            <p class="attach_class hiding{{doc.id}} n-padding-r-5" id="id_attached" name="attached">Attached</p>
+                                                            <a id="{{ doc.id }}" class="hiding{{doc.id}} download_link_color n-padding-r-5" href="{{ doc.documents.url }}"
+                                                                target="_blank" data-toggle="tooltip" data-placement="bottom" title="Preview image">
+                                                                <i class="fa fa-eye" style="margin-left: 80px;" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a class="hiding{{ doc.id }}" id="{{doc.id}}" onclick="remove_document_file(id,'dl_form');" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a> <br id="br{{doc.id}}" />
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <!-- ID Card block -->
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="verf_block w-100">
+                                                        <h5>ID CARD</h5>
+                                                        <form name="id_card_form" id="id_card_form" method="post" class="contact-form" enctype="multipart/form-data">
+                                                            <input type="hidden" name="documents_type" id="documents_type" value="id_card">
+                                                            <label id="paper_clip1" class="fileinput fileinput-new check" data-provides="fileinput">
+                                                                <span>
+                                                                    <img src="{% static 'new_images/upload.png' %}" alt="" class="img-fluid" id="image_upload_preview">
+                                                                    <input type="file" name="document" class="hide" accept="image/jpeg,image/png,application/pdf" onchange="load_preview(this);">
+                                                                </span>
+                                                            </label>
+                                                        </form>
+                                                        <div class="preview hide">
+                                                            <img src="" alt="preview" class="img-fluid" id="preview_img_tag">
+                                                            <iframe class="img-fluid" src="" id="preview_pdf" frameborder="0"></iframe>
+                                                            <br>
+                                                            <a class="upload upload-document-div" onclick="upload_verf_doc('id_card_form','id_card_attachment_div', '');">UPLOAD</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row text-center attachment_div w-100 pl-3" id="id_card_attachment_div">
+                                                    {% if id_card %}
+                                                        {% for doc in id_card %}
+                                                            <p class="attach_class hiding{{doc.id}} n-padding-r-5" id="id_attached" name="attached">Attached</p>
+                                                            <a id="{{ doc.id }}" class="hiding{{doc.id}} download_link_color n-padding-r-5" href="{{ doc.documents.url }}"
+                                                                target="_blank" data-toggle="tooltip" data-placement="bottom" title="Preview image">
+                                                                <i class="fa fa-eye" style="margin-left: 80px;"aria-hidden="true"></i>
+                                                            </a>
+                                                            <a class="hiding{{ doc.id }}" id="{{doc.id}}" onclick="remove_document_file(id, 'id_card_form');" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a> <br id="br{{doc.id}}" />
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="help-block text-center" id="help_text_verification_process"></span>
+                                    <!-- Verified block -->
+                                    <div class="col-md-12 col-sm-12 col-sm-12 scope-parent-block">
+                                        <h4><b>SCOPES</b></h4>
+                                        <div class="row">
+                                            <div class="col-md-4 text-center">
+                                                <div class="row">
+                                                    <div class="scopes_block  w-100">
+                                                        <img src="{% static 'new_images/email-1.png' %}" alt="">
+                                                        <h5>Email</h5>
+                                                        {% if user_status.email_verified %}
+                                                            <img src="{% static 'new_images/greentick.png' %}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'new_images/greentick.png'%}" alt="">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <div class="row">
+                                                    <div class="scopes_block w-100">
+                                                        <img src="{% static 'new_images/phone.png' %}" alt="">
+                                                        <h5>Mobile</h5>
+                                                        {% if user_status.mobile_verified %}
+                                                        <img src="{% static 'new_images/greentick.png' %}" alt="">
+                                                        {% else %}
+                                                        <img src="{% static 'new_images/cross.png'%}" alt="">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <link rel="stylesheet" href="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.css' %}">                               </div>
+                                            <div class="col-md-4 text-center">
+                                                <div class="row">
+                                                    <div class="scopes_block w-100">
+                                                        <img src="{% static 'new_images/id-card.png' %}" alt="">
+                                                        <h5>Identity</h5>
+                                                        <img src="{% static 'new_images/cross.png'%}" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="form-group registration-form-div">
+                            <div class="col-sm-12 col-sm-12 col-md-12 text-center proceed-btn">
+                                <a href="/signup/face_capture/" class="btn back-btn-gray kyc-btn-primary"> Back</a>
+                                <a class="btn kyc-btn-primary" id="verification_next"> Next </a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            </section>
+
+
+        <form action='{{AADHAAR_INITIATION_URL}}' class="hide" method='post' id='adhaar_form'>
+            {% csrf_token %}
+        </form>
+    {% endblock %}
+    <!-- end body -->
+    {% block bootstrap_modal %}
+    {% endblock %}
+    <!-- script files -->
+    {% block lib_scripts %}
+    <script src="{% static 'V2_theme/lib/jquery_toast/jquery.toast.min.js' %}"></script>
+    {% endblock %}
+    {% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/new_js/base.js'%}" charset="utf-8"></script>    
+    <script src="{% static 'js/new_js/upload_document.js'%}" charset="utf-8"></script>
+    <script type="text/javascript">
+       function save_aadhaar(){
+           var reg = /^[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]?$|^999999999999$/;
+           var aadhaar_number = $("#adhaar_card_number").val();
+           if ((aadhaar_number.match(reg) && aadhaar_number > 0) || (aadhaar_number== "")) {
+               document.getElementById('error_aadhar').innerHTML = '';
+               $.ajax({
+                    type: "POST",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("X-CSRFToken", token);
+                    },
+                    url: "{% url 'signup:save_adhaar' %}",
+                    data: { "aadhaar_number": aadhaar_number },
+                    success: function (status) {
+                        if (status==200) {
+                            document.getElementById('error_aadhar').innerHTML = 'Aadhaar number updated.';
+                            }
+                        }
+                    });
+           }else{
+               document.getElementById('error_aadhar').innerHTML = 'Enter Valid Input';
+               $("#adhaar_card_number").focus();}
+           }
+
+       function send_aadhaar_number(){
+           var aadhaar_no = $("#adhaar_card_number").val();
+           var is_aadhaar = check_aadhaar();
+           is_aadhaar.success(function(response){
+               if(response=='false'){
+                   $("#adhaar_card_number").val('');
+                   $("#error_aadhar").html("Already Exists");
+               }
+               else{
+                   $("#error_aadhar").html("");
+                   $.ajax({
+                       type: "POST",
+                       beforeSend: function(request) {
+                           request.setRequestHeader("X-CSRFToken",token);
+                       },
+                       url: "{% url 'aadhaar:create_aadhaar_form_data' %}",
+                       data: { "aadhaar_no" : aadhaar_no},
+                       success:function(data){
+                           var adhaar_form = $("#adhaar_form");
+                           $.each(data,function(KEY,VALUE){
+                               adhaar_form.append("<input type='hidden' name='"+KEY+"' value='"+VALUE+"'>");
+                           })
+                           $("#adhaar_form").submit();
+                       },
+                       error: function(res, textStatus, errorThrown) {
+                           if(res.status == 401){
+                               alert(res.responseJSON.data);
+                           }
+                           if(res.status == 400){
+                               alert(res.responseJSON.data);
+                           }
+                       }
+                   });
+               }
+           });
+       }
+
+       function check_aadhaar(){
+           var aadhaar_no = $("#adhaar_card_number").val();
+           var token = "{{ csrf_token }}";
+           if(aadhaar_no.length == 12){
+               return $.ajax({
+                   type: "POST",
+                   beforeSend: function(request) {
+                       request.setRequestHeader("X-CSRFToken",token);
+                   },
+                   url: "{% url 'aadhaar:upwrdz_aadhaar_check' %}",
+                   data: { "aadhaar_no" : aadhaar_no},
+               });
+           }else{
+               $("#error_aadhar").html("Please enter Aadhaar number");
+           }
+       }
+   </script>
+    <script>
+        var user_agent_country = '{{user_agent_country}}';
+        var country = '{{user_profile.country|default:""}}';
+        if(country){
+            $("#country").val(country);
+        }
+        else{
+           $("#country option[code='" + user_agent_country + "']" ).prop('selected' ,true); 
+        }
+        var username = '{{user.username}}';
+    </script>
+    <script>
+        var passport = {{is_passport}};
+        var driving_licence = {{is_dl}};
+        var id_card = {{is_id_card}};
+    </script>
+    <script src="{% static 'js/new_js/ekyc/verification.js'%}"></script>
+    {% endblock %}

@@ -1,0 +1,1 @@
+default_app_config = 'reputation_index_signals.app.ReputationIndexSignalsConfig'
